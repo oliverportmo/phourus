@@ -1,0 +1,120 @@
+<h1>jessedrelick</h1>
+<span class="pic">
+	<a href="javascript:void(0)">
+		<img src="https://graph.facebook.com/1143206876/picture" width="150" height="150">
+	</a>
+</span>
+<div style="float: left; width: 400px">
+	<ul>
+		<li><strong><%= data.username %></strong></li>
+		<li><%= data.city %>, <%= data.state %></li>
+		<li><%= data.occupation %> at <%= data.company %></li>
+		<li><strong>Website: </strong><%= data.website %></li>
+		<li><strong>Email: </strong><%= data.email %></li>
+		<li><a href="javascript:void(0)" id="update_account">Edit Profile Information</a></li>
+	</ul>
+</div>
+<div class="influence" style="margin-top: 10px; width: 120px;">
+	User Influence:<br>
+	<span style="font-size: 48px;">40</span>
+	<br><br>
+	<span style="font-size: 14px;">Member Since:<br><strong>April 3</strong></span>
+</div>
+<div id="update" style="display: block;">
+    <table>
+        <tbody>
+            <tr>
+            	<td colspan="3"><h3>Contact Info</h3></td>
+            </tr>
+            <tr>
+            	<td><label>Email:</label></td>
+            	<td><a href="mailto:info@jessedrelick.com"><%= data.email %></a></td>
+            	<td>The current profile's email address</td>
+            </tr>
+            <tr>
+            	<td><label>Website:</label></td>
+            	<td><a href="../../themes/web/js/http://www.jessedrelick.com" target="_blank"><%= data.website %></a></td>
+            	<td>The current profile's website URL</td>
+            </tr>
+            <tr>
+            	<td><label>Phone:</label></td>
+            	<td><%= data.phone %></td>
+            	<td>The current profile's phone number</td>
+            </tr>
+            <tr>
+            	<td colspan="3"><h3>Social Info</h3></td>
+            </tr>
+            <tr>
+            	<td><label>Facebook:</label></td>
+            	<td><a href="http://www.facebook.com/jessedrelick" target="_blank">www.facebook.com/jessedrelick</a></td>
+            	<td>The current profile's Facebook account</td>
+            </tr>
+            <tr>
+            	<td><label>LinkedIn:</label></td>
+            	<td><a href="http://www.linkedin.com/jessedrelick" target="_blank">www.linkedin.com/jessedrelick</a></td>
+            	<td>The current profile's LinkedIn account</td>
+            </tr>
+            <tr>
+            	<td><label>Twitter:</label></td>
+            	<td><a href="http://www.twitter.com/jessedrelick" target="_blank">www.twitter.com/jessedrelick</a></td>
+            	<td>The current profile's Twitter account</td>
+            </tr>
+        </tbody>
+	</table>
+</div>
+<br clear="all">
+
+<h3>User's Statistics</h3>
+<ul id="stats" class="tabs">
+	<li><a href="javascript:void(0)" id="core" class="selected">Core</a></li>
+	<li><a href="javascript:void(0)" id="earth">Earth</a></li>
+	<li><a href="javascript:void(0)" id="mind">Mind</a></li>
+	<li><a href="javascript:void(0)" id="voice">Voice</a></li>
+	<li><a href="javascript:void(0)" id="faith">Faith</a></li>
+</ul>
+<div style="background-color: #fff">
+	<table id="view_core" class="view" style="display: table;">
+		<colgroup><col class="sidebar-form"><col width="200"><col></colgroup>
+		<tbody>
+			<tr><td><label>Blogs:</label></td><td>12</td><td>The current profile's Blog count</td></tr>
+			<tr><td><label>Ideas:</label></td><td>2</td><td>The current profile's Ideas count</td></tr>
+			<tr><td><label>Links:</label></td><td>21</td><td>The current profile's Links count</td></tr>
+		</tbody>
+	</table>
+	
+	<table id="view_earth" class="view" style="display: none;">
+		<colgroup><col class="sidebar-form"><col width="200"><col></colgroup>
+		<tbody>
+			<tr><td><label>Checklist:</label></td><td>24 checked/40 total</td><td>The current profile's Checklist summary</td></tr>
+			<tr><td><label>Calculator:</label></td><td>70%</td><td>The current profile's Calculator grade</td></tr>
+			<tr><td><label>Endorsements:</label></td><td>6</td><td>The current profile's Endorsement count</td></tr>
+		</tbody>
+	</table>
+	
+	<table id="view_mind" class="view" style="display: none;">
+		<colgroup><col class="sidebar-form"><col width="200"><col></colgroup>
+		<tbody>
+			<tr><td><label>Subjects:</label></td><td>6</td><td>The current profile's Subject count</td></tr>
+			<tr><td><label>Scores:</label></td><td>1,343 <br>2.3% Skip Percentage</td><td>The current profile's Scores</td></tr>
+			<tr><td><label>Courses:</label></td><td>1</td><td>The current profile's Course count</td></tr>
+		</tbody>
+	</table>
+	
+	<table id="view_voice" class="view" style="display: none;">
+		<colgroup><col class="sidebar-form"><col width="200"><col></colgroup>
+		<tbody>
+			<tr><td><label>Discussions:</label></td><td>13</td><td>The current profile's Discussion count</td>
+			</tr><tr><td><label>Debates:</label></td><td>2</td><td>The current profile's Debate count</td></tr>
+			<tr><td><label>Representatives:</label></td><td>4</td><td>The current profile's Representative count</td></tr>
+		</tbody>
+	</table>
+	
+	<table id="view_faith" class="view" style="display: none;">
+		<colgroup><col class="sidebar-form"><col width="200"><col></colgroup>
+		<tbody>
+			<tr><td><label>Ranks:</label></td><td>33/+2 Average</td><td>The current profile's Rank summary</td></tr>
+			<tr><td><label>Beliefs:</label></td><td>3</td><td>The current profile's Beliefs count</td></tr>
+			<tr><td><label>Timeline Events:</label></td><td>7</td><td>The current profile's Timeline Event count</td></tr>
+        </tbody>
+    </table>
+</div>

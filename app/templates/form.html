@@ -1,0 +1,22 @@
+<h1><%= action %> <%= title %></h1>
+	<form action="" method="post" id="form-<%= mode %>">
+		<div id="fields"></div>		
+		<input type="hidden" name="hidden_type" value="<%= type %>" />
+		<input type="hidden" name="hidden_record" value="<%= record %>" />
+	</form>
+</div>
+<div id="content-footer">
+	<% if(mode== 'add'){ %>
+		<input type="button" value="Create New" class="button green" />
+		<a href="#!stream" class="button red">Cancel Create</a>
+	<% } %>
+	
+	<% if(mode== 'edit'){ %>
+		<input type="button" value="Save Changes" class="button green" />
+		<a href="#!stream" class="button red">Cancel Edit</a>
+	<% } %>
+	
+	<% if(mode== 'edit'){ %>	
+		<h3>Sorry, but we can't let you edit another user's post!</h3>
+    <% } %>
+</div>    

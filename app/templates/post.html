@@ -1,0 +1,27 @@
+<div class="single">
+	<img src="/assets/icons/large/<%= data.element %>/<%= data.type %>.png" style="margin-right: 10px;">
+	<span style="display: block;padding-top: 4px;font-size: 20px; font-weight: bold; text-transform: uppercase;"><%= data.type %></span>
+	<br clear="all">
+	<div class="influence">
+		<span style="color:#777; font-size: 14px;">Influence</span>
+		<br>
+		<span style="font-size: 48px;"><%= data.influence %></span>
+	</div>
+	<a href="#profile/<%= data.user %>">
+		<span class="pic">
+			<img src="https://graph.facebook.com/facebook/picture" width="70" height="70">
+		</span>
+	</a>
+	<span class="author"><%= data.username %></span> 
+	<span class="action"></span><br>
+	<span class="date"></span><br clear="left"><br clear="all">
+	<a href="#!single/<%= data.record %>" class="title"><%= data.title %></a>
+	<p><%= data.content %></p>
+	<ul class="meta">
+		<li class="views"><strong>Views:</strong><%= data.views %></li>
+		<li class="comments"><strong>Comments:</strong> <%= data.comments %></li>
+		<li class="shares"><strong>Shares:</strong> <%= data.shares %></li>
+		<li class="likes"><strong>Likes:</strong> <%= data.influence %></li>
+	</ul>
+	<div style="float: right"></div><br clear="all">
+</div>
