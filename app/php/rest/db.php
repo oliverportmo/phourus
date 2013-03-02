@@ -6,22 +6,9 @@ ini_set('error_log', 'errors.txt');
 error_reporting(E_ERROR | E_WARNING);
 $server= $_SERVER['SERVER_NAME'];	
 
-if($server== 'localhost' || $server== 'phourus.local')
-{
-	define('TESTING', true);
-}else{
-	define('TESTING', false);	
-}
-if(TESTING== true)
-{
-	$GLOBALS['PHOURUS_DB_NAME']= 'phourus';
-	$GLOBALS['PHOURUS_DB_USER']= 'admin';
-	$GLOBALS['PHOURUS_DB_PASS']= 'phourus';
-}else{
-	$GLOBALS['PHOURUS_DB_NAME']= 'phourus';
-	$GLOBALS['PHOURUS_DB_USER']= 'phourus';
-	$GLOBALS['PHOURUS_DB_PASS']= ')aNTe2DwrTio';	
-}
+$GLOBALS['PHOURUS_DB_NAME']= 'phourus:dev';
+$GLOBALS['PHOURUS_DB_USER']= 'developer';
+$GLOBALS['PHOURUS_DB_PASS']= 'phourus';
 
 define('ROOT', $_SERVER['DOCUMENT_ROOT']);
 $subdomain= array_shift(explode(".",$_SERVER['HTTP_HOST']));

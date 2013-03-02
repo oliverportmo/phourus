@@ -21,7 +21,7 @@ require.config({
     }
 });
 var PHOURUS= PHOURUS || {};
-var debug= function(input){
+window.debug= function(input){
 	if(PHOURUS.SETTINGS.debug=== true){
 		console.log(input);
 	}
@@ -32,7 +32,6 @@ define(['jquery', 'underscore', 'backbone', 'router/router', 'models/types', 'mo
 	PHOURUS.ROUTER= new rPhourus();
 	PHOURUS.EVENTS= _.extend({}, Backbone.Events);
 	//PHOURUS.ALERTS= new cAlerts();
-	//console.log(PHOURUS.ROUTER);
 	PHOURUS.SETTINGS= new mSettings();
 	PHOURUS.SETTINGS.debug= true;
 	PHOURUS.SETTINGS.dev= true;

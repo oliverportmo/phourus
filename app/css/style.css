@@ -51,22 +51,25 @@ div#temp:hover {
   background-image: url('/assets/logos/logo-hover.jpg');
 }
 div#login {
-  width: 315px;
+  width: 365px;
   float: left;
   margin-top: 16px;
-  margin-left: 60px;
+  margin-left: 10px;
+  color: #fff;
 }
-div#login #auth {
-  width: 20px;
-  height: 30px;
-  float: left;
+div#login a {
   color: #fff;
   text-transform: uppercase;
   font-size: 10px;
   text-decoration: none;
+}
+div#login #cawf {
+  width: 20px;
+  height: 30px;
+  float: left;
   padding-top: 3px;
 }
-div#login #auth:hover {
+div#login a:hover {
   color: #f90;
 }
 div#login input {
@@ -75,9 +78,6 @@ div#login input {
   font-size: 12px;
   float: left;
   margin-right: 4px;
-}
-div#login a {
-  color: #fff;
 }
 /** NEW END **/
 /** BODY **/
@@ -108,17 +108,15 @@ body {
   padding: 20px;
 }
 #register {
-  width: 475px;
-  height: 275px;
   background-color: #fff;
   margin: 0px;
   padding: 10px;
 }
-#register #titlebar {
-  background-color: #333;
-  color: #fff;
-  padding: 4px;
-  font-size: 18px;
+#register input {
+  margin-bottom: 20px;
+}
+#register label {
+  width: 200px;
 }
 #titlebar a {
   color: #fff;
@@ -241,7 +239,7 @@ border: solid 1px #ccc;
 /* FILTER */
 #elements {
   height: 300px;
-  width: 1020px;
+  width: 980px;
   margin: auto;
 }
 div#filter {
@@ -528,10 +526,6 @@ table h3 {
   padding: 0px;
   margin: 10px 0px 0px 0px;
 }
-div#home p {
-  text-align: left;
-  font-size: 11px;
-}
 #dynamic p {
   margin: 0px;
 }
@@ -704,6 +698,16 @@ input {
   border: solid 1px #ddd;
   font-size: 18px;
   color: #333;
+}
+input[type=checkbox] {
+  width: inherit;
+  height: inherit;
+}
+label {
+  font-size: 22px;
+  color: #bbb;
+  font-style: italic;
+  margin: 0px 40px 20px 0px;
 }
 select {
   height: 36px;
