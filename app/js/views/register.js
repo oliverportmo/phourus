@@ -25,7 +25,7 @@ define(['jquery', 'underscore', 'backbone', 'text!../../templates/register.html'
 					
 					var data= self.collect();
 					message= _.template(tSignup, data);
-					var email= new mEmail({recipient: data.first, subject: 'Your Phourus Password', message: message});
+					var email= new mEmail({recipient_name: data.first+' '+data.last, recipient_email: data.email, subject: 'Your Phourus Password', message: message});
 					email.save({
 						success: function(){
 							

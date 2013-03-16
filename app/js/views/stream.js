@@ -18,7 +18,7 @@ define(['jquery', 'underscore', 'backbone', 'views/sidebar', 'views/filter', 'vi
 					me.update();
 				},
 				error: function(collection, response){
-					PHOURUS.ERRORS.add(response, 'vStream', 'filter', 'error');
+					vAlerts.add(response, 'vStream', 'filter', 'error');
 				}
 			});
 		},

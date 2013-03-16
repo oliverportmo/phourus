@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'backbone', 'text!../../templates/login.html', 'text!../../templates/logout.html', 'models/login', 'models/user', 'views/alerts'], function($, a, b, tLogin, tLogout, mLogin, mUser, vAlerts){
+define(['jquery', 'underscore', 'backbone', 'text!../../templates/login.html', 'text!../../templates/logout.html', 'text!../../templates/forgot.html', 'text!../../templates/email/password.html', 'models/login', 'models/user', 'models/email', 'views/alerts'], function($, a, b, tLogin, tLogout, tForgot, tPassword, mLogin, mUser, mEmail, vAlerts){
 	var vLogin= Backbone.View.extend({
 		el: '#login',
 		tagName: 'div',
@@ -11,7 +11,10 @@ define(['jquery', 'underscore', 'backbone', 'text!../../templates/login.html', '
 		
 		events: {
 			'click #auth': 'login',
-			'click #logout': 'logout'
+			'click #logout': 'logout',
+			'click #forgot': 'forgot',
+			'click #cancel': 'cancel',
+			'click #send': 'send'
 		},
 		
 		form: function(){	
@@ -22,7 +25,7 @@ define(['jquery', 'underscore', 'backbone', 'text!../../templates/login.html', '
 		},
 		
 		login: function(){
-			this.model= new mLogin({email: $("input#email").val(), password: $("input#password").val()});
+			this.model= new mLogin();
 			Backbone.BasicAuth.set($("input#email").val(), $("input#password").val());
 			var self= this;
 			this.model.save({}, {
@@ -36,6 +39,19 @@ define(['jquery', 'underscore', 'backbone', 'text!../../templates/login.html', '
 			});
 		},
 		
+		session: function(response){
+			
+			//start session
+			var user= JSON.stringify(response);
+			/** CHECK FOR LOCAL STORAGE GOES HERE **/
+			localStorage.setItem("user", user);
+			var data= localStorage.getItem("user");
+			var output= $.parseJSON(data);
+			mUser.set(output);
+			//update views: me tab, login, register, profile
+			this.render(); 	
+		},
+		
 		logout: function(){
 			console.log(mUser);
 			localStorage.removeItem("user");
@@ -45,16 +61,27 @@ define(['jquery', 'underscore', 'backbone', 'text!../../templates/login.html', '
 			console.log(mUser);	
 		},
 		
-		session: function(response){
-			console.log(response);
-			//start session
-			var user= JSON.stringify(response);
-			localStorage.setItem("user", user);
-			var data= localStorage.getItem("user");
-			var output= $.parseJSON(data);
-			mUser.set(output);
-			//update views: me tab, login, register, profile
-			this.render(); 	
+		forgot: function(){
+			var compiled= _.template(tForgot, {});
+			this.$el.html(compiled);
+			return compiled;	
+		},
+		
+		cancel: function(){
+			this.render();	
+		},
+		
+		send: function(){
+			var message= _.template(tPassword, {password: 123, email: $('#email').val()})
+			var email= new mEmail({recipient_email: $('#email').val(), subject: 'Your Phourus Password', message: message});
+			email.save({
+				success: function(){
+					
+				},
+				error: function(){
+					vAlerts.add('message', 'Password could not be sent.', '1', '');
+				}
+			})	
 		},
 		
 		render: function(){

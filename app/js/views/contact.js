@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'backbone', 'text!../../templates/contact.html'], function($, a, b, template){
+define(['jquery', 'underscore', 'backbone', 'text!../../templates/contact.html', 'firefly'], function($, a, b, template, firefly){
 	var vContact= Backbone.View.extend({
 		el: '#contact',
 		tagName: 'div',

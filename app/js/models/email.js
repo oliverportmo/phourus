@@ -3,10 +3,12 @@ define(['jquery', 'underscore', 'backbone'], function($){
 		url: '/rest/email',
 		
 		defaults: {
-			sender: 'info@phourus.com',
+			sender_name: 'Phourus.com',
+			sender_email: 'info@phourus.com',
+			recipient_name: '',
+			recipient_email: '',
 			subject: '',
-			message: '',
-			recipient: ''
+			message: ''
 		}
 				
 	});

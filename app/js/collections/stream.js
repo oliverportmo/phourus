@@ -1,7 +1,7 @@
 define(['jquery', 'underscore', 'backbone', 'models/user'], function($, a, b, mUser){
 	var cStream= Backbone.Collection.extend({
 		url: function(){
-			var url= '/rest/stream'+this.query();
+			var url= '/rest/stream/'+this.query();
 			return url;	
 		},
 		query: function(){
