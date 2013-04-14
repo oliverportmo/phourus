@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'backbone', 'models/user'], function($, a, b, mUser){
+define(['jquery', 'underscore', 'backbone', 'models/session', 'models/settings'], function($, _, Backbone, mSession, mSettings){
 	var cStream= Backbone.Collection.extend({
 		url: function(){
 			var url= '/rest/stream/'+this.query();
@@ -6,17 +6,17 @@ define(['jquery', 'underscore', 'backbone', 'models/user'], function($, a, b, mU
 		},
 		query: function(){
 			var string= '';
-			var keys= _.keys(PHOURUS.SETTINGS.attributes);
+			var keys= _.keys(mSettings.attributes);
 			_.each(keys, function(key){
-				string+= key+'='+PHOURUS.SETTINGS.attributes[key]+'&';
+				string+= key+'='+mSettings.attributes[key]+'&';
 			});
-			if(!_.isUndefined(mUser.get("token"))){
-				string+= '&token='+mUser.get("token")+',';
+			if(!_.isUndefined(mSession.get("token"))){
+				string+= '&token='+mSession.get("token")+',';
 			}
 			string= '?'+string.substring(0, string.length - 1);
 			return string;
 		},
-		idAttribute: 'record'
+		idAttribute: 'id'
 	});
 	return cStream;
 });	

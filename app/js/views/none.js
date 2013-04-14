@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'backbone', 'text!../../templates/none.html'], function($, a, b, template){
+define(['jquery', 'underscore', 'backbone', 'text!../../templates/none.html'], function($, _, Backbone, template){
 	var vNone= Backbone.View.extend({
 		el: '#none',
 		tagName: 'div',

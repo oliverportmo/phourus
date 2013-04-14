@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'backbone', 'text!../../templates/post.html'], function($, a, b, template){
+define(['jquery', 'underscore', 'backbone', 'text!../../templates/post.html'], function($, _, Backbone, template){
 	var iPost= Backbone.View.extend({
 		el: '.post',
 		tagName: 'div',

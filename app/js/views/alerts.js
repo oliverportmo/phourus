@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'backbone', 'text!../../templates/alert.html', 'collections/alerts', 'models/alert'], function($, a, b, template, cAlerts, mAlert){
+define(['jquery', 'underscore', 'backbone', 'text!../../templates/alert.html', 'collections/alerts', 'models/alert'], function($, _, Backbone, template, cAlerts, mAlert){
 	var vAlerts= Backbone.View.extend({
 		el: '#alerts',
 		tagName: 'div',

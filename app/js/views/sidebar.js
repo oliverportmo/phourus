@@ -1,11 +1,10 @@
-define(['jquery', 'underscore', 'backbone'], function($){
+define(['jquery', 'underscore', 'backbone', 'models/types', 'models/settings'], function($, _, Backbone, mTypes, mSettings){
 	
 	var vSidebar= Backbone.View.extend({
 		el: '#sidebar',
 		tagname: 'div',		
 		
-		initialize: function()
-		{
+		initialize: function(){
 			_.bindAll(this);
 			this.render();
 			var me= this;	
@@ -39,14 +38,14 @@ define(['jquery', 'underscore', 'backbone'], function($){
 				}
 			});
 			types = types.slice(0, types.length-1);
-			PHOURUS.SETTINGS.set("types", types);
+			mSettings.set("types", types);
 		},
 		
 		open: function(input){
 			var type= input;
 			$('.filter').hide();
 			$('.filter#'+type).show();
-			_.each(PHOURUS.TYPES.attributes, function(type){
+			_.each(mTypes.attributes, function(type){
 				var element= type.element;
 				if(element=== type){
 					
@@ -60,22 +59,22 @@ define(['jquery', 'underscore', 'backbone'], function($){
 			$('.filter').show();
 		},
 
-		render: function(input)
-		{
+		render: function(input){
 			var output= '';
 			var me= this;
-			_.each(PHOURUS.TYPES.attributes, function(type){
+			var keys= 
+			_.each(mTypes.attributes, function(type){
 				var element= type.element;
+				var filtered= _.omit(type.sections, ['govs', 'groups', 'teachers', 'companies']);
 				output+= '<div id="'+element+'" class="filter">';
-				output+= '<h3 class="'+element+'"><a href="#!'+element+'">'+element+'</a></h3>';
-				output+= me.filters(type.sections);	
+				output+= '<h3 class="'+element+'"><a href="#!'+element+'">'+element+'</a></h3>';	
+				output+= me.filters(filtered);
 				output+= '</div>';
 			});
 			$(this.el).html(output);
 		},
 		
-		filters: function(sections)
-		{		
+		filters: function(sections){		
 			var output= '';
 			output+= '<table style="width: 220px;">';
 			_.each(sections, function(name)

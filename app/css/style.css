@@ -52,14 +52,14 @@ div#temp:hover {
 }
 div#login {
   width: 365px;
-  float: left;
+  float: right;
   margin-top: 16px;
   margin-left: 10px;
   color: #fff;
   line-height: 8px;
 }
 div#login a {
-  color: #fff;
+  color: #555;
   text-transform: uppercase;
   font-size: 10px;
   text-decoration: none;
@@ -79,6 +79,18 @@ div#login input {
   font-size: 12px;
   float: left;
   margin-right: 4px;
+}
+#brand {
+  float: left;
+  width: 400px;
+}
+#brand #slogan {
+  font-size: 18px;
+  font-style: italic;
+  letter-spacing: 4px;
+}
+fieldset {
+  border: none;
 }
 /** NEW END **/
 /** BODY **/
@@ -161,8 +173,10 @@ header {
 background-repeat: repeat-x;
 background-position: bottom;*/
 
-  background-color: #333;
-  position: fixed;
+  /*background-color: #333;*/
+
+  /* position: fixed; */
+
   top: 0;
   left: 0;
 }
@@ -176,42 +190,38 @@ header #inner {
 }
 /* NAV */
 nav {
-  margin: 0px 0px 0px 0px;
-  width: 400px;
-  float: left;
+  margin: 30px 0px 0px 0px;
+  width: 540px;
+  float: right;
 }
 nav ul {
   padding: 0px 0px 0px 0px;
   margin: 0px auto;
   width: 100%;
+  text-align: right;
 }
 nav ul li {
   list-style: none;
-  float: left;
   margin: 0px;
   height: 60px;
   cursor: pointer;
+  float: left;
 }
 nav ul li a {
-  display: block;
-  margin: 0px 0px 0px 0px;
+  margin: 0px 20px 0px 0px;
   padding: 20px 0px 0px 0px;
-  width: 80px;
-  height: 40px;
-  color: #fff;
-  font-size: 12px;
+  color: #333;
+  font-size: 20px;
   font-weight: bold;
   letter-spacing: 1px;
   text-decoration: none;
-  text-align: center;
 }
 nav ul li a:hover {
   color: #f90;
-  background-color: #000;
 }
 /* CONTENT */
 div#spacer {
-  height: 80px;
+  height: 60px;
 }
 #content {
   width: 980px;
@@ -228,7 +238,7 @@ div#spacer {
 }
 /* DYNAMIC */
 #dynamic {
-  width: 720px;
+  width: 960px;
   padding: 20px;
   margin: 0px;
   float: right;
@@ -244,8 +254,8 @@ border: solid 1px #ccc;
   margin: auto;
 }
 div#filter {
-  width: 760px;
-  float: right;
+  width: 960px;
+  float: left;
 }
 div#sort_by {
   float: right;
@@ -382,6 +392,7 @@ div.box-home div.label {
   width: 200px;
   height: 100%;
   float: left;
+  display: none;
   /*border-right: solid 1px #ccc;*/
 
 }
@@ -421,7 +432,7 @@ div.box-home div.label {
 #sidebar h3.voice:hover {
   color: #e42;
 }
-#sidebar h3.faith:hover {
+#sidebar h3.self:hover {
   color: #f90;
 }
 #sidebar h3.earth {
@@ -433,7 +444,7 @@ div.box-home div.label {
 #sidebar h3.voice {
   border-color: #e42;
 }
-#sidebar h3.faith {
+#sidebar h3.self {
   border-color: #f90;
 }
 /* FOOTER */
@@ -734,7 +745,7 @@ a.button,
 input.button,
 input#searchsubmit {
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: bold;
   color: #ffffff;
   margin: 5px;
@@ -747,6 +758,8 @@ input#searchsubmit {
   -webkit-border-radius: 3px;
   background: -moz-linear-gradient(top, #000000 0%, #333333);
   background: -webkit-gradient(linear, left top, left bottom, from(#000000), to(#333333));
+  border: none;
+  text-decoration: none;
 }
 button.button:hover,
 a.button:hover,
@@ -881,8 +894,8 @@ a.button-home#mind {
 a.button-home#voice {
   background-image: url('/assets/elements/white/voice.png');
 }
-a.button-home#faith {
-  background-image: url('/assets/elements/white/faith.png');
+a.button-home#self {
+  background-image: url('/assets/elements/white/self.png');
 }
 a.button-home#earth:hover {
   background-image: url('/assets/elements/black/earth.png');
@@ -893,8 +906,8 @@ a.button-home#mind:hover {
 a.button-home#voice:hover {
   background-image: url('/assets/elements/black/voice.png');
 }
-a.button-home#faith:hover {
-  background-image: url('/assets/elements/black/faith.png');
+a.button-home#self:hover {
+  background-image: url('/assets/elements/black/self.png');
 }
 .checkbox {
   width: 55px;

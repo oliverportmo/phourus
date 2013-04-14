@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'backbone', 'text!../../templates/header.html', 'views/login'], function($, a, b, template, vLogin){
+define(['jquery', 'underscore', 'backbone', 'text!../../templates/header.html', 'views/login'], function($, _, Backbone, template, vLogin){
 	var vHeader= Backbone.View.extend({
 		el: '#header',
 		tagName: 'header',

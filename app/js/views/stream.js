@@ -1,13 +1,31 @@
-define(['jquery', 'underscore', 'backbone', 'views/sidebar', 'views/filter', 'views/elements', 'views/alerts', 'collections/stream', 'text!../../templates/stream.html', 'text!../../templates/post.html'], function($, a, b, vSidebar, vFilter, vElements, vAlerts, cStream, tStream, tPost){
+define(['jquery', 'underscore', 'backbone', 'views/sidebar', 'views/filter', 'views/elements', 'views/alerts', 'collections/stream', 'text!../../templates/stream.html', 'text!../../templates/post.html', 'models/types', 'models/settings'], function($, _, Backbone, vSidebar, vFilter, vElements, vAlerts, cStream, tStream, tPost, mTypes, mSettings){
 	var vStream= Backbone.View.extend({
 		el: '#stream',
 		tagName: 'div',
 		
 		initialize: function(){
 			_.bindAll(this);
-			PHOURUS.SETTINGS.bind('change', this.filter);
+			mSettings.bind('change', this.filter);
 			this.render();	
 			this.filter();
+		},
+		
+		events: {
+			"click #customize": "customize"	
+		},
+		
+		customize: function(e){
+			var hidden= $("#sidebar").css('display') === 'none' ? true : false;
+			if(hidden=== true){
+				$("#customize").html('&laquo; Less Options');
+				$("#sidebar").show();
+				$("#dynamic").css('width', '700px');
+			}else{
+				$("#customize").html('More Options &raquo;');
+				$("#sidebar").hide();
+				$("#dynamic").css('width', '100%');
+			}
+				
 		},
 		
 		filter: function(){		
@@ -27,7 +45,7 @@ define(['jquery', 'underscore', 'backbone', 'views/sidebar', 'views/filter', 'vi
 			$('#dynamic').html('');
 			_.each(this.collection.models, function(model){
 				var post= model.toJSON();
-				post.element= PHOURUS.TYPES.get_parent(post.type);
+				post.element= mTypes.get_parent(post.type);
 				$('#dynamic').append(_.template(tPost, {data: post}));
 			});
 		},

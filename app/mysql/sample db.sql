@@ -3,20 +3,14 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 23, 2013 at 08:34 PM
+-- Generation Time: Apr 13, 2013 at 08:08 PM
 -- Server version: 5.5.9
 -- PHP Version: 5.3.6
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
 --
--- Database: `phourus`
+-- Database: `phourus:dev`
 --
 
 -- --------------------------------------------------------
@@ -28,7 +22,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 CREATE TABLE `app_comments` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `app_comments`
@@ -46,7 +40,7 @@ CREATE TABLE `app_follows` (
   `user` varchar(20) NOT NULL DEFAULT '',
   `follows` varchar(20) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `app_follows`
@@ -63,7 +57,7 @@ INSERT INTO `app_follows` VALUES(1, '', '');
 CREATE TABLE `app_media` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `app_media`
@@ -125,11 +119,11 @@ INSERT INTO `app_pages` VALUES('/stream', 'stream', 'Stream', 'Stream', 'Stream'
 --
 
 CREATE TABLE `app_stream` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `record` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `stream_id` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `user` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `user_id` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `privacy` tinyint(1) NOT NULL DEFAULT '0',
   `views` int(11) NOT NULL,
   `comments` int(11) NOT NULL,
@@ -139,9 +133,9 @@ CREATE TABLE `app_stream` (
   `influence` tinyint(2) NOT NULL,
   `type` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `action` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `record` (`record`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  PRIMARY KEY (`_id`),
+  UNIQUE KEY `record` (`stream_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=21 ;
 
 --
 -- Dumping data for table `app_stream`
@@ -180,7 +174,7 @@ CREATE TABLE `app_tags` (
   `tag` varchar(20) NOT NULL DEFAULT '',
   `target` varchar(20) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `app_tags`
@@ -196,7 +190,7 @@ CREATE TABLE `app_tags` (
 CREATE TABLE `app_thumbs` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `app_thumbs`
@@ -215,7 +209,7 @@ CREATE TABLE `app_tokens` (
   `token` varchar(20) DEFAULT NULL,
   `expires` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `app_tokens`
@@ -229,8 +223,8 @@ CREATE TABLE `app_tokens` (
 --
 
 CREATE TABLE `app_users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `record` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `registered` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `level` int(11) NOT NULL DEFAULT '0',
@@ -254,191 +248,21 @@ CREATE TABLE `app_users` (
   `rank` tinyint(2) NOT NULL,
   `dob` date DEFAULT NULL,
   `notes` text COLLATE utf8_unicode_ci,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `record` (`record`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  PRIMARY KEY (`_id`),
+  UNIQUE KEY `record` (`user_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=194 ;
 
 --
 -- Dumping data for table `app_users`
 --
 
-INSERT INTO `app_users` VALUES(1, 'USE-120403-001-A', '2012-04-03 23:08:14', '0000-00-00 00:00:00', 0, 'davidcruz', 'phourus', 'David', 'Cruz', 'info@jessedrelick.com', '555-555-5555', 'ADD-120908-001-A', NULL, NULL, 'active', 0, 'm', 'Software Engineer', 'Intuit', 'www.intuit.com', NULL, NULL, 40, NULL, NULL);
-INSERT INTO `app_users` VALUES(2, 'USE-120403-002-A', '2012-04-03 23:08:14', '0000-00-00 00:00:00', 0, 'kbasil', 'phourus', 'Kelly', 'Basil', 'info@dylandrelick.com', '555-555-5555', 'ADD-120908-002-A', NULL, NULL, 'active', 0, 'f', 'Director of Marketing', 'Adobe', 'www.adobe.com', NULL, NULL, 39, NULL, NULL);
-INSERT INTO `app_users` VALUES(6, 'USE-120505-001-A', '2012-04-03 23:08:14', '0000-00-00 00:00:00', 0, 'bruceisaac', 'phourus', 'Bruce', 'Isaac', 'info@dylandrelick.com', '555-555-5555', 'ADD-120908-003-A', NULL, NULL, 'active', 0, 'm', 'CTO', 'Facebook', 'www.facebook.com', NULL, NULL, 39, NULL, NULL);
-INSERT INTO `app_users` VALUES(7, 'USE-120618-001-A', '2012-04-03 23:08:14', '0000-00-00 00:00:00', 0, 'reginawall', 'phourus', 'Regina', 'Wall', 'info@dylandrelick.com', '555-555-5555', 'ADD-120908-004-A', NULL, NULL, 'active', 0, 'f', 'Customer Support Specialist', 'Google', 'www.intuit.com', NULL, NULL, 39, NULL, NULL);
-INSERT INTO `app_users` VALUES(8, 'USE-120704-001-A', '2012-04-03 23:08:14', '0000-00-00 00:00:00', 0, 'kendallk', 'phourus', 'Kendall', 'Kennedy', 'info@dylandrelick.com', '555-555-5555', 'ADD-121022-001-A', NULL, NULL, 'active', 0, 'm', 'Selectman', 'Town of Plaistow', 'www.kendallkennedy.com', NULL, NULL, 39, NULL, NULL);
-INSERT INTO `app_users` VALUES(9, 'USE-120812-001-A', '2012-04-03 23:08:14', '0000-00-00 00:00:00', 0, 'duncanv', 'phourus', 'Duncan', 'Valentine', 'info@dylandrelick.com', '555-555-5555', 'ADD-121022-002-A', NULL, NULL, 'active', 0, 'm', 'Sales Engineer', 'LinkedIn', 'www.linkedin.com', NULL, NULL, 39, NULL, NULL);
-INSERT INTO `app_users` VALUES(10, 'USE-120812-002-A', '2012-04-03 23:08:14', '0000-00-00 00:00:00', 0, 'cassidyowen', 'phourus', 'Cassidy', 'Owen', 'info@dylandrelick.com', '555-555-5555', 'ADD-121022-003-A', NULL, NULL, 'active', 0, 'f', 'State Representative', 'State of NH', 'www.cassidyowen.com', NULL, NULL, 39, NULL, NULL);
-INSERT INTO `app_users` VALUES(11, '', '2013-02-06 21:46:41', '0000-00-00 00:00:00', 0, '', '', 'asgdasg', 'ashsdsaf', 'Awet@fas.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(12, 'USE-130206-001-A', '2013-02-06 21:49:27', '0000-00-00 00:00:00', 0, '', '', 'asgdasg', 'ashsdsaf', 'Awet@fas.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(13, 'USE-130206-002-A', '2013-02-06 21:55:37', '0000-00-00 00:00:00', 0, '', '', 'asgdasg', 'ashsdsaf', 'Awet@fas.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(14, 'USE-130206-003-A', '2013-02-06 21:56:06', '0000-00-00 00:00:00', 0, '', '', 'asgdasg', 'ashsdsaf', 'Awet@fas.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(15, 'USE-130206-004-A', '2013-02-06 21:58:59', '0000-00-00 00:00:00', 0, '', '234t234', 'asgdasg', 'ashsdsaf', 'Awet@fas.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(16, 'USE-130206-005-A', '2013-02-06 22:09:16', '0000-00-00 00:00:00', 0, '', '234t234', 'asgdasg', 'ashsdsaf', 'Awet@fas.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(17, 'USE-130206-006-A', '2013-02-06 22:10:10', '0000-00-00 00:00:00', 0, '', '234t234', 'asgdasg', 'ashsdsaf', 'Awet@fas.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(18, 'USE-130206-007-A', '2013-02-06 23:26:07', '0000-00-00 00:00:00', 0, '', '234t234', 'asgdasg', 'ashsdsaf', 'Awet@fas.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(19, 'USE-130216-001-A', '2013-02-16 19:53:00', '0000-00-00 00:00:00', 0, '', '234t234', 'asgdasg', 'ashsdsaf', 'Awet@fas.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(20, 'USE-130216-002-A', '2013-02-16 21:39:17', '0000-00-00 00:00:00', 0, '', '234t234', 'asgdasg', 'ashsdsaf', 'Awet@fas.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(21, 'USE-130216-003-A', '2013-02-16 21:39:27', '0000-00-00 00:00:00', 0, '', '234t234', 'asgdasg', 'ashsdsaf', 'Awet@fas.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(22, 'USE-130216-004-A', '2013-02-16 21:40:01', '0000-00-00 00:00:00', 0, '', '234t234', 'asgdasg', 'ashsdsaf', 'Awet@fas.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(23, 'USE-130216-005-A', '2013-02-16 21:40:11', '0000-00-00 00:00:00', 0, '', '234t234', 'asgdasg', 'ashsdsaf', 'Awet@fas.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(24, 'USE-130216-006-A', '2013-02-16 21:40:32', '0000-00-00 00:00:00', 0, '', '234t234', 'asgdasg', 'ashsdsaf', 'Awet@fas.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(25, 'USE-130216-007-A', '2013-02-16 21:40:33', '0000-00-00 00:00:00', 0, '', '234t234', 'asgdasg', 'ashsdsaf', 'Awet@fas.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(26, 'USE-130216-008-A', '2013-02-16 21:40:33', '0000-00-00 00:00:00', 0, '', '234t234', 'asgdasg', 'ashsdsaf', 'Awet@fas.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(27, 'USE-130216-009-A', '2013-02-16 21:40:39', '0000-00-00 00:00:00', 0, '', '234t234', 'asgdasg', 'ashsdsaf', 'Awet@fas.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(28, 'USE-130216-010-A', '2013-02-16 21:41:54', '0000-00-00 00:00:00', 0, '', '234t234', 'asgdasg', 'ashsdsaf', 'Awet@fas.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(29, 'USE-130216-011-A', '2013-02-16 21:43:42', '0000-00-00 00:00:00', 0, '', '234t234', 'asgdasg', 'ashsdsaf', 'Awet@fas.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(30, 'USE-130216-012-A', '2013-02-16 21:45:05', '0000-00-00 00:00:00', 0, '', '234t234', 'asgdasg', 'ashsdsaf', 'Awet@fas.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(31, 'USE-130216-013-A', '2013-02-16 21:47:21', '0000-00-00 00:00:00', 0, '', '234t234', 'asgdasg', 'ashsdsaf', 'Awet@fas.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(32, 'USE-130216-014-A', '2013-02-16 21:47:45', '0000-00-00 00:00:00', 0, '', '234t234', 'asgdasg', 'ashsdsaf', 'Awet@fas.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(33, 'USE-130216-015-A', '2013-02-16 21:48:05', '0000-00-00 00:00:00', 0, '', '234t234', 'asgdasg', 'ashsdsaf', 'Awet@fas.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(34, 'USE-130216-016-A', '2013-02-16 21:49:22', '0000-00-00 00:00:00', 0, '', '234t234', 'asgdasg', 'ashsdsaf', 'Awet@fas.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(35, 'USE-130216-017-A', '2013-02-16 21:49:29', '0000-00-00 00:00:00', 0, '', '234t234', 'asgdasg', 'ashsdsaf', 'Awet@fas.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(36, 'USE-130216-018-A', '2013-02-16 21:49:53', '0000-00-00 00:00:00', 0, '', '234t234', 'asgdasg', 'ashsdsaf', 'Awet@fas.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(37, 'USE-130216-019-A', '2013-02-16 21:52:24', '0000-00-00 00:00:00', 0, '', '234t234', 'asgdasg', 'ashsdsaf', 'Awet@fas.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(38, 'USE-130216-020-A', '2013-02-16 21:55:06', '0000-00-00 00:00:00', 0, '', '234t234', 'asgdasg', 'ashsdsaf', 'Awet@fas.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(39, 'USE-130216-021-A', '2013-02-16 21:56:14', '0000-00-00 00:00:00', 0, '', '234t234', 'asgdasg', 'ashsdsaf', 'Awet@fas.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(40, 'USE-130216-022-A', '2013-02-16 21:58:50', '0000-00-00 00:00:00', 0, '', '234t234', 'asgdasg', 'ashsdsaf', 'Awet@fas.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(41, 'USE-130216-023-A', '2013-02-16 21:59:21', '0000-00-00 00:00:00', 0, '', '234t234', 'asgdasg', 'ashsdsaf', 'Awet@fas.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(42, 'USE-130216-024-A', '2013-02-16 22:00:27', '0000-00-00 00:00:00', 0, '', '234t234', 'asgdasg', 'ashsdsaf', 'Awet@fas.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(43, 'USE-130216-025-A', '2013-02-16 22:08:47', '0000-00-00 00:00:00', 0, '', '234t234', 'asgdasg', 'ashsdsaf', 'Awet@fas.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(44, 'USE-130216-026-A', '2013-02-16 22:09:05', '0000-00-00 00:00:00', 0, '', '234t234', 'asgdasg', 'ashsdsaf', 'Awet@fas.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(45, 'USE-130216-027-A', '2013-02-16 22:14:26', '0000-00-00 00:00:00', 0, '', '234t234', 'asgdasg', 'ashsdsaf', 'Awet@fas.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(46, 'USE-130216-028-A', '2013-02-16 22:17:53', '0000-00-00 00:00:00', 0, '', '234t234', 'asgdasg', 'ashsdsaf', 'Awet@fas.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(47, 'USE-130216-029-A', '2013-02-16 22:19:25', '0000-00-00 00:00:00', 0, '', '234t234', 'asgdasg', 'ashsdsaf', 'Awet@fas.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(48, 'USE-130216-030-A', '2013-02-16 22:19:44', '0000-00-00 00:00:00', 0, '', '234t234', 'asgdasg', 'ashsdsaf', 'Awet@fas.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(49, 'USE-130216-031-A', '2013-02-16 22:20:38', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(50, 'USE-130216-032-A', '2013-02-16 22:21:10', '0000-00-00 00:00:00', 0, '', 'pass', 'Jesse', 'Drelick', 'info@jessedrelick.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(51, 'USE-130216-033-A', '2013-02-16 22:22:56', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(52, 'USE-130216-034-A', '2013-02-16 22:24:22', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(53, 'USE-130216-035-A', '2013-02-16 22:24:28', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(54, 'USE-130216-036-A', '2013-02-16 22:27:02', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(55, 'USE-130216-037-A', '2013-02-16 22:27:17', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(56, 'USE-130216-038-A', '2013-02-16 22:27:29', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(57, 'USE-130216-039-A', '2013-02-16 22:28:59', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(58, 'USE-130216-040-A', '2013-02-16 22:29:09', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(59, 'USE-130216-041-A', '2013-02-16 22:29:45', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(60, 'USE-130216-042-A', '2013-02-16 23:10:58', '0000-00-00 00:00:00', 0, '', 'dyldo', 'Dylan', 'Drelick', 'dylandrelick@phourus.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(61, 'USE-130216-043-A', '2013-02-16 23:11:57', '0000-00-00 00:00:00', 0, '', 'dyldo', 'Dylan', 'Drelick', 'dylandrelick@phourus.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(62, 'USE-130216-044-A', '2013-02-16 23:15:10', '0000-00-00 00:00:00', 0, '', 'dyldo', 'Dylan', 'Drelick', 'dylandrelick@phourus.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(63, 'USE-130216-045-A', '2013-02-16 23:16:00', '0000-00-00 00:00:00', 0, '', 'dyldo', 'Dylan', 'Drelick', 'dylandrelick@phourus.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(64, 'USE-130216-046-A', '2013-02-16 23:17:42', '0000-00-00 00:00:00', 0, '', 'dyldo', 'Dylan', 'Drelick', 'dylandrelick@phourus.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(65, 'USE-130216-047-A', '2013-02-16 23:18:22', '0000-00-00 00:00:00', 0, '', 'dyldo', 'Dylan', 'Drelick', 'dylandrelick@phourus.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(66, 'USE-130216-048-A', '2013-02-16 23:18:50', '0000-00-00 00:00:00', 0, '', 'dyldo', 'Dylan', 'Drelick', 'dylandrelick@phourus.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(67, 'USE-130216-049-A', '2013-02-16 23:23:48', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(68, 'USE-130216-050-A', '2013-02-16 23:24:03', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(69, 'USE-130216-051-A', '2013-02-16 23:24:43', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(70, 'USE-130216-052-A', '2013-02-16 23:25:44', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(71, 'USE-130216-053-A', '2013-02-16 23:26:11', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(72, 'USE-130216-054-A', '2013-02-16 23:26:44', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(73, 'USE-130216-055-A', '2013-02-16 23:26:53', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(74, 'USE-130216-056-A', '2013-02-16 23:27:19', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(75, 'USE-130216-057-A', '2013-02-16 23:27:26', '0000-00-00 00:00:00', 0, '', 'dyldo', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(76, 'USE-130216-058-A', '2013-02-16 23:27:32', '0000-00-00 00:00:00', 0, '', 'dyldo', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(77, 'USE-130216-059-A', '2013-02-16 23:28:28', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(78, 'USE-130216-060-A', '2013-02-16 23:28:30', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(79, 'USE-130216-061-A', '2013-02-16 23:28:47', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(80, 'USE-130216-062-A', '2013-02-16 23:28:50', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(81, 'USE-130216-063-A', '2013-02-16 23:28:52', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(82, 'USE-130216-064-A', '2013-02-16 23:28:55', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(83, 'USE-130216-065-A', '2013-02-16 23:29:36', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(84, 'USE-130216-066-A', '2013-02-16 23:31:21', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(85, 'USE-130216-067-A', '2013-02-16 23:31:33', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(86, 'USE-130216-068-A', '2013-02-16 23:31:50', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(87, 'USE-130216-069-A', '2013-02-16 23:32:48', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(88, 'USE-130216-070-A', '2013-02-16 23:33:20', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(89, 'USE-130216-071-A', '2013-02-16 23:33:28', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(90, 'USE-130216-072-A', '2013-02-16 23:34:12', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(91, 'USE-130216-073-A', '2013-02-16 23:35:22', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(92, 'USE-130216-074-A', '2013-02-16 23:36:02', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(93, 'USE-130216-075-A', '2013-02-16 23:39:33', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(94, 'USE-130216-076-A', '2013-02-16 23:40:14', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(95, 'USE-130216-077-A', '2013-02-16 23:41:38', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(96, 'USE-130216-078-A', '2013-02-16 23:41:46', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(97, 'USE-130216-079-A', '2013-02-16 23:42:30', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(98, 'USE-130216-080-A', '2013-02-16 23:42:57', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(99, 'USE-130216-081-A', '2013-02-16 23:44:28', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(100, 'USE-130216-082-A', '2013-02-16 23:45:27', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(101, 'USE-130216-083-A', '2013-02-16 23:45:52', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(102, 'USE-130216-084-A', '2013-02-16 23:46:15', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(103, 'USE-130216-085-A', '2013-02-16 23:46:40', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(104, 'USE-130216-086-A', '2013-02-16 23:48:42', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(105, 'USE-130216-087-A', '2013-02-16 23:49:36', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(106, 'USE-130216-088-A', '2013-02-16 23:50:58', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(107, 'USE-130216-089-A', '2013-02-16 23:51:17', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(108, 'USE-130216-090-A', '2013-02-16 23:51:21', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(109, 'USE-130216-091-A', '2013-02-16 23:51:22', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(110, 'USE-130216-092-A', '2013-02-16 23:51:23', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(111, 'USE-130216-093-A', '2013-02-16 23:52:16', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(112, 'USE-130216-094-A', '2013-02-16 23:52:43', '0000-00-00 00:00:00', 0, '', 'pasfwf', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(113, 'USE-130216-095-A', '2013-02-16 23:52:49', '0000-00-00 00:00:00', 0, '', 'egwr4543', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(114, 'USE-130216-096-A', '2013-02-16 23:53:03', '0000-00-00 00:00:00', 0, '', 'dfndfgn', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(115, 'USE-130216-097-A', '2013-02-16 23:54:15', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(116, 'USE-130216-098-A', '2013-02-16 23:54:39', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(117, 'USE-130216-099-A', '2013-02-16 23:58:04', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(118, 'USE-130216-100-A', '2013-02-16 23:58:11', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(119, 'USE-130217-001-A', '2013-02-17 00:01:27', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(120, 'USE-130217-002-A', '2013-02-17 00:01:46', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(121, 'USE-130217-003-A', '2013-02-17 00:03:49', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(122, 'USE-130217-004-A', '2013-02-17 00:04:28', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(123, 'USE-130217-005-A', '2013-02-17 00:05:55', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(124, 'USE-130217-006-A', '2013-02-17 00:06:13', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(125, 'USE-130217-007-A', '2013-02-17 00:06:29', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(126, 'USE-130217-008-A', '2013-02-17 00:06:56', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(127, 'USE-130217-009-A', '2013-02-17 00:07:05', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(128, 'USE-130217-010-A', '2013-02-17 00:08:03', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(129, 'USE-130217-011-A', '2013-02-17 00:08:45', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(130, 'USE-130217-012-A', '2013-02-17 00:08:51', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(131, 'USE-130217-013-A', '2013-02-17 00:08:52', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(132, 'USE-130217-014-A', '2013-02-17 00:08:53', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(133, 'USE-130217-015-A', '2013-02-17 00:08:54', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(134, 'USE-130217-016-A', '2013-02-17 00:09:07', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(135, 'USE-130217-017-A', '2013-02-17 00:09:12', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(136, 'USE-130217-018-A', '2013-02-17 00:10:01', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(137, 'USE-130217-019-A', '2013-02-17 00:10:05', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(138, 'USE-130217-020-A', '2013-02-17 00:10:22', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(139, 'USE-130217-021-A', '2013-02-17 00:10:25', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(140, 'USE-130217-022-A', '2013-02-17 00:10:39', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(141, 'USE-130217-023-A', '2013-02-17 00:10:55', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(142, 'USE-130217-024-A', '2013-02-17 00:11:03', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(143, 'USE-130217-025-A', '2013-02-17 00:11:14', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(144, 'USE-130217-026-A', '2013-02-17 00:11:18', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(145, 'USE-130217-027-A', '2013-02-17 00:11:22', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(146, 'USE-130217-028-A', '2013-02-17 00:11:46', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(147, 'USE-130217-029-A', '2013-02-17 00:11:52', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(148, 'USE-130217-030-A', '2013-02-17 00:12:47', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(149, 'USE-130217-031-A', '2013-02-17 00:13:17', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(150, 'USE-130217-032-A', '2013-02-17 00:13:32', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(151, 'USE-130217-033-A', '2013-02-17 00:14:50', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(152, 'USE-130217-034-A', '2013-02-17 00:15:31', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(153, 'USE-130217-035-A', '2013-02-17 00:15:33', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(154, 'USE-130217-036-A', '2013-02-17 00:15:34', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(155, 'USE-130217-037-A', '2013-02-17 00:15:44', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(156, 'USE-130217-038-A', '2013-02-17 00:15:45', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(157, 'USE-130217-039-A', '2013-02-17 00:15:49', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(158, 'USE-130217-040-A', '2013-02-17 00:15:50', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(159, 'USE-130217-041-A', '2013-02-17 00:15:54', '0000-00-00 00:00:00', 0, '', 'adgasdg', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(160, 'USE-130217-042-A', '2013-02-17 00:15:57', '0000-00-00 00:00:00', 0, '', 'wtwerhadgasdg', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(161, 'USE-130217-043-A', '2013-02-17 00:16:00', '0000-00-00 00:00:00', 0, '', '56u456', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(162, 'USE-130217-044-A', '2013-02-17 00:16:02', '0000-00-00 00:00:00', 0, '', '5cwevwr', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(163, 'USE-130217-045-A', '2013-02-17 00:16:23', '0000-00-00 00:00:00', 0, '', '5cwevwr', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(164, 'USE-130217-046-A', '2013-02-17 00:16:27', '0000-00-00 00:00:00', 0, '', '5cwevwr', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(165, 'USE-130217-047-A', '2013-02-17 00:16:30', '0000-00-00 00:00:00', 0, '', 'sdfhsdfh', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(166, 'USE-130217-048-A', '2013-02-17 00:16:33', '0000-00-00 00:00:00', 0, '', 'sdentrtn', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(167, 'USE-130217-049-A', '2013-02-17 00:16:43', '0000-00-00 00:00:00', 0, '', 'werherb', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(168, 'USE-130217-050-A', '2013-02-17 00:16:47', '0000-00-00 00:00:00', 0, '', '41234123', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(169, 'USE-130217-051-A', '2013-02-17 00:16:49', '0000-00-00 00:00:00', 0, '', 'w5h345h41234123', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(170, 'USE-130217-052-A', '2013-02-17 00:16:52', '0000-00-00 00:00:00', 0, '', 'w5h2g43g24', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(171, 'USE-130217-053-A', '2013-02-17 00:17:31', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(172, 'USE-130217-054-A', '2013-02-17 00:17:34', '0000-00-00 00:00:00', 0, '', 'bsber', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(173, 'USE-130217-055-A', '2013-02-17 00:17:36', '0000-00-00 00:00:00', 0, '', 'ertnert', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(174, 'USE-130217-056-A', '2013-02-17 00:18:11', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(175, 'USE-130217-057-A', '2013-02-17 00:18:15', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(176, 'USE-130217-058-A', '2013-02-17 00:18:18', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(177, 'USE-130217-059-A', '2013-02-17 00:18:19', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(178, 'USE-130217-060-A', '2013-02-17 15:37:01', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(179, 'USE-130217-061-A', '2013-02-17 15:37:52', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
-INSERT INTO `app_users` VALUES(180, 'USE-130217-062-A', '2013-02-17 15:39:01', '0000-00-00 00:00:00', 0, '', 'password', 'first', 'last', 'email', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `app_users` VALUES(1, 'USE-120403-001-A', '2012-04-03 23:08:14', '0000-00-00 00:00:00', 0, 'davidcruz', 'phourus', 'David', 'Cruz', 'dcruz@ymail.com', '555-555-5555', 'ADD-120908-001-A', NULL, NULL, 'active', 0, 'm', 'Software Engineer', 'Intuit', 'www.intuit.com', NULL, NULL, 40, NULL, NULL);
+INSERT INTO `app_users` VALUES(2, 'USE-120403-002-A', '2012-04-03 23:08:14', '0000-00-00 00:00:00', 0, 'kbasil', 'phourus', 'Kelly', 'Basil', 'kbasil@gmail.com', '555-555-5555', 'ADD-120908-002-A', NULL, NULL, 'active', 0, 'f', 'Director of Marketing', 'Adobe', 'www.adobe.com', NULL, NULL, 39, NULL, NULL);
+INSERT INTO `app_users` VALUES(6, 'USE-120505-001-A', '2012-04-03 23:08:14', '0000-00-00 00:00:00', 0, 'bruceisaac', 'phourus', 'Bruce', 'Isaac', 'bruseisaac@hotmail.com', '555-555-5555', 'ADD-120908-003-A', NULL, NULL, 'active', 0, 'm', 'CTO', 'Facebook', 'www.facebook.com', NULL, NULL, 39, NULL, NULL);
+INSERT INTO `app_users` VALUES(7, 'USE-120618-001-A', '2012-04-03 23:08:14', '0000-00-00 00:00:00', 0, 'reginawall', 'phourus', 'Regina', 'Wall', 'rwall@ymail.com', '555-555-5555', 'ADD-120908-004-A', NULL, NULL, 'active', 0, 'f', 'Customer Support Specialist', 'Google', 'www.intuit.com', NULL, NULL, 39, NULL, NULL);
+INSERT INTO `app_users` VALUES(8, 'USE-120704-001-A', '2012-04-03 23:08:14', '0000-00-00 00:00:00', 0, 'kendallk', 'phourus', 'Kendall', 'Kennedy', 'kendallk@gmail.com', '555-555-5555', 'ADD-121022-001-A', NULL, NULL, 'active', 0, 'm', 'Selectman', 'Town of Plaistow', 'www.kendallkennedy.com', NULL, NULL, 39, NULL, NULL);
+INSERT INTO `app_users` VALUES(9, 'USE-120812-001-A', '2012-04-03 23:08:14', '0000-00-00 00:00:00', 0, 'duncanv', 'phourus', 'Duncan', 'Valentine', 'info@duncanvalentine.com', '555-555-5555', 'ADD-121022-002-A', NULL, NULL, 'active', 0, 'm', 'Sales Engineer', 'LinkedIn', 'www.linkedin.com', NULL, NULL, 39, NULL, NULL);
+INSERT INTO `app_users` VALUES(10, 'USE-120812-002-A', '2012-04-03 23:08:14', '0000-00-00 00:00:00', 0, 'cassidyowen', 'phourus', 'Cassidy', 'Owen', 'cassidyown@hotmail.com', '555-555-5555', 'ADD-121022-003-A', NULL, NULL, 'active', 0, 'f', 'State Representative', 'State of NH', 'www.cassidyowen.com', NULL, NULL, 39, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -449,7 +273,7 @@ INSERT INTO `app_users` VALUES(180, 'USE-130217-062-A', '2013-02-17 15:39:01', '
 CREATE TABLE `app_views` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `app_views`
@@ -463,17 +287,17 @@ CREATE TABLE `app_views` (
 --
 
 CREATE TABLE `core_blogs` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `record` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `title` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
   `element` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `category` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `tags` varchar(40) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `content` text COLLATE utf8_unicode_ci,
   `date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `record` (`record`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  PRIMARY KEY (`_id`),
+  UNIQUE KEY `record` (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=21 ;
 
 --
 -- Dumping data for table `core_blogs`
@@ -507,8 +331,8 @@ INSERT INTO `core_blogs` VALUES(20, 'BLO-120704-003-A', 'Federal Reserve policy'
 --
 
 CREATE TABLE `core_events` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `record` varchar(20) NOT NULL DEFAULT '',
+  `_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` varchar(20) NOT NULL DEFAULT '',
   `title` varchar(40) NOT NULL DEFAULT '',
   `element` varchar(10) NOT NULL DEFAULT '',
   `tags` varchar(40) DEFAULT NULL,
@@ -516,8 +340,8 @@ CREATE TABLE `core_events` (
   `time` varchar(6) NOT NULL,
   `content` text NOT NULL,
   `address` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `core_events`
@@ -539,16 +363,16 @@ INSERT INTO `core_events` VALUES(10, 'EVE-130627-001-A', 'Re-learn math for adul
 --
 
 CREATE TABLE `core_ideas` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `record` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `title` varchar(40) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `element` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `category` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `tags` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
   `content` text COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `record` (`record`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  PRIMARY KEY (`_id`),
+  UNIQUE KEY `record` (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `core_ideas`
@@ -568,16 +392,16 @@ INSERT INTO `core_ideas` VALUES(6, 'IDE-120701-002-A', 'Interesting packaging id
 --
 
 CREATE TABLE `core_links` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `record` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `url` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `element` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `category` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `tags` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
   `content` text COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `record` (`record`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  PRIMARY KEY (`_id`),
+  UNIQUE KEY `record` (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `core_links`
@@ -598,7 +422,7 @@ INSERT INTO `core_links` VALUES(5, 'LIN-120701-001-A', 'http://www.opencongress.
 CREATE TABLE `earth_calculator` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `earth_calculator`
@@ -614,26 +438,10 @@ CREATE TABLE `earth_calculator` (
 CREATE TABLE `earth_checklist` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `earth_checklist`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `earth_companies`
---
-
-CREATE TABLE `earth_companies` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `earth_companies`
 --
 
 
@@ -644,14 +452,14 @@ CREATE TABLE `earth_companies` (
 --
 
 CREATE TABLE `earth_matters` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `record` varchar(20) NOT NULL DEFAULT '',
+  `_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` varchar(20) NOT NULL DEFAULT '',
   `title` varchar(20) NOT NULL DEFAULT '',
   `category` varchar(20) NOT NULL,
   `content` text NOT NULL,
   `positive` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `earth_matters`
@@ -661,58 +469,18 @@ CREATE TABLE `earth_matters` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `faith_beliefs`
+-- Table structure for table `earth_stores`
 --
 
-CREATE TABLE `faith_beliefs` (
+CREATE TABLE `earth_stores` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `record` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `title` varchar(40) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `category` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `tags` varchar(40) COLLATE utf8_unicode_ci DEFAULT '',
-  `content` text COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `record` (`record`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `faith_beliefs`
+-- Dumping data for table `earth_stores`
 --
 
-INSERT INTO `faith_beliefs` VALUES(1, 'BEL-120701-001-A', 'Modern Islam', 'islam', '21st century', 'Audiam legimus in cum, populo pericula assueverit ne nam, nam habemus convenire vituperatoribus te. Eu malis graeco vituperatoribus mea, est ne splendide intellegebat, ei natum vitae vim. Eam no suas putant inciderint, qui an dicunt labores, dicta referrentur in vix. Ius ullum ubique essent cu. Te ius laoreet nominavi, in saperet accumsan omnesque eos, option latine cu duo. Sanctus postulant qualisque eos te, atqui pertinacia ex sit.\n\nAn quem justo viderer vix, dico ridens sed id, ea aperiam definitionem eos. Oratio scripta eloquentiam id duo, te altera quaeque sadipscing sea! Ex eam mazim intellegam quaerendum, reque imperdiet at mel? Dolores praesent et eam? Ne iusto scribentur eos.');
-INSERT INTO `faith_beliefs` VALUES(2, 'BEL-120701-002-A', 'King David', 'judaism', 'king david', 'Probo ubique cu cum. Audire iuvaret voluptatum ut his, pro illud audiam concludaturque ne.\n\nAudiam legimus in cum, populo pericula assueverit ne nam, nam habemus convenire vituperatoribus te. Eu malis graeco vituperatoribus mea, est ne splendide intellegebat, ei natum vitae vim. Eam no suas putant inciderint, qui an dicunt labores, dicta referrentur in vix. Ius ullum ubique essent cu. Te ius laoreet nominavi, in saperet accumsan omnesque eos, option latine cu duo. Sanctus postulant qualisque eos te, atqui pertinacia ex sit.');
-INSERT INTO `faith_beliefs` VALUES(3, 'BEL-120701-003-A', 'Jesus & The Last Supper', 'christianity', 'jesus, last supper', 'Sanctus postulant qualisque eos te, atqui pertinacia ex sit.\n\nAn quem justo viderer vix, dico ridens sed id, ea aperiam definitionem eos. Oratio scripta eloquentiam id duo, te altera quaeque sadipscing sea! Ex eam mazim intellegam quaerendum, reque imperdiet at mel? Dolores praesent et eam? Ne iusto scribentur eos.');
-INSERT INTO `faith_beliefs` VALUES(4, 'BEL-120709-001-A', 'The way of the Buddha', 'buddhism', 'principles, lifestyle', 'Verti delicata vel? Erant labore dignissim est at, ius ex essent aperiam oporteat. Vitae tempor invenire est ut, id mea primis discere appareat? Perfecto dissentiet per et, vidit brute eu mei, mel fierent salutatus in.\n\nCum an choro placerat philosophia, ei agam paulo ocurreret vix! Est fuisset mandamus cu, cu pri perpetua adipiscing. Molestie voluptua duo ad, te assum recteque scribentur vix! Habeo nullam cu usu, pri ea civibus persequeris consectetuer, usu ei persecuti deseruisse.');
-INSERT INTO `faith_beliefs` VALUES(5, 'BEL-120709-002-A', 'Why I don''t believe in God', 'atheism', 'god, atheism', 'Option accusamus ei per! Ut vis veri iudico erroribus. Quo cu quot purto simul?\n\nSimilique sadipscing pro in, mei no primis lobortis, oratio consul incorrupte ad nec. Hinc facer aeterno eu duo. Ei mea justo choro nostrud, vitae quaeque corrumpit sea ad? Ei ius natum nobis iudicabit, mei alienum phaedrum expetenda te, mel tota veri debet cu. Te vix quodsi quaestio, sit placerat deseruisse te, nam error zril fastidii at? Te quot officiis pri, mea ea vivendo oporteat');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `faith_timeline`
---
-
-CREATE TABLE `faith_timeline` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `record` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `title` varchar(40) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `category` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `tags` varchar(40) COLLATE utf8_unicode_ci DEFAULT '',
-  `date` varchar(6) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `time` varchar(6) CHARACTER SET utf8 DEFAULT NULL,
-  `content` text COLLATE utf8_unicode_ci NOT NULL,
-  `address` varchar(20) CHARACTER SET utf8 DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `record` (`record`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `faith_timeline`
---
-
-INSERT INTO `faith_timeline` VALUES(1, 'TIM-120701-001-A', 'First day of Church', 'change', 'church', '080430', '01:00p', 'Vel solum reprehendunt in, nam eu decore facilis indoctum. Omnes albucius per et? Eum ut ocurreret voluptaria! Purto maluisset ea vis, ex simul ancillae eum, graece iisque percipit ad nec!\n\nDuo cetero imperdiet in, admodum phaedrum dissentiunt pri ex. Ne vis soluta consulatu concludaturque. Id integre omittam offendit cum, no nisl tincidunt eos, oblique aliquam eligendi te eos. Agam probo atqui per eu, aeque ornatus constituto mea ad.', 'ADD-121111-003-A');
-INSERT INTO `faith_timeline` VALUES(2, 'TIM-120701-002-A', 'Quit drinking alcohol', 'epiphany', 'alcohol, quit', '990312', NULL, 'Ne vis soluta consulatu concludaturque. Id integre omittam offendit cum, no nisl tincidunt eos, oblique aliquam eligendi te eos. Agam probo atqui per eu, aeque ornatus constituto mea ad.\n\nQui fugit propriae noluisse ne, qui vivendum rationibus id, te insolens necessitatibus mea. Est ad assum fuisset, est eruditi tibique insolens id? Diam illum signiferumque ea nam, per solum primis honestatis ut, ut diam copiosae mnesarchum eam? Nam ad sone', 'ADD-121111-004-A');
-INSERT INTO `faith_timeline` VALUES(3, 'TIM-120701-003-A', 'Questioned God', 'doubt', 'doubt, god', '050715', '03:00a', 'Quando nonumes ex quo, expetenda abhorreant eu mei, ut maiorum phaedrum mea. Docendi forensibus nam at, id aeterno ullamcorper est, odio adhuc aliquando usu cu. No usu eros magna dolores, his sint ornatus gloriatur ad, vis verear laoreet singulis in. Habemus adipisci reprimique quo an, veri quidam causae at quo?\n\nNe aeque denique repudiare eos! Velit melius no nam. Ut usu facer vitae reprehendunt. Id modo sale rebum est. Sea in prima oratio assentior, per libris forensibus constituto no. Per id sint mollis signiferumque, ea modus sanctus qui?', 'ADD-121111-005-A');
-INSERT INTO `faith_timeline` VALUES(4, 'TIM-120803-001-A', 'Reclaim Faith', 'reaffirm', 'strengthen, faith', '110901', NULL, 'Semper periculis imperdiet ne per. Menandri suavitate no cum, ea lorem movet dignissim nec, mutat senserit percipitur cu sit. Id sea ludus omnium labitur, ei his nonumes democritum, vim cu omnium quaestio scripserit. Vix ei commune dissentiunt ullamcorper. Iisque iuvaret eos te, sit habemus partiendo comprehensam in.\n\nEst scaevola pertinacia eloquentiam et? Et his noluisse molestiae persecuti, at dicant feugiat urbanitas eos. Vix assentior constituto scripserit ne. Et mei labores delectus menandri, ne platonem persecuti pri. Vel quem sint dissentiunt ad! Vim duis accusamus ne.', 'ADD-121111-006-A');
 
 -- --------------------------------------------------------
 
@@ -730,7 +498,7 @@ CREATE TABLE `meta_address` (
   `zip` varchar(5) NOT NULL DEFAULT '',
   `type` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=45 ;
 
 --
 -- Dumping data for table `meta_address`
@@ -790,7 +558,7 @@ INSERT INTO `meta_address` VALUES(44, 'ADD-130122-003-A', 'P.O. Box 497, 4543 Ma
 CREATE TABLE `meta_countries` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `meta_countries`
@@ -806,7 +574,7 @@ CREATE TABLE `meta_countries` (
 CREATE TABLE `meta_states` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `meta_states`
@@ -825,26 +593,10 @@ CREATE TABLE `mind_answers` (
   `question` varchar(20) NOT NULL DEFAULT '',
   `content` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `mind_answers`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `mind_courses`
---
-
-CREATE TABLE `mind_courses` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `mind_courses`
 --
 
 
@@ -855,18 +607,34 @@ CREATE TABLE `mind_courses` (
 --
 
 CREATE TABLE `mind_questions` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `record` varchar(20) NOT NULL DEFAULT '',
+  `_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` varchar(20) NOT NULL DEFAULT '',
   `title` varchar(20) NOT NULL DEFAULT '',
   `category` int(11) DEFAULT NULL,
   `subcategory` int(11) DEFAULT NULL,
   `difficulty` int(11) DEFAULT NULL,
   `content` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `mind_questions`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mind_scores`
+--
+
+CREATE TABLE `mind_scores` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `mind_scores`
 --
 
 
@@ -877,17 +645,17 @@ CREATE TABLE `mind_questions` (
 --
 
 CREATE TABLE `mind_subjects` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `record` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `title` varchar(40) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `category` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `subcategory` varchar(20) CHARACTER SET utf8 NOT NULL DEFAULT '',
   `difficulty` varchar(20) CHARACTER SET utf8 NOT NULL DEFAULT '',
   `tags` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
   `content` text COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `record` (`record`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  PRIMARY KEY (`_id`),
+  UNIQUE KEY `record` (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `mind_subjects`
@@ -896,8 +664,96 @@ CREATE TABLE `mind_subjects` (
 INSERT INTO `mind_subjects` VALUES(1, 'SUB-120229-001-A', 'American History 101', 'history', 'american', 'easy', 'american, 19th Century', 'Mea democritum neglegentur ad, in erant euismod has, rebum tantas doming nam te. An quo movet indoctum, singulis cotidieque ut eam? Quas tantas quidam cum ne, an qui adhuc tamquam, eam ad vidit affert commune?');
 INSERT INTO `mind_subjects` VALUES(2, 'SUB-120229-002-A', 'Introductory Algebra', 'math', 'algebra', 'easy', 'algebra', 'Lorem ipsum dolor sit amet, quo elit mazim aliquid at, delenit fierent insolens sea cu? Ius errem feugait accusam id, brute inciderint sea eu, ex quas fierent pro? Ei sonet nobis adipisci sed, vim ad vivendo denique periculis. Sed te melius noluisse evertitur, ocurreret gloriatur in eum. Decore dicunt usu te, vim te putent mediocritatem, affert deserunt cum ne.\n\nAd viris hendrerit has, ei soluta quidam mel. Viris tibique in qui. Euismod blandit tincidunt ne eos, sed ea dico libris. Nam ei quando essent malorum, vide duis etiam id est! Vim impedit graecis eu, id sit illud ipsum reprehendunt.\n\nExpetenda accommodare ea nec, in eros perpetua senserit qui? An percipit vulputate cum, erat doming suscipiantur ea est, cum ne maiestatis mediocritatem. Mea democritum neglegentur ad, in erant euismod has, rebum tantas doming nam te. An quo movet indoctum, singulis cotidieque ut eam? Quas tantas quidam cum ne, an qui adhuc tamquam, eam ad vidit affert commune?');
 INSERT INTO `mind_subjects` VALUES(3, 'SUB-120229-003-A', 'Circuit Design', 'science', 'electricity', 'hard', 'electronics, circuits', 'Ad viris hendrerit has, ei soluta quidam mel. Viris tibique in qui. Euismod blandit tincidunt ne eos, sed ea dico libris. Nam ei quando essent malorum, vide duis etiam id est! Vim impedit graecis eu, id sit illud ipsum reprehendunt.\n\nExpetenda accommodare ea nec, in eros perpetua senserit qui? An percipit vulputate cum, erat doming suscipiantur ea est, cum ne maiestatis mediocritatem. Mea democritum neglegentur ad, in erant euismod has, rebum tantas doming nam te. An quo movet indoctum, singulis cotidieque ut eam? Quas tantas quidam cum ne, an qui adhuc tamquam, eam ad vidit affert commune?\n\nHis ceteros noluisse splendide cu, mucius accusamus no eum, sit et probo summo quidam. Ut rebum copiosae voluptatum his! Duo soluta repudiandae ea, sea legimus phaedrum eu, mea nibh bonorum sapientem ne! Et tota velit facilis quo, tale habeo mollis ad cum. Id per insolens assentior, ipsum admodum delicata mel no.\n\nEt sea posse virtute ponderum, noster alienum delicata mea an, vidit similique cu mel! Usu id nostro facilisis. Omnes oportere ei mea, graece officiis definiebas eam ea, an fierent nominati his. Ius altera alienum senserit in. Ei doming menandri tincidunt sit, idque oratio hendrerit id nam?\n\nReque falli ne eam, similique efficiendi quo no. Sea id solet phaedrum, sit no partem facilis, impetus eligendi efficiantur et eum! Mea eius persequeris ea, an sed ullum eirmod, vis id etiam lucilius. Mel omnis ubique ad, ad vis labore quidam intellegat? Eu his ferri populo ridens, alienum commune usu et, no primis labores vix. Pro ex modus ubique vidisse?\n\nEt vim utamur postulant, vim tamquam probatus ex? Est sint atomorum an? Te sea malis mediocritatem, et ius consul officiis postulant. Modo oratio aliquando et eam.\n\nIudico tollit iriure his te. No eam graecis mediocritatem, pro ut putent accusata, tempor integre lobortis ne vel. At mei civibus blandit, adhuc consequuntur te eam, eu sed mazim perfecto efficiantur. Quando laboramus intellegebat ea sea, vel ea saepe impetus senserit? Dolor accusamus nec te, pri in sanctus vulputate comprehensam, ne clita ridens feugait mea!\n\nId sint epicurei concludaturque sit, an qui errem deserunt dissentiunt. Ut usu primis assentior. Est viris clita ex, ut odio menandri mea, te eum dicit facilisis theophrastus. An quo mundi appareat, vivendo civibus eligendi vis an. Ea vix oratio mollis, ad per lucilius maluisset mediocritatem? Errem molestie liberavisse ne sed, cu his habemus molestie.');
-INSERT INTO `mind_subjects` VALUES(4, 'SUB-120701-001-A', 'Common Grammer Mistakes', 'english', 'grammar', 'intermediate', 'grammar, mistakes', 'Reque falli ne eam, similique efficiendi quo no. Sea id solet phaedrum, sit no partem facilis, impetus eligendi efficiantur et eum! Mea eius persequeris ea, an sed ullum eirmod, vis id etiam lucilius. Mel omnis ubique ad, ad vis labore quidam intellegat? Eu his ferri populo ridens, alienum commune usu et, no primis labores vix. Pro ex modus ubique vidisse?\n\nEt vim utamur postulant, vim tamquam probatus ex? Est sint atomorum an? Te sea malis mediocritatem, et ius consul officiis postulant. Modo oratio aliquando et eam.\n\nIudico tollit iriure his te. No eam graecis mediocritatem, pro ut putent accusata, tempor integre lobortis ne vel. At mei civibus blandit, adhuc consequuntur te eam, eu sed mazim perfecto efficiantur. Quando laboramus intellegebat ea sea, vel ea saepe impetus senserit? Dolor accusamus nec te, pri in sanctus vulputate comprehensam, ne clita ridens feugait mea!\n\nId sint epicurei concludaturque sit, an qui errem deserunt dissentiunt. Ut usu primis assentior. Est viris clita ex, ut odio menandri mea, te eum dicit facilisis theophrastus. An quo mundi appareat, vivendo civibus eligendi vis an. Ea vix oratio mollis, ad per lucilius maluisset mediocritatem? Errem molestie liberavisse ne sed, cu his habemus molestie.');
+INSERT INTO `mind_subjects` VALUES(4, 'SUB-120701-001-A', 'Common Grammar Mistakes', 'english', 'grammar', 'intermediate', 'grammar, mistakes', 'Reque falli ne eam, similique efficiendi quo no. Sea id solet phaedrum, sit no partem facilis, impetus eligendi efficiantur et eum! Mea eius persequeris ea, an sed ullum eirmod, vis id etiam lucilius. Mel omnis ubique ad, ad vis labore quidam intellegat? Eu his ferri populo ridens, alienum commune usu et, no primis labores vix. Pro ex modus ubique vidisse?\n\nEt vim utamur postulant, vim tamquam probatus ex? Est sint atomorum an? Te sea malis mediocritatem, et ius consul officiis postulant. Modo oratio aliquando et eam.\n\nIudico tollit iriure his te. No eam graecis mediocritatem, pro ut putent accusata, tempor integre lobortis ne vel. At mei civibus blandit, adhuc consequuntur te eam, eu sed mazim perfecto efficiantur. Quando laboramus intellegebat ea sea, vel ea saepe impetus senserit? Dolor accusamus nec te, pri in sanctus vulputate comprehensam, ne clita ridens feugait mea!\n\nId sint epicurei concludaturque sit, an qui errem deserunt dissentiunt. Ut usu primis assentior. Est viris clita ex, ut odio menandri mea, te eum dicit facilisis theophrastus. An quo mundi appareat, vivendo civibus eligendi vis an. Ea vix oratio mollis, ad per lucilius maluisset mediocritatem? Errem molestie liberavisse ne sed, cu his habemus molestie.');
 INSERT INTO `mind_subjects` VALUES(5, 'SUB-120701-002-A', 'How to do your taxes', 'personal', 'financial', 'intermediate', 'taxes, diy', 'Expetenda accommodare ea nec, in eros perpetua senserit qui? An percipit vulputate cum, erat doming suscipiantur ea est, cum ne maiestatis mediocritatem. Mea democritum neglegentur ad, in erant euismod has, rebum tantas doming nam te. An quo movet indoctum, singulis cotidieque ut eam? Quas tantas quidam cum ne, an qui adhuc tamquam, eam ad vidit affert commune?\n\nHis ceteros noluisse splendide cu, mucius accusamus no eum, sit et probo summo quidam. Ut rebum copiosae voluptatum his! Duo soluta repudiandae ea, sea legimus phaedrum eu, mea nibh bonorum sapientem ne! Et tota velit facilis quo, tale habeo mollis ad cum. Id per insolens assentior, ipsum admodum delicata mel no.\n\nEt sea posse virtute ponderum, noster alienum delicata mea an, vidit similique cu mel! Usu id nostro facilisis. Omnes oportere ei mea, graece officiis definiebas eam ea, an fierent nominati his. Ius altera alienum senserit in. Ei doming menandri tincidunt sit, idque oratio hendrerit id nam?\n\nReque falli ne eam, similique efficiendi quo no. Sea id solet phaedrum, sit no partem facilis, impetus eligendi efficiantur et eum! Mea eius persequeris ea, an sed ullum eirmod, vis id etiam lucilius. Mel omnis ubique ad, ad vis labore quidam intellegat? Eu his ferri populo ridens, alienum commune usu et, no primis labores vix. Pro ex modus ubique vidisse?\n\nEt vim utamur postulant, vim tamquam probatus ex? Est sint atomorum an? Te sea malis mediocritatem, et ius consul officiis postulant. Modo oratio aliquando et eam.\n\nIudico tollit iriure his te. No eam graecis mediocritatem, pro ut putent accusata, tempor integre lobortis ne vel. At mei civibus blandit, adhuc consequuntur te eam, eu sed mazim perfecto efficiantur. Quando laboramus intellegebat ea sea, vel ea saepe impetus senserit? Dolor accusamus nec te, pri in sanctus vulputate comprehensam, ne clita ridens feugait mea!');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `self_beliefs`
+--
+
+CREATE TABLE `self_beliefs` (
+  `_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `title` varchar(40) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `category` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `tags` varchar(40) COLLATE utf8_unicode_ci DEFAULT '',
+  `content` text COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`_id`),
+  UNIQUE KEY `record` (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `self_beliefs`
+--
+
+INSERT INTO `self_beliefs` VALUES(1, 'BEL-120701-001-A', 'Modern Islam', 'islam', '21st century', 'Audiam legimus in cum, populo pericula assueverit ne nam, nam habemus convenire vituperatoribus te. Eu malis graeco vituperatoribus mea, est ne splendide intellegebat, ei natum vitae vim. Eam no suas putant inciderint, qui an dicunt labores, dicta referrentur in vix. Ius ullum ubique essent cu. Te ius laoreet nominavi, in saperet accumsan omnesque eos, option latine cu duo. Sanctus postulant qualisque eos te, atqui pertinacia ex sit.\n\nAn quem justo viderer vix, dico ridens sed id, ea aperiam definitionem eos. Oratio scripta eloquentiam id duo, te altera quaeque sadipscing sea! Ex eam mazim intellegam quaerendum, reque imperdiet at mel? Dolores praesent et eam? Ne iusto scribentur eos.');
+INSERT INTO `self_beliefs` VALUES(2, 'BEL-120701-002-A', 'King David', 'judaism', 'king david', 'Probo ubique cu cum. Audire iuvaret voluptatum ut his, pro illud audiam concludaturque ne.\n\nAudiam legimus in cum, populo pericula assueverit ne nam, nam habemus convenire vituperatoribus te. Eu malis graeco vituperatoribus mea, est ne splendide intellegebat, ei natum vitae vim. Eam no suas putant inciderint, qui an dicunt labores, dicta referrentur in vix. Ius ullum ubique essent cu. Te ius laoreet nominavi, in saperet accumsan omnesque eos, option latine cu duo. Sanctus postulant qualisque eos te, atqui pertinacia ex sit.');
+INSERT INTO `self_beliefs` VALUES(3, 'BEL-120701-003-A', 'Jesus & The Last Supper', 'christianity', 'jesus, last supper', 'Sanctus postulant qualisque eos te, atqui pertinacia ex sit.\n\nAn quem justo viderer vix, dico ridens sed id, ea aperiam definitionem eos. Oratio scripta eloquentiam id duo, te altera quaeque sadipscing sea! Ex eam mazim intellegam quaerendum, reque imperdiet at mel? Dolores praesent et eam? Ne iusto scribentur eos.');
+INSERT INTO `self_beliefs` VALUES(4, 'BEL-120709-001-A', 'The way of the Buddha', 'buddhism', 'principles, lifestyle', 'Verti delicata vel? Erant labore dignissim est at, ius ex essent aperiam oporteat. Vitae tempor invenire est ut, id mea primis discere appareat? Perfecto dissentiet per et, vidit brute eu mei, mel fierent salutatus in.\n\nCum an choro placerat philosophia, ei agam paulo ocurreret vix! Est fuisset mandamus cu, cu pri perpetua adipiscing. Molestie voluptua duo ad, te assum recteque scribentur vix! Habeo nullam cu usu, pri ea civibus persequeris consectetuer, usu ei persecuti deseruisse.');
+INSERT INTO `self_beliefs` VALUES(5, 'BEL-120709-002-A', 'Why I don''t believe in God', 'atheism', 'god, atheism', 'Option accusamus ei per! Ut vis veri iudico erroribus. Quo cu quot purto simul?\n\nSimilique sadipscing pro in, mei no primis lobortis, oratio consul incorrupte ad nec. Hinc facer aeterno eu duo. Ei mea justo choro nostrud, vitae quaeque corrumpit sea ad? Ei ius natum nobis iudicabit, mei alienum phaedrum expetenda te, mel tota veri debet cu. Te vix quodsi quaestio, sit placerat deseruisse te, nam error zril fastidii at? Te quot officiis pri, mea ea vivendo oporteat');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `self_quotes`
+--
+
+CREATE TABLE `self_quotes` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `self_quotes`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `self_ranks`
+--
+
+CREATE TABLE `self_ranks` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `self_ranks`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `self_timeline`
+--
+
+CREATE TABLE `self_timeline` (
+  `_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `title` varchar(40) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `category` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `tags` varchar(40) COLLATE utf8_unicode_ci DEFAULT '',
+  `date` varchar(6) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `time` varchar(6) CHARACTER SET utf8 DEFAULT NULL,
+  `content` text COLLATE utf8_unicode_ci NOT NULL,
+  `address` varchar(20) CHARACTER SET utf8 DEFAULT NULL,
+  PRIMARY KEY (`_id`),
+  UNIQUE KEY `record` (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `self_timeline`
+--
+
+INSERT INTO `self_timeline` VALUES(1, 'TIM-120701-001-A', 'First day of Church', 'change', 'church', '080430', '01:00p', 'Vel solum reprehendunt in, nam eu decore facilis indoctum. Omnes albucius per et? Eum ut ocurreret voluptaria! Purto maluisset ea vis, ex simul ancillae eum, graece iisque percipit ad nec!\n\nDuo cetero imperdiet in, admodum phaedrum dissentiunt pri ex. Ne vis soluta consulatu concludaturque. Id integre omittam offendit cum, no nisl tincidunt eos, oblique aliquam eligendi te eos. Agam probo atqui per eu, aeque ornatus constituto mea ad.', 'ADD-121111-003-A');
+INSERT INTO `self_timeline` VALUES(2, 'TIM-120701-002-A', 'Quit drinking alcohol', 'epiphany', 'alcohol, quit', '990312', NULL, 'Ne vis soluta consulatu concludaturque. Id integre omittam offendit cum, no nisl tincidunt eos, oblique aliquam eligendi te eos. Agam probo atqui per eu, aeque ornatus constituto mea ad.\n\nQui fugit propriae noluisse ne, qui vivendum rationibus id, te insolens necessitatibus mea. Est ad assum fuisset, est eruditi tibique insolens id? Diam illum signiferumque ea nam, per solum primis honestatis ut, ut diam copiosae mnesarchum eam? Nam ad sone', 'ADD-121111-004-A');
+INSERT INTO `self_timeline` VALUES(3, 'TIM-120701-003-A', 'Questioned God', 'doubt', 'doubt, god', '050715', '03:00a', 'Quando nonumes ex quo, expetenda abhorreant eu mei, ut maiorum phaedrum mea. Docendi forensibus nam at, id aeterno ullamcorper est, odio adhuc aliquando usu cu. No usu eros magna dolores, his sint ornatus gloriatur ad, vis verear laoreet singulis in. Habemus adipisci reprimique quo an, veri quidam causae at quo?\n\nNe aeque denique repudiare eos! Velit melius no nam. Ut usu facer vitae reprehendunt. Id modo sale rebum est. Sea in prima oratio assentior, per libris forensibus constituto no. Per id sint mollis signiferumque, ea modus sanctus qui?', 'ADD-121111-005-A');
+INSERT INTO `self_timeline` VALUES(4, 'TIM-120803-001-A', 'Reclaim Faith', 'reaffirm', 'strengthen, faith', '110901', NULL, 'Semper periculis imperdiet ne per. Menandri suavitate no cum, ea lorem movet dignissim nec, mutat senserit percipitur cu sit. Id sea ludus omnium labitur, ei his nonumes democritum, vim cu omnium quaestio scripserit. Vix ei commune dissentiunt ullamcorper. Iisque iuvaret eos te, sit habemus partiendo comprehensam in.\n\nEst scaevola pertinacia eloquentiam et? Et his noluisse molestiae persecuti, at dicant feugiat urbanitas eos. Vix assentior constituto scripserit ne. Et mei labores delectus menandri, ne platonem persecuti pri. Vel quem sint dissentiunt ad! Vim duis accusamus ne.', 'ADD-121111-006-A');
 
 -- --------------------------------------------------------
 
@@ -906,15 +762,15 @@ INSERT INTO `mind_subjects` VALUES(5, 'SUB-120701-002-A', 'How to do your taxes'
 --
 
 CREATE TABLE `voice_bills` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `record` varchar(20) NOT NULL DEFAULT '',
+  `_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` varchar(20) NOT NULL DEFAULT '',
   `debate` varchar(20) NOT NULL DEFAULT '',
   `rep` varchar(20) NOT NULL DEFAULT '',
   `content` text NOT NULL,
   `question` varchar(80) NOT NULL DEFAULT '',
   `deadline` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `voice_bills`
@@ -925,21 +781,46 @@ INSERT INTO `voice_bills` VALUES(1, 'SPO-120812-001-A', 'DEB-120229-001-A', 'USE
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `voice_budget`
+--
+
+CREATE TABLE `voice_budget` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user` varchar(20) NOT NULL DEFAULT '',
+  `scope` varchar(10) NOT NULL DEFAULT '',
+  `zip` varchar(5) NOT NULL DEFAULT '',
+  `category` varchar(20) NOT NULL DEFAULT '',
+  `party` varchar(20) NOT NULL DEFAULT '',
+  `status` varchar(20) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `voice_budget`
+--
+
+INSERT INTO `voice_budget` VALUES(1, 'USE-120704-001-A', 'local', '03826', 'selectman', 'republican', 'active');
+INSERT INTO `voice_budget` VALUES(2, 'USE-120812-002-A', 'state', '03865', 'representative', 'democrat', 'campaigning');
+INSERT INTO `voice_budget` VALUES(3, 'USE-120905-002-A', 'national', '94041', 'senator', 'republican', 'inactive');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `voice_debates`
 --
 
 CREATE TABLE `voice_debates` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `record` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `title` varchar(40) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `scope` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `category` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `tags` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
   `content` text COLLATE utf8_unicode_ci NOT NULL,
   `zip` varchar(5) CHARACTER SET utf8 NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `record` (`record`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  PRIMARY KEY (`_id`),
+  UNIQUE KEY `record` (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `voice_debates`
@@ -954,43 +835,18 @@ INSERT INTO `voice_debates` VALUES(5, 'DEB-120701-002-A', 'Alternative to strict
 -- --------------------------------------------------------
 
 --
--- Table structure for table `voice_reps`
---
-
-CREATE TABLE `voice_reps` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `user` varchar(20) NOT NULL DEFAULT '',
-  `scope` varchar(10) NOT NULL DEFAULT '',
-  `zip` varchar(5) NOT NULL DEFAULT '',
-  `category` varchar(20) NOT NULL DEFAULT '',
-  `party` varchar(20) NOT NULL DEFAULT '',
-  `status` varchar(20) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `voice_reps`
---
-
-INSERT INTO `voice_reps` VALUES(1, 'USE-120704-001-A', 'local', '03826', 'selectman', 'republican', 'active');
-INSERT INTO `voice_reps` VALUES(2, 'USE-120812-002-A', 'state', '03865', 'representative', 'democrat', 'campaigning');
-INSERT INTO `voice_reps` VALUES(3, 'USE-120905-002-A', 'national', '94041', 'senator', 'republican', 'inactive');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `voice_votes`
 --
 
 CREATE TABLE `voice_votes` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `record` varchar(20) NOT NULL DEFAULT '',
+  `_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` varchar(20) NOT NULL DEFAULT '',
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `vote` varchar(1) NOT NULL DEFAULT '',
   `content` text NOT NULL,
   `source` varchar(20) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `voice_votes`

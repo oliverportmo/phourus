@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'backbone'], function($){
+define(['jquery', 'underscore', 'backbone', 'views/alerts'], function($, _, Backbone, vAlerts){
 	var mRegister= Backbone.Model.extend({
 		urlRoot: '/rest/register',				
 		defaults: {

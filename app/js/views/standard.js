@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'backbone', 'text!../../templates/standard.html'], function($, a, b, template){
+define(['jquery', 'underscore', 'backbone', 'text!../../templates/standard.html'], function($, _, Backbone, template){
 	var vStandard= Backbone.View.extend({
 		el: '#standard',
 		tagName: 'div',

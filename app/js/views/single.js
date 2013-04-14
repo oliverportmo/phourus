@@ -1,14 +1,22 @@
-define(['jquery', 'underscore', 'backbone', 'models/single', 'text!../../templates/meta.html'], function($, a, b, model, tMeta){
+define(['jquery', 'underscore', 'backbone', 'models/single', 'text!../../templates/meta.html', 'models/types'], function($, _, Backbone, model, tMeta, mTypes){
 	var vSingle= Backbone.View.extend({
 		el: '#single',
 		tagName: 'div',
 		
 		initialize: function(){
-
+			//window.onhashchange= this.hash;
+			//this.hash();
 		},
 		
-		load: function(record){
-			this.model= new model({id: record});
+		hash: function(){
+			var hash= window.location.hash;
+			var slashed= hash.split('/');
+			console.log(this);
+			//this.load(slashed[1]);	
+		},
+		
+		load: function(id){
+			this.model= new model({id: id});
 			var me= this;
 			this.model.fetch({
 				success: function(){
@@ -41,7 +49,7 @@ define(['jquery', 'underscore', 'backbone', 'models/single', 'text!../../templat
 			interact+= '</div>';
 			
 			var type= this.model.get('type');
-			var parent= PHOURUS.TYPES.get_parent(type);
+			var parent= mTypes.get_parent(type);
 			output+= '<img src="/assets/icons/large/'+parent+'/<%= type %>.png" style="margin-right: 10px;">'; 
 			output+= '<span style="display: block;padding-top: 4px;font-size: 20px; font-weight: bold; text-transform: uppercase;"><%= type %></span>';
 			switch(type)

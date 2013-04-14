@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'backbone'], function($){
+define(['jquery', 'underscore', 'backbone'], function($, _, Backbone){
 	var cAlerts= Backbone.Collection.extend({
 
 	});	

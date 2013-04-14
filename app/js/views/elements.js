@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'backbone', 'text!../../templates/elements.html'], function($, a, b, template){
+define(['jquery', 'underscore', 'backbone', 'text!../../templates/elements.html'], function($, _, Backbone, template){
 	var vElements= Backbone.View.extend({
 		el: '#elements',
 		tagName: 'div',
@@ -11,7 +11,7 @@ define(['jquery', 'underscore', 'backbone', 'text!../../templates/elements.html'
 				var page= window.location.hash;
 				page= page.replace('!', '');
 				page= page.replace('#', '');
-				if(page=== 'core' || page=== 'earth' || page=== 'mind' || page=== 'voice' || page=== 'faith'){
+				if(page=== 'core' || page=== 'earth' || page=== 'mind' || page=== 'voice' || page=== 'self'){
 					me.open(page);
 				}	
 			});

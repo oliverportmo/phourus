@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'backbone', 'init', 'text!../../templates/footer.html'], function($, a, b, PH, template){
+define(['jquery', 'underscore', 'backbone', 'text!../../templates/footer.html'], function($, _, Backbone, template){
 	var vFooter= Backbone.View.extend({
 		el: '#footer',
 		tagName: 'footer',

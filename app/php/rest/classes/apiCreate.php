@@ -6,6 +6,20 @@ class apiCreate {
 	var $_keys; 
     var $_values; 
 	
+	public function user($params){
+		
+	}
+	
+	public function single($params){
+		
+	}
+	
+	public function session($user, $password){
+		
+	}
+	
+	
+	/** LEGACY **/
 	public function __construct($model){
 		
 		$data= $model;

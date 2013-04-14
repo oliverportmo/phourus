@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'backbone', 'views/elements'], function($, a, b, vElements){
+define(['jquery', 'underscore', 'backbone', 'views/elements', 'models/types'], function($, _, Backbone, vElements, mTypes){
 	var vHome= Backbone.View.extend({
 		el: '#home',
 		tagname: 'div',
@@ -27,7 +27,7 @@ define(['jquery', 'underscore', 'backbone', 'views/elements'], function($, a, b,
 		
 		render: function(){
 			var output= '<h1>Welcome to Phourus</h1><br />';
-			_.each(PHOURUS.TYPES.attributes, function(type){
+			_.each(mTypes.attributes, function(type){
 				var element= type.element;
 				var sections= type.sections;
 				if(element!== 'core'){ 	

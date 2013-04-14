@@ -16,51 +16,49 @@ require.config({
         underscore: {
             exports: '_'
         },
+        forms: {
+        	deps: ['backbone'],
+	      	exports: 'forms'  
+        },
         jquery: {
             exports: '$'
         }
     }
 });
-var PHOURUS= PHOURUS || {};
 window.debug= function(input){
-	if(PHOURUS.SETTINGS.debug=== true){
-		console.log(input);
-	}
+	console.log(input);
 }
 
-define(['jquery', 'underscore', 'backbone', 'router/router', 'models/types', 'models/settings', 'models/user', 'collections/alerts', 'auth'], function($, _, Backbone, rPhourus, mTypes, mSettings, mUser, cAlerts, auth){	
-	PHOURUS.TYPES= new mTypes();
-	PHOURUS.EVENTS= _.extend({}, Backbone.Events);
-	//PHOURUS.ALERTS= new cAlerts();
-	PHOURUS.SETTINGS= new mSettings();
-	PHOURUS.SETTINGS.debug= true;
-	PHOURUS.SETTINGS.dev= true;
+define(['jquery', 'underscore', 'backbone', 'router/router', 'models/types', 'models/settings', 'models/session', 'collections/alerts', 'auth'], function($, _, Backbone, router, mTypes, mSettings, mSession, cAlerts, auth){	
+	
+	//This section should be put somewhere else
+	/** TOKEN **/
 	var token= 'guest';
 	if(!_.isNull(localStorage.getItem("user"))){
 		var data= $.parseJSON(localStorage.getItem("user"));
-		mUser.set(data);
+		mSession.set(data);
 		
-		if(mUser.expired()){
-			mUser.clear();	
+		if(mSession.expired()){
+			mSession.clear();	
 			localStorage.removeItem("user");
 		}else{
-			token= mUser.get('token'); 	 
+			token= mSession.get('token'); 	 
 	    }
 	}
 	
+	// ** X-API-KEY **/
+	//@token is either 'guest' or valid session token
 	Backbone._sync= Backbone.sync;
     var TokenSync= function(method, model, options) {
         options.headers = options.headers || {};
         _.extend(options.headers, { 'x-api-key': token });
-        //return originalSync.call(model, method, model, options);
         Backbone._sync(method, model, options);
     };
     Backbone.sync= TokenSync; 
     
-    PHOURUS.ROUTER= new rPhourus();
+    /** HISTORY **/
 	Backbone.history = Backbone.history || new Backbone.History({});
-   	Backbone.history.start();	  
- 	return PHOURUS;
+   	Backbone.history.start();	 
 });
 
 

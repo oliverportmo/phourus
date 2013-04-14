@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'backbone', 'models/settings', 'text!../../templates/filter.html'], function($, a, b, mSettings, tFilter){	
+define(['jquery', 'underscore', 'backbone', 'models/settings', 'text!../../templates/filter.html'], function($, _, Backbone, mSettings, tFilter){	
 	var vFilter= Backbone.View.extend({
 		el: '#filter',
 		tagName: 'div',
@@ -10,13 +10,20 @@ define(['jquery', 'underscore', 'backbone', 'models/settings', 'text!../../templ
 		events: {
 			"change #sort": "selected",
 			"change #direction": "selected",
-			"click ul#mode li a": "mode"	
+			"change #type": "create",
+			"click ul#mode li a": "mode",	
+		},
+		
+		create: function(e){
+			var id= e.currentTarget.id;
+			var value= e.currentTarget.value;
+			window.location.hash= '#add/'+value;
 		},
 		
 		selected: function(e){
 			var id= e.currentTarget.id;
 			var value= e.currentTarget.value;
-			PHOURUS.SETTINGS.set(id, value);
+			mSettings.set(id, value);
 		},
 		
 		mode: function(e){
@@ -24,7 +31,7 @@ define(['jquery', 'underscore', 'backbone', 'models/settings', 'text!../../templ
 			if(mode !== 'group'){
 				$("ul#mode li a").removeClass("selected");
 				$("ul#mode li a#"+mode).addClass("selected");
-				PHOURUS.SETTINGS.set("mode", mode);
+				mSettings.set("mode", mode);
 			}	
 		},
 		

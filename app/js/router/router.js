@@ -1,10 +1,11 @@
-define(['jquery', 'underscore', 'backbone', 'views/home', 'views/stream', 'views/single', 'views/contact', 'views/standard', 'views/profile', 'views/form', 'views/register', 'views/footer', 'views/header', 'views/none', 'models/settings'], function($, a, b, vHome, vStream, vSingle, vContact, vStandard, vProfile, vForm, vRegister, vFooter, vHeader, vNone, mSettings){ 	
+define(['jquery', 'underscore', 'backbone', 'views/home', 'views/stream', 'views/single', 'views/contact', 'views/standard', 'views/user', 'views/form', 'views/register', 'views/footer', 'views/header', 'views/none', 'models/settings', '../../modules/govs', '../../modules/groups', '../../modules/teachers', '../../modules/companies'], function($, _, Backbone, vHome, vStream, vSingle, vContact, vStandard, vUser, vForm, vRegister, vFooter, vHeader, vNone, mSettings, GOVS, GROUPS, TEACHERS, COMPANIES){ 	
 	var router= Backbone.Router.extend({
 		
 		initialize: function(){
+			//Need to rethink PHOURUS, perhaps IoC container
+			window.PHOURUS= {};
 			PHOURUS.HEADER= new vHeader();
 			PHOURUS.FOOTER= new vFooter();
-			PHOURUS.SETTINGS= new mSettings();
 			$('div.content').hide();
 			//this.stream();
 		},
@@ -15,8 +16,8 @@ define(['jquery', 'underscore', 'backbone', 'views/home', 'views/stream', 'views
 			'!stream': 'stream',
 			'!single/:record': 'single',
 			'add/:type': 'add',
-			'edit/:record': 'edit',
-			'profile/:record': 'profile',
+			'edit/:id': 'edit',
+			'user/:id': 'user',
 			'me': 'profile',
 			'contact': 'contact',
 			'register': 'register',
@@ -27,7 +28,12 @@ define(['jquery', 'underscore', 'backbone', 'views/home', 'views/stream', 'views
 			'!earth': 'element',
 			'!mind': 'element',
 			'!voice': 'element',
-			'!faith': 'element',
+			'!self': 'element',
+			
+			'!govs': 'govs',
+			'!groups': 'groups',
+			'!teachers': 'teachers',
+			'!companies': 'companies',
 
 			':none': 'none'
 		},
@@ -35,6 +41,22 @@ define(['jquery', 'underscore', 'backbone', 'views/home', 'views/stream', 'views
 		element: function(){
 			if(!PHOURUS.STREAM){ PHOURUS.STREAM= new vStream(); }
 			this.show('stream');
+		},
+		govs: function(){
+			if(!PHOURUS.GOVS){ PHOURUS.GOVS= new GOVS(); }	
+			this.show('govs');
+		},
+		groups: function(){
+			if(!PHOURUS.GROUPS){ PHOURUS.GROUPS= new GROUPS(); }	
+			this.show('groups');
+		},
+		teachers: function(){
+			if(!PHOURUS.TEACHERS){ PHOURUS.TEACHERS= new TEACHERS(); }	
+			this.show('teachers');
+		},
+		companies: function(){
+			if(!PHOURUS.COMPANIES){ PHOURUS.COMPANIES= new COMPANIES(); }	
+			this.show('companies');
 		},
 		homepage: function(){
 			if(!PHOURUS.HOME){ PHOURUS.HOME= new vHome(); }
@@ -53,19 +75,19 @@ define(['jquery', 'underscore', 'backbone', 'views/home', 'views/stream', 'views
 			if(!PHOURUS.CONTACT){ PHOURUS.CONTACT= new vContact(); }
 			this.show('contact');
 		},
-		profile: function(record){
-			if(!PHOURUS.PROFILE){ PHOURUS.PROFILE= new vProfile(); }
-			PHOURUS.PROFILE.load(record);
-			this.show('profile');
+		user: function(id){
+			if(!PHOURUS.USER){ PHOURUS.USER= new vUser(); }
+			PHOURUS.USER.load(id);
+			this.show('user');
 		},
 		add: function(type){
 			if(!PHOURUS.FORM){ PHOURUS.FORM= new vForm(); }
 			PHOURUS.FORM.add(type);
 			this.show('form');
 		},
-		edit: function(record){
+		edit: function(id){
 			if(!PHOURUS.FORM){ PHOURUS.FORM= new vForm(); }
-			PHOURUS.FORM.edit(record);
+			PHOURUS.FORM.edit(id);
 			this.show('form');
 		},
 		register: function(){
@@ -86,5 +108,5 @@ define(['jquery', 'underscore', 'backbone', 'views/home', 'views/stream', 'views
 			$('div.content#'+input).show();
 		}
 	});
-   	return router;
+   	return new router();
 });

@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'backbone', 'text!../../templates/login.html', 'text!../../templates/logout.html', 'text!../../templates/forgot.html', 'text!../../templates/email/password.html', 'models/login', 'models/user', 'models/email', 'views/alerts'], function($, a, b, tLogin, tLogout, tForgot, tPassword, mLogin, mUser, mEmail, vAlerts){
+define(['jquery', 'underscore', 'backbone', 'text!../../templates/login.html', 'text!../../templates/logout.html', 'text!../../templates/forgot.html', 'text!../../templates/email/password.html', 'models/login', 'models/session', 'models/email', 'views/alerts'], function($, _, Backbone, tLogin, tLogout, tForgot, tPassword, mLogin, mSession, mEmail, vAlerts){
 	var vLogin= Backbone.View.extend({
 		el: '#login',
 		tagName: 'div',
@@ -19,7 +19,7 @@ define(['jquery', 'underscore', 'backbone', 'text!../../templates/login.html', '
 		
 		form: function(){	
 			var output= {};
-			output.email= 'asgasd';	
+			output.email= $('#email').val();	
 			output.password= $('#password').val();	
 			return output;
 		},
@@ -47,18 +47,16 @@ define(['jquery', 'underscore', 'backbone', 'text!../../templates/login.html', '
 			localStorage.setItem("user", user);
 			var data= localStorage.getItem("user");
 			var output= $.parseJSON(data);
-			mUser.set(output);
+			mSession.set(output);
 			//update views: me tab, login, register, profile
 			this.render(); 	
 		},
 		
 		logout: function(){
-			console.log(mUser);
 			localStorage.removeItem("user");
-			mUser.clear();
+			mSession.clear();
 			this.render();
 			vAlerts.add('complete', 'You have been logged out successfully.', '1', '');	
-			console.log(mUser);	
 		},
 		
 		forgot: function(){
@@ -87,9 +85,9 @@ define(['jquery', 'underscore', 'backbone', 'text!../../templates/login.html', '
 		render: function(){
 			var data= {};
 			var compiled= _.template(tLogin, data);
-			if(!_.isUndefined(mUser.get("token"))){
-				if(!mUser.expired()){
-					compiled= _.template(tLogout, mUser.toJSON());
+			if(!_.isUndefined(mSession.get("token"))){
+				if(!mSession.expired()){
+					compiled= _.template(tLogout, mSession.toJSON());
 				}
 			}
 			this.$el.html(compiled);
