@@ -1,11 +1,10 @@
 define(['jquery', 'underscore', 'backbone', 'text!../../templates/footer.html'], function($, _, Backbone, template){
-	var vFooter= Backbone.View.extend({
+	var view= Backbone.View.extend({
 		el: '#footer',
 		tagName: 'footer',
 		
 		initialize: function(){
-			this.render();
-				
+			this.render();		
 		},
 		
 		render: function(){
@@ -15,5 +14,5 @@ define(['jquery', 'underscore', 'backbone', 'text!../../templates/footer.html'],
 			return compiled;
 		},
 	});
-	return vFooter;
+	return view;
 });

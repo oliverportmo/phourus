@@ -1,6 +1,6 @@
 define(['jquery', 'underscore', 'backbone'], function($, _, Backbone){
-	var cAlerts= Backbone.Collection.extend({
+	var collection= Backbone.Collection.extend({
 
 	});	
-	return cAlerts;
+	return collection;
 });	

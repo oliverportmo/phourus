@@ -3,8 +3,7 @@ define(['jquery', 'underscore', 'backbone', 'text!../../templates/elements.html'
 		el: '#elements',
 		tagName: 'div',
 		
-		initialize: function(){
-			this.render();	
+		initialize: function(){	
 			$('#elements').hide();
 			var me= this;
 			Backbone.history.bind("all", function(route, router){

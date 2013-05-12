@@ -1,8 +1,8 @@
 define(['jquery', 'underscore', 'backbone'], function($, _, Backbone){
-	var mAlert= Backbone.Model.extend({
+	var model= Backbone.Model.extend({
 		defaults: {
 			hidden: false
 		}		
 	});
-	return mAlert;
+	return model;
 });	

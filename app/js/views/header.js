@@ -1,5 +1,5 @@
 define(['jquery', 'underscore', 'backbone', 'text!../../templates/header.html', 'views/login'], function($, _, Backbone, template, vLogin){
-	var vHeader= Backbone.View.extend({
+	var view= Backbone.View.extend({
 		el: '#header',
 		tagName: 'header',
 		
@@ -13,7 +13,7 @@ define(['jquery', 'underscore', 'backbone', 'text!../../templates/header.html', 
 			this.$el.html(compiled);
 			this.login= new vLogin();
 			return compiled;
-		},
+		}
 	});
-	return vHeader;
+	return view;
 });

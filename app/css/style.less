@@ -53,17 +53,6 @@ span#account a:hover {
 color: #f90;    
 }
 
-
-div#temp {
-background-image: url('/assets/logos/logo-grey.jpg');
-width: 589px;
-height: 110px;  
-}
-
-div#temp:hover {
-background-image: url('/assets/logos/logo-hover.jpg');
-}
-
 div#login {
 width: 365px;
 float: right;
@@ -114,6 +103,100 @@ line-height: 8px;
 fieldset {
 	border: none;
 }
+
+
+div.widget {
+	float: left;
+	border: solid 2px #ccc;
+	padding: 10px;
+	margin: 4px;
+	
+	h3 {
+		margin: 0px;
+		padding: 0px;
+		font-size: 16px;
+		letter-spacing: 2px;
+	}
+	ul {
+		margin: 0px;
+		padding: 0px;
+
+		li {
+			display: inline;	
+			text-transform: uppercase;
+			font-weight: bold;
+			font-size: 12px;
+			cursor: pointer;	
+			margin-right: 4px;
+			padding-right: 10px;
+			border-right: dotted 2px #333;	
+		}
+		li:hover {
+			color: #f90;
+		}
+		li:last-child {
+			border-right: none;
+		}
+	}
+}
+
+div.widget.small { width: 300px; }
+div.widget.medium { width: 608px; }
+div.widget.large {width: 938px; }
+
+div#govs-home {
+	
+	#list {
+		margin-top: 20px;
+		border-top: dotted 1px #333;
+	}
+}
+
+.item {
+	border-bottom: dotted 1px #333;
+	padding-bottom: 20px;
+	
+	h3 {
+		margin-top: 10px;
+	}
+	
+	img {
+		float: left;
+		width: 160px;
+	}
+
+	.details {
+	
+		.box {
+			float: left;
+			width: 200px;	
+			margin-right: 10px;	
+		}
+	}		
+}	
+
+
+dl {
+	display: block;
+	width: 200px;
+	/*float: left;*/
+	
+	dt {
+		float: left;
+		width: 100px;	
+		font-weight: bold;
+	}
+	
+	dd {
+		
+	}
+}	
+
+
+
+
+
+
 
 
 
