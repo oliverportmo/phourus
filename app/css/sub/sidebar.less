@@ -1,0 +1,86 @@
+/* SIDEBAR */
+#sidebar {
+  width: 210px;
+  float: left;
+  text-align: right;
+  border-right: solid 2px #000;
+  background-color: #2a2a2a;
+  .box-shadow();
+  height: 100%;
+  margin-bottom: -5000px;
+  padding-bottom: 5000px;
+  /*border-right: solid 1px #ccc;*/
+  h3 { 
+    clear: both;
+    font-size: 13px;
+    letter-spacing: 2px;
+    background-color: #222;
+    background-image: url('/assets/layout/texture.png');
+    border-bottom: groove 2px #333;
+    margin: 0px;
+    padding: 10px 10px 10px 0px;
+    color: #eee;
+    a {
+      color: #ddd;
+    }
+  }
+  h3.collapsible { 
+    cursor: pointer;  
+  }
+  a {
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: #777; 
+    text-decoration: none; 
+    font-weight: normal;
+  }
+  a:hover {
+    color: #f90;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  a.action {
+    color: #18b;   
+    font-size: 12px; 
+    text-decoration: none;
+  }
+  a.action:hover {
+    color: #f90;
+  }
+  a.link {
+    width: 100px;
+  }
+  li {
+    margin-bottom: 4px; 
+    list-style: none;
+  }
+  select {
+  width: 180px;
+  }
+  
+  .button {
+    float: right;
+  }
+  table {
+    display: none;
+  }
+  input, button {
+    margin: 16px 0px 0px 0px;
+  }
+}
+ 
+
+/** ELEMENT SPECIFIC **/
+#sidebar {
+  h3.earth { border-color: #1a5; }  
+  h3.mind { border-color: #18c; }  
+  h3.voice { border-color: #e42; } 
+  h3.self { border-color: #f90; }
+  
+  /** HOVER **/
+  h3.core:hover { color: #ccc; }
+  h3.earth:hover { color: #1a5; }
+  h3.mind:hover { color: #18c; }
+  h3.voice:hover { color: #e42; }
+  h3.self:hover { color: #f90; }
+}

@@ -1,0 +1,8 @@
+<% _.each(data.views, function(category, name){ %>
+	<h3><%= name %></h3>
+	<ul>
+		<% _.each(category, function(view, name){ %>
+			<li><a href="#!<%= data.type %>/<%= data.id %>/<%= view %>" id="<%= view %>" class="sidebar"><%= view %></a></li>
+		<% }); %>		
+	</ul>
+<% }); %>

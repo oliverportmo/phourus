@@ -32,7 +32,7 @@ define(['jquery', 'underscore', 'backbone'], function($, a, b){
       
       Backbone.sync = function(method, model, options) {
         options.headers = options.headers || {};
-        _.extend(options.headers, { 'Authorization': 'Basic ' + token });
+        _.extend(options.headers, { 'Authentication': 'Basic ' + token });
         return originalSync.call(model, method, model, options);
       };
     },

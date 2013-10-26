@@ -1,0 +1,10 @@
+<h3 <% if(collapsible=== true){ %>class="collapsible"<% } %>>Create</h3>
+<select id="types">
+  <% _.each(types, function(value, key){ %>
+    <option disabled="true">--- <%= value.element %> ---</option>
+    <% _.each(value.sections, function(value, key){ %>
+      <option value="<%= key %>"><%= key %></option>  
+    <% }); %> 
+  <% }); %> 
+</select>
+<input type="button" value="Create" class="button green" id="add" />

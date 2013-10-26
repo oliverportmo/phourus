@@ -1,0 +1,40 @@
+<div class="post">
+  <div class="type">  
+    <img src="/assets/icons/small/<%= meta.element %>/<%= meta.type %>.png"  class="icon">
+    <span class="label">
+      <%= meta.type %>
+    </span> 
+	</div>
+	<a href="#!post/<%= post.post_id %>" class="title"><%= post.title %></a>
+	<div class="clear"></div>
+  <a href="#profile/<%= user.id %>">
+		<span class="pic">
+			<img src="<%= pic('users', user.id, user.img) %>" width="100">
+		</span>
+	</a>
+	<div class="influence">
+		<span style="color:#777; font-size: 14px;">Influence</span>
+		<br>
+		<span style="font-size: 48px;"><%= meta.influence %></span>
+		<br />
+		<span class="action">Edit Post</span>
+		<br>
+	</div>
+	<ul class="user">
+	  <li class="username"><a href="/#!user/"><%= user.username %></a> <span style="font-size: 70%; font-weight: bold;">(<%= post.influence %>)</strong></li>
+	  <li><%= address.city %>, <%= address.state %></li>
+	  <li><em><%= meta.created %></em></li>
+	</ul>	
+	<div class="clear"></div>
+	<% if(!_.isUndefined(post.content)){ %>
+	 <p class="excerpt"><%= post.content.substr(0, 200) %>... <a href="#!single/<%= meta.type %>/<%= post.post_id %>">[read more]</a></p>
+  <% } %>
+	<ul class="meta">
+		<li class="views"><strong>Views:</strong> <%= meta.views %></li>
+		<li class="comments"><strong>Comments:</strong> <%= meta.comments %></li>
+		<li class="shares"><strong>Shares:</strong> <%= meta.shares %></li>
+		<li class="likes"><strong>Likes:</strong> <%= meta.influence %></li>
+	</ul>
+  
+	<div class="clear"></div>
+</div>

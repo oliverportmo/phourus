@@ -1,0 +1,15 @@
+<div class="review">
+	<a href="#user/<%= data.user_id %>">
+		<span class="pic">
+			<img src="<%= pic('users', data.user_id, 'jpg') %>" width="70" height="70">
+		</span>
+	</a>
+	<span><%= data.first %> <%= data.last %></span>
+	<span class="author"><%= data.username %></span> 
+	<span class="date"><%= data.created %></span>
+	<a href="#!single/<%= data.id %>" class="title"><%= data.title %></a>
+	<img src="/assets/layout/stars.png" />	
+	<br clear="all">
+	<p><%= data.content %></p>
+	<br clear="all">
+</div>

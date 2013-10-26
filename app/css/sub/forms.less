@@ -1,0 +1,108 @@
+/** ELEMENTS **/
+fieldset {
+border: none;
+}
+
+input {
+padding: 4px;   
+height: 36px;
+width: 350px;
+background-color: #fafafa;
+border: solid 1px #ddd;
+font-size: 18px;
+color: #333;    
+}
+
+input[type=checkbox] {
+width: inherit;
+height: inherit;	
+}
+
+label {
+font-size: 22px;
+color: #bbb;
+font-style: italic;	
+margin: 0px 40px 20px 0px;
+}
+
+select {
+height: 36px;
+padding: 4px;
+width: 350px;
+background-color: #fafafa;
+border: solid 1px #ddd;
+font-size: 18px;
+color: #333;    
+}
+
+textarea {
+padding: 4px;
+height: 360px;
+background-color: #fafafa;
+border: solid 1px #ddd;
+font-size: 14px;
+color: #333;    
+}
+
+.checkbox {
+width: 55px;
+height: 20px;       
+background-image: url('/assets/icons/general/checkbox/small/off.png');  
+background-repeat: no-repeat;
+cursor: pointer;
+}
+
+.checkbox.on {
+background-image: url('/assets/icons/general/checkbox/small/on.png');       
+}
+
+/** BACKBONE FORMS **/
+#fields {
+width: 440px;
+float: left;
+
+  fieldset {
+    ul {
+      li {
+              
+        label {
+          color: #333; 
+          font-size: 14px; 
+        }
+        
+        .bbf-editor {
+          input {
+            height: 30px;
+            width: 390px;
+          }
+        }
+        
+        .bbf-help {
+          
+        }
+        
+        .bbf-error {
+          
+        }        
+      }
+    }
+  }
+}
+
+/** SPECIAL **/
+#description {
+width: 410px;
+text-align: left;
+float: left;
+font-size: 20px;
+line-height: 40px;
+margin-top: 20px;
+}
+
+.form {
+  margin: auto;
+  
+  textarea {
+    width: 850px;
+  }
+}

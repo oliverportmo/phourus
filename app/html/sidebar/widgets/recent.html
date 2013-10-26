@@ -1,0 +1,9 @@
+<h3 <% if(collapsible=== true){ %>class="collapsible"<% } %>>Recent Posts</h3>
+<ul>
+<% _.each(data, function(model, key){ %>
+  <% var item = model.toJSON(); %>
+  <% if(item.type !== undefined){ %>
+    <li><a href="#!single/<%= item.type %>/<%= item.id %>"><%= item.type %>:<br /> <%= item.title %></a></li>  
+  <% } %>
+<% }); %>
+</ul>

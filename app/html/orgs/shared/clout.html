@@ -1,0 +1,27 @@
+<div class="left">
+  <h2>Awards &amp; Honors</h2>
+  <% _.each(data, function(item, key){ %>
+    <% if(item.get("type") === "award"){ %>
+      <div class="award">
+        <img src="/assets/profiles/default.png" width="50" height="50" />
+        <h3><%= item.get("title") %></h3>
+        <h4><%= item.get("date") %></h4>
+        <p><%= item.get("content") %></p>
+      </div>
+    <% } %>
+  <% }); %>
+</div>
+
+<div class="right">
+  <h2>Press & Testimonials</h2>
+  <% _.each(data, function(item, key){ %>
+    <% if(item.get("type") === "press"){ %>
+      <div class="press">
+        <img src="/assets/profiles/default.png" width="50" height="50" />
+        <h3><%= item.get("title") %></h3>
+        <h4><%= item.get("date") %></h4>
+        <p><%= item.get("content") %></p>
+      </div>
+    <% } %>
+  <% }); %>
+</div>

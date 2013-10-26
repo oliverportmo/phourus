@@ -1,0 +1,111 @@
+<div class="fill blue"></div>
+<div class="fill green"></div>
+<div class="fill red"></div>
+
+<div id="what">
+  <h3>What is Phourus</h3>
+  <p>Phourus is both a software solution and a social network. It is broken up into 4 sections called <span class="term">Elements</span>, which are explained in more detail below.</p> 
+</div>
+<div id="why">
+  <h3>Why Phourus</h3>
+  <p>The U.S. Government is built on a system of 'checks' and 'balances', where each unit of Government keeps other units 'in check'. Phourus is an application 'for us', meaning citizens, to be represented more accurately in local, county and state Government.</p>
+</div>
+<div class="clear"></div>
+
+<h1>The 4 Elements</h1>
+<p>Society is a delicate balance between economy & environment, education, government & politics, and the belief systems of it's citizens. Phourus is a social community that breaks these components of society into 4 sections called <span class="term">Elements</span></p>
+
+<% _.each(data, function(type){ %>
+	<% if(!_.isFunction(type)){ %>
+		<div class="element">
+			<a href="javascript:void(0)" class="button-home" id="button-<%= type.element %>"></a>
+			<h3>Phourus <%= type.element %></h3>
+			<span><%= type.description %></span>
+			<br />
+			<a href="javascript: void(0)" class="learn" id="learn-<%= type.element %>">Learn More</a>
+			<div class="clear"></div>
+			<div id="about-<%= type.element %>" class="about">
+  			<% _.each(type.sections, function(value, key, list){ %>
+  				<div class="feature">
+  					<img src="/assets/icons/large/<%= type.element %>/<%= key %>.png" class="icon">
+  					<div class="label" id="<%= type.element %>:<%= key %>"><%= value %></div>
+  					<div class="description"><%= data.description(key) %></div>		
+  				</div>
+  			<% }); %>
+			</div>
+			<div class="clear"></div>
+		</div>
+	<% } %>
+<% }); %>
+
+<h1>Stream</h1>
+<p>All of the content on Phourus can be found on the <span class="term">Stream</span>. The Stream is where you can filter all of the content on Phourus to find the kind of information you are interested in. You can browse by parameters such as date, location, and Influence, toggle the different types of posts, and also select what users show up in your Stream.</p>
+<img src="/assets/layout/home/stream.png" />
+<p>Whenever you create content on Phourus, you can change privacy settings to customize who sees your post, and who doesn't. This gives you tremendous flexibility with the content you create.</p>
+
+<h1>Organizations</h1>
+<p>Each <span class="term">Element</span> is associated with an <span class="term">Organization</span> type that exists in the REAL world, and not just cyberspace.</p>
+
+<div class="org">
+<h3>Phourus Earth</h3>
+<h4>Companies</h4>
+<div>Executives | Employees</div>
+<p>Phourus <span class="term">Companies</span> are businesses that wish to connect better with their local community through social media. It is also a platform for these organizations to get exposure they may not otherwise get in mainstream media.</p>
+</div>
+
+<div class="org">
+<h3>Phourus Voice</h3>
+<h4>Govs</h4>
+<div>Reps | Citizens</div>
+<p>Phourus <span class="term">Govs</span> are local, county and state Governments in the United States. There are approximately 50,000 cities, towns, states and counties in the U.S., and Phourus wants to help them organize better.</p>
+</div>
+
+<div class="org">
+<h3>Phourus Mind</h3>
+<h4>Schools</h4>
+<div>Teachers | Students</div>
+<p>In addition to the 50,000 local governments in the US, there are over 15,000 school systems. Phourus builds technology to help these <span class="term">Schools</span> organize better while also connecting them with their local community.</p>
+</div>
+
+<div class="org" style="border-bottom: none;">
+<h3>Phourus Self</h3>
+<h4>Groups</h4>
+<div>Leaders | Members</div>
+<p>Phourus <span class="term">Groups</span> encompass religious institutions, charities, social service groups and other 'higher purpose' organizations who believe in open expression, and are proud to share their belief system with the Phourus community.</p>
+</div>
+<div class="clear"></div>
+
+<p>When using <span class="term">Organizations</span> on Phourus, you can see content created from members of that Organization.</p> 
+
+<p>For example, if you select a <span class="term">School</span>, you can see all the <span class="term">Subjects</span>, <span class="term">Questions</span> and <span class="term">Answers</span> created by <span class="term">Teachers</span> and <span class="term">Students</span> from that school.</p>
+
+<p>If you select a <span class="term">Gov</span>, such as the city of Boston, Massachusetts, you can see all <span class="term">Debates</span>, <span class="term">Bills</span> and <span class="term">Votes</span> from <span class="term">Reps</span> and <span class="term">Citizens</span> within Boston.</p>
+
+<p>In addition, all <span class="term">Organizations</span> have advanced features that are not available in the <span class="term">Stream</span>.</p>
+
+<div class="clear"></div>
+<h1>Influence</h1>
+
+<p>Influence is a number rating given to nearly every post, user and organization on Phourus. It is based on an algorithm that takes parameters such as number of views, comments, and likes to come up with a numeric score from 0 to 100. This score indicates to other users on Phourus how credible a post or user is.</p>
+
+<img src="/assets/layout/home/influence.jpg" />
+<p>The idea behind Influence is that the best material rises to the top, making Phourus a competition for creating valuable content.</p>
+
+<h1>Getting Started</h1>
+<br />
+<div id="signup">
+<h3>Not yet a member of Phourus?</h3>
+<div>Create a free account</div>
+<a href="/#signup" class="button blue">Signup Now</a>  
+</div>
+
+<div id="signorg">
+<h3>Want to sign up an organization for Phourus?</h3>
+<div>Company | Gov | Schools | Groups</div>
+<a href="/#!orgs/signup" class="button blue">Signup an Organization</a>  
+</div>
+<div class="clear"></div>
+<h2 style="margin-top: 20px;">Already a member? <a href="">Login here</a></h2>
+
+<h1>Contact Us</h1>
+<p>Phourus is founded on social collaboration and should evolve to meet the requirements of it's users, but can only do so with sufficient feedback. We welcome ideas on how to improve Phourus, and would like to know of any issues you may encounter while using this site. Please use <a href="/#contact">the contact page</a> to let us know what you think.</p>

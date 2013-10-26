@@ -1,0 +1,42 @@
+<div class="left">
+  <h3>Summary</h3>
+  <div id="summary"><%= org.about %></div>
+  <br />
+  <div id="custom">
+    <iframe width="560" height="315" src="//www.youtube.com/embed/YF5BB2NSgSY" frameborder="0" allowfullscreen></iframe>
+  </div>
+</div>
+<div id="stats" class="right">
+  <h3>Community</h3>
+  <dl>
+    <% if(org['type'] === 'gov'){ %><dt>Population:</dt><% } %>
+    <% if(org['type'] === 'company'){ %><dt>Employees:</dt><% } %>
+    <% if(org['type'] === 'school'){ %><dt>Students & Faculty:</dt><% } %>
+    <% if(org['type'] === 'group'){ %><dt>Members:</dt><% } %>
+  	<dd><%= org.people %></dd>
+  	<dt>Users:</dt>
+  	<dd><%= stats.members %></dd>
+  	<dt>Pending:</dt>
+  	<dd><%= stats.pending %></dd>
+  	<dt>Avg User Influence:</dt>
+  	<dd><%= stats.avg_user %></dd>
+  </dl>	
+  <h3>Stats</h3>
+  <dl>
+  	<dt>Views:</dt>
+  	<dd><%= stats.views %></dd>
+  	<dt>Thumbs:</dt>
+  	<dd><%= stats.thumbs %></dd>
+  	<dt>Comments:</dt>
+  	<dd><%= stats.comments %></dd>
+  	<dt>Follows:</dt>
+  	<dd><%= stats.follows %></dd>
+  </dl>	
+  <h3>Posts</h3>
+  <dl>
+  	<dt>Total Posts:</dt>
+  	<dd><%= stats.posts %></dd>
+  	<dt>Avg Post Influence:</dt>
+  	<dd><%= stats.avg_post %></dd>	
+  </dl>	
+</div>
