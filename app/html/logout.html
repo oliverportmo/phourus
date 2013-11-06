@@ -1,2 +1,14 @@
-<a href="#!profile/<%= record%>" id="<%= record%>"><%= first %> <%= last %></a> |
-<a href="#" id="logout">Logout</a>
+<a href="#profile/<%= user_id %>" id="<%= user_id%>"><img src="/assets/pics/users/<%= user_id %>.png" height="60" /></a>
+<div id="welcome">Welcome back to <strong>Phourus</strong>!
+  <ul>
+    <li>
+      <a href="#user/<%= user_id %>" id="<%= user_id %>">My Account</a>
+    </li>
+    <li>
+      <a href="#!stream" id="me">My Posts</a>
+    </li>
+    <li>
+      <a href="javascript:void(0)" id="logout">Logout</a>
+    </li>
+  </ul>
+</div>

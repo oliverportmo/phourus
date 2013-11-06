@@ -1,4 +1,4 @@
-define ["jquery", "underscore", "backbone", "js/modules/stream/views/filter", "js/views/elements", "js/views/alerts", "js/modules/stream/collections/posts", "text!html/stream/stream.html", "text!html/stream/post.html", "js/models/types", "js/models/settings"], ($, _, Backbone, vFilter, vElements, vAlerts, cPosts, tStream, tPost, mTypes, mSettings) ->
+define ["jquery", "underscore", "backbone", "js/modules/stream/views/filter", "js/views/elements", "js/views/alerts", "js/modules/stream/collections/posts", "text!html/stream/stream.html", "text!html/items/post.html", "js/models/types", "js/models/settings", "js/models/session"], ($, _, Backbone, vFilter, vElements, vAlerts, cPosts, tStream, tPost, mTypes, mSettings, mSession) ->
 
 	view = Backbone.View.extend(
 	    className: "stream"
@@ -30,16 +30,32 @@ define ["jquery", "underscore", "backbone", "js/modules/stream/views/filter", "j
 	          self.update()
 	
 	        error: (collection, response) ->
-	          Backbone.Events.trigger {response: response, location: "modules/stream/views/stream", action: "filter", type: "error"}
+	          
+           if response.status is 503
+             Backbone.Events.trigger "alert", {type: "error", message: "Stream could not be updated", response: response, location: "modules/stream/views/stream", action: "filter"}
+           if response.status is 404
+             if _.isUndefined(mSession.get("id")) or _.isUndefined(mSession.get("user_id")) or mSession.get("user_id") is 0
+               $("#stream").html "<h2 style='text-align: center'>You must be logged-in to see posts from your friends, followers, and those following you.</h2>"
+             else
+               $("#stream").html "<h2 style='text-align: center'>No posts found based on your criteria</h2>"
 	
 	
-	    update: ->
-	      self = @
-	      $("#stream").html ""
-	      _.each @collection.models, (model) ->
-	        data = model.toJSON()
-	        data.meta.element = mTypes.get_parent(data.meta.type)
-	        $("#stream").append _.template(tPost, {user: data.user, meta: data.meta, post: data.post, address: data.address, pic: self.pic})
+      update: ->
+        self = @
+        $("#stream").html ""
+        _.each @collection.models, (model) ->
+          data = model.toJSON()
+          unless _.isUndefined(data.meta) 
+            data.meta.element = mTypes.get_parent(data.meta.type)
+              
+            if parseInt(data.stats.thumbs) is 0
+              positive = 0
+            else
+              positive = (parseInt(data.stats.positive) / parseInt(data.stats.thumbs)) * 100 
+              
+            owner = false
+            owner = true if data.user.id is mSession.get("user_id")
+            $("#stream").append _.template(tPost, {user: data.user, meta: data.meta, post: data.post, address: data.address[0], stats: data.stats, pic: self.pic, owner: owner, positive: positive, format_date: self.format_date})
 	
 	
 	    render: ->

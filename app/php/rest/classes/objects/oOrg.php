@@ -10,6 +10,9 @@ class oOrg
 	  }else{
 	    $params['mode']= 'id';
   	  $ids= dRead::orgs($params);
+  	  if(is_numeric($ids)){
+    	  return $ids;
+  	  }
   	  foreach($ids as $id){
     	  $out[]= dRead::orgs(array('id' => $id['id']));
   	  }

@@ -1,4 +1,4 @@
-define ["jquery", "underscore", "backbone", "marionette", "text!html/orgs/home.html", "text!html/orgs/listing.html", "js/modules/orgs/collections/orgs", "js/views/sidebar"], ($, _, Backbone, marionette, template, iList, cOrgs, vSidebar) ->
+define ["jquery", "underscore", "backbone", "marionette", "text!html/orgs/home.html", "text!html/items/org.html", "js/modules/orgs/collections/orgs", "js/views/sidebar"], ($, _, Backbone, marionette, template, tOrg, cOrgs, vSidebar) ->
   
   ###      
   item = Backbone.Marionette.ItemView.extend(
@@ -28,7 +28,7 @@ define ["jquery", "underscore", "backbone", "marionette", "text!html/orgs/home.h
 	          self.display()
 	
 	        error: (collection, response) ->
-	          Backbone.Events.trigger {response: response, location: "modules/orgs/views/home", action: "read", type: "error"}
+	          Backbone.Events.trigger "alert", {type: "error", message: "Could not load Orgs", response: response, location: "modules/orgs/views/home", action: "read"}
     	
     display: ->
       self = @
@@ -38,7 +38,7 @@ define ["jquery", "underscore", "backbone", "marionette", "text!html/orgs/home.h
       list = @$el.find '#list'
       _.each @collection.models, (model) ->
         data = model.toJSON()
-        item = _.template(iList, {org: data.org, stats: data.stats, address: data.address[0], pic: self.pic})
+        item = _.template(tOrg, {org: data.org, stats: data.stats, address: data.address[0], pic: self.pic})
         list.append item
       
       

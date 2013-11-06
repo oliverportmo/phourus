@@ -1,0 +1,43 @@
+<div class="item">
+	<h3><a href="javascript: void(0)" id="<%= id %>" class="<%= org.type %> edit"><%= org.name %></a></h3>
+	<div class="pic">	
+		<a href="javascript: void(0)" id="<%= id %>" class="<%= org.type %> edit"><img src="<%= pic('orgs', org.id, org.img) %>" width="120" /></a>
+	</div>
+	<div class="box">
+		<dl>
+		  <% if(org.type === 'gov'){ %><dt>Population:</dt><% } %>
+		  <% if(org.type === 'company'){ %><dt>Employees:</dt><% } %>
+		  <% if(org.type === 'school'){ %><dt>Students & Faculty:</dt><% } %>
+		  <% if(org.type === 'group'){ %><dt>Members:</dt><% } %>
+			<dd><%= org.people %></dd>
+			<dt>Users:</dt>
+			<dd><%= stats.members %></dd>
+			<dt>Pending:</dt>
+			<dd><%= stats.pending %></dd>
+		</dl>	
+	</div>
+	<div class="box">
+		<dl>
+			<dt>Total Posts:</dt>
+			<dd><%= stats.posts %></dd>
+			<dt>Avg Post:</dt>
+			<dd><%= stats.avg_post %></dd>
+			<dt>Avg User:</dt>
+			<dd><%= stats.avg_user %></dd>
+		</dl>	
+	</div>
+	<div class="box">
+		<dl>
+			<dt>Views:</dt>
+			<dd><%= stats.views %></dd>
+			<dt>Thumbs:</dt>
+			<dd><%= stats.thumbs %></dd>
+			<dt>Comments:</dt>
+			<dd><%= stats.comments %></dd>
+			<dt>Follows:</dt>
+			<dd><%= stats.follows %></dd>
+		</dl>	
+	</div>
+	<button id="<%= id %>" class="button blue edit">Edit this Org</button>
+	<br clear="all" />
+</div>

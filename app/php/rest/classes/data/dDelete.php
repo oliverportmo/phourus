@@ -1,13 +1,11 @@
 <?php
 
 class dDelete {
-	
-	# POST
-	public static function post($id){
-		
+  	
+	public function post($id){
+		return self::delete($id, 'posts');
 	}
 	
-	// user, org, view, thumb, comment, follow, clout, review, address, tag
 	public static function delete($id, $type){
   	$q= uQueries::delete($id, $type);
     $result= new uResult();
@@ -15,10 +13,10 @@ class dDelete {
     return $out;	
 	}
 		
-	# SESSION
-	public static function session($token){
-
+	public function session($token){
+  	return $token;
 	}
-}
 	
-?>	
+}
+
+?>

@@ -1,19 +1,19 @@
+<div class="heading"></div>
 <h1><%= data.action %> <%= data.title %></h1>
 <div id="fields"></div>
 <div id="description"><%= data.description %></div>
 <br clear="all" />
-<span style="color: #333; font-size: 12px; font-style: italic;">Content</span>
-<br />
-<textarea></textarea>		
+<br />	
 <div id="footing">
 	<% if(data.mode== 'add'){ %>
-		<input type="button" value="Create New" class="button green" />
-		<a href="#!stream" class="button red">Cancel Create</a>
+		<input id="create" type="button" value="Create New" class="button green" />
+		<button class="button red back">Cancel Create</button>
 	<% } %>
 	
 	<% if(data.mode== 'edit'){ %>
-		<input type="button" value="Save Changes" class="button green" />
-		<a href="#!stream" class="button red">Cancel Edit</a>
+		<input id="update" type="button" value="Save Changes" class="button green" />
+		<button class="button blue back">Cancel Edit</button>
+		<button id="delete" class="button red">Delete Post</button>
 	<% } %>
 	<div class="clear"></div>
 </div>    

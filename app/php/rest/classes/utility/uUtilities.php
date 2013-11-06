@@ -3,6 +3,71 @@
 class uUtilities
 {
 	
+  public function splitter($model){
+  	//posts table
+  	$posts= array();
+  	$posts['user_id']= $model['user_id'];
+  	$posts['privacy']= $model['privacy'];
+  	$posts['influence']= 0;
+  	$posts['type']= $model['type'];
+  	//detail table
+  	$detail= $model;
+  	$detail['post_id']= 'LAST_INSERT_ID()';
+  	unset($detail['id']);
+  	unset($detail['created']);
+  	unset($detail['modified']);
+  	unset($detail['user_id']);
+  	unset($detail['privacy']);
+  	unset($detail['influence']);
+  	unset($detail['type']);
+  	$out= array();
+  	$out['posts']= $posts;
+  	$out['detail']= $detail;
+  	return $out;	
+	}
+	
+	public function pic($pic, $type, $id){
+    $allowed= array("gif", "jpg", "png");
+    $name= $pic['name'];
+    $exp= explode('.', $name);
+    $ext= end($exp);
+    if($ext== 'jpeg'){
+      $ext= 'jpg';
+    }
+    if(!in_array($ext, $allowed)){
+      return $ext;
+    }
+    
+    $update= false;
+    if($type== 'user'){
+      $update= oUser::update($id, array('img' => $ext));
+    }else if($type== 'org'){
+      $update= oOrg::update($id, array('img' => $ext));
+    }
+    if($update == false){
+      return 'Update failed';
+    }
+
+    $upload= uUtilities::upload($id, $id.'.'.$ext, $type, $pic);
+    return $upload;
+	}
+	
+	public function upload($id, $filename, $type, $pic){
+  	$dir= $_SERVER['DOCUMENT_ROOT'].'/assets/pics/'.$type.'s/';
+  	
+  	// delete
+  	$exts= array("gif", "jpg", "png");
+  	foreach($exts as $ext){
+    	$current= $dir.$id.".".$ext;
+    	if(file_exists($current)){
+      	unlink($current);
+    	}
+  	}
+  	
+  	// upload
+  	return move_uploaded_file($pic['tmp_name'], $dir.$filename);
+	}
+	
 	/** REPLACE WITH CONSTANTS **/	
 	public function table($type)
 	{

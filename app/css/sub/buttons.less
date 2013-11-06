@@ -1,15 +1,13 @@
 /** BUTTONS **/
 button.button, a.button, input.button, input#searchsubmit {
   display: block;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 12px !important;
-  font-weight: bold;
-  color: #ffffff !important;
+  font-family: "Century Gothic", Helvetica, sans-serif;
+  font-size: 14px !important;
+  color: #eee !important;
   width: 160px;
   height: 40px;
   text-align: center;
-  text-transform: uppercase;
-  text-shadow: 0px -1px 0px rgba(000,000,000,0.6), 0px 1px 0px rgba(000,000,000,0.6);
+  /**text-shadow: 0px -1px 0px rgba(127,127,127,0.9), 0px 1px 0px rgba(000,000,000,0.9);**/
   border-radius: 3px;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
@@ -19,6 +17,7 @@ button.button, a.button, input.button, input#searchsubmit {
   text-decoration: none;
   margin: 4px;
   float: left;
+  .inset()
 }
 
 a.button {
@@ -31,6 +30,7 @@ cursor: pointer;
 text-shadow: 0px -1px 0px rgba(000,000,000,0), 0px 0px 0px rgba(000,000,000,0);
 background: -moz-linear-gradient(top, #f60 0%,#f90);
 background: -webkit-gradient(linear, left top, left bottom, from(#f60), to(#f90));
+font-weight: normal !important;
 /*-moz-box-shadow: 0px 0px 4px rgba(000,000,000,0.6), inset 0px 1px 0px rgba(255,255,255,0.3);
 -webkit-box-shadow: 0px 0px 4px rgba(000,000,000,0.6), inset 0px 1px 0px rgba(255,255,255,0.3);*/
 /*-moz-box-shadow: 0px 2px 4px rgba(000,000,000,0.6);
@@ -73,12 +73,13 @@ background: -webkit-gradient(linear, left top, left bottom, from(#a00),to(#d00))
 /** HOME **/
 a.button-home {
 display: block;
-width: 180px;
-height: 180px;  
+width: 200px;
+height: 200px;  
 cursor: pointer;
 float: left;
 }
 
+/* Original
 a.button-home#button-earth { background-image: url('/assets/elements/white/earth.png'); }
 a.button-home#button-mind { background-image: url('/assets/elements/white/mind.png'); }
 a.button-home#button-voice { background-image: url('/assets/elements/white/voice.png'); }
@@ -87,6 +88,17 @@ a.button-home#button-earth:hover { background-image: url('/assets/elements/black
 a.button-home#button-mind:hover { background-image: url('/assets/elements/black/mind.png'); }
 a.button-home#button-voice:hover { background-image: url('/assets/elements/black/voice.png'); }
 a.button-home#button-self:hover { background-image: url('/assets/elements/black/self.png'); }
+*/
+
+a.button-home#button-earth { background-image: url('/assets/elements/color/earth.png'); }
+a.button-home#button-mind { background-image: url('/assets/elements/color/mind.png'); }
+a.button-home#button-voice { background-image: url('/assets/elements/color/voice.png'); }
+a.button-home#button-self { background-image: url('/assets/elements/color/self.png'); }
+/*
+a.button-home#button-earth:hover { background-image: url('/assets/elements/white/earth.png'); }
+a.button-home#button-mind:hover { background-image: url('/assets/elements/white/mind.png'); }
+a.button-home#button-voice:hover { background-image: url('/assets/elements/white/voice.png'); }
+a.button-home#button-self:hover { background-image: url('/assets/elements/white/self.png'); }*/
 
 /** GOOGLE **/
 button.social {

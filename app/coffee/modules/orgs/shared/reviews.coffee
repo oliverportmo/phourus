@@ -13,7 +13,7 @@ define ["jquery", "underscore", "backbone", "text!html/widgets/posts.html", "js/
           self.render()
 
         error: (collection, response) ->
-	        Backbone.Events.trigger {response: response, location: "modules/orgs/shared/reviews", action: "read", type: "error"}
+	        Backbone.Events.trigger "alert", {type: "error", message: "Reviews could not be loaded", response: response, location: "modules/orgs/shared/reviews", action: "read"}
           
     render: ->
       self = @

@@ -6,13 +6,6 @@ define ["jquery", "underscore", "backbone", "text!html/sidebar/form.html", "js/m
     
     initialize: (options) ->
       @render()
-      
-    events: 
-      "click #create": "select"
-    
-    select: (e) ->
-      id = $("#posts").val()
-      window.location = "#add/" + id
 
     render: ->
       types = mTypes.attributes

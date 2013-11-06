@@ -87,33 +87,29 @@ define(["jquery", "underscore", "backbone"], function($) {
           schema.element = element;
           schema.category = "Text";
           schema.privacy = privacy;
-          schema.tags = "Text";
-          schema.content = "Text";
+          schema.content = "TextArea";
           break;
         case "links":
           schema.url = "Text";
           schema.element = element;
           schema.category = "Text";
           schema.privacy = privacy;
-          schema.tags = "Text";
-          schema.content = "Text";
+          schema.content = "TextArea";
           break;
         case "ideas":
           schema.title = "Text";
           schema.element = element;
           schema.category = "Text";
           schema.privacy = privacy;
-          schema.tags = "Text";
-          schema.content = "Text";
+          schema.content = "TextArea";
           break;
         case "events":
           schema.title = "Text";
           schema.element = element;
           schema.category = "Text";
           schema.privacy = privacy;
-          schema.tags = "Text";
-          schema.content = "Text";
           schema.date = "Date";
+          schema.content = "TextArea";
           break;
         case "calculator":
         case "checklist":
@@ -121,8 +117,6 @@ define(["jquery", "underscore", "backbone"], function($) {
           schema.title = "Text";
           schema.category = "Text";
           schema.privacy = privacy;
-          schema.tages = "Text";
-          schema.content = "Text";
           schema.positive = "Checkbox";
           break;
         case "subjects":
@@ -130,67 +124,74 @@ define(["jquery", "underscore", "backbone"], function($) {
           schema.category = "Text";
           schema.subcategory = "Text";
           schema.privacy = privacy;
-          schema.tags = "Text";
-          schema.content = "Text";
           schema.difficulty = "Text";
+          schema.content = "TextArea";
           break;
         case "questions":
           schema.title = "Text";
           schema.category = "Text";
           schema.subcategory = "Text";
           schema.privacy = privacy;
-          schema.tags = "Text";
-          schema.content = "Text";
           schema.difficulty = "Text";
+          schema.content = "TextArea";
           break;
         case "answers":
           schema.question = "Text";
-          schema.content = "Text";
+          schema.content = "TextArea";
           break;
         case "debates":
           schema.title = "Text";
           schema.category = "Text";
           schema.privacy = privacy;
-          schema.tags = "Text";
-          schema.content = "Text";
           schema.scope = {
             type: "Select",
             options: ["Local", "State", "National"]
           };
           schema.zip = "Text";
+          schema.content = "TextArea";
           break;
         case "votes":
           schema.vote = "Text";
-          schema.content = "Text";
           schema.source = "Text";
+          schema.content = "TextArea";
           break;
         case "bills":
           schema.debate = "Text";
           schema.rep = "Text";
-          schema.content = "Text";
           schema.question = "Text";
           schema.deadline = "DateTime";
+          schema.content = "TextArea";
           break;
         case "beliefs":
           schema.title = "Text";
           schema.category = "Text";
           schema.privacy = "Text";
-          schema.tags = "Text";
-          schema.content = "Text";
+          schema.content = "TextArea";
           break;
         case "timeline":
           schema.title = "Text";
           schema.category = "Text";
           schema.privacy = "Text";
-          schema.tags = "Text";
-          schema.content = "Text";
+          schema.content = "TextArea";
           schema.date = "Date";
           schema.time = "Time";
           break;
         case "quotes":
           schema.quote = "Text";
           schema.source = "Text";
-          schema.content = "Text";
+          schema.content = "TextArea";
+          break;
+        case "orgs":
+          schema.name = "Text";
+          schema.type = "Text";
+          schema.shortname = "Text";
+          schema.video = "Text";
+          schema.channel = "Text";
+          schema.email = "Text";
+          schema.phone = "Text";
+          schema.address = "Text";
+          schema.about = "TextArea";
+          schema.contact = "TextArea";
           break;
       }
       return schema;

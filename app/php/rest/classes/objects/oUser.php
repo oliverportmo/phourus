@@ -45,18 +45,31 @@ class oUser
   	$out['friends']= array();
   	//followers: SELECT id FROM follow WHERE target_id = $user_id
   	$followers= dRead::followers($id);
-  	foreach($followers as $follower){
-  	 $out['followers'][]= $follower['user_id'];
+  	if($followers== 404){
+    	$followers= '';
+  	}else{
+    	foreach($followers as $follower){
+    	 $out['followers'][]= $follower['user_id'];
+    	}
   	}
+  	
   	//following: SELECT id FROM app_follows WHERE user_id = $user_id
   	$following= dRead::following($id);
-  	foreach($following as $followee){
-  	 $out['following'][]= $followee['target_id'];
-  	}
+  	if($following== 404){
+    	$following= '';
+  	}else{
+    	foreach($following as $followee){
+    	 $out['following'][]= $followee['target_id'];
+    	}
+    }
   	//zip followers & following
   	$friends= array_intersect($out['followers'], $out['following']);
-  	foreach($friends as $key => $value){
-  	 $out['friends'][]= $value;
+  	if($friends== 404){
+    	$friends= '';
+  	}else{
+    	foreach($friends as $key => $value){
+    	 $out['friends'][]= $value;
+    	}
   	}
   	$out= self::commas($out);
   	return $out;

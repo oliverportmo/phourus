@@ -4,17 +4,20 @@
 @import 'sub/calendar.less';
 @import 'sub/content.less';
 @import 'sub/footer.less';
+@import 'sub/fonts.less';
 @import 'sub/forms.less';
 @import 'sub/header.less';
-@import 'sub/heading.less';
+@import 'sub/headings.less';
+@import 'sub/home.less';
+@import 'sub/items.less';
 @import 'sub/lists.less';
-@import 'sub/listing.less';
 @import 'sub/mixins.less';
 @import 'sub/nav.less';
 @import 'sub/post.less';
 @import 'sub/sidebar.less';
+@import 'sub/stream.less';
 @import 'sub/tables.less';
-@import 'sub/users.less';
+@import 'sub/user.less';
 /*
 @import 'sub/bootstrap-responsive.css';
 @import 'sub/bootstrap-min.css';
@@ -25,6 +28,11 @@
 @orange: #E47911;
 @blue: #004b91;
 @purple: #003399;
+
+@blue-light: #72afc3;
+@blue-dark: #4f9db6;
+@red-light: #d65e35;
+@red-dark: #cc3300;
 
 /** BODY **/
 body {
@@ -46,10 +54,13 @@ div#spacer {
 /** HEADINGS **/
 h1 {
   margin: 0px 0px 4px 0px;
-  padding: 0px 0px 4px 0px;   
-  font-size: 22px;
-  text-transform: uppercase;
-  border-bottom: dotted 1px #333;
+  padding: 0px 0px 10px 0px;   
+  letter-spacing: 1px;
+  font-size: 34px;
+  font-weight: normal;
+  font-family: "Arial";
+  color: #444;
+  text-transform: capitalize;
   
   a {
     text-decoration: none;

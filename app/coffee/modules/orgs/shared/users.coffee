@@ -14,12 +14,15 @@ define ["jquery", "underscore", "backbone", "text!html/orgs/shared/posts.html", 
           self.render()
 
         error: (collection, response) ->
-	        Backbone.Events.trigger {response: response, location: "modules/orgs/shared/users", action: "read", type: "error"}
+	        Backbone.Events.trigger "alert", {type: "error", message: "Users could not be loaded", response: response, location: "modules/orgs/shared/users", action: "read"}
           
     render: ->
       self = @
+      l = @collection.models.length
       compiled = _.template(tUsers, '')
       $(self.el).append compiled
+      if l is 0
+        $(self.el).append '<h3 style="text-align: center;margin: 0px; padding: 0px">No users were found based on your criteria</h3>'
       _.each @collection.models, (model) ->
         user = model.toJSON()
         user.influence = 48

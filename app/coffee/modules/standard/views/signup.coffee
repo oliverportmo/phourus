@@ -22,8 +22,8 @@ define ["jquery", "underscore", "backbone", "text!html/standard/signup.html", "t
           email.save
             success: ->
 
-            error: ->
-              vAlerts.add "message", "Registration was successful, but there was an error sending your email. Please contact us if you do not receive your password.", "1", ""
+            error: (error, response) ->
+              Backbone.Events.trigger "alert", {type: "message", message: "Registration was successful, but there was an error sending your email. Please contact us if you do not receive your password.", response: response, location: "modules/standard/views/signup", action: "save"}
 
 
         

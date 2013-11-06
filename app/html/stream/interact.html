@@ -1,0 +1,14 @@
+<h2>Comments</h2>
+<div id="comments"></div>
+<% if(!_.isEmpty(user)){ %>
+  <h2>Create Comment</h2>
+  <div class="create">
+    <div class="pic">
+      <a href="#user/<%= user.id %>"><img src="<%= pic('users', user.id, user.img) %>" width="100"></a>
+    </div>
+    <textarea placeholder="Comment goes here"></textarea>
+    <br clear="all" />
+    <button class="button green add">Post Comment</button>
+    <br clear="all" />
+  </div>
+<% } %>

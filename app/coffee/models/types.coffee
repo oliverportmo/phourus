@@ -81,39 +81,32 @@ define ["jquery", "underscore", "backbone"], ($) ->
           schema.element = element
           schema.category = "Text"
           schema.privacy = privacy
-          schema.tags = "Text"
-          schema.content = "Text"
+          schema.content = "TextArea"
         when "links"
           schema.url = "Text"
           schema.element = element
           schema.category = "Text"
           schema.privacy = privacy
-          schema.tags = "Text"
-          schema.content = "Text"
+          schema.content = "TextArea"
         when "ideas"
           schema.title = "Text"
           schema.element = element
           schema.category = "Text"
           schema.privacy = privacy
-          schema.tags = "Text"
-          schema.content = "Text"
+          schema.content = "TextArea"
         when "events"
           schema.title = "Text"
           schema.element = element
           schema.category = "Text"
           schema.privacy = privacy
-          schema.tags = "Text"
-          schema.content = "Text"
           schema.date = "Date"
-        
+          schema.content = "TextArea"
         #schema.address= {type: 'NestedModel', model: Address };
 
         when "calculator", "checklist", "matters"
           schema.title = "Text"
           schema.category = "Text"
           schema.privacy = privacy
-          schema.tages = "Text"
-          schema.content = "Text"
           schema.positive = "Checkbox"
 
         when "subjects"
@@ -121,51 +114,45 @@ define ["jquery", "underscore", "backbone"], ($) ->
           schema.category = "Text"
           schema.subcategory = "Text"
           schema.privacy = privacy
-          schema.tags = "Text"
-          schema.content = "Text"
           schema.difficulty = "Text"
+          schema.content = "TextArea"
         when "questions"
           schema.title = "Text"
           schema.category = "Text"
           schema.subcategory = "Text"
           schema.privacy = privacy
-          schema.tags = "Text"
-          schema.content = "Text"
           schema.difficulty = "Text"
+          schema.content = "TextArea"  
         when "answers"
           schema.question = "Text"
-          schema.content = "Text"
-
+          schema.content = "TextArea"
         when "debates"
           schema.title = "Text"
           schema.category = "Text"
           schema.privacy = privacy
-          schema.tags = "Text"
-          schema.content = "Text"
           schema.scope = {type: "Select", options: ["Local", "State", "National"]}
           schema.zip = "Text"
+          schema.content = "TextArea"
         when "votes"
           schema.vote = "Text"
-          schema.content = "Text"
           schema.source = "Text"
+          schema.content = "TextArea"
         when "bills"
           schema.debate = "Text"
           schema.rep = "Text"
-          schema.content = "Text"
           schema.question = "Text"
           schema.deadline = "DateTime"
+          schema.content = "TextArea"
         when "beliefs"
           schema.title = "Text"
           schema.category = "Text"
           schema.privacy = "Text"
-          schema.tags = "Text"
-          schema.content = "Text"
+          schema.content = "TextArea"
         when "timeline"
           schema.title = "Text"
           schema.category = "Text"
           schema.privacy = "Text"
-          schema.tags = "Text"
-          schema.content = "Text"
+          schema.content = "TextArea"
           
           #Datetime
           schema.date = "Date"
@@ -175,7 +162,18 @@ define ["jquery", "underscore", "backbone"], ($) ->
         when "quotes"
           schema.quote = "Text"
           schema.source = "Text"
-          schema.content = "Text"
+          schema.content = "TextArea"
+        when "orgs"
+          schema.name = "Text"
+          schema.type = "Text"
+          schema.shortname = "Text"
+          schema.video = "Text"
+          schema.channel = "Text"
+          schema.email = "Text"
+          schema.phone = "Text"
+          schema.address = "Text"
+          schema.about = "TextArea"
+          schema.contact = "TextArea"
         else
       schema
 

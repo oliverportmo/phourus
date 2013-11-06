@@ -103,6 +103,27 @@ INSERT INTO `app_follows` VALUES(6, '0000-00-00 00:00:00', '0000-00-00 00:00:00'
 INSERT INTO `app_follows` VALUES(7, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 8);
 INSERT INTO `app_follows` VALUES(8, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 7, 1);
 
+DROP TABLE IF EXISTS `app_members`;
+CREATE TABLE `app_members` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `org_id` int(11) NOT NULL,
+  `type` varchar(20) NOT NULL DEFAULT '',
+  `approved` tinyint(1) DEFAULT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
+
+INSERT INTO `app_members` VALUES(1, 1, 'rep', 1, 1);
+INSERT INTO `app_members` VALUES(2, 9, 'student', 1, 8);
+INSERT INTO `app_members` VALUES(3, 5, 'executive', 1, 2);
+INSERT INTO `app_members` VALUES(4, 13, 'leader', 1, 2);
+INSERT INTO `app_members` VALUES(5, 9, 'student', 1, 3);
+INSERT INTO `app_members` VALUES(6, 9, 'teacher', 1, 4);
+INSERT INTO `app_members` VALUES(7, 13, 'member', 1, 5);
+INSERT INTO `app_members` VALUES(8, 5, 'employee', 1, 6);
+INSERT INTO `app_members` VALUES(9, 2, 'rep', 0, 7);
+INSERT INTO `app_members` VALUES(10, 5, 'employee', 1, 8);
+
 DROP TABLE IF EXISTS `app_orgs`;
 CREATE TABLE `app_orgs` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -120,26 +141,28 @@ CREATE TABLE `app_orgs` (
   `phone` varchar(20) DEFAULT NULL,
   `fax` varchar(20) DEFAULT NULL,
   `email` varchar(60) DEFAULT NULL,
+  `people` int(11) DEFAULT NULL,
+  `img` varchar(3) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
-INSERT INTO `app_orgs` VALUES(1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, 'gov', 'Town of Gorham, ME', '', 41, 'Reque falli ne eam, similique efficiendi quo no. Sea id solet phaedrum, sit no partem facilis, impetus eligendi efficiantur et eum! Mea eius persequeris ea, an sed ullum eirmod, vis id etiam lucilius. Mel omnis ubique ad, ad vis labore quidam intellegat? Eu his ferri populo ridens, alienum commune usu et, no primis labores vix. Pro ex modus ubique vidisse?', NULL, NULL, 'Sea id solet phaedrum, sit no partem facilis, impetus eligendi efficiantur et eum! Mea eius persequeris ea, an sed ullum eirmod, vis id etiam lucilius. Mel omnis ubique ad, ad vis labore quidam intellegat? Eu his ferri populo ridens, alienu', '(603)783-1358', '(650)646-2855', 'info@jessedrelick.com');
-INSERT INTO `app_orgs` VALUES(2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, 'gov', 'City of Savannah, GA', '', 39, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `app_orgs` VALUES(3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, 'gov', 'State of Iowa', '', 50, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `app_orgs` VALUES(4, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, 'gov', 'Wayne County, MI', '', 44, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `app_orgs` VALUES(5, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, 'company', 'ABC Company', '', 42, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `app_orgs` VALUES(6, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, 'company', 'XYZ Company', '', 27, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `app_orgs` VALUES(7, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, 'company', 'ACME Corporation', '', 35, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `app_orgs` VALUES(8, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, 'company', '123 Inc', '', 38, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `app_orgs` VALUES(9, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, 'school', 'University of Miami', '', 47, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `app_orgs` VALUES(10, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, 'school', 'Amityville High School', '', 52, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `app_orgs` VALUES(11, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, 'school', 'Sand Springs Community College', '', 43, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `app_orgs` VALUES(12, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, 'school', 'Ohio State (Cincinnati)', '', 36, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `app_orgs` VALUES(13, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, 'group', 'First Orthodox Church', '', 45, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `app_orgs` VALUES(14, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, 'group', 'Synagogue of King David', '', 43, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `app_orgs` VALUES(15, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, 'group', 'Center for Alternative Religion', '', 51, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `app_orgs` VALUES(16, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, 'group', 'Temple of Religious Worship', '', 33, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `app_orgs` VALUES(1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, 'gov', 'Town of Gorham, ME', 'gorham_me', 41, 'Reque falli ne eam, similique efficiendi quo no. Sea id solet phaedrum, sit no partem facilis, impetus eligendi efficiantur et eum! Mea eius persequeris ea, an sed ullum eirmod, vis id etiam lucilius. Mel omnis ubique ad, ad vis labore quidam intellegat? Eu his ferri populo ridens, alienum commune usu et, no primis labores vix. Pro ex modus ubique vidisse?', NULL, NULL, 'Sea id solet phaedrum, sit no partem facilis, impetus eligendi efficiantur et eum! Mea eius persequeris ea, an sed ullum eirmod, vis id etiam lucilius. Mel omnis ubique ad, ad vis labore quidam intellegat? Eu his ferri populo ridens, alienu', '(542)422-1234', '(542)422-1432', 'info@gorhamme.gov', 11345, 'jpg');
+INSERT INTO `app_orgs` VALUES(2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, 'gov', 'City of Savannah, GA', 'savannah_ga', 39, 'Aliquam id tellus semper, placerat metus sed, venenatis libero.\n\nMaecenas posuere lacinia ante, non aliquet dui placerat vel. Donec id dignissim turpis. Nullam sed arcu eu quam cursus suscipit. Proin posuere enim augue, vel ullamcorper ligula viverra sed. Donec volutpat nisi mi, id porta diam volutpat dignissim. Praesent cursus dui semper, imperdiet odio in, dapibus nunc. Nulla facilisi.', NULL, NULL, 'Donec volutpat nisi mi, id porta diam volutpat dignissim. Praesent cursus dui semper, imperdiet odio in, dapibus nunc. Nulla facilisi. Vestibulum non lacus vehicula, semper odio id, sollicitudin erat. Integer sodales tempor erat, quis tempu', '(675)943-1434', '(313)642-7525', 'contact@savannahga.gov', 48760, 'gif');
+INSERT INTO `app_orgs` VALUES(3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, 'gov', 'State of Iowa', 'iowa', 50, 'Fusce sit amet velit nec felis blandit adipiscing sit amet a neque. Quisque eu interdum velit. Ut nec erat urna.\n\nMorbi id tempus massa. Etiam non orci hendrerit, interdum mi vitae, ultricies augue. Fusce sit amet nulla sollicitudin, bibendum eros vel, dapibus dui. Aenean sit amet ante nec enim ullamcorper vehicula at vitae nulla. Vivamus a ullamcorper purus. Etiam nibh risus, lacinia accumsan elementum et, ultrices vel est.', NULL, NULL, 'Phasellus adipiscing ipsum at elit vulputate, quis aliquet diam tempus. Aliquam id tellus semper, placerat metus sed, venenatis libero.\n\nMaecenas posuere lacinia ante, non aliquet dui placerat vel. Donec id dignissim turpis. Nullam sed arcu', '(513)542-6948', '(842)538-1532', 'help@iowa.gov', 2095126, 'gif');
+INSERT INTO `app_orgs` VALUES(4, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, 'gov', 'Wayne County, MI', 'wayne_county', 44, 'Fusce nisl tellus, varius non bibendum non, vestibulum id velit. Donec a augue id felis varius dapibus vel eu nulla. Proin id dui vitae nunc luctus pretium. In hac habitasse platea dictumst. Aenean dolor velit, eleifend et dolor a, euismod semper sem. Sed turpis sapien, varius non porttitor sed, scelerisque ut tortor. Morbi vel dui ac neque viverra euismod. Integer vel sem mattis velit placerat interdum. Donec tristique urna ut erat pulvinar, placerat tempor lacus aliquet. Fusce eros arcu, pulvinar sit amet massa sit amet, commodo sollicitudin arcu.', NULL, NULL, 'Vestibulum non lacus vehicula, semper odio id, sollicitudin erat. Integer sodales tempor erat, quis tempus risus feugiat vel. Fusce sit amet velit nec felis blandit adipiscing sit amet a neque. Quisque eu interdum velit. Ut nec erat urna.\n\n', '(842)538-1532', '(143)640-1449', 'waynecounty@gmail.com', 134056, 'gif');
+INSERT INTO `app_orgs` VALUES(5, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, 'company', 'ABC Company', 'abcco', 42, 'Aenean purus nunc, blandit sed metus quis, pretium rhoncus augue. Ut accumsan ac sem sed rhoncus. Sed pellentesque vulputate tempor. Curabitur augue sapien, sodales ac turpis quis, elementum egestas massa. Suspendisse id sapien augue. Curabitur condimentum ac risus eu viverra. Quisque sit amet dolor mauris. In nec iaculis augue.', NULL, NULL, 'Sed turpis sapien, varius non porttitor sed, scelerisque ut tortor. Morbi vel dui ac neque viverra euismod. Integer vel sem mattis velit placerat interdum. Donec tristique urna ut erat pulvinar, placerat tempor lacus aliquet. Fusce eros arc', '(513)492-4329', '(234)532-6549', 'contact@abcco.com', 22, 'jpg');
+INSERT INTO `app_orgs` VALUES(6, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, 'company', 'XYZ Company', 'xyzco', 27, 'Mauris sed tellus eget ipsum suscipit porta et eu leo. Integer egestas facilisis suscipit. Phasellus tempor nunc a massa lacinia consectetur. Phasellus adipiscing ipsum at elit vulputate, quis aliquet diam tempus. Aliquam id tellus semper, placerat metus sed, venenatis libero.\n\nMaecenas posuere lacinia ante, non aliquet dui placerat vel. Donec id dignissim turpis. Nullam sed arcu eu quam cursus suscipit. Proin posuere enim augue, vel ullamcorper ligula viverra sed. Donec volutpat nisi mi, id porta diam volutpat dignissim. Praesent cursus dui semper, imperdiet odio in, dapibus nunc.', NULL, NULL, 'Aenean in tincidunt tellus. Fusce nisl tellus, varius non bibendum non, vestibulum id velit. Donec a augue id felis varius dapibus vel eu nulla. Proin id dui vitae nunc luctus pretium. In hac habitasse platea dictumst. Aenean dolor velit, e', '(234)532-6549', '(410)514-7742', 'xyz@gmail.com', 5640, 'jpg');
+INSERT INTO `app_orgs` VALUES(7, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, 'company', 'ACME Corporation', 'acmecorp', 35, 'Nullam auctor posuere mauris, ut dictum velit. Aenean in tincidunt tellus. Fusce nisl tellus, varius non bibendum non, vestibulum id velit. Donec a augue id felis varius dapibus vel eu nulla. Proin id dui vitae nunc luctus pretium. In hac habitasse platea dictumst. Aenean dolor velit, eleifend et dolor a, euismod semper sem.', NULL, NULL, 'Vivamus a ullamcorper purus. Etiam nibh risus, lacinia accumsan elementum et, ultrices vel est. Donec orci nibh, aliquam et odio eget, mattis egestas odio. Fusce non quam tristique, volutpat urna non, malesuada felis. Aliquam dignissim mi v', '(143)640-1449', '(542)422-1234', 'acme@yahoo.com', 563, 'jpg');
+INSERT INTO `app_orgs` VALUES(8, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, 'company', '123 Inc', '123inc', 38, 'Quisque odio sapien, egestas non turpis eget, fringilla congue nunc. Mauris commodo venenatis facilisis. Proin quis ullamcorper enim, at tincidunt justo. Nulla et dui dictum, condimentum dui sit amet, egestas enim. Proin et ultricies arcu. Nam nibh massa, suscipit quis sapien quis, commodo accumsan mauris. Integer interdum venenatis odio, a congue nunc vulputate at. Suspendisse sit amet purus ut lacus gravida feugiat eu ac massa. Aenean iaculis nibh eget felis ultricies ultrices.', NULL, NULL, 'Nam nibh massa, suscipit quis sapien quis, commodo accumsan mauris. Integer interdum venenatis odio, a congue nunc vulputate at. Suspendisse sit amet purus ut lacus gravida feugiat eu ac massa. Aenean iaculis nibh eget felis ultricies ultri', '(410)514-7742', '(675)943-1434', '123inc@mail.com', 145, 'jpg');
+INSERT INTO `app_orgs` VALUES(9, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, 'school', 'University of Miami', 'universitymiami', 47, 'Phasellus elementum nisl non urna ultricies, vel accumsan nisi varius. Etiam at pellentesque mi. Mauris et dolor ac orci mollis scelerisque.\n\nAliquam eu dui in sem sollicitudin varius. Aenean purus nunc, blandit sed metus quis, pretium rhoncus augue. Ut accumsan ac sem sed rhoncus. Sed pellentesque vulputate tempor. Curabitur augue sapien, sodales ac turpis quis, elementum egestas massa. Suspendisse id sapien augue.', NULL, NULL, 'Ut nec erat urna.\n\nMorbi id tempus massa. Etiam non orci hendrerit, interdum mi vitae, ultricies augue. Fusce sit amet nulla sollicitudin, bibendum eros vel, dapibus dui. Aenean sit amet ante nec enim ullamcorper vehicula at vitae nulla. V', '(313)642-7525', '(513)492-4329', 'info@umiami.edu', 13473, 'png');
+INSERT INTO `app_orgs` VALUES(10, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, 'school', 'Amityville High School', 'amityvillehigh', 52, 'Proin id dui vitae nunc luctus pretium. In hac habitasse platea dictumst. Aenean dolor velit, eleifend et dolor a, euismod semper sem. Sed turpis sapien, varius non porttitor sed, scelerisque ut tortor. Morbi vel dui ac neque viverra euismod. Integer vel sem mattis velit placerat interdum. Donec tristique urna ut erat pulvinar, placerat tempor lacus aliquet. Fusce eros arcu, pulvinar sit amet massa sit amet, commodo sollicitudin arcu.', NULL, NULL, 'Donec orci nibh, aliquam et odio eget, mattis egestas odio. Fusce non quam tristique, volutpat urna non, malesuada felis. Aliquam dignissim mi vel mi vulputate, vitae faucibus mauris sodales. Nulla aliquet semper augue, vel feugiat metus eu', '(850)534-5245', '(941)539-0549', 'about@amityvillehigh.edu', 984, 'png');
+INSERT INTO `app_orgs` VALUES(11, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, 'school', 'Sand Springs Community College', 'sandspringscc', 43, 'Proin posuere enim augue, vel ullamcorper ligula viverra sed. Donec volutpat nisi mi, id porta diam volutpat dignissim. Praesent cursus dui semper, imperdiet odio in, dapibus nunc. Nulla facilisi. Vestibulum non lacus vehicula, semper odio id, sollicitudin erat. Integer sodales tempor erat, quis tempus risus feugiat vel.', NULL, NULL, 'Sed a risus odio. Phasellus elementum nisl non urna ultricies, vel accumsan nisi varius. Etiam at pellentesque mi. Mauris et dolor ac orci mollis scelerisque.\n\nAliquam eu dui in sem sollicitudin varius. Aenean purus nunc, blandit sed metus ', '(524)909-4224', '(432)549-4320', 'contact@sscc.edu', 5412, 'png');
+INSERT INTO `app_orgs` VALUES(12, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, 'school', 'Ohio State (Cincinnati)', 'ohiostate_cinci', 36, 'Vestibulum non lacus vehicula, semper odio id, sollicitudin erat. Integer sodales tempor erat, quis tempus risus feugiat vel. Fusce sit amet velit nec felis blandit adipiscing sit amet a neque. Quisque eu interdum velit. Ut nec erat urna.\n\nMorbi id tempus massa. Etiam non orci hendrerit, interdum mi vitae, ultricies augue. Fusce sit amet nulla sollicitudin, bibendum eros vel, dapibus dui. Aenean sit amet ante nec enim ullamcorper vehicula at vitae nulla. Vivamus a ullamcorper purus. Etiam nibh risus, lacinia accumsan elementum et, ultrices vel est.', NULL, NULL, 'In commodo ipsum leo, id pharetra purus sodales a. Vivamus vitae quam quis tortor ullamcorper ullamcorper eget eu nibh. Quisque odio sapien, egestas non turpis eget, fringilla congue nunc. Mauris commodo venenatis facilisis. Proin quis ulla', '(432)549-4320', '(850)534-5245', 'cincinatti@ohiostate.edu', 15447, 'png');
+INSERT INTO `app_orgs` VALUES(13, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, 'group', 'First Orthodox Church', 'firstorthodox', 45, 'Vivamus a ullamcorper purus. Etiam nibh risus, lacinia accumsan elementum et, ultrices vel est. Donec orci nibh, aliquam et odio eget, mattis egestas odio. Fusce non quam tristique, volutpat urna non, malesuada felis. Aliquam dignissim mi vel mi vulputate, vitae faucibus mauris sodales. Nulla aliquet semper augue, vel feugiat metus euismod eget.', NULL, NULL, 'Sed pellentesque vulputate tempor. Curabitur augue sapien, sodales ac turpis quis, elementum egestas massa. Suspendisse id sapien augue. Curabitur condimentum ac risus eu viverra. Quisque sit amet dolor mauris. In nec iaculis augue. Mauris ', '(607)552-6390', '(524)909-4224', 'james@firstorthodox.org', 56, 'png');
+INSERT INTO `app_orgs` VALUES(14, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, 'group', 'Synagogue of King David', 'synagoguekingdavid', 43, 'Proin id dui vitae nunc luctus pretium. In hac habitasse platea dictumst. Aenean dolor velit, eleifend et dolor a, euismod semper sem. Sed turpis sapien, varius non porttitor sed, scelerisque ut tortor. Morbi vel dui ac neque viverra euismod. Integer vel sem mattis velit placerat interdum. Donec tristique urna ut erat pulvinar, placerat tempor lacus aliquet. Fusce eros arcu, pulvinar sit amet massa sit amet, commodo sollicitudin arcu.', NULL, NULL, 'Vestibulum non lacus vehicula, semper odio id, sollicitudin erat. Integer sodales tempor erat, quis tempus risus feugiat vel. Fusce sit amet velit nec felis blandit adipiscing sit amet a neque. Quisque eu interdum velit. Ut nec erat urna.\n\n', '(941)539-0549', '(513)542-6948', 'info@kingdavidsynagogue.org', 122, 'png');
+INSERT INTO `app_orgs` VALUES(15, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, 'group', 'Center for Alternative Religion', 'centeraltreligion', 51, 'Nam nibh massa, suscipit quis sapien quis, commodo accumsan mauris. Integer interdum venenatis odio, a congue nunc vulputate at. Suspendisse sit amet purus ut lacus gravida feugiat eu ac massa. Aenean iaculis nibh eget felis ultricies ultrices. Sed a risus odio. Phasellus elementum nisl non urna ultricies, vel accumsan nisi varius. Etiam at pellentesque mi. Mauris et dolor ac orci mollis scelerisque.', NULL, NULL, 'Sed pellentesque vulputate tempor. Curabitur augue sapien, sodales ac turpis quis, elementum egestas massa. Suspendisse id sapien augue. Curabitur condimentum ac risus eu viverra. Quisque sit amet dolor mauris. In nec iaculis augue. Mauris ', '(303)740-2433', '(670)404-2425', 'alternativereligion@gmail.com', 431, 'png');
+INSERT INTO `app_orgs` VALUES(16, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, 'group', 'Temple of Religious Worship', 'templeworship', 33, 'Suspendisse id sapien augue. Curabitur condimentum ac risus eu viverra. Quisque sit amet dolor mauris. In nec iaculis augue. Mauris sed tellus eget ipsum suscipit porta et eu leo. Integer egestas facilisis suscipit. Phasellus tempor nunc a massa lacinia consectetur. ', NULL, NULL, 'Etiam non orci hendrerit, interdum mi vitae, ultricies augue. Fusce sit amet nulla sollicitudin, bibendum eros vel, dapibus dui. Aenean sit amet ante nec enim ullamcorper vehicula at vitae nulla. Vivamus a ullamcorper purus. Etiam nibh risu', '(670)404-2425', '(303)740-2433', 'worship@thetemple.org', 205, 'png');
 
 DROP TABLE IF EXISTS `app_posts`;
 CREATE TABLE `app_posts` (
@@ -171,17 +194,17 @@ INSERT INTO `app_posts` VALUES(14, '0000-00-00 00:00:00', '0000-00-00 00:00:00',
 INSERT INTO `app_posts` VALUES(15, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 5, 'public', 28, 'subjects');
 INSERT INTO `app_posts` VALUES(16, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 7, 'following', 41, 'votes');
 INSERT INTO `app_posts` VALUES(17, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 2, 'following', 29, 'ideas');
-INSERT INTO `app_posts` VALUES(18, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 6, 'public', 49, 'timeline');
+INSERT INTO `app_posts` VALUES(18, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 5, 'public', 49, 'timeline');
 INSERT INTO `app_posts` VALUES(19, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 'followers', 21, 'beliefs');
 INSERT INTO `app_posts` VALUES(20, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 7, 'private', 52, 'events');
 INSERT INTO `app_posts` VALUES(21, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 'private', 13, 'quotes');
 INSERT INTO `app_posts` VALUES(22, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 'private', 17, 'quotes');
 INSERT INTO `app_posts` VALUES(23, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 'following', 9, 'quotes');
-INSERT INTO `app_posts` VALUES(24, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 2, 'followers', 8, 'quotes');
+INSERT INTO `app_posts` VALUES(24, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 2, 'public', 8, 'quotes');
 INSERT INTO `app_posts` VALUES(25, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 4, 'followers', 15, 'blogs');
 INSERT INTO `app_posts` VALUES(26, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 5, 'following', 36, 'ideas');
-INSERT INTO `app_posts` VALUES(27, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 4, 'private', 51, 'beliefs');
-INSERT INTO `app_posts` VALUES(28, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 3, 'followers', 63, 'questions');
+INSERT INTO `app_posts` VALUES(27, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 2, 'public', 51, 'beliefs');
+INSERT INTO `app_posts` VALUES(28, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 3, 'public', 63, 'questions');
 INSERT INTO `app_posts` VALUES(29, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 2, 'public', 34, 'answers');
 INSERT INTO `app_posts` VALUES(30, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 2, 'private', 53, 'questions');
 INSERT INTO `app_posts` VALUES(31, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 'public', 73, 'matters');
@@ -191,15 +214,15 @@ INSERT INTO `app_posts` VALUES(34, '0000-00-00 00:00:00', '0000-00-00 00:00:00',
 INSERT INTO `app_posts` VALUES(35, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 8, 'private', 27, 'links');
 INSERT INTO `app_posts` VALUES(36, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 7, 'following', 16, 'blogs');
 INSERT INTO `app_posts` VALUES(37, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 6, 'private', 64, 'links');
-INSERT INTO `app_posts` VALUES(38, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 6, 'followers', 35, 'timeline');
+INSERT INTO `app_posts` VALUES(38, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 5, 'public', 35, 'timeline');
 INSERT INTO `app_posts` VALUES(39, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 5, 'followers', 15, 'matters');
 INSERT INTO `app_posts` VALUES(40, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 4, 'followers', 63, 'blogs');
 INSERT INTO `app_posts` VALUES(41, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 7, 'private', 43, 'blogs');
 INSERT INTO `app_posts` VALUES(42, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 6, 'followers', 41, 'ideas');
 INSERT INTO `app_posts` VALUES(43, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 8, 'private', 32, 'matters');
-INSERT INTO `app_posts` VALUES(44, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 6, 'followers', 22, 'beliefs');
-INSERT INTO `app_posts` VALUES(45, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 5, 'following', 25, 'quotes');
-INSERT INTO `app_posts` VALUES(46, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 4, 'following', 16, 'beliefs');
+INSERT INTO `app_posts` VALUES(44, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 2, 'public', 22, 'beliefs');
+INSERT INTO `app_posts` VALUES(45, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 5, 'public', 25, 'quotes');
+INSERT INTO `app_posts` VALUES(46, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 5, 'following', 16, 'beliefs');
 INSERT INTO `app_posts` VALUES(47, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 7, 'following', 25, 'bills');
 INSERT INTO `app_posts` VALUES(48, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 5, 'followers', 16, 'debates');
 INSERT INTO `app_posts` VALUES(49, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 8, 'private', 64, 'answers');
@@ -211,9 +234,9 @@ INSERT INTO `app_posts` VALUES(54, '0000-00-00 00:00:00', '0000-00-00 00:00:00',
 INSERT INTO `app_posts` VALUES(55, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 'private', 25, 'ideas');
 INSERT INTO `app_posts` VALUES(56, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 2, 'public', 31, 'subjects');
 INSERT INTO `app_posts` VALUES(57, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 5, 'public', 48, 'subjects');
-INSERT INTO `app_posts` VALUES(58, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 4, 'private', 52, 'beliefs');
-INSERT INTO `app_posts` VALUES(59, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 3, 'followers', 47, 'quotes');
-INSERT INTO `app_posts` VALUES(60, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 3, 'following', 26, 'timeline');
+INSERT INTO `app_posts` VALUES(58, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 5, 'public', 52, 'beliefs');
+INSERT INTO `app_posts` VALUES(59, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 3, 'public', 47, 'quotes');
+INSERT INTO `app_posts` VALUES(60, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 2, 'public', 26, 'timeline');
 INSERT INTO `app_posts` VALUES(61, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 2, 'public', 53, 'bills');
 INSERT INTO `app_posts` VALUES(62, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 'private', 42, 'votes');
 INSERT INTO `app_posts` VALUES(63, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 3, 'following', 35, 'bills');
@@ -255,6 +278,27 @@ INSERT INTO `app_reviews` VALUES(2, '0000-00-00 00:00:00', '0000-00-00 00:00:00'
 INSERT INTO `app_reviews` VALUES(3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 1, 'Need improvement', 'Est sint atomorum an? Te sea malis mediocritatem, et ius consul officiis postulant. Modo oratio aliquando et eam.\n\nIudico tollit iriure his te. No eam graecis mediocritatem, pro ut putent accusata, tempor integre lobortis ne vel. At mei civibus blandit, adhuc consequuntur te eam, eu sed mazim perfecto efficiantur. Quando laboramus intellegebat ea sea, vel ea saepe impetus senserit? Dolor accusamus nec te, pri in sanctus vulputate comprehensam, ne clita ridens feugait mea!', 3);
 INSERT INTO `app_reviews` VALUES(4, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 2, 'Not happy!', 'Ea vix oratio mollis, ad per lucilius maluisset mediocritatem? Errem molestie liberavisse ne sed, cu his habemus molestie.\n\nDolorum convenire explicari ei sit, mei at propriae forensibus dissentiet, phaedrum ocurreret constituto ad sea. Cum cu iuvaret eruditi percipitur, veritus noluisse abhorreant id per. Te vis autem vivendo, eu quo diceret ornatus? Exerci suscipit disputationi no eos! Vis volutpat pericula ex, ex mei dicam semper integre.', 1);
 INSERT INTO `app_reviews` VALUES(5, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 3, 'Loving it!', 'His ceteros noluisse splendide cu, mucius accusamus no eum, sit et probo summo quidam. Ut rebum copiosae voluptatum his! Duo soluta repudiandae ea, sea legimus phaedrum eu, mea nibh bonorum sapientem ne! Et tota velit facilis quo, tale habeo mollis ad cum. Id per insolens assentior, ipsum admodum delicata mel no.\n\nEt sea posse virtute ponderum, noster alienum delicata mea an, vidit similique cu mel! Usu id nostro facilisis. Omnes oportere ei mea, graece officiis definiebas eam ea, an fierent nominati his. Ius altera alienum senserit in. Ei doming menandri tincidunt sit, idque oratio hendrerit id nam?', 4);
+
+DROP TABLE IF EXISTS `app_tags`;
+CREATE TABLE `app_tags` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `modified` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `post_id` int(11) NOT NULL,
+  `tag` varchar(20) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
+
+INSERT INTO `app_tags` VALUES(1, '2013-10-22 11:19:52', '0000-00-00 00:00:00', 1, 'school');
+INSERT INTO `app_tags` VALUES(2, '2013-10-22 11:19:56', '0000-00-00 00:00:00', 1, 'budget');
+INSERT INTO `app_tags` VALUES(3, '2013-10-22 11:23:32', '0000-00-00 00:00:00', 52, 'pronouns');
+INSERT INTO `app_tags` VALUES(4, '2013-10-22 11:20:53', '0000-00-00 00:00:00', 8, 'taxes');
+INSERT INTO `app_tags` VALUES(5, '2013-10-22 11:19:58', '0000-00-00 00:00:00', 1, 'education');
+INSERT INTO `app_tags` VALUES(6, '2013-10-22 11:22:34', '0000-00-00 00:00:00', 13, 'growing food');
+INSERT INTO `app_tags` VALUES(7, '2013-10-22 11:20:56', '0000-00-00 00:00:00', 8, '2013');
+INSERT INTO `app_tags` VALUES(8, '2013-10-22 11:21:54', '0000-00-00 00:00:00', 3, 'american history');
+INSERT INTO `app_tags` VALUES(9, '2013-10-22 11:22:33', '0000-00-00 00:00:00', 13, 'sustainability');
+INSERT INTO `app_tags` VALUES(10, '2013-10-22 11:23:39', '0000-00-00 00:00:00', 52, 'grammar');
 
 DROP TABLE IF EXISTS `app_thumbs`;
 CREATE TABLE `app_thumbs` (
@@ -324,17 +368,18 @@ CREATE TABLE `app_users` (
   `dob` date DEFAULT NULL,
   `notes` text,
   `influence` int(11) DEFAULT NULL,
+  `img` varchar(3) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
-INSERT INTO `app_users` VALUES(1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'davidcruz', 'phourus', 'David', 'Cruz', 'dcruz@ymail.com', '555-555-5555', NULL, NULL, 'active', 0, 'm', 'Software Engineer', 'Intuit', 'www.intuit.com', NULL, NULL, NULL, NULL, 41);
-INSERT INTO `app_users` VALUES(2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'kbasil', 'phourus', 'Kelly', 'Basil', 'kbasil@gmail.com', '555-555-5555', NULL, NULL, 'active', 0, 'f', 'Director of Marketing', 'Adobe', 'www.adobe.com', NULL, NULL, NULL, NULL, 52);
-INSERT INTO `app_users` VALUES(3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'bruceisaac', 'phourus', 'Bruce', 'Isaac', 'bruseisaac@hotmail.com', '555-555-5555', NULL, NULL, 'active', 0, 'm', 'CTO', 'Facebook', 'www.facebook.com', NULL, NULL, NULL, NULL, 60);
-INSERT INTO `app_users` VALUES(4, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'reginawall', 'phourus', 'Regina', 'Wall', 'rwall@ymail.com', '555-555-5555', NULL, NULL, 'active', 0, 'f', 'Customer Support Specialist', 'Google', 'www.intuit.com', NULL, NULL, NULL, NULL, 37);
-INSERT INTO `app_users` VALUES(5, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'kendallk', 'phourus', 'Kendall', 'Kennedy', 'kendallk@gmail.com', '555-555-5555', NULL, NULL, 'active', 0, 'm', 'Selectman', 'Town of Plaistow', 'www.kendallkennedy.com', NULL, NULL, NULL, NULL, 44);
-INSERT INTO `app_users` VALUES(6, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'duncanv', 'phourus', 'Duncan', 'Valentine', 'info@duncanvalentine.com', '555-555-5555', NULL, NULL, 'active', 0, 'm', 'Sales Engineer', 'LinkedIn', 'www.linkedin.com', NULL, NULL, NULL, NULL, 39);
-INSERT INTO `app_users` VALUES(7, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'cassidyowen', 'phourus', 'Cassidy', 'Owen', 'cassidyown@hotmail.com', '555-555-5555', NULL, NULL, 'active', 0, 'f', 'State Representative', 'State of NH', 'www.cassidyowen.com', NULL, NULL, NULL, NULL, 55);
-INSERT INTO `app_users` VALUES(8, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'buckc', 'phourus', 'Buck', 'Chapman', 'buckchapman@yahoo.com', '555-555-5555', NULL, NULL, 'active', 0, 'm', 'Professor', 'West Virgina State University', 'www.buckshot.com', NULL, NULL, NULL, NULL, 43);
+INSERT INTO `app_users` VALUES(1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'davidcruz', 'phourus', 'David', 'Cruz', 'dcruz@ymail.com', '555-555-5555', NULL, NULL, 'active', 0, 'm', 'Software Engineer', 'Intuit', 'www.intuit.com', NULL, NULL, NULL, NULL, 41, 'jpg');
+INSERT INTO `app_users` VALUES(2, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'kbasil', 'phourus', 'Kelly', 'Basil', 'kbasil@gmail.com', '555-555-5555', NULL, NULL, 'active', 0, 'f', 'Director of Marketing', 'Adobe', 'www.adobe.com', NULL, NULL, NULL, NULL, 52, 'png');
+INSERT INTO `app_users` VALUES(3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'bruceisaac', 'phourus', 'Bruce', 'Isaac', 'bruseisaac@hotmail.com', '555-555-5555', NULL, NULL, 'active', 0, 'm', 'CTO', 'Facebook', 'www.facebook.com', NULL, NULL, NULL, NULL, 60, 'jpg');
+INSERT INTO `app_users` VALUES(4, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'reginawall', 'phourus', 'Regina', 'Wall', 'rwall@ymail.com', '555-555-5555', NULL, NULL, 'active', 0, 'f', 'Customer Support Specialist', 'Google', 'www.intuit.com', NULL, NULL, NULL, NULL, 37, 'jpg');
+INSERT INTO `app_users` VALUES(5, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'kendallk', 'phourus', 'Kendall', 'Kennedy', 'kendallk@gmail.com', '555-555-5555', NULL, NULL, 'active', 0, 'm', 'Selectman', 'Town of Plaistow', 'www.kendallkennedy.com', NULL, NULL, NULL, NULL, 44, 'jpg');
+INSERT INTO `app_users` VALUES(6, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'duncanv', 'phourus', 'Duncan', 'Valentine', 'info@duncanvalentine.com', '555-555-5555', NULL, NULL, 'active', 0, 'm', 'Sales Engineer', 'LinkedIn', 'www.linkedin.com', NULL, NULL, NULL, NULL, 39, 'jpg');
+INSERT INTO `app_users` VALUES(7, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'cassidyowen', 'phourus', 'Cassidy', 'Owen', 'cassidyown@hotmail.com', '555-555-5555', NULL, NULL, 'active', 0, 'f', 'State Representative', 'State of NH', 'www.cassidyowen.com', NULL, NULL, NULL, NULL, 55, 'jpg');
+INSERT INTO `app_users` VALUES(8, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'buckc', 'phourus', 'Buck', 'Chapman', 'buckchapman@yahoo.com', '555-555-5555', NULL, NULL, 'active', 0, 'm', 'Professor', 'West Virgina State University', 'www.buckshot.com', NULL, NULL, NULL, NULL, 43, 'jpg');
 
 DROP TABLE IF EXISTS `app_views`;
 CREATE TABLE `app_views` (
@@ -373,6 +418,10 @@ INSERT INTO `app_views` VALUES(17, '0000-00-00 00:00:00', '0000-00-00 00:00:00',
 INSERT INTO `app_views` VALUES(18, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', NULL, NULL, 4, NULL, 3, NULL, NULL);
 INSERT INTO `app_views` VALUES(19, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', NULL, NULL, 4, NULL, 5, NULL, NULL);
 INSERT INTO `app_views` VALUES(20, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', NULL, NULL, 3, NULL, 2, NULL, NULL);
+INSERT INTO `app_views` VALUES(35, '2013-10-22 11:35:43', '0000-00-00 00:00:00', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `app_views` VALUES(36, '2013-10-22 11:39:08', '0000-00-00 00:00:00', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `app_views` VALUES(37, '2013-10-22 11:39:30', '0000-00-00 00:00:00', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `app_views` VALUES(38, '2013-10-22 11:44:01', '0000-00-00 00:00:00', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 DROP TABLE IF EXISTS `core_blogs`;
 CREATE TABLE `core_blogs` (

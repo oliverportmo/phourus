@@ -47,6 +47,7 @@ define "init", (require) ->
   marionette = require("marionette")
   mSession = require("js/models/session")
   mView = require("js/models/view")
+  vAlerts = require("js/views/alerts")
   vHeader = require("js/views/header")
   vSidebar = require("js/views/sidebar")
   vFooter = require("js/views/footer")
@@ -54,35 +55,66 @@ define "init", (require) ->
   BaseCollection = require("js/base/collection")
   BaseModel = require("js/base/model")
   BaseView = require("js/base/view")
+  BaseSync= require("js/base/sync")
   app = new Backbone.Marionette.Application()
   
-  standard = require("js/routers/standard")
-  stream = require("js/routers/stream")
-  orgs = require("js/routers/orgs")
-  pages = require("js/routers/pages")
+
   
   # Header & Footer
   app.addInitializer (options) ->
-    app.header = new vHeader()
-    app.sidebar = new vSidebar()
+    host = window.location.hostname
+    parts = host.split '.'
+    subdomain = parts[0]
+    options = {subdomain: subdomain}
+    
+    if subdomain in ['docs', 'wiki', 'agency']
+      pages = require("js/routers/pages")
+    else if subdomain is 'internal'
+      internal = require("js/routers/internal")
+    else
+      standard = require("js/routers/standard")
+      stream = require("js/routers/stream")
+      orgs = require("js/routers/orgs")
+      pages = require("js/routers/pages")
+    
+    app.header = new vHeader(options)
+    app.sidebar = new vSidebar(options)
     app.footer = new vFooter()
     1
-
+     
   # Content
   app.addRegions content: "#content"
   
   # Routers
   app.addInitializer (options) ->
-    self = this
+    self = @
+
+    # module
     Backbone.Events.on "module", (data) ->
       $("#content").removeClass('homepage') 
       view = data.view
       app.content.show new view(data.params)
     
+    # alert
     Backbone.Events.on "alert", (data) ->
-      alert 'alert'
-      console.log data
+      console.log data if data.type is "error"
+      vAlerts.add data.type, data.message
+    
+    # back 
+    Backbone.Events.on "back", (data) ->
+      window.history.back()
+    
+    # token
+    Backbone.Events.on "token", (data) ->
+      Backbone.sync = (method, model, options) ->
+        options.headers = options.headers or {}
+        _.extend options.headers,
+          "x-api-key": data.token
+          "from": data.user_id
+        
+        Backbone._sync method, model, options
       
+    #map
     Backbone.Events.on "map", (data) ->  
       dev = false
       unless dev is true
@@ -94,10 +126,14 @@ define "init", (require) ->
             map.render()
           1
   
-  # Backbone.History
+  # AFTER
   app.on "initialize:after", (options) ->
+    # Backbone History
     Backbone.history = Backbone.history or new Backbone.History({})
     Backbone.history.start()
+    mSession.local()
+    
+    ### VIEW TRACKING ###
     window.onhashchange = ()->
       ###
       alert('change')
@@ -111,34 +147,15 @@ define "init", (require) ->
       )
       ###
   
-  # Token
+  # BEFORE
   app.on "initialize:before", (options) ->
-    token = "guest"
-    unless _.isNull(localStorage.getItem("session"))
-      data = $.parseJSON(localStorage.getItem("session"))
-      mSession.set data
-      if mSession.expired()
-        mSession.clear()
-        localStorage.removeItem "session"
-      else
-        token = mSession.get("token")
-    
-    # ** X-API-KEY **/
-    #@token is either 'guest' or valid session token
-    Backbone._sync = Backbone.sync
-    TokenSync = (method, model, options) ->
-      options.headers = options.headers or {}
-      _.extend options.headers,
-        "x-api-key": token
-
-      Backbone._sync method, model, options
-
-    Backbone.sync = TokenSync
     Backbone.View = BaseView
     Backbone.Model = BaseModel
     Backbone.Collection = BaseCollection
+    Backbone.emulateJSON = true
+    #Backbone.sync = BaseSync
+    #console.log Backbone.sync
 
-  
   # Start
   app.on "start", (options) ->
 

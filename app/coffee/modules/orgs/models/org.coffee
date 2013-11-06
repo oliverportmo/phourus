@@ -6,7 +6,9 @@ define ["jquery", "underscore", "backbone"], ($, _, Backbone) ->
       @options= options
       
     url: ->
-      url = "/rest/orgs/?id=" + @options.id;
+      console.log @options 
+      query = "?id=" + @options.id unless _.isUndefined(@options.id)
+      url = "/rest/orgs/" + query;
       url
       
     idAttribute: "id"

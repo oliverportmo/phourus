@@ -27,9 +27,21 @@ class dUpdate {
 	}
 	
 	/** SPECIAL **/
-	public static function post($id, $model){
-    $type= $model['type'];
-    
+	public static function post($id, $model){    
+    $split= uUtilities::splitter($model);
+
+    $posts= array();
+		$posts['privacy']= $split['posts']['privacy'];
+		
+		$p= uQueries::update($id, 'posts', $posts);
+		
+		unset($split['detail']['post_id']);
+		$d= uQueries::update_post($id, $model['type'], $split['detail']);	
+		$q= $p.$d;
+		 
+		$result= new uResult();
+		$out= $result->r_update($q, true);
+		return $out;
 	}
 	
 	public static function influence($params, $influence){

@@ -6,164 +6,10 @@
 #content.homepage {
   background: none;
   width: 100%;
+  margin: 0px;
+  padding: 0px;
   .box-shadow(0px, 0px, 0px, #fff);
 }  
-
-
-/** HOME **/
-.home {
-  margin: auto;
-  width: 960px;
-  
-  h1 {
-  padding-top: 40px;  
-  font-size: 40px;
-  font-weight: normal;
-  text-transform: none;
-  border: none;
-  }
-  
-  h2 {
-    text-shadow: none;
-    font-weight: normal;
-    color: #fafafa;
-    font-size: 36px;
-  }
-  
-  h3 {
-    font-weight: normal;
-    font-style: italic;
-    font-size: 30px;
-    color: #333;
-  }
-  
-  #signup, #signorg {
-  
-    h3 {
-      font-size: 24px;
-      color: #fafafa;
-    }
-    div {
-      height: 40px;
-      text-transform: uppercase;
-      font-size: 15px;
-      color: #222;
-    }
-  }
-  
-  p {
-    font-size: 16px;
-    color: #444;
-    line-height: 30px;
-  }
-  #what, #why {
-  width: 400px;
-  float: left;
-  text-align: center;
-  }
-  
-  .term {
-    font-weight: bold;
-    font-style: italic;
-    color: #555;  
-    letter-spacing: 2px;
-  }
-  
-  .about {
-    display: none;
-  }
-  .element {
-  width: 780px;
-  border-bottom: solid 1px #fff;
-    
-    a {
-      margin-right: 20px;
-    }
-    h3 {
-      padding: 30px 0px 0px 0px;
-      font-size: 40px;
-      margin: 20px 0px 15px 0px;
-      font-style: italic;
-      color: #fafafa;
-      font-size: 22px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-    }
-    span {
-      font-size: 20px; 
-    }
-  }
-  
-  .feature {
-    width: 260px;
-    float: left;
-    
-    .icon {
-      
-    }
-    .label {
-     padding-top: 10px;
-     font-size: 24px; 
-    }
-    .description {
-      clear: left; 
-      text-align: justify;
-      margin: 4px;
-      font-size: 14px;
-      font-style: italic;
-      padding: 4px;
-    }
-    
-  }
-  
-  .org {
-  margin: 10px;
-  width: 400px;
-  float: left;
-    h3, h4 {
-      margin: 0px;
-    }
-    p {
-      font-size: 14px;
-      font-style: italic; 
-      height: 130px;
-    }
-  }
-  
-  #signup {
-    float: left;
-    width: 350px;
-  }
-  
-  #signorg {
-    float: left;
-    width: 500px;
-    padding-left: 10px;  
-  }
-  .fill {
-    position: absolute;
-    width: 100%;
-    z-index: -1;
-    left: 1px;
-  }
-  .fill.blue {
-    height: 960px;
-    top: 380px;
-    background-color: #81cee7;
-  }
-  .fill.green {
-    height: 920px;
-    top: 2120px;
-    background-color: #d6edd7;
-    border-top: solid 2px #85a086;
-    border-bottom: solid 2px #85a086;
-  }
-  .fill.red {
-    height: 560px;
-    top: 3500px;
-    background-color: #f90;
-  }
-}
 
 /** FORM/SINGLE **/
 div#footing {
@@ -201,114 +47,19 @@ margin: 0px;
   }
 }
 
-/** STREAM **/
-.stream {
-
-  #stream {      
-    padding: 4px;
-    margin: 0px;
-    /*background-color: #fafafa;
-    border: solid 1px #ccc; 
-    .box_shadow;*/
-    border-top: solid 1px #ccc;
-    p {
-      margin: 0px;    
+/** WIDGETS **/
+#widgets {
+  .left {
+    width: 500px;
+    float: left;  
     }
-    h3 {
-      text-align: center; 
-    }
-  }  
-  
-  #create {
-    width: 300px;
+    
+    .right {
+    width: 240px;
     float: right;
-    margin-top: -20px;
-    width: 400px;
-    
-    select {
-      width: 200px; 
-      float: right;
-      margin-top: 4px;
-      height: 40px;
-    }  
-    
-    .button {
-      float: right;
     }
-  }
-  
-  #filter {
-    width: 960px; 
-    float: left;
-  }
-  #sort_by {
-    float: right;
-    width: 400px; 
-    margin: 4px 0px 10px 0px; 
-    padding: 0px;
-    color: #777;
-    font-size: 14px;
-    font-style: italic;
-    text-transform: none;
-    font-weight: normal;
-  }
-  select#sort, select#direction {
-    width: 120px;   
-    font-size: 14px;
-  }  
 }
 
-/** SINGLE **/
-.single {
-  
-  h1 {
-    font-size: 32px;
-    font-weight: normal;
-    padding-top: 20px;
-    text-align: center;  
-  }
-  
-  #body {
-    margin: 20px;
-    line-height: 28px;
-    text-align: left;
-    padding: 10px 5px 20px 5px;
-    margin: 0px;  
-  }
-  
-  .type {
-  display: block;
-  padding-top: 12px;
-  font-size: 22px; 
-  font-weight: bold; 
-  text-transform: uppercase;  
-  }
-  
-  ul.meta#stats {
-    width: 500px;  
-    font-size: 16px;
-    color: #333; 
-    display: block;
-    height: 20px;
-    padding: 10px 0px 10px 0px;
-    
-    li {
-      display: inline;
-      margin-right: 20px;
-    }
-  }
-}
-
-/** MODULES **/
-.left {
-width: 560px;
-float: left;  
-}
-
-.right {
-width: 280px;
-float: right;
-}
 
 div#gmap {
 height: 400px;	

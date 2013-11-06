@@ -1,0 +1,31 @@
+<div class="item" id="<%= comment.id %>">
+  <div class="pic">
+    <a href="#user/<%= user.id %>"><img src="<%= pic('users', user.id, user.img) %>" width="100"></a>
+    <a href="#user/<%= user.id %>" class="username"><%= user.username %> (<%= user.influence %>)</a>
+  </div>
+  <div class="comment">
+    <% if(date !== 0){ %><span class="date"><%= date %></span><% } %>
+    <br />
+    <span><%= comment.comment %></span>
+    <% if(owner === true){ %>
+      <textarea><%= comment.comment %></textarea>
+    <% } %>
+  </div>
+  <div class="actions">
+    <% if(owner === true){ %>
+      <div class="actions-admin">
+        <button class="button blue edit" data-id="<%= comment.id %>">Edit Comment</button>
+        <button class="button red delete" data-id="<%= comment.id %>">Delete Comment</button>
+      </div>
+      <div class="actions-edit">
+        <button class="button green save" data-id="<%= comment.id %>">Save Changes</button>
+        <button class="button red cancel" data-id="<%= comment.id %>">Cancel</button>
+      </div>
+      <div class="actions-delete">
+        <button class="button green confirm" data-id="<%= comment.id %>">Confirm Delete</button>
+        <button class="button red cancel" data-id="<%= comment.id %>">Cancel</button>
+      </div>
+    <% } %>
+  </div>
+	<div class="clear"></div>
+</div>

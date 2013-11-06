@@ -1,3 +1,5 @@
-<h3><a href="#!gov/<%= data.id %>"><%= data.name %></%=></h3>
-<p><%= data.address %></%=>
-
+<h3><a href="#!gov/<%= org.id %>"><%= org.name %></a></h3>
+<a href="#!gov/<%= org.id %>">
+  <img src="<%= pic('orgs', org.id, org.img) %>" width="100" />
+</a>
+<p><%= address.city %></p>

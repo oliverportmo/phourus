@@ -3,3 +3,17 @@
 	-moz-box-shadow: @arguments;
 	-webkit-box-shadow: @arguments;
 }
+
+.inset(@color: #444) {
+  border-top: ridge 2px @color;
+  border-bottom: groove 2px @color;
+  border-left: ridge 2px @color;
+  border-right: groove 2px @color; 
+}
+
+.insetlight(@color: #eee) {
+  border-top: groove 2px @color;
+  border-bottom: ridge 2px @color;
+  border-left: groove 2px @color;
+  border-right: ridge 2px @color; 
+}

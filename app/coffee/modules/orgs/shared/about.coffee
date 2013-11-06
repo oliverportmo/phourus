@@ -10,8 +10,8 @@ define ["jquery", "underscore", "backbone", "text!html/orgs/shared/about.html", 
           self.render()
 
         error: (collection, response) ->
-          data= {response: response, location: "modules/orgs/shared/about", action: "read", type: "error"}
-          Backbone.Events.trigger "alert", data
+          data= 
+          Backbone.Events.trigger "alert", {type: "error", message: "About page could not be loaded", response: response, location: "modules/orgs/shared/about", action: "read"}
       
     render: ->
       data = @options.org 

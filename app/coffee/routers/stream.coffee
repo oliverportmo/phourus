@@ -19,7 +19,7 @@ define ["jquery", "underscore", "backbone", "marionette"], ($, _, Backbone, mari
     post: (id) ->
       self = this
       params = id: id
-      require ["js/modules/stream/views/single"], (view) ->
+      require ["js/modules/stream/views/post"], (view) ->
         self.toss view, params
 
 

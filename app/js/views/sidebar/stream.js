@@ -26,8 +26,7 @@ define(["jquery", "underscore", "backbone", "js/models/types", "js/models/settin
     },
     events: {
       "click input.checkbox": "toggle",
-      "click h3.collapsible": "accordion",
-      "click button#creator": "create"
+      "click h3.collapsible": "accordion"
     },
     toggle: function(e) {
       var target, types;

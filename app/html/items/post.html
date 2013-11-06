@@ -1,0 +1,49 @@
+<div class="item">
+  <div class="type">  
+    <img src="/assets/icons/small/<%= meta.element %>/<%= meta.type %>.png"  class="icon">
+    <span class="label">
+      <%= meta.type %>
+    </span> 
+	</div>
+	<a href="#!post/<%= post.post_id %>" class="title"><%= post.title %><%= post.url %></a>
+	<div class="clear"></div>
+  <div class="pic">
+    <a href="#user/<%= user.id %>"><img src="<%= pic('users', user.id, user.img) %>" width="100"></a>
+  	<a href="#user/<%= user.id %>" class="username"><%= user.username %> (<%= user.influence %>)</a>
+  </div>
+	<div class="influence">
+		<span style="color:#777; font-size: 14px;">Influence</span>
+		<br>
+		<span style="font-size: 48px;"><%= meta.influence %></span>
+		<br />
+		<% if(owner == true){ %>
+		  <div style="width:90px;margin: auto"><a href="#edit/<%= post.post_id %>" class="button blue edit">Edit Post</a></div>
+		<% } %>
+		<br>
+	</div>
+	<div class="box">
+  	<ul class="user">
+  	  <li><strong><%= user.first %> <%= user.last.slice(0, 1) %>.</strong></li>
+  	  <% if(!_.isUndefined(address)){ %>
+  	   <li>
+  	     <%= address.city %>
+  	     <% if(!_.isUndefined(address.city) && !_.isUndefined(address.state)){ %>,<% } %> 
+  	     <%= address.state %>
+  	   </li>
+  	  <% } %>
+  	  <% if(meta.created !== '0000-00-00 00:00:00'){ %><li class="created"><%= format_date(meta.created, 'relative') %></li><% } %>
+  	</ul>	
+	</div>
+	<div class="clear"></div>
+	<% if(!_.isUndefined(post.content)){ %>
+	 <p class="excerpt"><%= post.content.substr(0, 200) %>... <a href="#!single/<%= meta.type %>/<%= post.post_id %>">[read more]</a></p>
+  <% } %>
+	<ul class="meta">
+		<li class="views"><strong>Views:</strong> <%= stats.views %></li>
+		<li class="comments"><strong>Comments:</strong> <%= stats.comments %></li>
+		<li class="thumbs"><strong>Thumbs:</strong> <%= stats.thumbs %></li>
+		<li class="popularity"><strong>Popularity:</strong> <%= stats.popularity %>%</li>
+	</ul>
+  
+	<div class="clear"></div>
+</div>

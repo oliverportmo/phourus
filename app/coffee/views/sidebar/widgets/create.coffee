@@ -1,4 +1,4 @@
-define ["jquery", "underscore", "backbone", "text!html/sidebar/widgets/create.html", "js/models/types"], ($, _, Backbone, template, mTypes) ->
+define ["jquery", "underscore", "backbone", "text!html/sidebar/widgets/create.html", "js/models/types", "js/models/settings"], ($, _, Backbone, template, mTypes, mSettings) ->
    
   view = Backbone.View.extend(
     tagName: "div"
@@ -10,12 +10,18 @@ define ["jquery", "underscore", "backbone", "text!html/sidebar/widgets/create.ht
       @render()
     
     events: 
-      "click .button#add": "select"
+      "click .button#add": "add"
+      "click .button#edit": "edit"
     
-    select: (e) ->
-      type = $("select#types").val()
-      window.location.hash = "#add/" + type
-            
+    add: (e) ->
+      type = $("select#types").val()    
+      unless _.isUndefined(type)
+        location = "#add/" + type
+        window.location.hash = location
+      
+    edit: ->
+       mSettings.set("mode", "me")
+               
     render: ->
       compiled = _.template(template, {types: @types, collapsible: @options.collapsible})
       $(@el).append compiled 

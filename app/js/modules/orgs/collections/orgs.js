@@ -3,20 +3,35 @@ define(["jquery", "underscore", "backbone"], function($, _, Backbone) {
   var collection;
 
   collection = Backbone.Collection.extend({
-    initialize: function(params) {
-      this.params = "?type=" + params.type;
-      if (!_.isUndefined(params.state)) {
-        this.params += "&state=" + params.state;
-      }
-      if (!_.isUndefined(params.zip)) {
-        return this.params += "&zip=" + params.state;
-      }
+    initialize: function(options) {
+      this.options = options;
+      return console.log(options);
     },
     url: function() {
       var url;
 
-      url = "/rest/orgs/" + this.params;
+      url = "/rest/orgs/?" + this.query();
       return url;
+    },
+    query: function() {
+      var query;
+
+      query = '';
+      if (!_.isUndefined(this.options.user_id)) {
+        query = "user_id=" + this.options.user_id + "&";
+      } else if (!_.isUndefined(this.options.id)) {
+        query = "id=" + this.options.id;
+      }
+      if (!_.isUndefined(this.options.type)) {
+        query += "type=" + this.options.type + "&";
+      }
+      if (!_.isUndefined(this.options.state)) {
+        query += "state=" + this.options.state + "&";
+      }
+      if (!_.isUndefined(this.options.zip)) {
+        query += "zip=" + this.options.state + "&";
+      }
+      return query;
     },
     idAttribute: "id"
   });

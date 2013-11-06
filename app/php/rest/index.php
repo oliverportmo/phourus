@@ -4,6 +4,7 @@ ini_set('display_errors', 1);
 ini_set('log_errors', 1);
 ini_set('error_log', 'errors.txt');
 error_reporting(E_ERROR | E_WARNING);
+//header("Content-Type: application/json");
 
 /*function _autoload($class){
   var_dump($class);
@@ -21,7 +22,6 @@ require($base.'oCommunity.php');
 require($base.'oFollow.php');
 require($base.'oInfluence.php');
 require($base.'oOrg.php');
-require($base.'oPermissions.php');
 require($base.'oPost.php');
 require($base.'oReview.php');
 require($base.'oSession.php');
@@ -30,6 +30,10 @@ require($base.'oTag.php');
 require($base.'oThumb.php');
 require($base.'oUser.php');
 require($base.'oView.php');
+
+$base= __DIR__.'/classes/middleware/';
+require($base.'mOut.php');
+require($base.'mPermissions.php');
 
 $base= __DIR__.'/classes/data/';
 require($base.'dCreate.php');
@@ -44,23 +48,28 @@ require($base.'uUtilities.php');
 
 global $app;
 $app= new \Slim\Slim();
-//$app->add(new oPermissions());
+$app->add(new mOut());
+//$app->add(new mPermissions());
 
 $req= $app->request();
 $headers= $req->headers();
 $GLOBALS['phourus_auth_id']= oSession::auth($headers);
-$GLOBALS['phourus_auth_id']= 1;
+//$GLOBALS['phourus_auth_id']= 1;
 $get= $req->get();
 $post= $req->post();
+$post= (array) json_decode($post['model']);
 $put= $req->put();
+$put= (array) json_decode($put['model']);
 
-function out($data){
+function out($data){	
 	global $app;
 	$response = $app->response();
+	
 	$app->contentType('application/json');
 	$code= 200;
-	if($data== false){
-  	$code= 404;
+	
+	if(is_numeric($data)){
+  	$code= $data;
 	}
 	$response->status($code);
 	$response->body(json_encode($data));	
@@ -239,16 +248,26 @@ $app->post('/rest/email/', function() use ($post){
 	//out($out);       
 });
 
+$app->post('/rest/pic/:id', function($id) use ($post){
+  if(!isset($post['type'])){
+    out('Pic type not set');
+  }
+  if(isset($_FILES['pic']) && $_FILES['error'] == 0){
+    $upload= uUtilities::pic($_FILES['pic'], $post['type'], $id);
+    out($upload);    
+  }else{
+    out('File not found');
+  }
+});
+
 #######
 # === #
 # PUT #
 # === # 
 ####### 
 $app->put('/rest/post/:id', function($id) use ($put){  
-	//$out= oPost::update($id, $put);
-	//$out= oUser::relationships($id);
-	//out($out);
-	
+	$out= oPost::update($id, $put);
+	out($out);
 }); 
     
 $app->put('/rest/user/:id', function($id) use ($put){
@@ -305,6 +324,8 @@ $app->delete('/rest/post/:id', function($id){
 	$out= oPost::delete($id);
 	out($out);
 }); 
+
+/*
     
 $app->delete('/rest/user/:id', function($id){
 	$out= oUser::delete($id);

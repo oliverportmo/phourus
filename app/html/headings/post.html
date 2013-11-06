@@ -1,0 +1,41 @@
+<div class="pic">
+	<a href="#user/<%= user.id %>">
+		<img src="<%= pic('users', user.id, user.img) %>" width="100" />
+	</a>
+</div>
+<div class="box">
+  <ul class="user">
+	  <li><strong><%= user.first %> <%= user.last.slice(0, 1) %>.</strong></li>
+	  <% if(!_.isUndefined(address)){ %>
+	   <li>
+	     <%= address.city %>
+	     <% if(!_.isUndefined(address.city) && !_.isUndefined(address.state)){ %>,<% } %> 
+	     <%= address.state %>
+	   </li>
+	  <% } %>
+	  <% if(meta.created !== '0000-00-00 00:00:00'){ %><li class="created"><%= format_date(meta.created, 'relative') %></li><% } %>
+	</ul>	
+</div>
+<div class="box">
+  <ul id="detail">
+  	<% if(!_.isUndefined(post.positive)){ %><li><strong>Positive:</strong> <%= post.positive %></li><% } %> 
+  	<% if(!_.isUndefined(post.category)){ %><li><strong>Category:</strong> <%= post.category %></li><% } %> 
+  	<% if(!_.isUndefined(element)){ %><li><strong>Element:</strong> <%= element %></li><% } %> 
+  	<% if(!_.isUndefined(post.date)){ %><li><strong>Date/Time:</strong> <%= post.date %></li><% } %> 
+  	<% if(!_.isUndefined(post.address)){ %><li><strong>Address:</strong> <%= post.address %></li><% } %> 
+  	<% if(!_.isUndefined(post.difficulty)){ %><li><strong>Difficulty:</strong> <%= post.difficulty %></li><% } %> 
+  	<% if(!_.isUndefined(post.scope)){ %><li><strong>Scope:</strong> <%= post.scope %></li><% } %> 
+  </ul> 
+</div>	
+<div class="influence">
+	Influence:<br />
+	<span style="font-size: 48px;"><%= meta.influence %></span>
+</div>
+<div class="clear"></div>
+<ul class="meta" id="stats">
+	<li><strong>Views:</strong> <%= stats.views %></li> 
+	<li><strong>Comments:</strong> <%= stats.comments %></li>
+	<li><strong>Thumbs:</strong> <%= stats.thumbs %></li>
+	<li><strong>Popularity:</strong> <%= stats.popularity %>%</li>
+</ul> 
+<div class="clear"></div>

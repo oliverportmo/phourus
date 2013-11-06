@@ -1,0 +1,162 @@
+
+.item { border-left: solid 10px #333; }
+.item:hover { border-left: solid 10px #6ac; }
+.heading:hover { border-bottom: solid 10px #6ac; }
+.heading { border-bottom: solid 10px #333; }
+
+.item, .heading {
+  margin: 0px 0px 20px 0px; 
+  padding: 10px 10px 0px 10px;
+  background-color: #f3f3f3;
+  
+  /** BOX **/
+  .box {
+    float: left;
+    width: 220px;
+  }
+  
+   /** PIC **/
+  .pic {
+    float: left;
+    margin: 10px 10px 10px 0px;   
+    width: 120px;
+    text-align: center;
+    
+    img {
+      padding: 2px;   
+      border: solid 1px #ccc; 
+    }
+  }
+  
+  /** TITLE **/
+  .title {
+    color: @blue;  
+    text-decoration: none;   
+    text-align: left;
+  }
+  
+  /** POST TYPE **/
+  .type {
+    float: left;
+    width: 120px;
+    margin: 0px;
+    padding: 0px;
+    display: block;
+    padding-top: 12px;
+    font-size: 22px; 
+    font-weight: bold; 
+    text-transform: uppercase;  
+    
+    img.icon {
+      float: left;
+    } 
+    span.label {
+      display: block;
+      margin-top: 2px;
+      font-size: 14px; 
+      font-weight: bold; 
+      text-transform: uppercase; 
+      text-align: left;
+    } 
+  }
+  
+  /** USERNAME **/
+  a.username {
+    font-size: 13px;
+    font-weight: bold;
+    text-align: center;
+    color: #48a;
+  } 
+  a.username:hover {
+    color: #f90;
+  }
+  
+  /** CREATED **/
+  .created {
+    font-size: 12px;
+    font-style: italic;
+  }
+  
+  /** EXCERPT **/
+  .excerpt {
+    font-size: 14px;
+  }
+  
+  /** INFLUENCE **/
+  .influence {
+    float: right; 
+    width: 200px;
+    text-align: center; 
+    font-size: 18px;
+  }
+  
+  /** COMMENT **/
+  .comment {
+    padding-top: 12px;
+    float: left;
+    width: 600px;
+    
+    span.date {
+      font-weight: bold;
+      font-style: italic;
+    }
+    textarea {
+      width: 95%;
+      height: 100px;
+      display: none;
+    }
+  }
+  
+  .actions {
+    width: 100px; 
+    float: right;
+  }
+    
+  /** LISTS **/
+  ul {
+    padding: 0px;
+    float: left;
+    
+    li {
+      list-style: none;
+      
+      a {
+        text-decoration: none;
+      }
+    }
+  }
+
+  ul.meta {
+    width: 500px;  
+    font-size: 13px;
+    color: #333; 
+    display: block;
+    height: 20px;
+    padding: 10px 0px 10px 0px;
+    
+    li {
+      display: inline;
+      margin-right: 20px;
+    }
+  }
+    
+  /** EDIT BUTTON **/
+  .button.edit, .button.delete, .button.cancel, .button.confirm, .button.save {
+    width: 80px;    
+  }
+  
+  .button {
+    .insetlight();
+  }
+  
+  /** MORE **/
+  .more {
+    font-size: 16px;
+    color: #18b;
+    text-decoration: underline; 
+    cursor: pointer;
+  }
+  .more:hover {
+    color: #f90;    
+  }
+}

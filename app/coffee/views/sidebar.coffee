@@ -1,9 +1,11 @@
-define ["jquery", "underscore", "backbone", "text!html/sidebar.html", "text!html/stream/sidebar-form.html", "js/models/types"], ($, _, Backbone, template, sidebarForm, mTypes) ->
+define ["jquery", "underscore", "backbone", "js/models/types"], ($, _, Backbone, mTypes) ->
   vSidebar = Backbone.View.extend(
     el: "#sidebar"
+    
     initialize: (options) ->   
       self = @
-      
+      @subdomain = options.subdomain
+         
       Backbone.Events.on "sidebar", (params) ->
         if(_.isObject(params))
           self.type = params.type
@@ -29,10 +31,14 @@ define ["jquery", "underscore", "backbone", "text!html/sidebar.html", "text!html
       self = @
       html = ''   
       
+      #self.sidebar.destroy() unless _.isUndefined(self.sidebar)
       self.sidebar.clear() unless _.isUndefined(self.sidebar)
-      
       @show()
-      if @type is '' or _.isUndefined(@type) or @type is 'hidden'
+      
+      if @subdomain in @subdomains 
+        require ["js/views/sidebar/subdomains/" + @subdomain], (view) ->
+          self.sidebar = new view()
+      else if @type is '' or _.isUndefined(@type) or @type is 'hidden'
         @hide()  
       else if @type is 'form'         
         require ["js/views/sidebar/form"], (view) ->
@@ -44,7 +50,7 @@ define ["jquery", "underscore", "backbone", "text!html/sidebar.html", "text!html
         require ["js/views/sidebar/" + @type], (view) ->
           self.sidebar = new view()  
       @type = ''
-      
-                      
+    
+    subdomains: ["docs", "wiki", "internal", "agency"]                  
   )
   vSidebar

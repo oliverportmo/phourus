@@ -7,12 +7,12 @@ class oPost
 	public function get($params){
 		if(isset($params['id'])){
   		$meta= dRead::meta($params['id']);
-  		if($meta== false){
-    		return false;
+  		if(is_numeric($meta)){
+    		return $meta;
   		}
   		$post= dRead::post($meta['id'], $meta['type']);
-  		if($post== false){
-    		return false;
+  		if(is_numeric($post)){
+    		return $post;
   		}
   		$user= dRead::users(array('id' => $meta['user_id']));
   		$stats= oStats::stats(array('post_id' => $meta['id']));
@@ -27,6 +27,9 @@ class oPost
 		}else if(isset($params['org_id'])){
   		$members= dRead::community(array('mode' => 'id', 'org_id' => $params['org_id']));
   		$in= '';
+  		if(is_numeric($members)){
+    		return $members;
+  		}
   		foreach($members as $member){
   		  $in.= $member['id'].",";
   		}
@@ -82,13 +85,14 @@ class oPost
 		$auth_id= 0;
 		if(isset($GLOBALS['phourus_auth_id'])){
 		  $auth_id= $GLOBALS['phourus_auth_id'];
-		}else{
-		  $mode= 'phourus';
 		}
 		
-		$select= "SELECT id FROM app_posts WHERE user_id != $auth_id";
+		$select= "SELECT id FROM app_posts WHERE user_id != '$auth_id'";
 		$relationships= oUser::relationships($auth_id);
     extract($relationships);
+		if($following == ""){ $following= "'0'"; }
+		if($followers == ""){ $followers= "'0'"; }
+		if($friends == ""){ $friends= "'0'"; }
 		
 		switch($mode){
   		case 'phourus':
@@ -106,7 +110,7 @@ class oPost
   		case 'followers':
   		  return "$select AND privacy IN('following', 'public') AND user_id IN($followers) AND user_id NOT IN($friends)";
   		break;
-  		case 'friends':   
+  		case 'friends':  
   		  return "$select AND privacy IN('following', 'followers', 'friends', 'public') AND user_id IN($friends)";
   		break;
   		case 'user':
@@ -122,7 +126,7 @@ class oPost
   		  //WHERE post.user_id = $user_id
   		  //if($user_id = $GLOBALS['user_id']){}
   		  //$out= self::advanced(array('user_id', 'EQUALS', '1', ''));
-  		  return "SELECT post_id FROM app_posts WHERE user_id = $auth_id";  
+  		  return "SELECT id FROM app_posts WHERE user_id = '$auth_id'";  
   		break;
   		default: 
   		  return "$select AND privacy = 'public'";
@@ -164,7 +168,7 @@ class oPost
 	
 	private function author($author_id){
 	  $privacy= "'followers','following'";
-  	return "AND user_id = $author_id AND privacy IN('public'$privacy)";
+  	return "AND user_id = '$author_id' AND privacy IN('public'$privacy)";
 	}
 	
 	private function users($users){

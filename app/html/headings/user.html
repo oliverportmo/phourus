@@ -1,0 +1,30 @@
+<span class="pic">
+	<a href="javascript:void(0)">
+		<img src="<%= pic('users', user.id, user.img) %>" width="150" height="150">
+	</a>
+	<% if(owner== true){ %>
+  	<form action="/rest/pic/<%= user.id %>" method="post" enctype="multipart/form-data" target="upload">
+      <input type="file" name="pic" id="pic"><br>
+      <input type="hidden" name="type" value="user" />
+      <input type="submit" name="submit" value="Upload" class="button blue">
+    </form>
+    <iframe id="upload" style="width:0px;height:0px;display:none;" />
+  <% } %>
+</span>
+<div style="float: left; width: 400px">
+	<ul>
+		<li><strong><%= user.username %></strong></li>
+		<li><%= user.city %>, <%= user.state %></li>
+		<li><%= user.occupation %> at <%= user.company %></li>
+		<li><strong>Website: </strong><%= user.website %></li>
+		<li><strong>Email: </strong><%= user.email %></li>
+		<% if(owner== true){ %><li><a href="javascript:void(0)" id="update_account">Edit Profile Information</a></li><% } %>
+	</ul>
+</div>
+<div class="influence" style="margin-top: 10px; width: 120px;">
+	User Influence:<br>
+	<span style="font-size: 48px;"><%= user.influence %></span>
+	<br><br>
+	<span style="font-size: 14px;">Member Since:<br><strong><%= user.created %></strong></span>
+</div>
+<br clear="all" />

@@ -10,11 +10,13 @@ class uResult
 		
 		//global $db;
 		try {  
-			$this->db= new PDO("mysql:host=127.0.0.1;port=8889;dbname=$DEV_DB_NAME;", $DEV_DB_USER, $DEV_DB_PASS);  
+			$this->db= new PDO("mysql:host=localhost;port=8889;dbname=$DEV_DB_NAME;", $DEV_DB_USER, $DEV_DB_PASS);  
+			$this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$this->db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 		}  
 		catch(PDOException $e) {  
 		    // out() not available here
-		    //out($e->getMessage());  
+		    var_dump($e->getMessage());  
 		}
 	}	
 	
@@ -73,21 +75,39 @@ class uResult
       $this->db->rollBack();
       return false;
     }
+    
+    /**
+    foreach($queries as $q)
+      try {
+        $p= $this->db->prepare($q);
+      }catch (Exception $e){
+        return 503;
+      }
+      $p->execute(array());
+      $p->setFetchMode(PDO::FETCH_ASSOC);
+      $out[]= $p->fetch();  
+  	} **/
     return $out;
   }
   
   private function standard($q, $mode){
-	  $query= $this->db->prepare($q);
-  	$query->execute(array());
-  	if(!$query){
-    	return false;
+	  
+  	try {
+    	$query= $this->db->prepare($q);
+  	}catch(Exception $e){
+  	  //var_dump($e);
+    	return 503;
   	}
+  	$query->execute(array());
   	$query->setFetchMode(PDO::FETCH_ASSOC);
   	
   	$out= array();
   	switch($mode){
       case 'single':
         $out= $query->fetch();
+        if($out== false){
+          $out= 404;
+        }
       break;
       case 'create':
         $out= $this->db->lastInsertId();
@@ -114,6 +134,9 @@ class uResult
       default:
         while($row= $query->fetch()){
     		  $out[]= $row;
+    		}
+    		if(count($out) < 1){
+      		$out= 404;
     		} 
       break;
     } 

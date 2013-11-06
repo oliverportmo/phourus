@@ -12,7 +12,7 @@ define ["jquery", "underscore", "backbone", "js/models/user", "text!html/user.ht
           self.render()
         
         error: (model, response) ->
-	          Backbone.Events.trigger {response: response, location: "views/user", action: "read", type: "error"}
+	          Backbone.Events.trigger "alert", {type: "error", message: "User could not be loaded", response: response, location: "views/user", action: "read"}
 
     render: ->
       Backbone.Events.trigger "sidebar", "profile"

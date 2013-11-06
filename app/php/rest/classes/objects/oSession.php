@@ -33,9 +33,9 @@ class oSession
 	
 	# OTHER
 	public function auth($headers){
-  	$token= $headers['X_API_KEY'];
+  	$id= $headers['X_API_KEY'];
   	$user_id= $headers['FROM'];
-  	$q= uQueries::session_auth(array('token' => $token, 'user_id' => $user_id));
+  	$q= uQueries::session_auth(array('id' => $id, 'user_id' => $user_id));
   	$result= new uResult();
   	$out= $result->r_single($q);
   	if(count($out)== 1 && isset($out['user_id']) && $out['user_id'] != null){

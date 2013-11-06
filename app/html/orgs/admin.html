@@ -1,1 +1,47 @@
-Admin
+<h1><%= org.name %></h1>
+<span class="pic">
+	<a href="javascript:void(0)">
+		<img src="<%= pic('orgs', org.id, org.img) %>" width="150" height="150">
+	</a>
+	<% if(owner== true){ %>
+  	<form action="/rest/pic/<%= org.id %>" method="post" enctype="multipart/form-data" target="upload">
+      <input type="file" name="pic" id="pic"><br>
+      <input type="hidden" name="type" value="org" />
+      <input type="submit" name="submit" value="Upload" class="button blue">
+    </form>
+    <iframe id="upload" style="width:0px;height:0px;display:none;" />
+  <% } %>
+</span>
+<div class="box">
+	<ul>
+		<li><strong><%= org.name %></strong></li>
+		<li><strong><%= org.shortname %></strong></li>
+		<li><%= address.city %>, <%= address.state %></li>
+		<li><strong>Phone: </strong><%= org.phone %></li>
+		<li><strong>Email: </strong><%= org.email %></li>
+		<% if(owner== true){ %><li><a href="javascript:void(0)" id="update_account">Edit Org Information</a></li><% } %>
+	</ul>
+</div>
+<div class="influence" style="margin-top: 10px; width: 120px;">
+	User Influence:<br>
+	<span style="font-size: 48px;"><%= org.influence %></span>
+	<br><br>
+	<span style="font-size: 14px;">Member Since:<br><strong><%= org.created %></strong></span>
+</div>
+<br clear="all" />
+
+<% if(owner== true){ %>
+<div id="update">
+  <div class="left">
+    <h3>Contact Info</h3>
+    <div id="fields"></div>
+  </div>
+  <div class="right">
+    <h3>Social Accounts</h3>
+    <button id="facebook" class="social"></button> 
+    <button id="linkedin" class="social"></button>
+    <button id="linkedin" class="social"></button>
+    <button id="google" class="social"></button>
+  </div>
+</div>
+<% } %>

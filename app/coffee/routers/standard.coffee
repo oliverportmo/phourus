@@ -12,7 +12,7 @@ define ["jquery", "underscore", "backbone", "marionette"], ($, _, Backbone, mari
       #User
       "signup": "signup"
       #"me": "user"
-      "profile/:id": "profile"
+      "user/:id": "user"
       
       #Elements
       "!core": "standard"
@@ -65,12 +65,12 @@ define ["jquery", "underscore", "backbone", "marionette"], ($, _, Backbone, mari
         self.toss view, params
 
 
-    profile: (id) ->
+    user: (id) ->
       self = this
       params =
         user: id
 
-      require ["js/modules/standard/views/profile"], (view) ->
+      require ["js/modules/standard/views/user"], (view) ->
         self.toss view, params
     
     page: (page) ->

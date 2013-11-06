@@ -8,15 +8,6 @@ define(["jquery", "underscore", "backbone", "text!html/sidebar/form.html", "js/m
     initialize: function(options) {
       return this.render();
     },
-    events: {
-      "click #create": "select"
-    },
-    select: function(e) {
-      var id;
-
-      id = $("#posts").val();
-      return window.location = "#add/" + id;
-    },
     render: function() {
       var compiled, types;
 

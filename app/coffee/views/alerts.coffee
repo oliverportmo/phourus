@@ -16,6 +16,7 @@ define ["jquery", "underscore", "backbone", "text!html/alert.html", "js/collecti
       )
       $(e.currentTarget).parent().remove()
 
+    # complete, message, error
     add: (type, message, code, debug) ->
       alert = new mAlert(
         type: type

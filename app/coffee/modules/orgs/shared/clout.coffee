@@ -10,7 +10,7 @@ define ["jquery", "underscore", "backbone", "text!html/orgs/shared/clout.html", 
           self.render()
 
         error: (collection, response) ->
-	        Backbone.Events.trigger {response: response, location: "modules/orgs/shared/clout", action: "read", type: "error"}
+	        Backbone.Events.trigger "alert", {type: "error", message: "Clout could not be loaded", response: response, location: "modules/orgs/shared/clout", action: "read"}
 
     render: ->
       data = @collection.models

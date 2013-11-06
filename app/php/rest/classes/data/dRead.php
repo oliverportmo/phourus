@@ -1,5 +1,4 @@
 <?php
-ini_set('display_errors', 1);
 
 class dRead {
 	
@@ -8,7 +7,9 @@ class dRead {
 		$q= uQueries::posts($params);	
 		$result= new uResult();
 		$posts= $result->r_read($q);
-		if($posts == false){ return array(); }
+		if(is_numeric($posts)){
+  		return $posts;
+		}
 		foreach($posts as $i){	
 			$out[]= oPost::get(array('id' => $i['id']));
 		}
@@ -88,7 +89,17 @@ class dRead {
   	if(isset($params['id'])){
     	$out= $result->r_single($q);
   	}else{
-    	$out= $result->r_read($q);
+  	  $out= array();
+    	$comments= $result->r_read($q);
+    	if(is_numeric($comments)){
+      	return $comments;
+    	}
+    	foreach($comments as $c){
+    	  $o= array();
+    	  $o['comment']= $c;
+    	  $o['user']= oUser::get(array('id' => $c['user_id']));
+    	  $out[]= $o;
+    	}
   	}
   	return $out;
 	}
@@ -177,11 +188,12 @@ class dRead {
 	
 	public static function session($token, $user_id){
 		$params= array();
-		$params['token']= $token;
+		$params['id']= $token;
 		$params['user_id']= $user_id;
-		$q= uQueries::session($params);	
+		$q= uQueries::session($params);
 		$result= new uResult();
 		$out= $result->r_single($q);
+		$out['user']= oUser::get(array('id' => $out['user_id']));
 		return $out;
 	}
 	
@@ -224,6 +236,10 @@ class dRead {
   	$out['comments']= $comments['total'];
   	$out['thumbs']= $thumbs['total'];
   	$out['positive']= $thumbs['positive'];
+  	$out['popularity']= 0;
+  	if($thumbs['total'] > 1){
+  	 $out['popularity']= $thumbs['positive']/$thumbs['total']*100;
+  	}
   	$out['views']= $views['total']; 	
   	return $out;
 	}
@@ -258,6 +274,10 @@ class dRead {
 		$out['thumbs']= $thumbs['total'];
 		$out['positive']= $thumbs['positive'];
 		$out['comments']= $comments['total'];
+		$out['popularity']= 0;
+  	if($thumbs['total'] > 1){
+  	 $out['popularity']= $thumbs['positive']/$thumbs['total']*100;
+  	}
 		$out['posts']= $totals;
 		$out['followers']= $followers;
 		return $out;
