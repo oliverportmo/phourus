@@ -150,7 +150,7 @@ a.button,
 input.button,
 input#searchsubmit {
   display: block;
-  font-family: "Century Gothic", Helvetica, sans-serif;
+  font-family: "Century Gothic", "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, Verdana, sans-serif;
   font-size: 14px !important;
   color: #eee !important;
   width: 160px;
@@ -975,7 +975,7 @@ div#gmap {
 #footer #signorg h3,
 #footer #signin h3,
 #footer #contact h3 {
-  font-family: "century gothic";
+  font-family: "Century Gothic", "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, Verdana, sans-serif;
   margin-top: 6px;
   font-size: 13px;
   color: #fff;
@@ -997,11 +997,26 @@ div#gmap {
   width: 400px;
 }
 #footer #contact p {
-  font-family: "century gothic";
+  font-family: "Century Gothic", "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, Verdana, sans-serif;
 }
 #footer .login {
   width: 60px;
   float: right;
+}
+/** SANS SERIF **/
+/** SERIF **/
+/** MONOSPACE **/
+/** CUSTOM **/
+/**/
+@font-face {
+  font-family: Perpetua;
+  src: url('/assets/fonts/perpetua.eot');
+  src: local('Perpetua'), url('/assets/fonts/perpetua.ttf') format('truetype');
+}
+@font-face {
+  font-family: "Century Gothic";
+  src: url('/assets/fonts/gothic.eot');
+  src: local('Century Gothic'), url('/assets/fonts/gothic.ttf') format('truetype');
 }
 /** ELEMENTS **/
 fieldset {
@@ -1128,7 +1143,7 @@ header #inner #brand #slogan {
 .home h1 {
   padding-top: 40px;
   font-size: 54px;
-  font-family: "century gothic";
+  font-family: "Century Gothic", "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, Verdana, sans-serif;
   font-weight: normal;
   text-transform: uppercase;
   border: none;
@@ -1147,7 +1162,7 @@ header #inner #brand #slogan {
   font-style: italic;
   font-size: 30px;
   color: #333;
-  font-family: "century gothic";
+  font-family: "Century Gothic", "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, Verdana, sans-serif;
 }
 .home img {
   margin: 40px auto;
@@ -1169,7 +1184,7 @@ header #inner #brand #slogan {
 .home p {
   font-size: 24px;
   color: #444;
-  font-family: "perpetua";
+  font-family: Perpetua, Palatino, "Palatino Linotype", "Book Antiqua", serif;
   line-height: 30px;
   font-style: italic;
   margin: 20px 60px 0px 60px;
@@ -1204,7 +1219,7 @@ header #inner #brand #slogan {
   margin-top: 20px;
   font-weight: normal;
   font-style: italic;
-  font-family: "perpetua";
+  font-family: Perpetua, Palatino, "Palatino Linotype", "Book Antiqua", serif;
 }
 .home div.red {
   border-top: solid 8px #cc3300;
@@ -1682,7 +1697,7 @@ nav ul li a {
   height: 26px;
   width: 120px;
   text-align: center;
-  font-family: "century gothic";
+  font-family: "Century Gothic", "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, Verdana, sans-serif;
 }
 nav ul li a:hover {
   font-weight: bold;
@@ -1773,7 +1788,7 @@ nav ul li:hover ul {
 
 }
 #sidebar p {
-  font-family: "Perpetua";
+  font-family: Perpetua, Palatino, "Palatino Linotype", "Book Antiqua", serif;
   font-size: 20px;
   font-style: italic;
 }
@@ -1824,7 +1839,7 @@ nav ul li:hover ul {
 #sidebar select {
   width: 180px;
   text-transform: capitalize;
-  font-family: "perpetua";
+  font-family: Perpetua, Palatino, "Palatino Linotype", "Book Antiqua", serif;
   font-size: 16px;
 }
 #sidebar .button {
@@ -2007,7 +2022,7 @@ body {
   margin: 0px;
   padding: 0px;
   color: #333;
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: Arial, Helvetica, Verdana, sans-serif;
   font-size: 80%;
   line-height: 25px;
   letter-spacing: 0px;
@@ -2022,7 +2037,7 @@ h1 {
   letter-spacing: 1px;
   font-size: 34px;
   font-weight: normal;
-  font-family: "Arial";
+  font-family: Arial, Helvetica, Verdana, sans-serif;
   color: #444;
   text-transform: capitalize;
 }
