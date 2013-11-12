@@ -1,8 +1,28 @@
-define ["jquery", "underscore", "backbone", "text!html/standard/signup.html", "text!html/email/signup.html", "js/modules/standard/models/signup", "js/models/email", "js/views/alerts"], ($, a, b, template, tSignup, mRegister, mEmail, vAlerts) ->
+define ["jquery", "underscore", "backbone", "forms", "text!html/standard/signup.html", "text!html/email/signup.html", "js/modules/standard/models/user", "js/models/email", "js/models/types"], ($, _, Backbone, forms, template, tSignup, mUser, mEmail, mTypes) ->
   view = Backbone.View.extend(
+    
     events:
       "click #complete": "register"
 
+    render: ->
+      data = {}
+      Backbone.Events.trigger "sidebar", "general"
+      compiled = _.template(template, data)
+      @$el.html compiled
+      
+      @model = new mUser()
+      schema = mTypes.schema('signup')
+      _.extend @model, {schema: schema}
+
+      @form = new Backbone.Form({schema: schema, model: @model})
+      @form.render()
+      
+      #$("#fields").append @form.el
+      container = @$el.find("#fields")
+      container.append @form.el
+      
+      @
+    
     register: ->
       @model = new mRegister(@collect())
       self = this
@@ -42,12 +62,5 @@ define ["jquery", "underscore", "backbone", "text!html/standard/signup.html", "t
         password: $("#password").val()
 
       output
-
-    render: ->
-      data = {}
-      Backbone.Events.trigger "sidebar", "general"
-      compiled = _.template(template, data)
-      @$el.html compiled
-      compiled
   )
   view

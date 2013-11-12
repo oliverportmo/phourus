@@ -31,12 +31,14 @@ define(["jquery", "underscore", "backbone", "text!html/widgets/posts.html", "js/
 
       self = this;
       _.each(this.collection.models, function(model) {
-        var review;
+        var data;
 
-        review = model.toJSON();
+        data = model.toJSON();
         return $(self.el).append(_.template(tReview, {
-          data: review,
-          pic: self.pic
+          review: data.review,
+          pic: self.pic,
+          user: data.user.user,
+          format_date: self.format_date
         }));
       });
       return this.$el;

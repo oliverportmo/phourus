@@ -1,7 +1,7 @@
 define ["jquery", "underscore", "backbone", "js/models/session", "js/models/settings"], ($, _, Backbone, mSession, mSettings) ->
   cStream = Backbone.Collection.extend(
     url: ->
-      url = "/rest/posts/" + @query()
+      url = "/rest/post/" + @query()
       url
 
     query: ->

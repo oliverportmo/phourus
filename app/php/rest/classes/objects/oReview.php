@@ -5,7 +5,23 @@ class oReview
 	
 	# GET
 	public function get($params){
-		$out= dRead::reviews($params);
+		if(isset($params['id'])){
+  	  $out= array();
+  	  $out['review']= dRead::reviews($params);
+  	  if(is_numeric($out['review'])){
+    	  return $out['review'];
+  	  }
+  	  $out['user']= oUser::get(array('id' => $out['review']['user_id']));
+	  }else{
+  	  $reviews= dRead::reviews($params);
+  	  if(is_numeric($reviews)){
+    	  return $reviews;
+  	  }
+  	  $out= array();
+  	  foreach($reviews as $review){
+  	    $out[]= oReview::get(array('id' => $review['id']));
+  	  }
+	  }	
 		return $out;
 	}
 

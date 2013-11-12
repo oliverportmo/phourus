@@ -1,15 +1,26 @@
-<div class="review">
-	<a href="#user/<%= data.user_id %>">
+<div class="item">
+	<a href="#user/<%= user.id %>">
 		<span class="pic">
-			<img src="<%= pic('users', data.user_id, 'jpg') %>" width="70" height="70">
+			<img src="<%= pic('users', user.id, user.img) %>" width="120" onerror="this.src='/assets/pics/default.png'" />
 		</span>
 	</a>
-	<span><%= data.first %> <%= data.last %></span>
-	<span class="author"><%= data.username %></span> 
-	<span class="date"><%= data.created %></span>
-	<a href="#!single/<%= data.id %>" class="title"><%= data.title %></a>
-	<img src="/assets/layout/stars.png" />	
+	<br />
+	<a href="javascript:void(0)" class="title"><%= review.title %></a>
+	<div class="box" style="width: 450px;">
+	  <ul>
+    	<li><%= user.first %> <%= user.last %></li>
+    	<li class="author"><%= user.username %></li> 
+    	<li class="date"><%= format_date(review.created) %></li>
+  	</ul>
+	</div>
+	<div class="box">
+	 <div class="stars">
+	   <% for(var i = 0; i < review.rating; i++){ %>
+	     <img src="/assets/icons/general/star.png" class="star" />
+	   <% } %>
+	 </div>
+	</div>
 	<br clear="all">
-	<p><%= data.content %></p>
+	<p><%= review.content %></p>
 	<br clear="all">
 </div>

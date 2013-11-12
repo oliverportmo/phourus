@@ -6,7 +6,7 @@ define(["jquery", "underscore", "backbone", "js/models/session", "js/models/sett
     url: function() {
       var url;
 
-      url = "/rest/posts/" + this.query();
+      url = "/rest/post/" + this.query();
       return url;
     },
     query: function() {

@@ -8,13 +8,13 @@ class oStats
 	public function stats($params){
 		extract($params);
 		
-		if($post_id){
+		if(isset($post_id)){
       return self::post($post_id);
     }		
-		if($user_id){
+		if(isset($user_id)){
   		return self::user($user_id);
 		}
-    if($org_id){
+    if(isset($org_id)){
   		return self::org($org_id);
 		}
 	}		

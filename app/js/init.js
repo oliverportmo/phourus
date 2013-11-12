@@ -45,7 +45,7 @@ window.debug = function(input) {
 };
 
 define("init", function(require) {
-  var $, Backbone, BaseCollection, BaseModel, BaseSync, BaseView, app, mSession, mView, marionette, options, vAlerts, vFooter, vHeader, vSidebar, _;
+  var $, Backbone, BaseCollection, BaseModel, BaseView, app, mHeaders, mSession, mView, marionette, options, vAlerts, vFooter, vHeader, vSidebar, _;
 
   $ = require("jquery");
   _ = require("underscore");
@@ -53,6 +53,7 @@ define("init", function(require) {
   marionette = require("marionette");
   mSession = require("js/models/session");
   mView = require("js/models/view");
+  mHeaders = require("js/models/headers");
   vAlerts = require("js/views/alerts");
   vHeader = require("js/views/header");
   vSidebar = require("js/views/sidebar");
@@ -60,7 +61,6 @@ define("init", function(require) {
   BaseCollection = require("js/base/collection");
   BaseModel = require("js/base/model");
   BaseView = require("js/base/view");
-  BaseSync = require("js/base/sync");
   app = new Backbone.Marionette.Application();
   app.addInitializer(function(options) {
     var host, internal, orgs, pages, parts, standard, stream, subdomain;
@@ -110,14 +110,19 @@ define("init", function(require) {
       return window.history.back();
     });
     Backbone.Events.on("token", function(data) {
-      return Backbone.sync = function(method, model, options) {
-        options.headers = options.headers || {};
-        _.extend(options.headers, {
-          "x-api-key": data.token,
+      mHeaders.set("x-api-key", data.token);
+      return mHeaders.set("from", data.user_id);
+      /*
+      Backbone.sync = (method, model, options) ->
+        
+        options.headers = options.headers or {}
+        _.extend options.headers,
+          "x-api-key": data.token
           "from": data.user_id
-        });
-        return Backbone._sync(method, model, options);
-      };
+        
+        Backbone._sync method, model, options
+      */
+
     });
     return Backbone.Events.on("map", function(data) {
       var dev;
@@ -163,8 +168,7 @@ define("init", function(require) {
   app.on("initialize:before", function(options) {
     Backbone.View = BaseView;
     Backbone.Model = BaseModel;
-    Backbone.Collection = BaseCollection;
-    return Backbone.emulateJSON = true;
+    return Backbone.Collection = BaseCollection;
   });
   app.on("start", function(options) {});
   options = {};

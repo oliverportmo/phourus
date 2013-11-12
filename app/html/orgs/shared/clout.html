@@ -1,9 +1,9 @@
-<div class="left">
+<div id="award">
   <h2>Awards &amp; Honors</h2>
   <% _.each(data, function(item, key){ %>
     <% if(item.get("type") === "award"){ %>
       <div class="award">
-        <img src="/assets/profiles/default.png" width="50" height="50" />
+        <img src="/assets/pics/clout/award/<%= item.get('image') %>" width="50" height="50" onerror="this.src='/assets/icons/general/award.png'" />
         <h3><%= item.get("title") %></h3>
         <h4><%= item.get("date") %></h4>
         <p><%= item.get("content") %></p>
@@ -12,12 +12,12 @@
   <% }); %>
 </div>
 
-<div class="right">
+<div id="press">
   <h2>Press & Testimonials</h2>
   <% _.each(data, function(item, key){ %>
     <% if(item.get("type") === "press"){ %>
       <div class="press">
-        <img src="/assets/profiles/default.png" width="50" height="50" />
+        <img src="/assets/pics/clout/press/<%= item.get('image') %>" width="50" height="50" onerror="this.src='/assets/icons/general/press.png'" />
         <h3><%= item.get("title") %></h3>
         <h4><%= item.get("date") %></h4>
         <p><%= item.get("content") %></p>

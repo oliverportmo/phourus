@@ -14,7 +14,8 @@ define ["jquery", "underscore", "backbone", "js/modules/stream/models/post", "te
       Backbone.Events.trigger "back", {}
     
     load: (id) ->
-      Backbone.Events.trigger "sidebar", "single"
+      params = {id: id}
+      Backbone.Events.trigger "sidebar", {type: "post", params: params}
       @model = new model({id: id})
       self = this
       @model.fetch 
@@ -35,7 +36,7 @@ define ["jquery", "underscore", "backbone", "js/modules/stream/models/post", "te
         element = mTypes.get_parent(type)
         
         owner = data.meta.user_id is mSession.get("user_id")
-        params = {address: data.address[0], meta: data.meta, post: data.post, stats: data.stats, user: data.user, element: element, owner: owner, pic: @pic, format_date: @format_date}
+        params = {address: data.user.address[0], meta: data.meta, post: data.post, stats: data.stats, user: data.user.user, element: element, owner: owner, pic: @pic, format_date: @format_date}
         compiled = _.template(template, params)
         @$el.html compiled
         heading = _.template(tHeading, params)

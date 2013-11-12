@@ -12,6 +12,7 @@ define ["jquery", "underscore", "backbone", "js/models/types"], ($, _, Backbone,
           self.params = params
         else
           self.type = params
+          self.params = {}
         self.render()
       window.onhashchange = ()-> 
         #self.hide()
@@ -27,7 +28,7 @@ define ["jquery", "underscore", "backbone", "js/models/types"], ($, _, Backbone,
       #$("div#content").animate({left: "220"}, 500)
       @$el.show()
         
-    render: ->   
+    render: ->         
       self = @
       html = ''   
       
@@ -36,19 +37,16 @@ define ["jquery", "underscore", "backbone", "js/models/types"], ($, _, Backbone,
       @show()
       
       if @subdomain in @subdomains 
-        require ["js/views/sidebar/subdomains/" + @subdomain], (view) ->
+        require ["js/modules/sidebar/subdomains/" + @subdomain], (view) ->
           self.sidebar = new view()
       else if @type is '' or _.isUndefined(@type) or @type is 'hidden'
         @hide()  
       else if @type is 'form'         
-        require ["js/views/sidebar/form"], (view) ->
-          self.sidebar = new view({type: self.post})  
-      else if @type is 'orgs'         
-        require ["js/views/sidebar/orgs"], (view) ->
-          self.sidebar = new view(self.params)  
+        require ["js/modules/sidebar/form"], (view) ->
+          self.sidebar = new view({type: self.post})    
       else 
-        require ["js/views/sidebar/" + @type], (view) ->
-          self.sidebar = new view()  
+        require ["js/modules/sidebar/" + @type], (view) ->
+          self.sidebar = new view(self.params.params)  
       @type = ''
     
     subdomains: ["docs", "wiki", "internal", "agency"]                  

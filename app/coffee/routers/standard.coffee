@@ -5,12 +5,12 @@ define ["jquery", "underscore", "backbone", "marionette"], ($, _, Backbone, mari
       "": "homepage"
       "!home": "homepage"
       #"!help": "help"
-      "contact": "contact"
-      "terms": "temp"
-      "privacy": "temp"
+      "!contact": "contact"
+      "terms": "terms"
+      "privacy": "privacy"
       
       #User
-      "signup": "signup"
+      "!signup": "signup"
       #"me": "user"
       "user/:id": "user"
       
@@ -31,26 +31,24 @@ define ["jquery", "underscore", "backbone", "marionette"], ($, _, Backbone, mari
       require ["js/modules/standard/views/home"], (view) ->
         self.toss view, params
 
-    help: ->
-      self = this
-      params = {}
-      require ["js/modules/standard/views/help"], (view) ->
-        self.toss view, params
-    
     contact: ->
       self = this
       params = page: "contact"
       require ["js/modules/standard/views/contact"], (view) ->
         self.toss view, params
 
-
     signup: ->
       self = this
       params = page: "signup"
       require ["js/modules/standard/views/signup"], (view) ->
         self.toss view, params
-
-
+        
+    help: ->
+      self = this
+      params = {}
+      require ["js/modules/standard/views/help"], (view) ->
+        self.toss view, params
+    
     standard: ->
       self = this
       params = page: "standard"
@@ -64,7 +62,18 @@ define ["jquery", "underscore", "backbone", "marionette"], ($, _, Backbone, mari
       require ["js/modules/standard/views/temp"], (view) ->
         self.toss view, params
 
-
+    terms: ->
+      self = this
+      params = page: "terms"
+      require ["js/modules/standard/views/terms"], (view) ->
+        self.toss view, params
+    
+    privacy: ->
+      self = this
+      params = page: "privacy"
+      require ["js/modules/standard/views/privacy"], (view) ->
+        self.toss view, params
+        
     user: (id) ->
       self = this
       params =

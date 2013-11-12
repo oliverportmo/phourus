@@ -1,7 +1,7 @@
 <h1><%= org.name %></h1>
 <span class="pic">
 	<a href="javascript:void(0)">
-		<img src="<%= pic('orgs', org.id, org.img) %>" width="150" height="150">
+		<img src="<%= pic('orgs', org.id, org.img) %>" onerror="this.src='/assets/pics/default.png'" width="150" height="150">
 	</a>
 	<% if(owner== true){ %>
   	<form action="/rest/pic/<%= org.id %>" method="post" enctype="multipart/form-data" target="upload">

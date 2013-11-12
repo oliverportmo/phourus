@@ -1,17 +1,18 @@
 <div class="heading"></div>
 <h1><%= data.action %> <%= data.title %></h1>
 <div id="fields"></div>
+<div id="help"><img src="/assets/icons/general/about.png" />More Info</div>
 <div id="description"><%= data.description %></div>
 <br clear="all" />
 <br />	
 <div id="footing">
 	<% if(data.mode== 'add'){ %>
-		<input id="create" type="button" value="Create New" class="button green" />
+		<button id="create" class="button green">Create New</button>
 		<button class="button red back">Cancel Create</button>
 	<% } %>
 	
 	<% if(data.mode== 'edit'){ %>
-		<input id="update" type="button" value="Save Changes" class="button green" />
+		<button id="update" class="button green">Save Changes</button>
 		<button class="button blue back">Cancel Edit</button>
 		<button id="delete" class="button red">Delete Post</button>
 	<% } %>

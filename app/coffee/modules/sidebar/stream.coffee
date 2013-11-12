@@ -1,4 +1,4 @@
-define ["jquery", "underscore", "backbone", "js/models/types", "js/models/settings", "js/views/sidebar/widgets/recent", "js/views/sidebar/widgets/create"], ($, _, Backbone, mTypes, mSettings, vRecent, vCreate) ->
+define ["jquery", "underscore", "backbone", "js/models/types", "js/models/settings", "js/modules/sidebar/widgets/recent", "js/modules/sidebar/widgets/create"], ($, _, Backbone, mTypes, mSettings, vRecent, vCreate) ->
   vSidebar = Backbone.View.extend(
     el: "#sidebar"
     className: "stream"
@@ -65,7 +65,7 @@ define ["jquery", "underscore", "backbone", "js/models/types", "js/models/settin
       output += "<div id='recent'></div>"
       output += "<div id='create'></div>"
       $(@el).append output
-      @subviews "#recent", new vRecent()
+      #@subviews "#recent", new vRecent()
       @subviews "#create", new vCreate()
       @el
 

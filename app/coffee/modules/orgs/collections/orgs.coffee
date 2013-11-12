@@ -3,10 +3,9 @@ define ["jquery", "underscore", "backbone"], ($, _, Backbone) ->
     
     initialize: (options)->
       @options = options
-      console.log options
       
     url: ->
-      url = "/rest/orgs/?" + @query()
+      url = "/rest/org/?" + @query()
       url
     
     query: ->

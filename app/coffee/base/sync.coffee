@@ -1,11 +1,12 @@
-define ["jquery", "backbone", "underscore"], ($, Backbone, _) ->
+define ["jquery", "backbone", "underscore", "js/models/headers"], ($, Backbone, _, mHeaders) ->
   
-  sync = (method, model, options) ->
+  _sync = Backbone.sync
+  Backbone.sync = (method, model, options) ->
     options.headers = options.headers or {}
-    
-    console.log method  
-    if method is 'post'
+    _.extend(options.headers, mHeaders.attributes)
+      
+    if method is 'create' or method is 'update'
       options.headers["Content-Type"]= "application/x-www-form-urlencoded" 
+      options.data = $.param(model.attributes)
     
-    Backbone.sync method, model, options
-  sync
+    _sync method, model, options

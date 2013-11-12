@@ -6,7 +6,7 @@ define(["jquery", "underscore", "backbone", "text!html/standard/home.html", "js/
     className: "home",
     initialize: function(options) {},
     events: {
-      "click .button-home": "learn"
+      "click .learn": "learn"
     },
     learn: function(e) {
       var id;

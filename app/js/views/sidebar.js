@@ -17,6 +17,7 @@ define(["jquery", "underscore", "backbone", "js/models/types"], function($, _, B
           self.params = params;
         } else {
           self.type = params;
+          self.params = {};
         }
         return self.render();
       });
@@ -38,24 +39,20 @@ define(["jquery", "underscore", "backbone", "js/models/types"], function($, _, B
       }
       this.show();
       if (_ref = this.subdomain, __indexOf.call(this.subdomains, _ref) >= 0) {
-        require(["js/views/sidebar/subdomains/" + this.subdomain], function(view) {
+        require(["js/modules/sidebar/subdomains/" + this.subdomain], function(view) {
           return self.sidebar = new view();
         });
       } else if (this.type === '' || _.isUndefined(this.type) || this.type === 'hidden') {
         this.hide();
       } else if (this.type === 'form') {
-        require(["js/views/sidebar/form"], function(view) {
+        require(["js/modules/sidebar/form"], function(view) {
           return self.sidebar = new view({
             type: self.post
           });
         });
-      } else if (this.type === 'orgs') {
-        require(["js/views/sidebar/orgs"], function(view) {
-          return self.sidebar = new view(self.params);
-        });
       } else {
-        require(["js/views/sidebar/" + this.type], function(view) {
-          return self.sidebar = new view();
+        require(["js/modules/sidebar/" + this.type], function(view) {
+          return self.sidebar = new view(self.params.params);
         });
       }
       return this.type = '';

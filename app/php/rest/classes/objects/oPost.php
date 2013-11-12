@@ -14,7 +14,7 @@ class oPost
   		if(is_numeric($post)){
     		return $post;
   		}
-  		$user= dRead::users(array('id' => $meta['user_id']));
+  		$user= oUser::get(array('id' => $meta['user_id']));
   		$stats= oStats::stats(array('post_id' => $meta['id']));
   		$address= dRead::address(array('user_id' => $meta['user_id']));
   		
@@ -23,7 +23,6 @@ class oPost
   		$out['post']= $post;
   		$out['stats']= $stats;
   		$out['user']= $user;
-  		$out['address']= $address;
 		}else if(isset($params['org_id'])){
   		$members= dRead::community(array('mode' => 'id', 'org_id' => $params['org_id']));
   		$in= '';
@@ -75,6 +74,8 @@ class oPost
 		}
 		if(isset($users)){
   		$params['users']= self::users($users);
+		}else{
+  		$params['users']= '';
 		}
 		//$params['when']= $this->when();				
 		return $params;

@@ -7,10 +7,10 @@ define ["jquery", "underscore", "backbone", "async!http://maps.google.com/maps/a
           _.bindAll @
           Backbone.Events.on "location", @go
           @geocoder = new google.maps.Geocoder()
-          @addresses(options)
           @markers = []
           @windows = []
-          @latlng = {}     
+          @latlng = {}   
+          @addresses(options)  
          
         addresses: (collection) ->          
           out= []
@@ -22,17 +22,14 @@ define ["jquery", "underscore", "backbone", "async!http://maps.google.com/maps/a
         coordinates: (data) ->
           self = @
           data = data.attributes
-          address = data.address[0]
+          address = data.address[0]  
           str = address.street + ', ' + address.city + ', ' + address.state + ' ' + address.country
           @geocoder.geocode 'address': str, (results, status) -> 
             if status == 'OK'
               key = data.org.id
               loc = results[0].geometry.location
-              #out.lat = loc.jb
-              #out.lng = loc.kb 
-              data.lat = loc.lb
-              data.lng = loc.mb 
-              #self.latlng[id] = out
+              data.lat = loc.ob
+              data.lng = loc.pb 
                
               self.markers[key] = self.createMarkers data  
               self.windows[key] = self.createWindows data
@@ -53,10 +50,9 @@ define ["jquery", "underscore", "backbone", "async!http://maps.google.com/maps/a
         
           container= document.getElementById('gmap')
           @map = new google.maps.Map container, @config unless container is null
-          #@start()           
+          @start()           
         
         # Loop through locations in data
-        ###
         start: ->
           self = @   
           _.each @locations, (value, key) -> 
@@ -68,7 +64,6 @@ define ["jquery", "underscore", "backbone", "async!http://maps.google.com/maps/a
               self.map.setZoom(10);
               self.windows[key].open(self.map, self.markers[key]);
           _.defer @clusterize
-        ###
         
         # Create marker for LatLng
         createMarkers: (data) ->
@@ -113,33 +108,3 @@ define ["jquery", "underscore", "backbone", "async!http://maps.google.com/maps/a
                
 	)
 	view
-	
-###
-raw = 
-  0: 
-    address: "1776 California St, Mountain View CA 94041"
-    name: "ABC Company"
-    lat: 37.396229
-    lng: -122.091926
-  1: 
-    address: "5 Lewis Lane, East Hampstead NH 03826"
-    name: "DEF Company"
-    lat: 42.8910476
-    lng: -71.13239659999999
-  2: 
-    address: "63 Fountain St, Haverhill MA 01830"
-    name: "XYZ Company"
-    lat: 42.7855423
-    lng: -71.07526940000002
-  3: 
-    address: "923 Baywood Drive, Newport Beach CA 92660" 
-    name: "KLI Company"
-    lat: 39.1211965
-    lng: -104.1678933
-  4: 
-    address: "1 Main St, Colorado Springs CO"
-    name: "CBA Company"
-    lat: 33.6133044
-    lng: -117.86344020000001
-data= [raw[0], raw[1], raw[2], raw[3], raw[4]]
-###

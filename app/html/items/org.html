@@ -2,7 +2,7 @@
 	<h3><a href="#!<%= org.type %>/<%= org.id %>" class="<%= org.type %>"><%= org.name %></a></h3>	
 	<div class="pic">
 		<a href="#!<%= org.type %>/<%= org.id %>" class="<%= org.type %>">
-  	  <img src="<%= pic('orgs', org.id, org.img) %>" width="120" />	
+  	  <img src="<%= pic('orgs', org.id, org.img) %>" width="120" onerror="this.src='/assets/pics/default.png'" />	
 		</a>
 	</div>
 	<div class="box">

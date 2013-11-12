@@ -5,7 +5,7 @@ class oClout
 	
 	# GET
 	public function get($params){
-  	$out= dRead::clout($params);
+    $out= dRead::clout($params);
   	return $out;
 	}
 

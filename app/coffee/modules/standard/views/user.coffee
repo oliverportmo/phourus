@@ -4,10 +4,10 @@ define ["jquery", "underscore", "backbone", "forms", "text!html/standard/user.ht
     className: "user"
     
     initialize: (options) ->
-    
+      
     render: () ->
       self = @
-      Backbone.Events.trigger "sidebar", "profile"
+      Backbone.Events.trigger "sidebar", {type: 'profile', params: @options}
       @model = new mUser({id: @options.user})
       @model.fetch
         success: () ->
@@ -18,6 +18,7 @@ define ["jquery", "underscore", "backbone", "forms", "text!html/standard/user.ht
     events: 
       "click ul.tabs a": "tab"
       "click #update_account": "expand"
+      "click .save": "save"
     
     expand: ->
       if $("#update").is(':hidden') is true
@@ -40,9 +41,9 @@ define ["jquery", "underscore", "backbone", "forms", "text!html/standard/user.ht
       owner = data.id is mSession.get("user_id")
       console.log owner
       console.log data
-      params = {user: data, pic: @pic, totals: totals, owner: owner}
+      params = {user: data.user, pic: @pic, totals: totals, owner: owner}
       compiled = _.template(template, params)
-      @$el.html compiled
+      $(@el).html compiled
       
       heading = _.template(tHeading, params)
       $(".heading").html heading
@@ -52,12 +53,20 @@ define ["jquery", "underscore", "backbone", "forms", "text!html/standard/user.ht
         "email": "Text"
         "phone": "Text"
         
-      form = new Backbone.Form({model: @model, schema: schema})
-      form.render()
+      @form = new Backbone.Form({model: @model, schema: schema})
+      @form.render()
       
       container = @$el.find("#fields")
-      container.append form.el
+      container.append @form.el
       
       compiled
+    
+    save: (e) ->
+      @form.commit()
+      @model.save @model.changed, 
+        success: (model, response) ->
+            Backbone.Events.trigger "alert", {type: "complete", message: "User information saved successfully", response: response, location: "modules/stream/views/user", action: "update"}
+        error: (model, response) ->
+	          Backbone.Events.trigger "alert", {type: "error", message: "User information could not be updated", response: response, location: "modules/stream/views/user", action: "update"}
   )
   view

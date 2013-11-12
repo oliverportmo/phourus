@@ -57,13 +57,13 @@ class dReadTest extends PHPUnit_Framework_TestCase
 		$id= "1";
 		$type= 'missing';
 		$result= dRead::post($id, $type);
-		$this->assertFalse($result);
+		$this->assertEquals(400, $result);
 		
 		// Invalid ID
 		$id= "I-DONT-EXIST";
 		$type= 'blogs';
 		$result= dRead::post($id, $type);
-		$this->assertEquals($result, false);
+		$this->assertEquals(404, $result);
 	}	
 	
 	public function testusers(){
@@ -177,7 +177,7 @@ class dReadTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals($r[0]['id'], 3);
 		$this->assertEquals($r[0]['org_id'], 1);
 		$this->assertEquals($r[0]['user_id'], $params['user_id']);
-		$this->assertEquals($r[0]['title'], 'Need improvement');
+		$this->assertEquals($r[0]['title'], 'Good but needs improvement');
 		$this->assertEquals($r[0]['rating'], 3);
 		//$this->assertEquals($r[0]['created'], "2013-09-18 10:21:19");
 		//$this->assertEquals($r[0]['modified'], "2013-09-18 10:21:21");

@@ -1,6 +1,6 @@
 <h3><%= org.name %></h3>
 <div class="details">
-  <img src="<%= pic('orgs', org.id, org.img) %>" width="80" style="display: block;float:left;" />
+  <img src="<%= pic('orgs', org.id, org.img) %>" onerror="this.src='/assets/pics/default.png'" width="80" style="display: block;float:left;" />
 	<div class="box">
 		<dl>
 		  <% if(org['type'] === 'gov'){ %><dt>Population:</dt><% } %>

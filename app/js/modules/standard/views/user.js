@@ -9,7 +9,10 @@ define(["jquery", "underscore", "backbone", "forms", "text!html/standard/user.ht
       var self;
 
       self = this;
-      Backbone.Events.trigger("sidebar", "profile");
+      Backbone.Events.trigger("sidebar", {
+        type: 'profile',
+        params: this.options
+      });
       this.model = new mUser({
         id: this.options.user
       });
@@ -30,7 +33,8 @@ define(["jquery", "underscore", "backbone", "forms", "text!html/standard/user.ht
     },
     events: {
       "click ul.tabs a": "tab",
-      "click #update_account": "expand"
+      "click #update_account": "expand",
+      "click .save": "save"
     },
     expand: function() {
       if ($("#update").is(':hidden') === true) {
@@ -51,7 +55,7 @@ define(["jquery", "underscore", "backbone", "forms", "text!html/standard/user.ht
       return $("ul.tabs li a#" + id).addClass('selected');
     },
     display: function() {
-      var compiled, container, data, form, heading, owner, params, schema, totals;
+      var compiled, container, data, heading, owner, params, schema, totals;
 
       data = this.model.attributes;
       totals = {
@@ -75,13 +79,13 @@ define(["jquery", "underscore", "backbone", "forms", "text!html/standard/user.ht
       console.log(owner);
       console.log(data);
       params = {
-        user: data,
+        user: data.user,
         pic: this.pic,
         totals: totals,
         owner: owner
       };
       compiled = _.template(template, params);
-      this.$el.html(compiled);
+      $(this.el).html(compiled);
       heading = _.template(tHeading, params);
       $(".heading").html(heading);
       schema = {
@@ -89,14 +93,37 @@ define(["jquery", "underscore", "backbone", "forms", "text!html/standard/user.ht
         "email": "Text",
         "phone": "Text"
       };
-      form = new Backbone.Form({
+      this.form = new Backbone.Form({
         model: this.model,
         schema: schema
       });
-      form.render();
+      this.form.render();
       container = this.$el.find("#fields");
-      container.append(form.el);
+      container.append(this.form.el);
       return compiled;
+    },
+    save: function(e) {
+      this.form.commit();
+      return this.model.save(this.model.changed, {
+        success: function(model, response) {
+          return Backbone.Events.trigger("alert", {
+            type: "complete",
+            message: "User information saved successfully",
+            response: response,
+            location: "modules/stream/views/user",
+            action: "update"
+          });
+        },
+        error: function(model, response) {
+          return Backbone.Events.trigger("alert", {
+            type: "error",
+            message: "User information could not be updated",
+            response: response,
+            location: "modules/stream/views/user",
+            action: "update"
+          });
+        }
+      });
     }
   });
   return view;

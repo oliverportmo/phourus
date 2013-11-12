@@ -4,23 +4,28 @@ define(["jquery", "underscore", "backbone", "text!html/orgs/shared/clout.html", 
 
   widget = Backbone.View.extend({
     initialize: function(options) {
-      var self;
+      var params, self;
 
       self = this;
-      options.id = 1;
-      this.collection = new cClout(options);
+      params = {};
+      params.org_id = options.id;
+      this.collection = new cClout(params);
       return this.collection.fetch({
         success: function() {
           return self.render();
         },
         error: function(collection, response) {
-          return Backbone.Events.trigger("alert", {
-            type: "error",
-            message: "Clout could not be loaded",
-            response: response,
-            location: "modules/orgs/shared/clout",
-            action: "read"
-          });
+          if (response.status === 404) {
+            return $(self.el).append('<h2 style="text-align:center">This Organization has not added any Clout</h2>');
+          } else {
+            return Backbone.Events.trigger("alert", {
+              type: "error",
+              message: "Clout could not be loaded",
+              response: response,
+              location: "modules/orgs/shared/clout",
+              action: "read"
+            });
+          }
         }
       });
     },

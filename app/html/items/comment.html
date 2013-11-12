@@ -1,6 +1,6 @@
 <div class="item" id="<%= comment.id %>">
   <div class="pic">
-    <a href="#user/<%= user.id %>"><img src="<%= pic('users', user.id, user.img) %>" width="100"></a>
+    <a href="#user/<%= user.id %>"><img src="<%= pic('users', user.id, user.img) %>" width="100" onerror="this.src='/assets/pics/default.png'" /></a>
     <a href="#user/<%= user.id %>" class="username"><%= user.username %> (<%= user.influence %>)</a>
   </div>
   <div class="comment">

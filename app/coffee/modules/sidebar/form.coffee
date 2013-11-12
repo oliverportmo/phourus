@@ -1,4 +1,4 @@
-define ["jquery", "underscore", "backbone", "text!html/sidebar/form.html", "js/models/types", "js/views/sidebar/widgets/recent", "js/views/sidebar/widgets/create"], ($, _, Backbone, template, mTypes, vRecent, vCreate) ->
+define ["jquery", "underscore", "backbone", "text!html/sidebar/form.html", "js/models/types", "js/modules/sidebar/widgets/recent", "js/modules/sidebar/widgets/create"], ($, _, Backbone, template, mTypes, vRecent, vCreate) ->
    
   view = Backbone.View.extend(
     el: "#sidebar"

@@ -4,13 +4,12 @@ define(["jquery", "underscore", "backbone"], function($, _, Backbone) {
 
   collection = Backbone.Collection.extend({
     initialize: function(options) {
-      this.options = options;
-      return console.log(options);
+      return this.options = options;
     },
     url: function() {
       var url;
 
-      url = "/rest/orgs/?" + this.query();
+      url = "/rest/org/?" + this.query();
       return url;
     },
     query: function() {

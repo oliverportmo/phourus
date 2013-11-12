@@ -3,11 +3,14 @@ define ["jquery", "underscore", "backbone", "js/models/session", "js/models/sett
     
     initialize: (options) ->
       @options= options
+            
+    idAttribute: "id"
+    
+    initialize: (options) ->
+      @options = options
       
     url: ->
-      url = "/rest/clout/" + @options.id;
-      url
-      
-    idAttribute: "id"
+      query = '?' + @serialize(@options)
+      "/rest/clout/" + query 
   )
   collection

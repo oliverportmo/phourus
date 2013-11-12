@@ -17,7 +17,7 @@
 <div class="elements">
   <% _.each(data, function(type){ %>
     <% if(!_.isUndefined(type.element)){ %>
-      <a href="javascript:void(0)" class="button-home" id="button-<%= type.element %>"></a>
+      <a href="javascript:void(0)" class="learn" id="learn-<%= type.element %>"><span><%= type.element %></span><img src="/assets/elements/color/<%= type.element %>.png" />Click to learn more...</a>
     <% } %> 
   <% }); %>
 </div>

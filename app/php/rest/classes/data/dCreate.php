@@ -2,21 +2,6 @@
 
 class dCreate {
 	
-	# POST
-	public static function post($model){
-		$split= uUtilities::splitter($model);
-		
-		$p= uQueries::create($split['posts'], 'posts');
-		$d= uQueries::create($split['detail'], $model['type']);	
-		$q[]= $p;
-		$q[]= $d;
-		$q= $p.$d;
-		 
-		$result= new uResult();
-		$out= $result->r_create($q, true);
-		return $out;
-	}	
-
 	# tag, address, reviews, clout, follows, comments, thumbs, views, orgs, users
 	public static function create($model, $type){
   	$q= uQueries::create($model, $type);
@@ -24,6 +9,24 @@ class dCreate {
 		$id= $result->r_create($q);
 		return $id;
 	}
+	
+	# POST
+	public static function post($model){
+		$split= uUtilities::splitter($model);
+		
+		$p= uQueries::create($split['posts'], 'posts');
+		$d= uQueries::create($split['detail'], $model['type']);	
+		$queries[]= $p;
+		$queries[]= $d;
+		//$q= $p.$d;
+		 
+		$result= new uResult();
+		$create= $result->r_create($queries, true);
+		if(!$create['id']){
+  		return 503;
+		} 
+		return $create['id'];
+	}	
 	
 	# SESSION
 	public static function session($user_id){

@@ -6,13 +6,16 @@ define(["jquery", "underscore", "backbone", "js/models/session", "js/models/sett
     initialize: function(options) {
       return this.options = options;
     },
-    url: function() {
-      var url;
-
-      url = "/rest/clout/" + this.options.id;
-      return url;
+    idAttribute: "id",
+    initialize: function(options) {
+      return this.options = options;
     },
-    idAttribute: "id"
+    url: function() {
+      var query;
+
+      query = '?' + this.serialize(this.options);
+      return "/rest/clout/" + query;
+    }
   });
   return collection;
 });

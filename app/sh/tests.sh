@@ -1,7 +1,6 @@
 #!/bin/bash
 cd app/tests/rest
-phpunit curlTest.php
-
+ 
 cd data
 phpunit dCreateTest.php
 phpunit dDeleteTest.php

@@ -15,9 +15,15 @@ define(["jquery", "underscore", "backbone", "js/modules/stream/models/post", "te
       return Backbone.Events.trigger("back", {});
     },
     load: function(id) {
-      var self;
+      var params, self;
 
-      Backbone.Events.trigger("sidebar", "single");
+      params = {
+        id: id
+      };
+      Backbone.Events.trigger("sidebar", {
+        type: "post",
+        params: params
+      });
       this.model = new model({
         id: id
       });
@@ -58,11 +64,11 @@ define(["jquery", "underscore", "backbone", "js/modules/stream/models/post", "te
         element = mTypes.get_parent(type);
         owner = data.meta.user_id === mSession.get("user_id");
         params = {
-          address: data.address[0],
+          address: data.user.address[0],
           meta: data.meta,
           post: data.post,
           stats: data.stats,
-          user: data.user,
+          user: data.user.user,
           element: element,
           owner: owner,
           pic: this.pic,

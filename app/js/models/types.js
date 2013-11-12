@@ -73,13 +73,39 @@ define(["jquery", "underscore", "backbone"], function($) {
       var element, privacy, schema;
 
       schema = {};
+      if (type === 'contact') {
+        schema.first = "Text";
+        schema.last = "Text";
+        schema.email = "Text";
+        schema.subject = {
+          type: "Select",
+          options: ["General information", "Report an issue", "Tell us what you think", "Join the Phourus Team", "Other"]
+        };
+        schema.message = "TextArea";
+      }
+      if (type === 'signuporg') {
+        schema.name = "Text";
+        schema.shortname = "Text";
+        schema.email = "Text";
+        schema.type = {
+          type: "Select",
+          options: ["Gov", "Company", "School", "Group"]
+        };
+        schema.terms = "Checkbox";
+      }
+      if (type === 'signup') {
+        schema.first = "Text";
+        schema.last = "Text";
+        schema.email = "Text";
+        schema.terms = "Checkbox";
+      }
       element = {
         type: "Select",
         options: ["Earth", "Mind", "Voice", "Self"]
       };
       privacy = {
         type: "Select",
-        options: ["Public", "Phourus", "Friends", "Private"]
+        options: ["Public", "Phourus", "Friends", "Following", "Followers", "Private"]
       };
       switch (type) {
         case "blogs":
@@ -165,16 +191,15 @@ define(["jquery", "underscore", "backbone"], function($) {
         case "beliefs":
           schema.title = "Text";
           schema.category = "Text";
-          schema.privacy = "Text";
+          schema.privacy = privacy;
           schema.content = "TextArea";
           break;
         case "timeline":
           schema.title = "Text";
           schema.category = "Text";
-          schema.privacy = "Text";
-          schema.content = "TextArea";
+          schema.privacy = privacy;
           schema.date = "Date";
-          schema.time = "Time";
+          schema.content = "TextArea";
           break;
         case "quotes":
           schema.quote = "Text";
@@ -204,6 +229,7 @@ define(["jquery", "underscore", "backbone"], function($) {
       }
     },
     descriptions: {
+      contact: "We want to hear from you! Let us know what you think whether it be ways to improve Phourus, things you like or dislike, or any issues you've encountered. We appreciate the feedback!",
       blogs: "Blogs are the most basic post on Phourus, and can be used to write about virtually any topic, as long as it's relevant to the 4 Elements of Phourus, meaning they should somewhat relate to the Environment, Education, Politics or Religion in one way or another.",
       links: "Links are about finding the best resources on the Internet and bookmarking them on Phourus. Links can be articles, images, podcasts or videos, but should relate to one of the 4 Elements of Phourus (Earth, Mind, Voice and Faith).",
       ideas: "Ideas are structured very similarly to Blogs, but should be used to share Ideas for solving simple or complex problems that individuals, organizations or even the world faces, and give them the exposure they deserve using the 'Influence' rank.",
@@ -227,6 +253,59 @@ define(["jquery", "underscore", "backbone"], function($) {
       timeline: "The Phourus Self Timeline is used to track the significant life experiences that led you to your current belief system. With the Phourus Self Timeline, you can share these experiences so others can see how these events made you the person you are today.",
       groups: "Groups is a way to match members based on similar or dissimilar beliefs. By using Ranks, Phourus can get a good idea how a user and the Phourus community as a whole views the world. From there, individual users can be matched up based on this data using Phourus Faith Searching.",
       ranks: "Ranks is an easy way to get a snapshot of a person's viewpoints and how they view the world. Each member can create up to 4 different Rank topics, such as 'Belief in a Higher Power', and select a number from -5 to +5 to describe how strongly they agree or disagree with the statement."
+    },
+    states: {
+      AK: "Alaska",
+      AL: "Alabama",
+      AR: "Arkansas",
+      AZ: "Arizona",
+      CA: "California",
+      CO: "Colorado",
+      CT: "Connecticut",
+      DE: "Delaware",
+      DC: "District of Columbia",
+      FL: "Florida",
+      GA: "Georgia",
+      HI: "Hawaii",
+      IA: "Iowa",
+      ID: "Idaho",
+      IL: "Illinois",
+      IN: "Indiana",
+      KS: "Kansas",
+      KY: "Kentucky",
+      LA: "Louisiana",
+      MA: "Massachusetts",
+      MD: "Maryland",
+      ME: "Maine",
+      MI: "Michigan",
+      MN: "Minnesota",
+      MS: "Mississippi",
+      MO: "Missouri",
+      MT: "Montana",
+      NC: "North Carolina",
+      ND: "North Dakota",
+      NE: "Nebraska",
+      NH: "New Hampshire",
+      NJ: "New Jersey",
+      NM: "New Mexico",
+      NV: "Nevada",
+      NY: "New York",
+      OH: "Ohio",
+      OK: "Oklahoma",
+      OR: "Oregon",
+      PA: "Pennsylvania",
+      RI: "Rhode Island",
+      SC: "South Carolina",
+      SD: "South Dakota",
+      TN: "Tennessee",
+      TX: "Texas",
+      UT: "Utah",
+      VA: "Virginia",
+      VT: "Vermont",
+      WA: "Washington",
+      WI: "Wisconsin",
+      WV: "West Virginia",
+      WY: "Wyoming"
     },
     dropdown: function(type, category) {
       var output;

@@ -65,9 +65,10 @@ class uResult
   	}
 	}
 	
-	private function transaction($q, $mode){
-  	$id= 0;
-    $this->db->beginTransaction();
+	private function transaction($queries, $mode){
+  	$out= array();
+  	/*$id= 0;
+    
     $out= $this->db->exec($q);
     $this->db->commit();
   	  
@@ -75,18 +76,39 @@ class uResult
       $this->db->rollBack();
       return false;
     }
-    
-    /**
-    foreach($queries as $q)
-      try {
+    */
+    $this->db->beginTransaction();
+    foreach($queries as $q){
+      /*try {
         $p= $this->db->prepare($q);
       }catch (Exception $e){
         return 503;
       }
-      $p->execute(array());
+      $this->db->exec($q);
       $p->setFetchMode(PDO::FETCH_ASSOC);
-      $out[]= $p->fetch();  
-  	} **/
+      try {
+        $r= $p->fetch();
+      }catch (Exception $e){
+        $r= $e;
+      }  
+      $out[]= $r;*/
+      try {
+        $r= $this->db->exec($q);
+        if($r== 0){
+          $out[]= $q;
+        }else{
+          $out[]= $r;
+        }
+        $last= $this->db->lastInsertId(); 
+        if($last != "0"){
+          $out['id']= $last;
+        }
+      }catch (Exception $e){
+        $this->db->rollBack();
+        return $q;
+      }
+  	}
+  	$this->db->commit();
     return $out;
   }
   
@@ -111,6 +133,9 @@ class uResult
       break;
       case 'create':
         $out= $this->db->lastInsertId();
+        if($out== null){
+          $out= 500; 
+        }
         // return current and id?
       break;
       case 'update':
@@ -119,6 +144,7 @@ class uResult
         //$out= $query->fetch();
       break;
       case 'delete':
+        $out= true;
         // Return original
       break;
       case 'login':

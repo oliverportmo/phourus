@@ -21,7 +21,7 @@ define ["jquery", "underscore", "backbone", "marionette", "text!html/orgs/home.h
     
     render: ()->
       self = @
-      Backbone.Events.trigger "sidebar", 'map' 
+      Backbone.Events.trigger "sidebar", {type: 'map', params: @options}
       @collection= new cOrgs({type: @options.type})
       @collection.fetch
 	        success: ->

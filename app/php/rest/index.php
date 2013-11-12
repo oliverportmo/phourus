@@ -57,9 +57,7 @@ $GLOBALS['phourus_auth_id']= oSession::auth($headers);
 //$GLOBALS['phourus_auth_id']= 1;
 $get= $req->get();
 $post= $req->post();
-$post= (array) json_decode($post['model']);
 $put= $req->put();
-$put= (array) json_decode($put['model']);
 
 function out($data){	
 	global $app;
@@ -88,57 +86,71 @@ function out($data){
 # GET #
 # === #  
 #######
-$app->get('/rest/posts/:query', function() use ($get){
+$app->get('/rest/post/:query', function($query) use ($get){
+	if(!$get){ $get= array('id' => $query);	}
 	$out= oPost::get($get);
 	out($out);
 });
 
-$app->get('/rest/users/:query', function() use ($get){
+$app->get('/rest/user/:query', function($query) use ($get){
+	if(!$get){ $get= array('id' => $query);	}
 	$out= oUser::get($get);
 	out($out);
 }); 
 
-$app->get('/rest/orgs/:query', function() use ($get) {
+$app->get('/rest/org/:query', function($query) use ($get) {
+  if(!$get){ $get= array('id' => $query);	}
   $out= oOrg::get($get);
   out($out);
 });
 
 # SOCIAL
-$app->get('/rest/views/:query', function() use ($get){ 
+$app->get('/rest/view/:query', function($query) use ($get){ 
+	if(!$get){ $get= array('id' => $query);	}
 	$out= oView::get($get);
 	out($out);
 });
 
-// X thumbs
+$app->get('/rest/thumb/:query', function($query) use ($get) {
+  if(!$get){ $get= array('id' => $query);	}
+  $out= oThumb::get($get);
+  out($out);
+});
 
-$app->get('/rest/comments/:query', function() use ($get) {
+$app->get('/rest/comment/:query', function($query) use ($get) {
+  if(!$get){ $get= array('id' => $query);	}
   $out= oComment::get($get);
   out($out);
 });
 
-$app->get('/rest/follows/:query', function() use ($get) {
+$app->get('/rest/follow/:query', function($query) use ($get) {
+  if(!$get){ $get= array('id' => $query);	}
   $out= oFollow::get($get);
   out($out);
 });
 
 # ORGS
-$app->get('/rest/clout/:query', function() use ($get) {
+$app->get('/rest/clout/:query', function($query) use ($get) {
+  if(!$get){ $get= array('id' => $query);	}
   $out= oClout::get($get);
   out($out);
 });
 
-$app->get('/rest/reviews/:query', function() use ($get) {
+$app->get('/rest/review/:query', function($query) use ($get) {
+  if(!$get){ $get= array('id' => $query);	}
   $out= oReview::get($get);
   out($out);
 });
 
 # ADDRESS
-$app->get('/rest/address/:query', function() use ($get){ 
+$app->get('/rest/address/:query', function($query) use ($get){ 
+	if(!$get){ $get= array('id' => $query);	}
 	$out= oAddress::get($get);
 	out($out);
 }); 
 
-$app->get('/rest/tags/:query', function() use ($get){ 
+$app->get('/rest/tag/:query', function($query) use ($get){ 
+	if(!$get){ $get= array('id' => $query);	}
 	$out= oTag::get($get);
 	out($out);
 }); 
@@ -171,6 +183,12 @@ $app->get('/rest/community/:query', function() use ($get){
 $app->get('/rest/schema/', function() use ($get){ 
 	$out= dRead::schema();
 	out($out);
+});
+
+# SPECIAL 
+$app->get('/rest/special/:query', function() use ($get){
+  $out= dRead::special($get);
+  out($out);
 });
 
 ########
@@ -277,7 +295,7 @@ $app->put('/rest/user/:id', function($id) use ($put){
 
 $app->put('/rest/org/:id', function($id) use ($put){
 	$out= oOrg::update($id, $put);
-	out($put);
+	out($out);
 });
 
 // X stats
@@ -324,8 +342,6 @@ $app->delete('/rest/post/:id', function($id){
 	$out= oPost::delete($id);
 	out($out);
 }); 
-
-/*
     
 $app->delete('/rest/user/:id', function($id){
 	$out= oUser::delete($id);

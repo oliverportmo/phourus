@@ -4,7 +4,7 @@
   h1 {
     padding-top: 40px;
     font-size: 54px;
-    font-family: @century;
+    font-family: @arial;
     font-weight: normal;
     text-transform: uppercase;
     border: none;
@@ -25,7 +25,7 @@
     font-style: italic;
     font-size: 30px;
     color: #333;
-    font-family: @century;
+    font-family: @arial;
   }
   
   img {
@@ -49,7 +49,7 @@
   }
   
   p {
-    font-size: 24px;
+    font-size: 22px;
     color: #444;
     font-family: @perpetua;
     line-height: 30px;
@@ -79,7 +79,7 @@
       letter-spacing: 2px;
       text-align: center;
       width: 600px;
-      font-size: 20px;
+      font-size: 16px;
       margin-top: 20px;
       font-weight: normal;
       font-style: italic;
@@ -111,10 +111,29 @@
     background-color: #e6b657;
   }
   
-  h4.red { color: #cc3300; }
-  h4.blue { color: #4f9db6; }
-  h4.green { color: #98b849; }
-  h4.gold { color: #df9d1a; }
+  .learn#learn-earth:hover { color: @green-dark; }
+  .learn#learn-voice:hover { color: @red-dark; }
+  .learn#learn-mind:hover { color: @blue-dark; }
+  .learn#learn-self:hover { color: @gold-dark; }
+  
+  .learn {
+    width: 200px;
+    float: left;
+    text-align: center;
+    font-size: 14px;
+    text-decoration: none;
+    
+    span {
+      font-size: 24px;
+
+      text-transform: uppercase;
+    }
+    
+    img {
+      margin: 0px;
+      padding: 0px;
+    }
+  }
   
   #what, #why {
   width: 400px;
@@ -129,9 +148,9 @@
   }
   
   .term {
-    font-weight: bold;
     font-style: normal;
-    color: #333;  
+    color: #111;
+    text-decoration: underline;  
     letter-spacing: 2px;
   }
   
@@ -145,11 +164,14 @@
   }
   
   .element {
-  width: 860px;
-  margin: auto;
-  background-color: #f2f2f2;
-  border: solid 10px #fff;
+  width: 840px;
+  margin: 20px auto;
+  padding: 10px;
   display: none; 
+  background-color: #f3f3f3;
+  text-align: center;
+  .box-shadow();
+  
     a {
       margin-right: 20px;
     }
@@ -164,7 +186,15 @@
       text-transform: uppercase;
     }
     span {
-      font-size: 20px; 
+      font-size: 20px;
+      font-family: @perpetua;
+      display: block;
+      margin: 20px auto;
+      padding: 10px;
+      width: 750px; 
+      font-style: italic;
+      border-top: dashed 1px #ccc;
+      border-bottom: dashed 1px #ccc;
     }
     
     .info {
@@ -172,6 +202,7 @@
       float: left;
       margin: 0px 0px 20px 20px;
       color: #777;
+      text-align: left;
       
       .label {
         font-size: 14px;
@@ -186,6 +217,10 @@
         font-style: normal;
       }
     }
+  }
+  
+  .element#element-earth {
+    display: block;
   }
   
   .feature {  
@@ -207,52 +242,7 @@
     }
     
   }
-  
-  .org {
-  margin: 10px;
-  width: 960px;
-  margin: auto;
-  padding: 40px 0px 10px 0px;
-  border-bottom: dashed 1px #ccc;
-    h3, h4 {
-      margin: 0px;
-    }
-    p {
-      font-style: italic; 
-      height: 130px;
-      border: none;
-      padding: 0px;
-    }
     
-    .term {
-      color: #111;
-    }
-    
-    img {
-      border: none;
-    }
-  }
-  
-  .org.l {
-    
-    img {
-      float: left;
-      margin: 0px 20px 0px 0px;
-    }
-  }
-  
-  .org.r {
-    text-align: right;
-    
-    h4 {
-      text-align: right !important;
-    }
-    img {
-      margin: 0px 0px 0px 20px;
-      float: right;
-    }
-  }
-  
   #signup {
     float: left;
     width: 350px;
@@ -285,5 +275,71 @@
     height: 560px;
     top: 3500px;
     background-color: #f90;
+  }
+  
+  .org {
+    width: 960px;
+    
+    p {
+      height: 130px;
+      font-size: 18px;
+    }
+  }
+}
+
+h4.red { color: #cc3300; }
+h4.blue { color: #4f9db6; }
+h4.green { color: #98b849; }
+h4.gold { color: #df9d1a; }
+.org {
+margin: 10px;
+margin: auto;
+padding: 20px 0px 10px 0px;
+border-bottom: dashed 1px #ccc;
+  h3, h4 {
+    margin: 0px;
+  }
+  
+  h3 {
+    font-weight: normal;
+    font-style: italic;
+    font-size: 30px;
+    color: #333;
+    font-family: @arial;
+  }
+  p {
+    font-style: italic; 
+    height: 80px;
+    border: none;
+    padding: 0px;
+  }
+  
+  .term {
+    color: #111;
+  }
+  
+  img {
+    border: none;
+  }
+  
+}
+
+.org.l {
+  
+  img {
+    float: left;
+    margin: 0px 20px 0px 0px;
+  }
+}
+
+.org.r {
+  text-align: right;
+  
+  h4 {
+    text-align: right !important;
+  }
+  img {
+    margin: 0px 0px 0px 20px;
+    float: right;
   }
 }

@@ -2,7 +2,6 @@ define ["jquery", "underscore", "backbone", "marionette"], ($, _, Backbone, mari
   router = Backbone.Marionette.AppRouter.extend(
     controller: controller
     appRoutes:
-      "": "stream"
       "!stream": "stream"
       "!post/:id": "post"
       "add/:type": "add"

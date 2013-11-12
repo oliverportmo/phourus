@@ -51,7 +51,7 @@ define(["jquery", "underscore", "backbone", "text!html/items/comment.html", "js/
       self = this;
       this.model = options.toJSON();
       session = mSession.toJSON();
-      owner = session.user_id === this.model.user.id;
+      owner = session.user_id === this.model.user.user.id;
       d = 0;
       modified = this.format_date(this.model.comment.modified, 'relative');
       created = this.format_date(this.model.comment.created, 'relative');
@@ -65,7 +65,7 @@ define(["jquery", "underscore", "backbone", "text!html/items/comment.html", "js/
         comment: this.model.comment,
         session: session,
         pic: this.pic,
-        user: this.model.user,
+        user: this.model.user.user,
         owner: owner,
         date: d
       });

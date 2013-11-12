@@ -47,6 +47,7 @@ define "init", (require) ->
   marionette = require("marionette")
   mSession = require("js/models/session")
   mView = require("js/models/view")
+  mHeaders = require("js/models/headers")
   vAlerts = require("js/views/alerts")
   vHeader = require("js/views/header")
   vSidebar = require("js/views/sidebar")
@@ -55,7 +56,6 @@ define "init", (require) ->
   BaseCollection = require("js/base/collection")
   BaseModel = require("js/base/model")
   BaseView = require("js/base/view")
-  BaseSync= require("js/base/sync")
   app = new Backbone.Marionette.Application()
   
 
@@ -88,7 +88,7 @@ define "init", (require) ->
   # Routers
   app.addInitializer (options) ->
     self = @
-
+    
     # module
     Backbone.Events.on "module", (data) ->
       $("#content").removeClass('homepage') 
@@ -106,14 +106,18 @@ define "init", (require) ->
     
     # token
     Backbone.Events.on "token", (data) ->
+      mHeaders.set("x-api-key", data.token)
+      mHeaders.set("from", data.user_id)
+      ###
       Backbone.sync = (method, model, options) ->
+        
         options.headers = options.headers or {}
         _.extend options.headers,
           "x-api-key": data.token
           "from": data.user_id
         
         Backbone._sync method, model, options
-      
+      ###
     #map
     Backbone.Events.on "map", (data) ->  
       dev = false
@@ -152,9 +156,7 @@ define "init", (require) ->
     Backbone.View = BaseView
     Backbone.Model = BaseModel
     Backbone.Collection = BaseCollection
-    Backbone.emulateJSON = true
-    #Backbone.sync = BaseSync
-    #console.log Backbone.sync
+    #Backbone.emulateHTTP = true
 
   # Start
   app.on "start", (options) ->

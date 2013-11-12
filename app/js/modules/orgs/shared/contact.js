@@ -12,26 +12,13 @@ define(["jquery", "underscore", "backbone", "forms", "text!html/orgs/shared/cont
       return this.render();
     },
     render: function() {
-      var compiled, data, websites;
+      var compiled, data;
 
       data = this.options.org;
-      websites = [
-        {
-          label: "www",
-          url: "www.phourus.com"
-        }, {
-          label: "wiki",
-          url: "wiki.phourus.com"
-        }, {
-          label: "dev",
-          url: "dev.phourus.com"
-        }
-      ];
       compiled = _.template(template, {
         org: data.org,
         address: data.address[0],
-        id: data.id,
-        websites: websites
+        id: data.id
       });
       $(this.el).append(compiled);
       this.form();

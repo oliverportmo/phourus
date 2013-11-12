@@ -6,7 +6,7 @@ define ["jquery", "underscore", "backbone"], ($) ->
       @options = options
 
     url: ->
-      url = "/rest/comments/?id=" + @options.id
+      url = "/rest/comment/?id=" + @options.id
       url
 
     idAttribute: "id"

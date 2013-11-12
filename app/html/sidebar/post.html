@@ -1,0 +1,23 @@
+<h3>Go Back</h3>
+<br />
+<a href="#!stream" class="button blue">&laquo; Back to Stream</a>
+<br clear="all" />
+<br />
+<div id="thumb">
+  <h3>Thumbs</h3>
+  <% if(data.positive === -1){ %>
+    <p>Click the '+' button if you like this post, otherwise click '-'</p>
+    <img src="/assets/icons/general/plus.png" id="plus" />
+    <img src="/assets/icons/general/minus.png" id="minus" />
+  <% }else{ %>
+    <p>You have decided you <% if(data.positive == 0){ %>dis<% } %>like this post. Click the button below to change your mind.</p>
+    <% if(data.positive == 0){ %>
+        <img src="/assets/icons/general/plus.png" id="plus" />
+    <% }else if(data.positive == 1){ %>
+        <img src="/assets/icons/general/minus.png" id="minus" />
+    <% }else{ console.log(data.positive); } %>
+  <% } %>
+
+  </div>
+<div id="recent"></div>
+<div id="create"></div>

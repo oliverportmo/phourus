@@ -5,7 +5,7 @@ define ["jquery", "underscore", "backbone", "text!html/standard/home.html", "js/
     initialize: (options) ->
     
     events:
-      "click .button-home": "learn"
+      "click .learn": "learn"
 
     learn: (e) ->
       id = e.currentTarget.id

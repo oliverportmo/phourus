@@ -171,6 +171,7 @@ format_url: (input) ->
         return false 
     
     pic: (type, id, ext) ->
-      return '/assets/pics/' + type + '/' + id + '.' + ext;
+      return '/assets/pics/' + type + '/' + id + '.' + ext
+    
   )
   view

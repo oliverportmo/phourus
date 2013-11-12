@@ -18,13 +18,11 @@
   <h3>Address</h3>
   <%= address.street %><%= address.suite %><br />
   <%= address.city %>, <%= address.state %> <%= address.zip %><br />
-  <h3>Websites</h3>
-  <div id="websites">
-    <dl>
-      <% _.each(websites, function(value, key){ %>
-        <dt><%= value.label %>:</dt><dd><a href="<%= value.url %>" target="_blank"><%= value.url %></a></dd>
-      <% }); %>
-    </dl>
-  </div>
+  <h3>Website</h3>
+  <% if(!_.isUndefined(org.website)){ %>
+    <div id="websites">
+      <a href="http://<%= org.website %>" target="_blank"><%= org.website %></a>
+    </div> 
+  <% } %>
 </div>
 

@@ -144,6 +144,9 @@ class uQueries {
 	  if(isset($post_id)){
   	  $where= "WHERE post_id = '$post_id'";
 	  }
+	  if(isset($user_id) && isset($post_id)){
+  	  $where= "WHERE user_id = '$user_id' AND post_id = '$post_id'";
+	  }
 	  if(isset($params['id'])){
   	  $where= "WHERE id = $id";
 	  }
@@ -413,6 +416,19 @@ class uQueries {
 	public static function total_posts($user_id){
 	 return "SELECT COUNT(*) AS total FROM app_posts WHERE app_posts.user_id = '$user_id';";
 	} 
+	
+	/** ORG STATES **/
+	public static function org_states($type){
+	  $short= array();
+	  $short['govs']= 'gov';
+	  $short['companies']= 'company';
+	  $short['schools']= 'school';
+	  $short['groups']= 'group';
+	  if($short[$type]){
+	   $type = $short[$type];
+	  }
+  	return "SELECT state, COUNT(state) as total FROM app_address, app_orgs WHERE app_address.org_id = app_orgs.id AND app_orgs.type = '$type' GROUP BY (state);";
+	}
 	
 	/** PERMISSION **/
 	public function owner($auth_id, $resource){

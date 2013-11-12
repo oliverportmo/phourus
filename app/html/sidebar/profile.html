@@ -1,3 +1,19 @@
+<h3>Go Back</h3>
+<br />
+<a href="#!stream" class="button blue">&laquo; Back to Stream</a>
+<br clear="all" />
+<br />
+<h3>Follow/Unfollow</h3>
+<% if(data.following == 1){ %>
+  You are currently following this user. Click the button below to Unfollow.
+  <button class="button red unfollow">Unfollow</button><br clear="all" />
+<% }else{ %>
+  If you would like to follow this user, click the 'Follow' button below.
+  <button class="button green follow">Follow</button><br clear="all" /><br />
+  When two users follow each other, they become a 'Friend'.<br />
+<% } %>
+<br clear="all" />
+<br />
 <h3>Recent Users</h3>
 <ul>
 <li><a href="">User A</a></li>
@@ -5,8 +21,3 @@
 <li><a href="">User C</a></li>
 <li><a href="">User D</a></li>
 </ul>
-<br />
-<a href="#!stream" class="button blue">&laquo; Back to Stream</a>
-<h3>User Actions</h3>
-<button class="button green">Follow</button>
-<button class="button blue">Like</button>

@@ -1,6 +1,6 @@
 <div class="item">
   <div class="type">  
-    <img src="/assets/icons/small/<%= meta.element %>/<%= meta.type %>.png"  class="icon">
+    <img src="/assets/icons/small/<%= meta.element %>/<%= meta.type %>.png" onerror="this.src='/assets/pics/default.png'" class="icon">
     <span class="label">
       <%= meta.type %>
     </span> 
@@ -23,7 +23,7 @@
 	</div>
 	<div class="box">
   	<ul class="user">
-  	  <li><strong><%= user.first %> <%= user.last.slice(0, 1) %>.</strong></li>
+  	  <li><strong><%= user.first %> <% if(!_.isUndefined(user.last)) { %><%= user.last.slice(0, 1) %><% } %>.</strong></li>
   	  <% if(!_.isUndefined(address)){ %>
   	   <li>
   	     <%= address.city %>
@@ -36,7 +36,7 @@
 	</div>
 	<div class="clear"></div>
 	<% if(!_.isUndefined(post.content)){ %>
-	 <p class="excerpt"><%= post.content.substr(0, 200) %>... <a href="#!single/<%= meta.type %>/<%= post.post_id %>">[read more]</a></p>
+	 <p class="excerpt"><%= post.content.substr(0, 200) %>... <a href="#!post/<%= meta.type %>/<%= post.post_id %>">[read more]</a></p>
   <% } %>
 	<ul class="meta">
 		<li class="views"><strong>Views:</strong> <%= stats.views %></li>

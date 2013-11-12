@@ -5,7 +5,13 @@
 <br />
 <h3>Select by State</h3>
 <ul>
-<% _.each(data.regions, function(region, name){ %>
-  <li><a href="javascript: void(0)" id="<%= name %>"><%= name %> (<%= region %>)</a></li>
+<% _.each(data, function(obj, key){ %>
+  <li><a href="javascript: void(0)" id="<% if(_.isUndefined(obj.state)){ %><%= key %><% }else{ %><%= obj.state %><% } %>">
+    <% if(_.isUndefined(obj.state)){ %>
+      <%= obj %>
+    <% }else{ %>
+      <%= states[obj.state] %> (<%= obj.total %>)
+    <% } %>  
+  </a></li>
 <% }); %>
 </ul>

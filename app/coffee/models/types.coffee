@@ -72,8 +72,26 @@ define ["jquery", "underscore", "backbone"], ($) ->
 
     schema: (type) ->
       schema = {}
+      if type is 'contact'
+        schema.first = "Text"
+        schema.last = "Text"
+        schema.email = "Text"
+        schema.subject = {type: "Select", options: ["General information", "Report an issue", "Tell us what you think", "Join the Phourus Team", "Other"]}
+        schema.message = "TextArea"
+      if type is 'signuporg'
+        schema.name = "Text"
+        schema.shortname = "Text"
+        schema.email = "Text"
+        schema.type =  {type: "Select", options: ["Gov", "Company", "School", "Group"]}
+        schema.terms = "Checkbox"
+      if type is 'signup'
+        schema.first = "Text"
+        schema.last = "Text"
+        schema.email = "Text"
+        schema.terms = "Checkbox"
+        
       element = {type: "Select", options: ["Earth", "Mind", "Voice", "Self"]}
-      privacy = {type: "Select", options: ["Public", "Phourus", "Friends", "Private"]}
+      privacy = {type: "Select", options: ["Public", "Phourus", "Friends", "Following", "Followers", "Private"]}
       switch type
         
         when "blogs"
@@ -101,14 +119,12 @@ define ["jquery", "underscore", "backbone"], ($) ->
           schema.privacy = privacy
           schema.date = "Date"
           schema.content = "TextArea"
-        #schema.address= {type: 'NestedModel', model: Address };
-
+          #schema.address= {type: 'NestedModel', model: Address };
         when "calculator", "checklist", "matters"
           schema.title = "Text"
           schema.category = "Text"
           schema.privacy = privacy
           schema.positive = "Checkbox"
-
         when "subjects"
           schema.title = "Text"
           schema.category = "Text"
@@ -146,19 +162,16 @@ define ["jquery", "underscore", "backbone"], ($) ->
         when "beliefs"
           schema.title = "Text"
           schema.category = "Text"
-          schema.privacy = "Text"
+          schema.privacy = privacy
           schema.content = "TextArea"
         when "timeline"
           schema.title = "Text"
           schema.category = "Text"
-          schema.privacy = "Text"
-          schema.content = "TextArea"
-          
-          #Datetime
+          schema.privacy = privacy
           schema.date = "Date"
-          schema.time = "Time"
-        
-        #schema.address= {type: 'NestedModel', model: Address };		
+          #schema.time = "Time"
+          schema.content = "TextArea"        
+          #schema.address= {type: 'NestedModel', model: Address };		
         when "quotes"
           schema.quote = "Text"
           schema.source = "Text"
@@ -184,7 +197,8 @@ define ["jquery", "underscore", "backbone"], ($) ->
         @descriptions[type]
 
     descriptions:
-      
+      #Contact
+      contact: "We want to hear from you! Let us know what you think whether it be ways to improve Phourus, things you like or dislike, or any issues you've encountered. We appreciate the feedback!"
       #Core
       blogs: "Blogs are the most basic post on Phourus, and can be used to write about virtually any topic, as long as it's relevant to the 4 Elements of Phourus, meaning they should somewhat relate to the Environment, Education, Politics or Religion in one way or another."
       links: "Links are about finding the best resources on the Internet and bookmarking them on Phourus. Links can be articles, images, podcasts or videos, but should relate to one of the 4 Elements of Phourus (Earth, Mind, Voice and Faith)."
@@ -218,6 +232,59 @@ define ["jquery", "underscore", "backbone"], ($) ->
       groups: "Groups is a way to match members based on similar or dissimilar beliefs. By using Ranks, Phourus can get a good idea how a user and the Phourus community as a whole views the world. From there, individual users can be matched up based on this data using Phourus Faith Searching."
       ranks: "Ranks is an easy way to get a snapshot of a person's viewpoints and how they view the world. Each member can create up to 4 different Rank topics, such as 'Belief in a Higher Power', and select a number from -5 to +5 to describe how strongly they agree or disagree with the statement."
 
+    states:  
+      AK: "Alaska"
+      AL: "Alabama"
+      AR: "Arkansas"
+      AZ: "Arizona"
+      CA: "California"
+      CO: "Colorado"
+      CT: "Connecticut"
+      DE: "Delaware"
+      DC: "District of Columbia"
+      FL: "Florida"
+      GA: "Georgia"
+      HI: "Hawaii"
+      IA: "Iowa"
+      ID: "Idaho"
+      IL: "Illinois"
+      IN: "Indiana"
+      KS: "Kansas"
+      KY: "Kentucky"
+      LA: "Louisiana"
+      MA: "Massachusetts"
+      MD: "Maryland"
+      ME: "Maine"
+      MI: "Michigan"
+      MN: "Minnesota"
+      MS: "Mississippi"
+      MO: "Missouri"
+      MT: "Montana"
+      NC: "North Carolina"
+      ND: "North Dakota"
+      NE: "Nebraska"
+      NH: "New Hampshire"
+      NJ: "New Jersey"
+      NM: "New Mexico"
+      NV: "Nevada"
+      NY: "New York"
+      OH: "Ohio"
+      OK: "Oklahoma"
+      OR: "Oregon"
+      PA: "Pennsylvania"
+      RI: "Rhode Island"
+      SC: "South Carolina"
+      SD: "South Dakota"
+      TN: "Tennessee"
+      TX: "Texas"
+      UT: "Utah"
+      VA: "Virginia"
+      VT: "Vermont"
+      WA: "Washington"
+      WI: "Wisconsin"
+      WV: "West Virginia"
+      WY: "Wyoming"
+      
     dropdown: (type, category) ->
       output = ""
       switch type

@@ -10,7 +10,7 @@ define(["jquery", "underscore", "backbone"], function($) {
     url: function() {
       var url;
 
-      url = "/rest/comments/?id=" + this.options.id;
+      url = "/rest/comment/?id=" + this.options.id;
       return url;
     },
     idAttribute: "id"

@@ -13,17 +13,20 @@ define(["jquery", "underscore", "backbone", "text!html/orgs/org.html", "text!htm
       return Backbone.Events.trigger("back", {});
     },
     render: function() {
-      var self;
+      var params, self;
 
       self = this;
       this.model = new model({
         id: this.options.id
       });
-      Backbone.Events.trigger("sidebar", {
-        type: 'orgs',
+      params = {
         org_type: this.options.type,
         page: this.options.page,
         id: this.options.id
+      };
+      Backbone.Events.trigger("sidebar", {
+        type: 'orgs',
+        params: params
       });
       return this.model.fetch({
         success: function() {

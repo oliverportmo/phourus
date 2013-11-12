@@ -4,15 +4,15 @@ class dUpdate {
 	
 	public static function update($id, $type, $model){
     $original= self::get($id, $type);
-    if($original== false){
-      return false;
+    if(is_numeric($original)){
+      return $original;
     }
     
     $q= uQueries::update($id, $type, $model);
     $result= new uResult();
     $update= $result->r_update($q);
-    if($update== false){
-      return false;
+    if(is_numeric($update)){
+      return $update;
     }
     
     $current= self::get($id, $type);
@@ -28,6 +28,10 @@ class dUpdate {
 	
 	/** SPECIAL **/
 	public static function post($id, $model){    
+    $original= oPost::get(array('id' => $id));
+    if(is_numeric($original)){
+      return false;
+    }
     $split= uUtilities::splitter($model);
 
     $posts= array();
@@ -37,10 +41,21 @@ class dUpdate {
 		
 		unset($split['detail']['post_id']);
 		$d= uQueries::update_post($id, $model['type'], $split['detail']);	
-		$q= $p.$d;
+		$queries[]= $p;
+		$queries[]= $d;
 		 
 		$result= new uResult();
-		$out= $result->r_update($q, true);
+		$update= $result->r_update($queries, true);
+		if(is_numeric($update)){
+  		return $update;
+		}
+		$current= oPost::get(array('id' => $id));
+		
+		$out['id']= $id;
+    $out['model']= $model;
+    $out['original']= $original;
+    $out['current']= $current;
+    $out['status']= self::status($current, $model);
 		return $out;
 	}
 	

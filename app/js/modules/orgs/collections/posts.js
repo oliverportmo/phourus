@@ -9,7 +9,7 @@ define(["jquery", "underscore", "backbone", "js/models/session", "js/models/sett
     url: function() {
       var url;
 
-      url = "/rest/posts/?debug=false&sort=influence&direction=DESC&org_id=" + this.options.id + "&page=0&limit=10&types=" + this.options.types;
+      url = "/rest/post/?debug=false&sort=influence&direction=DESC&org_id=" + this.options.id + "&page=0&limit=10&types=" + this.options.types;
       return url;
     },
     idAttribute: "id"

@@ -2,7 +2,7 @@
 	<div class="name"><%= user.username %></div> 
 	<a href="#user/<%= user.id %>">
 		<div class="pic">
-			<img src="<%= pic('users', user.id, user.img) %>" width="200">
+			<img src="<%= pic('users', user.id, user.img) %>" width="200" onerror="this.src='/assets/pics/default.png'">
 		</div>
 	</a>
   <div class="influence"><%= user.influence %></div>

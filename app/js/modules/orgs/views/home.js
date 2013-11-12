@@ -27,7 +27,10 @@ define(["jquery", "underscore", "backbone", "marionette", "text!html/orgs/home.h
       var self;
 
       self = this;
-      Backbone.Events.trigger("sidebar", 'map');
+      Backbone.Events.trigger("sidebar", {
+        type: 'map',
+        params: this.options
+      });
       this.collection = new cOrgs({
         type: this.options.type
       });

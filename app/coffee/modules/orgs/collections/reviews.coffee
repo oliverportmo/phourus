@@ -5,7 +5,7 @@ define ["jquery", "underscore", "backbone", "js/models/session", "js/models/sett
       @options= options
       
     url: ->
-      url = "/rest/reviews/?org_id=" + @options.id + "&page=" + @options.page + "&limit=" + @options.limit;
+      url = "/rest/review/?org_id=" + @options.id + "&page=" + @options.page + "&limit=" + @options.limit;
       url
       
     idAttribute: "id"

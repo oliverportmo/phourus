@@ -18,8 +18,8 @@ define ["jquery", "underscore", "backbone", "text!html/widgets/posts.html", "js/
     render: ->
       self = @
       _.each @collection.models, (model) ->
-        review = model.toJSON()
-        $(self.el).append _.template(tReview, {data: review, pic: self.pic})
+        data = model.toJSON()
+        $(self.el).append _.template(tReview, {review: data.review, pic: self.pic, user: data.user.user, format_date: self.format_date})
       @$el
       
   )

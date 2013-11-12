@@ -28,7 +28,7 @@ class dRead {
 		$params['post_id']= $id;
 		$params['table']= uUtilities::table($type);
 		if($params['table']== false){
-			return false;	
+			return 400;	
 		}
 		$q= uQueries::post($params);
 		$result= new uResult();
@@ -52,6 +52,9 @@ class dRead {
   	$result= new uResult();
   	if(isset($params['id'])){
     	$out['org']= $result->r_single($q);
+    	if(is_numeric($out['org'])){
+      	return $out['org'];
+    	}
     	$out['address']= dRead::address(array('org_id' => $params['id']));
   	  $out['stats']= oStats::stats(array('org_id' => $params['id']));
   	}else{
@@ -89,17 +92,7 @@ class dRead {
   	if(isset($params['id'])){
     	$out= $result->r_single($q);
   	}else{
-  	  $out= array();
-    	$comments= $result->r_read($q);
-    	if(is_numeric($comments)){
-      	return $comments;
-    	}
-    	foreach($comments as $c){
-    	  $o= array();
-    	  $o['comment']= $c;
-    	  $o['user']= oUser::get(array('id' => $c['user_id']));
-    	  $out[]= $o;
-    	}
+  	  $out= $result->r_read($q);
   	}
   	return $out;
 	}
@@ -238,7 +231,7 @@ class dRead {
   	$out['positive']= $thumbs['positive'];
   	$out['popularity']= 0;
   	if($thumbs['total'] > 1){
-  	 $out['popularity']= $thumbs['positive']/$thumbs['total']*100;
+  	 $out['popularity']= (int) ($thumbs['positive']/$thumbs['total']*100);
   	}
   	$out['views']= $views['total']; 	
   	return $out;
@@ -262,13 +255,18 @@ class dRead {
 		
   	$q= uQueries::stats_posts($user_id);
   	$posts= $result->r_read($q);
-  	$totals= array();
-  	foreach($posts as $post){
-      $totals[$post['type']]= $post['total'];
-  	} 
+  	if(is_numeric($posts)){
+    	$totals= $posts;
+  	}else{
+    	$totals= array();
+    	foreach($posts as $post){
+        $totals[$post['type']]= $post['total'];
+    	} 
+  	}	
   	
   	$q= uQueries::stats_followers($user_id);
   	$followers= $result->r_single($q);
+  	$followers['average']= (int) $followers['average'];
   	
 		$out['views']= $views['total'];
 		$out['thumbs']= $thumbs['total'];
@@ -341,6 +339,28 @@ class dRead {
   	$out['views']= $views['total'];
   	$out['posts']= $posts['total'];
   	
+  	return $out;
+	}
+	
+	/** SPECIAL **/
+	public function special($params){
+  	if(!is_array($params)){
+      return 400;	
+  	}
+  	$result= new uResult();
+  	extract($params);
+  	switch($mode){
+    	case 'states':
+        $q= uQueries::org_states($params['type']);
+        $out= $result->r_read($q);
+    	break;
+    	case 'recent':
+    	
+    	break;
+    	default:
+    	 return 404;
+    	break;
+  	}        
   	return $out;
 	}
 	

@@ -9,7 +9,7 @@ define(["jquery", "underscore", "backbone"], function($, _, Backbone) {
     url: function() {
       var url;
 
-      url = "/rest/users/?id=" + this.options.id;
+      url = "/rest/user/" + this.options.id;
       return url;
     },
     idAttribute: "id"

@@ -54,8 +54,8 @@ define ["jquery", "underscore", "backbone", "js/modules/stream/views/filter", "j
               positive = (parseInt(data.stats.positive) / parseInt(data.stats.thumbs)) * 100 
               
             owner = false
-            owner = true if data.user.id is mSession.get("user_id")
-            $("#stream").append _.template(tPost, {user: data.user, meta: data.meta, post: data.post, address: data.address[0], stats: data.stats, pic: self.pic, owner: owner, positive: positive, format_date: self.format_date})
+            owner = true if data.user.user.id is mSession.get("user_id")
+            $("#stream").append _.template(tPost, {user: data.user.user, meta: data.meta, post: data.post, address: data.user.address[0], stats: data.stats, pic: self.pic, owner: owner, positive: positive, format_date: self.format_date})
 	
 	
 	    render: ->

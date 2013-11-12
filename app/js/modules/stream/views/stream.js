@@ -73,14 +73,14 @@ define(["jquery", "underscore", "backbone", "js/modules/stream/views/filter", "j
             positive = (parseInt(data.stats.positive) / parseInt(data.stats.thumbs)) * 100;
           }
           owner = false;
-          if (data.user.id === mSession.get("user_id")) {
+          if (data.user.user.id === mSession.get("user_id")) {
             owner = true;
           }
           return $("#stream").append(_.template(tPost, {
-            user: data.user,
+            user: data.user.user,
             meta: data.meta,
             post: data.post,
-            address: data.address[0],
+            address: data.user.address[0],
             stats: data.stats,
             pic: self.pic,
             owner: owner,

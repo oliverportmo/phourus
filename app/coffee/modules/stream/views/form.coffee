@@ -1,11 +1,11 @@
-define ["jquery", "underscore", "backbone", "forms", "text!html/stream/form.html", "text!html/headings/post.html", "text!html/headings/user.html", "js/modules/stream/models/post", "js/models/types", "js/models/session"], ($, _, Backbone, forms, tForm, tPostHeading, tUserHeading, mSingle, mTypes, mSession) ->
+define ["jquery", "underscore", "backbone", "forms", "text!html/stream/form.html", "text!html/headings/post.html", "text!html/headings/user.html", "js/modules/stream/models/post", "js/models/types", "js/models/session"], ($, _, Backbone, forms, tForm, tPostHeading, tUserHeading, mPost, mTypes, mSession) ->
   view = Backbone.View.extend(
     className: "form"
     
     initialize: (options) ->
       # mode, type, id
       @options= options  
-      @model = new mSingle(options)   
+      @model = new mPost(options)   
 
     events: 
       "click .back": "back"
@@ -61,13 +61,12 @@ define ["jquery", "underscore", "backbone", "forms", "text!html/stream/form.html
         user = mSession.get("user")
         params = {user: user, pic: @pic, format_date: @format_date, owner: true}
         t = tUserHeading
-        console.log t
       if @options.mode is 'edit'
         data = @model.toJSON()
         owner = (data.meta.user_id is mSession.get("user_id")) 
         type = data.meta.type
         element = mTypes.get_parent(type)
-        params = {address: data.address[0], meta: data.meta, post: data.post, stats: data.stats, element: element, user: data.user, owner: owner, pic: @pic, format_date: @format_date}
+        params = {address: data.user.address[0], meta: data.meta, post: data.post, stats: data.stats, element: element, user: data.user.user, owner: owner, pic: @pic, format_date: @format_date}
         t = tPostHeading
         
       heading = _.template(t, params)  
@@ -85,8 +84,9 @@ define ["jquery", "underscore", "backbone", "forms", "text!html/stream/form.html
       if m.user_id is not mSession.get("user_id")
         @$el.html '<h2 style="text-align: center">You are not the owner of this post.</h2>'
         return
-      @model = new mSingle(m)
+      @model = new mPost(m)
       schema = mTypes.schema(@options.type)
+      console.log schema
       _.extend @model, {schema: schema}
 
       @form = new Backbone.Form({schema: schema, model: @model})
@@ -102,7 +102,7 @@ define ["jquery", "underscore", "backbone", "forms", "text!html/stream/form.html
     # Create 
     create: (e) ->
       @form.commit()
-      @model.save
+      @model.save {},
         success: (model, response) ->
             Backbone.Events.trigger "alert", {type: "complete", message: "Post created successfully", response: response, location: "modules/stream/views/form", action: "create"}
         error: (model, response) ->
@@ -111,7 +111,7 @@ define ["jquery", "underscore", "backbone", "forms", "text!html/stream/form.html
 	  # Update       
     update: (e) ->
       @form.commit()
-      @model.save
+      @model.save @model.changed, 
         success: (model, response) ->
             Backbone.Events.trigger "alert", {type: "complete", message: "Post saved successfully", response: response, location: "modules/stream/views/form", action: "update"}
         error: (model, response) ->

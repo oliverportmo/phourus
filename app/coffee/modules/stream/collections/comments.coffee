@@ -4,7 +4,7 @@ define ["jquery", "underscore", "backbone", "js/modules/stream/models/comment", 
     #model: mComment
       
     url: ->
-      url = "/rest/comments/?post_id=" + @post_id
+      url = "/rest/comment/?post_id=" + @post_id
       url
 
     idAttribute: "id"

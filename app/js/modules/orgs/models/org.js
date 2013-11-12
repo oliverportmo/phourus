@@ -9,11 +9,13 @@ define(["jquery", "underscore", "backbone"], function($, _, Backbone) {
     url: function() {
       var query, url;
 
-      console.log(this.options);
-      if (!_.isUndefined(this.options.id)) {
-        query = "?id=" + this.options.id;
+      query = '';
+      if (!_.isUndefined(this.options)) {
+        if (!_.isUndefined(this.options.id)) {
+          query = "?id=" + this.options.id;
+        }
       }
-      url = "/rest/orgs/" + query;
+      url = "/rest/org/" + query;
       return url;
     },
     idAttribute: "id"

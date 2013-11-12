@@ -1,4 +1,4 @@
-define ["jquery", "underscore", "backbone", "text!html/widgets/posts.html", "js/modules/orgs/collections/posts", "js/views/alerts", "js/models/types", "text!html/items/post.html"], ($, _, Backbone, template, cPosts, vAlerts, mTypes, tPost) ->
+define ["jquery", "underscore", "backbone", "text!html/widgets/posts.html", "js/modules/orgs/collections/posts", "js/models/types", "text!html/items/post.html"], ($, _, Backbone, template, cPosts, mTypes, tPost) ->
   widget = Backbone.View.extend(
     
     initialize: (options) ->
@@ -24,7 +24,7 @@ define ["jquery", "underscore", "backbone", "text!html/widgets/posts.html", "js/
         _.each @collection.models, (model) ->
           data = model.toJSON()
           data.meta.element = mTypes.get_parent(data.meta.type)
-          $(self.el).append _.template(tPost, {post: data.post, meta: data.meta, owner: false, address: data.address, stats: data.stats, user: data.user, pic: self.pic})
+          $(self.el).append _.template(tPost, {post: data.post, meta: data.meta, owner: false, address: data.address, stats: data.stats, user: data.user.user, pic: self.pic})
       @$el
       
   )

@@ -11,10 +11,10 @@ define(["jquery", "underscore", "backbone", "async!http://maps.google.com/maps/a
       _.bindAll(this);
       Backbone.Events.on("location", this.go);
       this.geocoder = new google.maps.Geocoder();
-      this.addresses(options);
       this.markers = [];
       this.windows = [];
-      return this.latlng = {};
+      this.latlng = {};
+      return this.addresses(options);
     },
     addresses: function(collection) {
       var i, out, _i, _len;
@@ -44,8 +44,8 @@ define(["jquery", "underscore", "backbone", "async!http://maps.google.com/maps/a
         if (status === 'OK') {
           key = data.org.id;
           loc = results[0].geometry.location;
-          data.lat = loc.lb;
-          data.lng = loc.mb;
+          data.lat = loc.ob;
+          data.lng = loc.pb;
           self.markers[key] = self.createMarkers(data);
           self.windows[key] = self.createWindows(data);
           return google.maps.event.addListener(self.markers[key], 'click', function(event) {
@@ -68,23 +68,25 @@ define(["jquery", "underscore", "backbone", "async!http://maps.google.com/maps/a
       };
       container = document.getElementById('gmap');
       if (container !== null) {
-        return this.map = new google.maps.Map(container, this.config);
+        this.map = new google.maps.Map(container, this.config);
       }
+      return this.start();
     },
-    /*
-    start: ->
-      self = @   
-      _.each @locations, (value, key) -> 
-        self.markers[key] = self.createMarkers value  
-        self.windows[key] = self.createWindows value
-                     
-        google.maps.event.addListener self.markers[key], 'click', (event) ->
+    start: function() {
+      var self;
+
+      self = this;
+      _.each(this.locations, function(value, key) {
+        self.markers[key] = self.createMarkers(value);
+        self.windows[key] = self.createWindows(value);
+        return google.maps.event.addListener(self.markers[key], 'click', function(event) {
           self.map.panTo(event.latLng);
           self.map.setZoom(10);
-          self.windows[key].open(self.map, self.markers[key]);
-      _.defer @clusterize
-    */
-
+          return self.windows[key].open(self.map, self.markers[key]);
+        });
+      });
+      return _.defer(this.clusterize);
+    },
     createMarkers: function(data) {
       var point, pos, self, title;
 
@@ -146,34 +148,3 @@ define(["jquery", "underscore", "backbone", "async!http://maps.google.com/maps/a
   });
   return view;
 });
-
-/*
-raw = 
-  0: 
-    address: "1776 California St, Mountain View CA 94041"
-    name: "ABC Company"
-    lat: 37.396229
-    lng: -122.091926
-  1: 
-    address: "5 Lewis Lane, East Hampstead NH 03826"
-    name: "DEF Company"
-    lat: 42.8910476
-    lng: -71.13239659999999
-  2: 
-    address: "63 Fountain St, Haverhill MA 01830"
-    name: "XYZ Company"
-    lat: 42.7855423
-    lng: -71.07526940000002
-  3: 
-    address: "923 Baywood Drive, Newport Beach CA 92660" 
-    name: "KLI Company"
-    lat: 39.1211965
-    lng: -104.1678933
-  4: 
-    address: "1 Main St, Colorado Springs CO"
-    name: "CBA Company"
-    lat: 33.6133044
-    lng: -117.86344020000001
-data= [raw[0], raw[1], raw[2], raw[3], raw[4]]
-*/
-

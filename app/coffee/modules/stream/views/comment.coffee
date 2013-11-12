@@ -42,7 +42,7 @@ define ["jquery", "underscore", "backbone", "text!html/items/comment.html", "js/
       self = @
       @model = options.toJSON()
       session = mSession.toJSON()
-      owner = (session.user_id is @model.user.id)
+      owner = (session.user_id is @model.user.user.id)
       
       d = 0
       modified = @format_date @model.comment.modified, 'relative'
@@ -53,8 +53,8 @@ define ["jquery", "underscore", "backbone", "text!html/items/comment.html", "js/
         
       if modified
         d = 'Updated: ' + modified
-        
-      compiled = _.template(template, {comment: @model.comment, session: session, pic: @pic, user: @model.user, owner: owner, date: d})
+      
+      compiled = _.template(template, {comment: @model.comment, session: session, pic: @pic, user: @model.user.user, owner: owner, date: d})
       $(@el).html compiled
       $(".item .actions div").hide()
       $(".item .actions div.actions-admin").show()

@@ -6,7 +6,7 @@ define(["jquery", "underscore", "backbone", "js/modules/stream/models/comment", 
     url: function() {
       var url;
 
-      url = "/rest/comments/?post_id=" + this.post_id;
+      url = "/rest/comment/?post_id=" + this.post_id;
       return url;
     },
     idAttribute: "id"

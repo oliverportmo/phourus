@@ -7,10 +7,10 @@ define(["jquery", "underscore", "backbone", "marionette"], function($, _, Backbo
     appRoutes: {
       "": "homepage",
       "!home": "homepage",
-      "contact": "contact",
-      "terms": "temp",
-      "privacy": "temp",
-      "signup": "signup",
+      "!contact": "contact",
+      "terms": "terms",
+      "privacy": "privacy",
+      "!signup": "signup",
       "user/:id": "user",
       "!core": "standard",
       "!earth": "standard",
@@ -28,15 +28,6 @@ define(["jquery", "underscore", "backbone", "marionette"], function($, _, Backbo
         page: "home"
       };
       return require(["js/modules/standard/views/home"], function(view) {
-        return self.toss(view, params);
-      });
-    },
-    help: function() {
-      var params, self;
-
-      self = this;
-      params = {};
-      return require(["js/modules/standard/views/help"], function(view) {
         return self.toss(view, params);
       });
     },
@@ -62,6 +53,15 @@ define(["jquery", "underscore", "backbone", "marionette"], function($, _, Backbo
         return self.toss(view, params);
       });
     },
+    help: function() {
+      var params, self;
+
+      self = this;
+      params = {};
+      return require(["js/modules/standard/views/help"], function(view) {
+        return self.toss(view, params);
+      });
+    },
     standard: function() {
       var params, self;
 
@@ -81,6 +81,28 @@ define(["jquery", "underscore", "backbone", "marionette"], function($, _, Backbo
         page: "temp"
       };
       return require(["js/modules/standard/views/temp"], function(view) {
+        return self.toss(view, params);
+      });
+    },
+    terms: function() {
+      var params, self;
+
+      self = this;
+      params = {
+        page: "terms"
+      };
+      return require(["js/modules/standard/views/terms"], function(view) {
+        return self.toss(view, params);
+      });
+    },
+    privacy: function() {
+      var params, self;
+
+      self = this;
+      params = {
+        page: "privacy"
+      };
+      return require(["js/modules/standard/views/privacy"], function(view) {
         return self.toss(view, params);
       });
     },

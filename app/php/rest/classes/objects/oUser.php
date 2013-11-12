@@ -5,7 +5,24 @@ class oUser
 	
 	# GET
 	public function get($params){
-		$out= dRead::users($params);
+		if(isset($params['id'])){
+  		$out= array();
+  		$out['user']= dRead::users($params);
+  		if(is_numeric($out['user'])){
+    		return $out['user'];
+  		}
+  		$out['stats']= oStats::stats(array('user_id' => $out['user']['id']));
+  		$out['address']= oAddress::get(array('user_id' => $out['user']['id']));
+		}else{	  
+  		$users= dRead::users($params);
+  		if(is_numeric($users)){
+    		return $users;
+  		}
+      $out= array();
+  		foreach($users as $user){
+  		  $out[]= oUser::get(array('id' => $user['id']));
+  		}
+		}
 		return $out;
 	}
 		

@@ -7,19 +7,16 @@ define(["jquery", "underscore", "backbone"], function($) {
     initialize: function(options) {
       return this.options = options;
     },
-    methods: {
-      'read': 'posts/?id=',
-      'create': 'post/',
-      'update': 'post/',
-      'delete': 'post/'
-    },
-    sync: function(method, model, options) {
-      options = options || {};
-      options.url = 'rest/' + model.methods[method.toLowerCase()];
-      if (!_.isUndefined(this.options.id)) {
-        options.url += this.options.id;
+    url: function() {
+      var query, url;
+
+      if (_.isUndefined(this.options.id)) {
+        query = '';
+      } else {
+        query = this.options.id;
       }
-      return Backbone.sync.apply(this, arguments);
+      url = "/rest/post/" + query;
+      return url;
     }
   });
   return model;
