@@ -4,6 +4,9 @@ define(["jquery", "underscore", "backbone", "marionette"], function($, _, Backbo
 
   router = Backbone.Marionette.AppRouter.extend({
     controller: controller,
+    initialize: function(options) {
+      return this.bind('route', this.track);
+    },
     appRoutes: {
       "": "homepage",
       "!home": "homepage",

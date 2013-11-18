@@ -1,6 +1,10 @@
 define ["jquery", "underscore", "backbone", "marionette"], ($, _, Backbone, marionette) ->
   router = Backbone.Marionette.AppRouter.extend(
     controller: controller
+    
+    initialize: (options) ->
+      @bind 'route', @track
+      
     appRoutes:
       "": "homepage"
       "!home": "homepage"
@@ -23,6 +27,7 @@ define ["jquery", "underscore", "backbone", "marionette"], ($, _, Backbone, mari
       
       #Page
       #":page": "page"
+      
   )
   controller =
     homepage: ->

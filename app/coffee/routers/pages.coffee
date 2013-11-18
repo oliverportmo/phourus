@@ -1,11 +1,16 @@
 define ["jquery", "underscore", "backbone", "marionette"], ($, _, Backbone, marionette) ->
   router = Backbone.Marionette.AppRouter.extend(
     controller: controller
+    
+    initialize: (options) ->
+      @bind 'all', @track
+    
     appRoutes:
       "pages": "pages"
       "page/*path": "page"
       #"add": "add"
       #"edit/:id": "edit"
+      
   )
   controller =
     slug: "pages"

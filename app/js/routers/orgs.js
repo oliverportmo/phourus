@@ -5,6 +5,7 @@ define(["jquery", "underscore", "backbone", "marionette"], function($, _, Backbo
   router = Backbone.Marionette.AppRouter.extend({
     controller: controller,
     initialize: function(options) {
+      this.bind('route', this.track);
       this.route('!orgs/signup', "orgs", options.controller.signup);
       this.route('!orgs/admin', "orgs", options.controller.admin);
       this.route(/^!(companies|govs|groups|schools)\/(.*?)$/, "orgs", options.controller.orgs);

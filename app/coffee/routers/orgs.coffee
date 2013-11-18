@@ -3,6 +3,8 @@ define ["jquery", "underscore", "backbone", "marionette"], ($, _, Backbone, mari
     controller: controller
 
     initialize: (options) ->
+      @bind 'route', @track
+ 
       @route '!orgs/signup', "orgs", options.controller.signup
       @route '!orgs/admin', "orgs", options.controller.admin
       
@@ -14,9 +16,7 @@ define ["jquery", "underscore", "backbone", "marionette"], ($, _, Backbone, mari
       # !{org}/:id
       @route /^!(company|gov|group|school)\/(.*?)$/, "orgs", options.controller.org
       # !{org}/:id/:page
-      @route /^!(company|gov|group|school)\/(.*?)\/(.*?)$/, "orgs", options.controller.org
-      
-      
+      @route /^!(company|gov|group|school)\/(.*?)\/(.*?)$/, "orgs", options.controller.org    
        
     toss: (view, params) ->
       data =

@@ -16,7 +16,8 @@ require.config
     mdown: "lib/mdown"
     markdownConverter : 'lib/converter'
     calendar: "lib/calendar"
-    BaseView: "js/base/view"
+    analytics: "js/models/analytics"
+    livereload: "js/models/livereload"
 
   shim:
     backbone:
@@ -56,9 +57,9 @@ define "init", (require) ->
   BaseCollection = require("js/base/collection")
   BaseModel = require("js/base/model")
   BaseView = require("js/base/view")
+  BaseRouter = require("js/base/router")
   app = new Backbone.Marionette.Application()
   
-
   
   # Header & Footer
   app.addInitializer (options) ->
