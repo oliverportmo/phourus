@@ -5,7 +5,7 @@
 <title>Test Results</title>
 <link rel="stylesheet" type="text/css" href="style.css"/>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script type="text/javascript" src="/tests/browsers.js"></script>
+<script type="text/javascript" src="../browsers.js"></script>
 </head>
 
 <body>

@@ -17,7 +17,8 @@ require.config({
     markdownConverter: 'lib/converter',
     calendar: "lib/calendar",
     analytics: "js/models/analytics",
-    livereload: "js/models/livereload"
+    livereload: "js/models/livereload",
+    storage: "lib/storage"
   },
   shim: {
     backbone: {

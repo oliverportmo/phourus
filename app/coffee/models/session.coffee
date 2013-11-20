@@ -1,4 +1,4 @@
-define ["jquery", "underscore", "backbone"], ($, _, Backbone) ->
+define ["jquery", "underscore", "backbone", "storage"], ($, _, Backbone, storage) ->
   mSession = Backbone.Model.extend(
     
     idAttribute: 'id'

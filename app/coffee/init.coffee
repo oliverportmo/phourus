@@ -18,6 +18,7 @@ require.config
     calendar: "lib/calendar"
     analytics: "js/models/analytics"
     livereload: "js/models/livereload"
+    storage: "lib/storage"
 
   shim:
     backbone:
