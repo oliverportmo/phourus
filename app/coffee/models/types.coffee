@@ -70,25 +70,44 @@ define ["jquery", "underscore", "backbone"], ($) ->
 
       parent
 
+    validate_terms: (value, form) ->
+      err = 
+        type: 'terms',
+        message: 'You must accept the Terms & Conditions if you would like to create an account'
+      err unless value is true
+
+    validate_handle: (value, form) ->
+      pattern = /^[a-zA-Z0-9]{4,16}$/
+      result = pattern.test value   
+      err = 
+        type: 'handles'
+        message: 'Usernames & Shortnames should be alphanumeric and 4-16 characters long'
+      err unless result is true
+      
     schema: (type) ->
       schema = {}
+      required = {type: "Text", validators: ['required']}
+      email = {type: "Text", validators: ['required', 'email']}
+      handle = {type: "Text", validators: [@validate_handle]}
+      terms = {type: "Checkbox", help: "Click to accept the terms & conditions", validators: [@validate_terms]}
       if type is 'contact'
-        schema.first = "Text"
-        schema.last = "Text"
-        schema.email = "Text"
+        schema.first = required
+        schema.last = required
+        schema.email = email
         schema.subject = {type: "Select", options: ["General information", "Report an issue", "Tell us what you think", "Join the Phourus Team", "Other"]}
-        schema.message = "TextArea"
+        schema.message = {type: "TextArea", validators: ['required']}
       if type is 'signuporg'
-        schema.name = "Text"
-        schema.shortname = "Text"
-        schema.email = "Text"
+        schema.name = required
+        schema.shortname = handle
+        schema.email = email
         schema.type =  {type: "Select", options: ["Gov", "Company", "School", "Group"]}
-        schema.terms = "Checkbox"
+        schema.terms = terms
       if type is 'signup'
-        schema.first = "Text"
-        schema.last = "Text"
-        schema.email = "Text"
-        schema.terms = "Checkbox"
+        schema.username = handle
+        schema.first = required
+        schema.last = required
+        schema.email = email
+        schema.terms = terms
         
       element = {type: "Select", options: ["Earth", "Mind", "Voice", "Self"]}
       privacy = {type: "Select", options: ["Public", "Phourus", "Friends", "Following", "Followers", "Private"]}

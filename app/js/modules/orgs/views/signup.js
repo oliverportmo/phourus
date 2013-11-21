@@ -35,31 +35,43 @@ define(["jquery", "underscore", "backbone", "forms", "text!html/orgs/signup.html
       return this.create();
     },
     create: function() {
-      var data;
+      var data, self;
 
+      self = this;
       this.form.commit();
-      data = this.model.attributes;
-      delete data.terms;
-      return this.model.save(this.model.attributes, {
-        success: function(model, response) {
-          return Backbone.Events.trigger("alert", {
-            type: "complete",
-            message: "Org signup complete",
-            response: response,
-            location: "modules/orgs/views/signup",
-            action: "create"
-          });
-        },
-        error: function(model, response) {
-          return Backbone.Events.trigger("alert", {
-            type: "error",
-            message: "Org could not be created",
-            response: response,
-            location: "modules/orgs/views/signup",
-            action: "create"
-          });
-        }
-      });
+      if (!_.isNull(this.form.validate())) {
+        return Backbone.Events.trigger("alert", {
+          type: "error",
+          message: "There were errors with the form data you entered, please correct these in order to continue",
+          response: '',
+          location: "modules/orgs/views/signup",
+          action: "validate"
+        });
+      } else {
+        data = this.model.attributes;
+        delete data.terms;
+        return this.model.save(data, {
+          success: function(model, response) {
+            Backbone.Events.trigger("alert", {
+              type: "complete",
+              message: "Org signup complete",
+              response: response,
+              location: "modules/orgs/views/signup",
+              action: "create"
+            });
+            return $(self.el).html("<h2 style='text-align: center'>Signup is complete. Please check the email you provided for your login information.</h2>");
+          },
+          error: function(model, response) {
+            return Backbone.Events.trigger("alert", {
+              type: "error",
+              message: "Org could not be created",
+              response: response,
+              location: "modules/orgs/views/signup",
+              action: "create"
+            });
+          }
+        });
+      }
     }
   });
   return view;

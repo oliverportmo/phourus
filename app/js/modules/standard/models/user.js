@@ -7,9 +7,13 @@ define(["jquery", "underscore", "backbone"], function($, _, Backbone) {
       return this.options = options;
     },
     url: function() {
-      var url;
+      var query, url;
 
-      url = "/rest/user/" + this.options.id;
+      query = '';
+      if (!_.isUndefined(this.options) && !_.isUndefined(this.options)) {
+        query = this.options.id;
+      }
+      url = "/rest/user/" + query;
       return url;
     },
     idAttribute: "id"

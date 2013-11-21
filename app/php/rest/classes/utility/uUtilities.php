@@ -152,29 +152,6 @@ class uUtilities
 		return $out;
 	}
 	
-	//Email
-	private function email(){
-		$data= post_email($vars);
-		$output= json_encode($data);
-		//subject, message, recipient_email, recipient_name, sender_email, sender_name
-		
-		//Headers
-		$headers  = 'MIME-Version: 1.0' . "\r\n";
-		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-		$headers .= 'To: '.$args['recipient_name'].' <'.$args['recipient_email'].'>' . "\r\n";
-		$headers .= 'From: '.$args['sender_name'].' <'.$args['sender_email'].'>' . "\r\n";
-		//$headers .= 'Cc: email@example.com' . "\r\n";
-		$headers .= 'Bcc: '.$args['recipient_name'] . "\r\n";
-		
-		$mail= @mail($args['recipient_email'], $args['subject'], $args['message'], $headers);
-		if(!$mail){
-			$out= 'There was an error sending email.';
-			return $out;
-		}
-		
-		$out= 'Email sent successfully.';
-		return $out;
-	}
 
 	public function now(){
     return date('Y-m-d H:i:s');	

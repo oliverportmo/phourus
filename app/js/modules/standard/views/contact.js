@@ -4,6 +4,9 @@ define(["jquery", "underscore", "backbone", "forms", "text!html/standard/contact
 
   view = Backbone.View.extend({
     className: "contact",
+    events: {
+      "click .contact": "contact"
+    },
     initialize: function() {},
     render: function() {
       var compiled, container, data, schema;
@@ -28,6 +31,45 @@ define(["jquery", "underscore", "backbone", "forms", "text!html/standard/contact
       container = this.$el.find("#fields");
       container.append(this.form.el);
       return this;
+    },
+    contact: function(e) {
+      var data, self;
+
+      self = this;
+      this.form.commit();
+      if (!_.isNull(this.form.validate())) {
+        return Backbone.Events.trigger("alert", {
+          type: "error",
+          message: "There were errors with the form data you entered, please correct these in order to continue",
+          response: '',
+          location: "modules/standard/views/contact",
+          action: "validate"
+        });
+      } else {
+        data = this.model.attributes;
+        delete data.terms;
+        return this.model.save(data, {
+          success: function(model, response) {
+            Backbone.Events.trigger("alert", {
+              type: "complete",
+              message: "We have received your inquiry, and will follow up shortly.",
+              response: response,
+              location: "modules/standard/views/contact",
+              action: "create"
+            });
+            return $(self.el).html("<h2 style='text-align: center'>We have received your inquiry, and will follow up shortly.</h2>");
+          },
+          error: function(model, response) {
+            return Backbone.Events.trigger("alert", {
+              type: "error",
+              message: "There was an issue sending your request. Please try again.",
+              response: response,
+              location: "modules/standard/views/contact",
+              action: "create"
+            });
+          }
+        });
+      }
     }
   });
   return view;

@@ -3,6 +3,9 @@ define ["jquery", "underscore", "backbone", "forms", "text!html/standard/contact
     
     className: "contact"
   
+    events:
+      "click .contact": "contact"
+      
     initialize: () ->
       
     render: ->
@@ -23,5 +26,21 @@ define ["jquery", "underscore", "backbone", "forms", "text!html/standard/contact
       container = @$el.find("#fields")
       container.append @form.el
       @
+    
+    contact: (e) ->
+      self = @
+      @form.commit()
+      if !_.isNull(@form.validate())
+        Backbone.Events.trigger "alert", {type: "error", message: "There were errors with the form data you entered, please correct these in order to continue", response: '', location: "modules/standard/views/contact", action: "validate"}
+      else
+        data = @model.attributes
+        delete data.terms
+        @model.save data,
+          success: (model, response) ->
+              Backbone.Events.trigger "alert", {type: "complete", message: "We have received your inquiry, and will follow up shortly.", response: response, location: "modules/standard/views/contact", action: "create"}
+              $(self.el).html "<h2 style='text-align: center'>We have received your inquiry, and will follow up shortly.</h2>"
+          error: (model, response) ->
+  	          Backbone.Events.trigger "alert", {type: "error", message: "There was an issue sending your request. Please try again.", response: response, location: "modules/standard/views/contact", action: "create"}
+
   )
   view

@@ -4,7 +4,7 @@ define(["jquery", "underscore", "backbone", "forms", "text!html/standard/signup.
 
   view = Backbone.View.extend({
     events: {
-      "click #complete": "register"
+      "click .register": "register"
     },
     render: function() {
       var compiled, container, data, schema;
@@ -27,56 +27,45 @@ define(["jquery", "underscore", "backbone", "forms", "text!html/standard/signup.
       container.append(this.form.el);
       return this;
     },
-    register: function() {
-      var self;
+    register: function(e) {
+      var data, self;
 
-      this.model = new mRegister(this.collect());
       self = this;
-      return this.model.save({}, {
-        success: function(model, response) {
-          var data, email, message;
-
-          message = "Registration was successful. Check your email for your password and account information.";
-          message += "<br /><strong>Password:</strong> " + response.password;
-          vAlerts.add("complete", message, "1", "");
-          data = self.collect();
-          message = _.template(tSignup, data);
-          email = new mEmail({
-            recipient_name: data.first + " " + data.last,
-            recipient_email: data.email,
-            subject: "Your Phourus Password",
-            message: message
-          });
-          return email.save({
-            success: function() {},
-            error: function(error, response) {
-              return Backbone.Events.trigger("alert", {
-                type: "message",
-                message: "Registration was successful, but there was an error sending your email. Please contact us if you do not receive your password.",
-                response: response,
-                location: "modules/standard/views/signup",
-                action: "save"
-              });
-            }
-          });
-        },
-        error: function(model, response) {
-          console.log(model);
-          return console.log(response);
-        }
-      });
-    },
-    collect: function() {
-      var me, output;
-
-      me = this;
-      output = {
-        first: $("#first").val(),
-        last: $("#last").val(),
-        email: $("#email").val(),
-        password: $("#password").val()
-      };
-      return output;
+      this.form.commit();
+      if (!_.isNull(this.form.validate())) {
+        return Backbone.Events.trigger("alert", {
+          type: "error",
+          message: "There were errors with the form data you entered, please correct these in order to continue",
+          response: '',
+          location: "modules/standard/views/signup",
+          action: "validate"
+        });
+      } else {
+        data = this.model.attributes;
+        delete data.terms;
+        return this.model.save(data, {
+          success: function(model, response) {
+            self.email(data);
+            Backbone.Events.trigger("alert", {
+              type: "complete",
+              message: "User signup complete",
+              response: response,
+              location: "modules/standard/views/signup",
+              action: "create"
+            });
+            return $(self.el).html("<h2 style='text-align: center'>Signup is complete. Please check the email you provided for your login information.</h2>");
+          },
+          error: function(model, response) {
+            return Backbone.Events.trigger("alert", {
+              type: "error",
+              message: "User account could not be created",
+              response: response,
+              location: "modules/standard/views/signup",
+              action: "create"
+            });
+          }
+        });
+      }
     }
   });
   return view;

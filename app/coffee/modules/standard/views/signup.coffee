@@ -2,7 +2,7 @@ define ["jquery", "underscore", "backbone", "forms", "text!html/standard/signup.
   view = Backbone.View.extend(
     
     events:
-      "click #complete": "register"
+      "click .register": "register"
 
     render: ->
       data = {}
@@ -23,44 +23,22 @@ define ["jquery", "underscore", "backbone", "forms", "text!html/standard/signup.
       
       @
     
-    register: ->
-      @model = new mRegister(@collect())
-      self = this
-      @model.save {},
-        success: (model, response) ->
-          message = "Registration was successful. Check your email for your password and account information."
-          message += "<br /><strong>Password:</strong> " + response.password
-          vAlerts.add "complete", message, "1", ""
-          data = self.collect()
-          message = _.template(tSignup, data)
-          email = new mEmail(
-            recipient_name: data.first + " " + data.last
-            recipient_email: data.email
-            subject: "Your Phourus Password"
-            message: message
-          )
-          email.save
-            success: ->
+    register: (e) ->
+      self = @
+      @form.commit()
+      if !_.isNull(@form.validate())
+        Backbone.Events.trigger "alert", {type: "error", message: "There were errors with the form data you entered, please correct these in order to continue", response: '', location: "modules/standard/views/signup", action: "validate"}
+      else
+        data = @model.attributes
+        delete data.terms
+        @model.save data,
+          success: (model, response) ->
+              self.email data
+              Backbone.Events.trigger "alert", {type: "complete", message: "User signup complete", response: response, location: "modules/standard/views/signup", action: "create"}
+              $(self.el).html "<h2 style='text-align: center'>Signup is complete. Please check the email you provided for your login information.</h2>"
+          error: (model, response) ->
+  	          Backbone.Events.trigger "alert", {type: "error", message: "User account could not be created", response: response, location: "modules/standard/views/signup", action: "create"}
+  	 
 
-            error: (error, response) ->
-              Backbone.Events.trigger "alert", {type: "message", message: "Registration was successful, but there was an error sending your email. Please contact us if you do not receive your password.", response: response, location: "modules/standard/views/signup", action: "save"}
-
-
-        
-        #DEMO PASSWORD
-        error: (model, response) ->
-          console.log model
-          console.log response
-
-
-    collect: ->
-      me = this
-      output =
-        first: $("#first").val()
-        last: $("#last").val()
-        email: $("#email").val()
-        password: $("#password").val()
-
-      output
   )
   view

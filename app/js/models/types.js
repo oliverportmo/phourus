@@ -69,35 +69,80 @@ define(["jquery", "underscore", "backbone"], function($) {
       });
       return parent;
     },
+    validate_terms: function(value, form) {
+      var err;
+
+      err = {
+        type: 'terms',
+        message: 'You must accept the Terms & Conditions if you would like to create an account'
+      };
+      if (value !== true) {
+        return err;
+      }
+    },
+    validate_handle: function(value, form) {
+      var err, pattern, result;
+
+      pattern = /^[a-zA-Z0-9]{4,16}$/;
+      result = pattern.test(value);
+      err = {
+        type: 'handles',
+        message: 'Usernames & Shortnames should be alphanumeric and 4-16 characters long'
+      };
+      if (result !== true) {
+        return err;
+      }
+    },
     schema: function(type) {
-      var element, privacy, schema;
+      var element, email, handle, privacy, required, schema, terms;
 
       schema = {};
+      required = {
+        type: "Text",
+        validators: ['required']
+      };
+      email = {
+        type: "Text",
+        validators: ['required', 'email']
+      };
+      handle = {
+        type: "Text",
+        validators: [this.validate_handle]
+      };
+      terms = {
+        type: "Checkbox",
+        help: "Click to accept the terms & conditions",
+        validators: [this.validate_terms]
+      };
       if (type === 'contact') {
-        schema.first = "Text";
-        schema.last = "Text";
-        schema.email = "Text";
+        schema.first = required;
+        schema.last = required;
+        schema.email = email;
         schema.subject = {
           type: "Select",
           options: ["General information", "Report an issue", "Tell us what you think", "Join the Phourus Team", "Other"]
         };
-        schema.message = "TextArea";
+        schema.message = {
+          type: "TextArea",
+          validators: ['required']
+        };
       }
       if (type === 'signuporg') {
-        schema.name = "Text";
-        schema.shortname = "Text";
-        schema.email = "Text";
+        schema.name = required;
+        schema.shortname = handle;
+        schema.email = email;
         schema.type = {
           type: "Select",
           options: ["Gov", "Company", "School", "Group"]
         };
-        schema.terms = "Checkbox";
+        schema.terms = terms;
       }
       if (type === 'signup') {
-        schema.first = "Text";
-        schema.last = "Text";
-        schema.email = "Text";
-        schema.terms = "Checkbox";
+        schema.username = handle;
+        schema.first = required;
+        schema.last = required;
+        schema.email = email;
+        schema.terms = terms;
       }
       element = {
         type: "Select",

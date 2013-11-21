@@ -259,13 +259,6 @@ $app->post('/rest/session/', function() use ($headers){
 }); 
 
 # OTHER
-$app->post('/rest/email/', function() use ($post){
-	//$params= 'get params from post?';
-	//$object= new apiCreate($params);
-	//$out= $object->result('email');
-	//out($out);       
-});
-
 $app->post('/rest/pic/:id', function($id) use ($post){
   if(!isset($post['type'])){
     out('Pic type not set');
