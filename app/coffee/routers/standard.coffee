@@ -6,8 +6,9 @@ define ["jquery", "underscore", "backbone", "marionette"], ($, _, Backbone, mari
       @bind 'route', @track
       
     appRoutes:
-      "": "homepage"
+      "": "about"
       "!home": "homepage"
+      "!about": "about"
       #"!help": "help"
       "!contact": "contact"
       "terms": "terms"
@@ -36,6 +37,12 @@ define ["jquery", "underscore", "backbone", "marionette"], ($, _, Backbone, mari
       require ["js/modules/standard/views/home"], (view) ->
         self.toss view, params
 
+    about: ->
+      self = this
+      params = page: "about"
+      require ["js/modules/standard/views/about"], (view) ->
+        self.toss view, params
+        
     contact: ->
       self = this
       params = page: "contact"

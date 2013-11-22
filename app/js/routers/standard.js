@@ -8,8 +8,9 @@ define(["jquery", "underscore", "backbone", "marionette"], function($, _, Backbo
       return this.bind('route', this.track);
     },
     appRoutes: {
-      "": "homepage",
+      "": "about",
       "!home": "homepage",
+      "!about": "about",
       "!contact": "contact",
       "terms": "terms",
       "privacy": "privacy",
@@ -31,6 +32,17 @@ define(["jquery", "underscore", "backbone", "marionette"], function($, _, Backbo
         page: "home"
       };
       return require(["js/modules/standard/views/home"], function(view) {
+        return self.toss(view, params);
+      });
+    },
+    about: function() {
+      var params, self;
+
+      self = this;
+      params = {
+        page: "about"
+      };
+      return require(["js/modules/standard/views/about"], function(view) {
         return self.toss(view, params);
       });
     },
