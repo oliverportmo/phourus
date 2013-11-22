@@ -7,12 +7,9 @@ button.button, a.button, input.button, input#searchsubmit {
   width: 160px;
   height: 40px;
   text-align: center;
-  /**text-shadow: 0px -1px 0px rgba(127,127,127,0.9), 0px 1px 0px rgba(000,000,000,0.9);**/
   border-radius: 3px;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
-  background: -moz-linear-gradient(top, #000 0%, #333);
-  background: -webkit-gradient(linear, left top, left bottom, from(#000),to(#333));
   border: none;
   text-decoration: none;
   margin: 4px;
@@ -36,46 +33,34 @@ a.button {
 button.button:hover, a.button:hover, input.button:hover, input#searchsubmit:hover {
 cursor: pointer;
 text-shadow: 0px -1px 0px rgba(000,000,000,0), 0px 0px 0px rgba(000,000,000,0);
-background: -moz-linear-gradient(top, #f60 0%,#f90);
-background: -webkit-gradient(linear, left top, left bottom, from(#f60), to(#f90));
 font-weight: normal !important;
-/*-moz-box-shadow: 0px 0px 4px rgba(000,000,000,0.6), inset 0px 1px 0px rgba(255,255,255,0.3);
--webkit-box-shadow: 0px 0px 4px rgba(000,000,000,0.6), inset 0px 1px 0px rgba(255,255,255,0.3);*/
-/*-moz-box-shadow: 0px 2px 4px rgba(000,000,000,0.6);
--webkit-box-shadow: 0px 2px 4px rgba(000,000,000,0.6);*/
 }
 
 /** GREEN **/
 button.green.button, a.green.button, input.green.button, input#searchsubmit.green {
-background: -moz-linear-gradient(top, #0b0 0%, #090);
-background: -webkit-gradient(linear, left top, left bottom, from(#0b0),to(#090));
+.button-gradient(#0b0, #090);
 }
 
 button.green.button:hover, a.green.button:hover, input.green.button:hover, input#searchsubmit.green:hover {
-background: -moz-linear-gradient(top, #090 0%, #0b0);
-background: -webkit-gradient(linear, left top, left bottom, from(#090),to(#0b0));
+.button-gradient(#090, #0b0);
 }
 
 /** BLUE **/
 button.blue.button, a.blue.button, input.blue.button, input#searchsubmit.blue {
-background: -moz-linear-gradient(top, #08f 0%, #05c);
-background: -webkit-gradient(linear, left top, left bottom, from(#08f),to(#05c));
+.button-gradient(#08f, #05c);
 }
 
 button.blue.button:hover, a.blue.button:hover, input.blue.button:hover, input#searchsubmit.blue:hover {
-background: -moz-linear-gradient(top, #05c 0%, #08f);
-background: -webkit-gradient(linear, left top, left bottom, from(#05c),to(#08f));
+.button-gradient(#05c, #08f);
 }
 
 /** RED **/
 button.red.button, a.red.button, input.red.button, input#searchsubmit.red {
-background: -moz-linear-gradient(top, #d00 0%, #a00);
-background: -webkit-gradient(linear, left top, left bottom, from(#d00),to(#a00));
+.button-gradient(#d00, #a00);
 }
 
 button.red.button:hover, a.red.button:hover, input.red.button:hover, input#searchsubmit.red:hover {
-background: -moz-linear-gradient(top, #a00 0%, #d00);
-background: -webkit-gradient(linear, left top, left bottom, from(#a00),to(#d00));
+.button-gradient(#a00, #d00);
 }
 
 /** HOME **/

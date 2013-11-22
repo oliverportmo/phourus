@@ -152,13 +152,9 @@ input#searchsubmit {
   width: 160px;
   height: 40px;
   text-align: center;
-  /**text-shadow: 0px -1px 0px rgba(127,127,127,0.9), 0px 1px 0px rgba(000,000,000,0.9);**/
-
   border-radius: 3px;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
-  background: -moz-linear-gradient(top, #000000 0%, #333333);
-  background: -webkit-gradient(linear, left top, left bottom, from(#000000), to(#333333));
   border: none;
   text-decoration: none;
   margin: 4px;
@@ -192,15 +188,7 @@ input.button:hover,
 input#searchsubmit:hover {
   cursor: pointer;
   text-shadow: 0px -1px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(0, 0, 0, 0);
-  background: -moz-linear-gradient(top, #ff6600 0%, #ff9900);
-  background: -webkit-gradient(linear, left top, left bottom, from(#ff6600), to(#ff9900));
   font-weight: normal !important;
-  /*-moz-box-shadow: 0px 0px 4px rgba(000,000,000,0.6), inset 0px 1px 0px rgba(255,255,255,0.3);
--webkit-box-shadow: 0px 0px 4px rgba(000,000,000,0.6), inset 0px 1px 0px rgba(255,255,255,0.3);*/
-
-  /*-moz-box-shadow: 0px 2px 4px rgba(000,000,000,0.6);
--webkit-box-shadow: 0px 2px 4px rgba(000,000,000,0.6);*/
-
 }
 /** GREEN **/
 button.green.button,
@@ -209,6 +197,7 @@ input.green.button,
 input#searchsubmit.green {
   background: -moz-linear-gradient(top, #00bb00 0%, #009900);
   background: -webkit-gradient(linear, left top, left bottom, from(#00bb00), to(#009900));
+  background-color: #009900;
 }
 button.green.button:hover,
 a.green.button:hover,
@@ -216,6 +205,7 @@ input.green.button:hover,
 input#searchsubmit.green:hover {
   background: -moz-linear-gradient(top, #009900 0%, #00bb00);
   background: -webkit-gradient(linear, left top, left bottom, from(#009900), to(#00bb00));
+  background-color: #00bb00;
 }
 /** BLUE **/
 button.blue.button,
@@ -224,6 +214,7 @@ input.blue.button,
 input#searchsubmit.blue {
   background: -moz-linear-gradient(top, #0088ff 0%, #0055cc);
   background: -webkit-gradient(linear, left top, left bottom, from(#0088ff), to(#0055cc));
+  background-color: #0055cc;
 }
 button.blue.button:hover,
 a.blue.button:hover,
@@ -231,6 +222,7 @@ input.blue.button:hover,
 input#searchsubmit.blue:hover {
   background: -moz-linear-gradient(top, #0055cc 0%, #0088ff);
   background: -webkit-gradient(linear, left top, left bottom, from(#0055cc), to(#0088ff));
+  background-color: #0088ff;
 }
 /** RED **/
 button.red.button,
@@ -239,6 +231,7 @@ input.red.button,
 input#searchsubmit.red {
   background: -moz-linear-gradient(top, #dd0000 0%, #aa0000);
   background: -webkit-gradient(linear, left top, left bottom, from(#dd0000), to(#aa0000));
+  background-color: #aa0000;
 }
 button.red.button:hover,
 a.red.button:hover,
@@ -246,6 +239,7 @@ input.red.button:hover,
 input#searchsubmit.red:hover {
   background: -moz-linear-gradient(top, #aa0000 0%, #dd0000);
   background: -webkit-gradient(linear, left top, left bottom, from(#aa0000), to(#dd0000));
+  background-color: #dd0000;
 }
 /** HOME **/
 a.button-home {
