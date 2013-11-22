@@ -874,9 +874,9 @@ div#footing {
 }
 /** CONTENT **/
 #content {
-  width: 860px;
-  padding: 20px;
-  margin: 20px;
+  width: 78%;
+  padding: 20px 1.5% 0px 1.5%;
+  margin: 20px 0% 20px 2%;
   font-size: 16px;
   float: left;
   background-color: #fff;
@@ -1948,7 +1948,7 @@ nav ul li:hover ul {
 }
 /* SIDEBAR */
 #sidebar {
-  width: 210px;
+  width: 16%;
   float: left;
   text-align: right;
   border-right: solid 2px #000;
