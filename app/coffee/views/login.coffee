@@ -1,4 +1,4 @@
-define ["jquery", "underscore", "backbone", "auth", "text!html/login.html", "text!html/logout.html", "text!html/forgot.html", "text!html/password.html", "js/models/login", "js/models/session", "js/models/settings", "js/models/email"], ($, _, Backbone, auth, tLogin, tLogout, tForgot, tPassword, mLogin, mSession, mSettings, mEmail) ->
+define ["jquery", "underscore", "backbone", "auth", "text!html/login.html", "text!html/logout.html", "text!html/forgot.html", "text!html/password.html", "js/models/login", "js/models/session", "js/models/settings"], ($, _, Backbone, auth, tLogin, tLogout, tForgot, tPassword, mLogin, mSession, mSettings) ->
 
   view = Backbone.View.extend(
     el: "#login"

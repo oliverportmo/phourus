@@ -1,4 +1,4 @@
-define ["jquery", "underscore", "backbone", "forms", "text!html/standard/signup.html", "text!html/email/signup.html", "js/modules/standard/models/user", "js/models/email", "js/models/types"], ($, _, Backbone, forms, template, tSignup, mUser, mEmail, mTypes) ->
+define ["jquery", "underscore", "backbone", "forms", "text!html/standard/signup.html", "text!html/email/signup.html", "js/modules/standard/models/user", "js/models/types"], ($, _, Backbone, forms, template, tSignup, mUser, mTypes) ->
   view = Backbone.View.extend(
     
     events:
