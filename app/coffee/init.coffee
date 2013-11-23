@@ -1,5 +1,6 @@
 require.config
   baseUrl: "/app"
+  urlArgs: "bust=" + (new Date()).getTime()
   #waitSeconds: 0
   paths:
     jquery: "lib/jquery"
