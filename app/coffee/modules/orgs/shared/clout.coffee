@@ -6,11 +6,14 @@ define ["jquery", "underscore", "backbone", "text!html/orgs/shared/clout.html", 
       params = {}
       params.org_id = options.id
       @collection = new cClout(params)
+      $("#mask").show()
       @collection.fetch
         success: ->
+          $("#mask").hide()
           self.render()
 
         error: (collection, response) ->
+	        $("#mask").hide()
 	        if response.status is 404
 	         $(self.el).append _.template(clout404, {})
 	        else

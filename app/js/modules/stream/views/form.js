@@ -18,6 +18,7 @@ define(["jquery", "underscore", "backbone", "forms", "text!html/stream/form.html
       var self;
 
       self = this;
+      $("#mask").show();
       Backbone.Events.trigger("sidebar", "form");
       if (_.isUndefined(mSession.get("user_id"))) {
         this.$el.html('<h2 style="text-align: center">You must log in to create or modify posts.</h2>');
@@ -32,6 +33,7 @@ define(["jquery", "underscore", "backbone", "forms", "text!html/stream/form.html
           success: function(model, response) {
             var owner;
 
+            $("#mask").hide();
             owner = model.get("meta").user_id;
             if (!_.isUndefined(mSession.get("user_id")) && owner === mSession.get("user_id")) {
               self.options.type = model.get("meta").type;
@@ -41,6 +43,7 @@ define(["jquery", "underscore", "backbone", "forms", "text!html/stream/form.html
             }
           },
           error: function(model, response) {
+            $("#mask").hide();
             if (response.status === 404) {
               self.$el.html('<h2 style="text-align: center">Post could not be found</h2>');
               Backbone.Events.trigger("alert", {
@@ -156,9 +159,11 @@ define(["jquery", "underscore", "backbone", "forms", "text!html/stream/form.html
       return Backbone.Events.trigger("back", {});
     },
     create: function(e) {
+      $("#mask").show();
       this.form.commit();
       return this.model.save({}, {
         success: function(model, response) {
+          $("#mask").hide();
           return Backbone.Events.trigger("alert", {
             type: "complete",
             message: "Post created successfully",
@@ -168,6 +173,7 @@ define(["jquery", "underscore", "backbone", "forms", "text!html/stream/form.html
           });
         },
         error: function(model, response) {
+          $("#mask").hide();
           return Backbone.Events.trigger("alert", {
             type: "error",
             message: "Post could not be created",
@@ -179,9 +185,11 @@ define(["jquery", "underscore", "backbone", "forms", "text!html/stream/form.html
       });
     },
     update: function(e) {
+      $("#mask").show();
       this.form.commit();
       return this.model.save(this.model.changed, {
         success: function(model, response) {
+          $("#mask").hide();
           return Backbone.Events.trigger("alert", {
             type: "complete",
             message: "Post saved successfully",
@@ -191,6 +199,7 @@ define(["jquery", "underscore", "backbone", "forms", "text!html/stream/form.html
           });
         },
         error: function(model, response) {
+          $("#mask").hide();
           return Backbone.Events.trigger("alert", {
             type: "error",
             message: "Post could not be updated",
@@ -202,8 +211,10 @@ define(["jquery", "underscore", "backbone", "forms", "text!html/stream/form.html
       });
     },
     "delete": function(e) {
+      $("#mask").show();
       return this.model.destroy({
         success: function(model, response) {
+          $("#mask").hide();
           return Backbone.Events.trigger("alert", {
             type: "complete",
             message: "Post deleted successfully",
@@ -213,6 +224,7 @@ define(["jquery", "underscore", "backbone", "forms", "text!html/stream/form.html
           });
         },
         error: function(model, response) {
+          $("#mask").hide();
           return Backbone.Events.trigger("alert", {
             type: "error",
             message: "Post could not be deleted",

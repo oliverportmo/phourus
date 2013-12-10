@@ -9,14 +9,15 @@ define(["jquery", "underscore", "backbone", "text!html/orgs/shared/about.html", 
       this.options = options;
       self = this;
       this.model = new mOrg(options);
+      $("#mask").show();
       return this.model.fetch({
         success: function() {
+          $("#mask").hide();
           return self.render();
         },
         error: function(collection, response) {
-          var data;
-
-          return data = Backbone.Events.trigger("alert", {
+          $("#mask").hide();
+          return Backbone.Events.trigger("alert", {
             type: "error",
             message: "About page could not be loaded",
             response: response,

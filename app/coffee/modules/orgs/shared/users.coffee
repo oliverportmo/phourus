@@ -7,13 +7,15 @@ define ["jquery", "underscore", "backbone", "text!html/orgs/shared/posts.html", 
       params.org_id = options.id
       params.type = options.page.slice(0,-1)
       params.mode = 'full' 
-      
+      $("#mask").show()
       @collection = new cCommunity(params)
       @collection.fetch
         success: ->
+          $("#mask").hide()
           self.render()
 
         error: (collection, response) ->
+          $("#mask").hide()
           if response.status is 404
             self.$el.html _.template(users404, {})
           else

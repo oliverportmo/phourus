@@ -6,17 +6,19 @@ define ["jquery", "underscore", "backbone", "js/models/user", "text!html/user.ht
       
     load: (id) ->
       self = this
+      $("#mask").show()
       @model = new model(id: id)
       @model.fetch 
         success: ->
           self.render()
-        
+          $("#mask").hide()
         error: (model, response) ->
-          console.log response
+          $("#mask").hide()
           if response.status is 404
             self.$el.html _.template(user404, {})
           else
 	          Backbone.Events.trigger "alert", {type: "error", message: "User could not be loaded", response: response, location: "views/user", action: "read"}
+	          
 
     render: ->
       Backbone.Events.trigger "sidebar", "profile"

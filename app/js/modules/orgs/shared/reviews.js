@@ -7,15 +7,18 @@ define(["jquery", "underscore", "backbone", "text!html/widgets/posts.html", "js/
       var self;
 
       self = this;
+      $("#mask").show();
       options.id = options.id;
       options.page = 1;
       options.limit = 10;
       this.collection = new cReviews(options);
       return this.collection.fetch({
         success: function() {
+          $("#mask").hide();
           return self.render();
         },
         error: function(collection, response) {
+          $("#mask").hide();
           if (response.status === 404) {
             return self.$el.html(_.template(reviews404, {}));
           } else {

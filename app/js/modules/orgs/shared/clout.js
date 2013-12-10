@@ -10,11 +10,14 @@ define(["jquery", "underscore", "backbone", "text!html/orgs/shared/clout.html", 
       params = {};
       params.org_id = options.id;
       this.collection = new cClout(params);
+      $("#mask").show();
       return this.collection.fetch({
         success: function() {
+          $("#mask").hide();
           return self.render();
         },
         error: function(collection, response) {
+          $("#mask").hide();
           if (response.status === 404) {
             return $(self.el).append(_.template(clout404, {}));
           } else {

@@ -32,13 +32,16 @@ define(["jquery", "underscore", "backbone", "js/modules/stream/views/filter", "j
 
       this.collection = new cPosts();
       self = this;
+      $("#mask").show();
       return this.collection.fetch({
         success: function() {
+          $("#mask").hide();
           return self.update();
         },
         error: function(collection, response) {
           var auth;
 
+          $("#mask").hide();
           if (response.status === 503) {
             Backbone.Events.trigger("alert", {
               type: "error",

@@ -9,11 +9,14 @@ define(["jquery", "underscore", "backbone", "text!html/widgets/posts.html", "js/
       self = this;
       options.types = options.page;
       this.collection = new cPosts(options);
+      $("#mask").show();
       return this.collection.fetch({
         success: function() {
+          $("#mask").hide();
           return self.render();
         },
         error: function(collection, response) {
+          $("#mask").hide();
           if (response.status === 404) {
             $(self.el).append(_.template(posts404, {}));
           }

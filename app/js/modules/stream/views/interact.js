@@ -27,11 +27,13 @@ define(["jquery", "underscore", "backbone", "js/modules/stream/collections/comme
       var post_id, self;
 
       self = this;
+      $("#mask").show();
       post_id = this.options.id;
       this.collection = new collection();
       this.collection.post_id = post_id;
       return this.collection.fetch({
         success: function(collection, response) {
+          $("#mask").hide();
           return _.each(collection.models, function(obj, key) {
             var v;
 
@@ -40,6 +42,7 @@ define(["jquery", "underscore", "backbone", "js/modules/stream/collections/comme
           });
         },
         error: function(model, response) {
+          $("#mask").hide();
           if (response.status === 404) {
             self.$el.html('<h2 style="text-align: center">There are no comments for this post</h2>');
           }

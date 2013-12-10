@@ -27,6 +27,7 @@ define(["jquery", "underscore", "backbone", "marionette", "text!html/orgs/home.h
       var self;
 
       self = this;
+      $("#mask").show();
       Backbone.Events.trigger("sidebar", {
         type: 'map',
         params: this.options
@@ -36,9 +37,11 @@ define(["jquery", "underscore", "backbone", "marionette", "text!html/orgs/home.h
       });
       return this.collection.fetch({
         success: function() {
+          $("#mask").hide();
           return self.display();
         },
         error: function(collection, response) {
+          $("#mask").hide();
           return self.$el.html(_.template(orgs404, {}));
         }
       });

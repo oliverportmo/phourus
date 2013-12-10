@@ -48,10 +48,12 @@ define(["jquery", "underscore", "backbone", "forms", "text!html/orgs/signup.html
           action: "validate"
         });
       } else {
+        $("#mask").show();
         data = this.model.attributes;
         delete data.terms;
         return this.model.save(data, {
           success: function(model, response) {
+            $("#mask").hide();
             Backbone.Events.trigger("alert", {
               type: "complete",
               message: "Org signup complete",
@@ -62,15 +64,15 @@ define(["jquery", "underscore", "backbone", "forms", "text!html/orgs/signup.html
             return $(self.el).html("<h2 style='text-align: center'>Signup is complete. Please check the email you provided for your login information.</h2>");
           },
           error: function(model, response) {
-            return Backbone.Events.trigger("alert", {
-              type: "error",
-              message: "Org could not be created",
-              response: response,
-              location: "modules/orgs/views/signup",
-              action: "create"
-            });
+            return $("#mask").show();
           }
-        });
+        }, Backbone.Events.trigger("alert", {
+          type: "error",
+          message: "Org could not be created",
+          response: response,
+          location: "modules/orgs/views/signup",
+          action: "create"
+        }));
       }
     }
   });

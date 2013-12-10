@@ -31,6 +31,7 @@ define ["jquery", "underscore", "backbone", "auth", "text!html/login.html", "tex
     ### LOGIN ###
     login: ->
       self = @
+      $("#mask").show()
       Backbone.BasicAuth.set $("input#email").val(), $("input#password").val()
       model = new mLogin()
       model.save {},
@@ -39,9 +40,10 @@ define ["jquery", "underscore", "backbone", "auth", "text!html/login.html", "tex
             Backbone.Events.trigger "alert", {type: "message", message: "Login was unsuccessful, please try again", response: response, location: "views/login", action: "login"}
           else
             self.session response
-		
+          $("#mask").hide()
         error: (model, response) ->
           Backbone.Events.trigger "alert", {type: "error", message: "Login was unsuccessful, please try again", response: response, location: "views/login", action: "login"}
+          $("#mask").hide()
 	  
     session: (response) ->
       #start session

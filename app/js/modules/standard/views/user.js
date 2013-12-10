@@ -16,11 +16,14 @@ define(["jquery", "underscore", "backbone", "forms", "text!html/standard/user.ht
       this.model = new mUser({
         id: this.options.user
       });
+      $("#mask").show();
       return this.model.fetch({
         success: function() {
+          $("#mask").hide();
           return self.display();
         },
         error: function(error, response) {
+          $("#mask").hide();
           return Backbone.Events.trigger("alert", {
             type: "error",
             message: "Profile could not be loaded",
@@ -103,9 +106,11 @@ define(["jquery", "underscore", "backbone", "forms", "text!html/standard/user.ht
       return compiled;
     },
     save: function(e) {
+      $("#mask").show();
       this.form.commit();
       return this.model.save(this.model.changed, {
         success: function(model, response) {
+          $("#mask").hide();
           return Backbone.Events.trigger("alert", {
             type: "complete",
             message: "User information saved successfully",
@@ -115,6 +120,7 @@ define(["jquery", "underscore", "backbone", "forms", "text!html/standard/user.ht
           });
         },
         error: function(model, response) {
+          $("#mask").hide();
           if (response.status === 404) {
             return self.$el.html(_.template(user404, {}));
           } else {

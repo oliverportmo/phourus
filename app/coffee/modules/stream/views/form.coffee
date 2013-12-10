@@ -15,6 +15,7 @@ define ["jquery", "underscore", "backbone", "forms", "text!html/stream/form.html
             
     render: ->
       self = @
+      $("#mask").show()
       Backbone.Events.trigger "sidebar", "form"
       if _.isUndefined(mSession.get("user_id"))
         @$el.html '<h2 style="text-align: center">You must log in to create or modify posts.</h2>'
@@ -25,6 +26,7 @@ define ["jquery", "underscore", "backbone", "forms", "text!html/stream/form.html
       if @options.mode is "edit"
         @model.fetch
           success: (model, response) ->
+            $("#mask").hide()
             owner = model.get("meta").user_id
             if !_.isUndefined(mSession.get("user_id")) and owner is mSession.get("user_id") 
               self.options.type = model.get("meta").type
@@ -33,6 +35,7 @@ define ["jquery", "underscore", "backbone", "forms", "text!html/stream/form.html
               self.$el.html '<h2 style="text-align: center">You are not authorized to modify this post</h2>'
   
           error: (model, response) ->
+            $("#mask").hide()
             if response.status is 404
               self.$el.html '<h2 style="text-align: center">Post could not be found</h2>'
               Backbone.Events.trigger "alert", {type: "message", message: "Post could not be found", response: response, location: "modules/stream/views/form", action: "edit"}
@@ -101,28 +104,37 @@ define ["jquery", "underscore", "backbone", "forms", "text!html/stream/form.html
       
     # Create 
     create: (e) ->
+      $("#mask").show()
       @form.commit()
       @model.save {},
         success: (model, response) ->
+            $("#mask").hide()
             Backbone.Events.trigger "alert", {type: "complete", message: "Post created successfully", response: response, location: "modules/stream/views/form", action: "create"}
         error: (model, response) ->
+	          $("#mask").hide()
 	          Backbone.Events.trigger "alert", {type: "error", message: "Post could not be created", response: response, location: "modules/stream/views/form", action: "create"}
 	  
 	  # Update       
     update: (e) ->
+      $("#mask").show()
       @form.commit()
       @model.save @model.changed, 
         success: (model, response) ->
+            $("#mask").hide()
             Backbone.Events.trigger "alert", {type: "complete", message: "Post saved successfully", response: response, location: "modules/stream/views/form", action: "update"}
         error: (model, response) ->
+	          $("#mask").hide()
 	          Backbone.Events.trigger "alert", {type: "error", message: "Post could not be updated", response: response, location: "modules/stream/views/form", action: "update"}
     
     # Delete
     delete: (e) ->
+      $("#mask").show()
       @model.destroy
         success: (model, response) ->
+          $("#mask").hide()
           Backbone.Events.trigger "alert", {type: "complete", message: "Post deleted successfully", response: response, location: "modules/stream/views/form", action: "delete"}
         error: (model, response) ->
+          $("#mask").hide()
           Backbone.Events.trigger "alert", {type: "error", message: "Post could not be deleted", response: response, location: "modules/stream/views/form", action: "delete"}
     
 

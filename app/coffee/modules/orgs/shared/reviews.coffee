@@ -3,16 +3,18 @@ define ["jquery", "underscore", "backbone", "text!html/widgets/posts.html", "js/
     
     initialize: (options) ->
       self = @
+      $("#mask").show()
       options.id = options.id;
       options.page = 1;
       options.limit = 10;
       @collection = new cReviews(options)
       @collection.fetch
         success: ->
-          
+          $("#mask").hide()
           self.render()
 
         error: (collection, response) ->
+	        $("#mask").hide()
 	        if response.status is 404
 	         self.$el.html _.template(reviews404, {})
 	        else

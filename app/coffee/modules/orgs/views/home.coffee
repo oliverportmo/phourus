@@ -21,13 +21,16 @@ define ["jquery", "underscore", "backbone", "marionette", "text!html/orgs/home.h
     
     render: ()->
       self = @
+      $("#mask").show()
       Backbone.Events.trigger "sidebar", {type: 'map', params: @options}
       @collection= new cOrgs({type: @options.type})
       @collection.fetch
 	        success: ->
+	          $("#mask").hide()
 	          self.display()
 	
 	        error: (collection, response) ->
+	          $("#mask").hide()
 	          self.$el.html _.template(orgs404, {})
 	          #Backbone.Events.trigger "alert", {type: "error", message: "Could not load Orgs", response: response, location: "modules/orgs/views/home", action: "read"}
     	

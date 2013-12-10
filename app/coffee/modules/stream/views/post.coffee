@@ -15,14 +15,17 @@ define ["jquery", "underscore", "backbone", "js/modules/stream/models/post", "te
     
     load: (id) ->
       params = {id: id}
+      $("#mask").show()
       Backbone.Events.trigger "sidebar", {type: "post", params: params}
       @model = new model({id: id})
       self = this
       @model.fetch 
         success: ->
+          $("#mask").hide()
           self.render()
           
         error: (model, response) ->
+	          $("#mask").hide()
 	          if response.status is 404
 	            self.$el.html _.template(post404, {})
 	            #Backbone.Events.trigger "alert", {type: "message", message: "Post could not be found", response: response, location: "modules/stream/views/single", action: "read"}

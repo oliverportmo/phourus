@@ -11,12 +11,15 @@ define(["jquery", "underscore", "backbone", "text!html/orgs/shared/posts.html", 
       params.org_id = options.id;
       params.type = options.page.slice(0, -1);
       params.mode = 'full';
+      $("#mask").show();
       this.collection = new cCommunity(params);
       return this.collection.fetch({
         success: function() {
+          $("#mask").hide();
           return self.render();
         },
         error: function(collection, response) {
+          $("#mask").hide();
           if (response.status === 404) {
             return self.$el.html(_.template(users404, {}));
           } else {

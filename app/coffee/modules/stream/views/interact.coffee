@@ -17,16 +17,19 @@ define ["jquery", "underscore", "backbone", "js/modules/stream/collections/comme
 
     comments: () ->
       self = this
+      $("#mask").show()
       post_id = @options.id
       @collection = new collection()
       @collection.post_id = post_id
       @collection.fetch 
         success: (collection, response) ->
+          $("#mask").hide()
           _.each collection.models, (obj, key) ->
             v = new vComment()
             $("#comments").append v.render(obj).el
           
         error: (model, response) ->
+	          $("#mask").hide()
 	          if response.status is 404
 	            self.$el.html '<h2 style="text-align: center">There are no comments for this post</h2>';
 	          if response.status is 503

@@ -20,6 +20,7 @@ define(["jquery", "underscore", "backbone", "js/modules/stream/models/post", "te
       params = {
         id: id
       };
+      $("#mask").show();
       Backbone.Events.trigger("sidebar", {
         type: "post",
         params: params
@@ -30,9 +31,11 @@ define(["jquery", "underscore", "backbone", "js/modules/stream/models/post", "te
       self = this;
       return this.model.fetch({
         success: function() {
+          $("#mask").hide();
           return self.render();
         },
         error: function(model, response) {
+          $("#mask").hide();
           if (response.status === 404) {
             self.$el.html(_.template(post404, {}));
           }

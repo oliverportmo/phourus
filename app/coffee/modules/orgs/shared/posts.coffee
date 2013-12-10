@@ -5,11 +5,14 @@ define ["jquery", "underscore", "backbone", "text!html/widgets/posts.html", "js/
       self = @
       options.types = options.page
       @collection = new cPosts(options)
+      $("#mask").show()
       @collection.fetch
         success: ->
+          $("#mask").hide()
           self.render()
 
         error: (collection, response) ->
+          $("#mask").hide()
           if response.status is 404
             $(self.el).append _.template(posts404, {})
           if response.status is 503

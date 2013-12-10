@@ -37,12 +37,13 @@ define(["jquery", "underscore", "backbone", "auth", "text!html/login.html", "tex
       var model, self;
 
       self = this;
+      $("#mask").show();
       Backbone.BasicAuth.set($("input#email").val(), $("input#password").val());
       model = new mLogin();
       return model.save({}, {
         success: function(model, response) {
           if (response === false) {
-            return Backbone.Events.trigger("alert", {
+            Backbone.Events.trigger("alert", {
               type: "message",
               message: "Login was unsuccessful, please try again",
               response: response,
@@ -50,17 +51,19 @@ define(["jquery", "underscore", "backbone", "auth", "text!html/login.html", "tex
               action: "login"
             });
           } else {
-            return self.session(response);
+            self.session(response);
           }
+          return $("#mask").hide();
         },
         error: function(model, response) {
-          return Backbone.Events.trigger("alert", {
+          Backbone.Events.trigger("alert", {
             type: "error",
             message: "Login was unsuccessful, please try again",
             response: response,
             location: "views/login",
             action: "login"
           });
+          return $("#mask").hide();
         }
       });
     },

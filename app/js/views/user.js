@@ -10,15 +10,17 @@ define(["jquery", "underscore", "backbone", "js/models/user", "text!html/user.ht
       var self;
 
       self = this;
+      $("#mask").show();
       this.model = new model({
         id: id
       });
       return this.model.fetch({
         success: function() {
-          return self.render();
+          self.render();
+          return $("#mask").hide();
         },
         error: function(model, response) {
-          console.log(response);
+          $("#mask").hide();
           if (response.status === 404) {
             return self.$el.html(_.template(user404, {}));
           } else {

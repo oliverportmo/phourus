@@ -25,12 +25,14 @@ define ["jquery", "underscore", "backbone", "js/modules/stream/views/filter", "j
 	    filter: ->
 	      @collection = new cPosts()
 	      self = @
+	      $("#mask").show()
 	      @collection.fetch
 	        success: ->
+	          $("#mask").hide()
 	          self.update()
 	
 	        error: (collection, response) ->
-	          
+	          $("#mask").hide() 
            if response.status is 503
              Backbone.Events.trigger "alert", {type: "error", message: "Stream could not be updated", response: response, location: "modules/stream/views/stream", action: "filter"}
            if response.status is 404

@@ -9,10 +9,13 @@ define ["jquery", "underscore", "backbone", "forms", "text!html/standard/user.ht
       self = @
       Backbone.Events.trigger "sidebar", {type: 'profile', params: @options}
       @model = new mUser({id: @options.user})
+      $("#mask").show()
       @model.fetch
         success: () ->
+          $("#mask").hide()
           self.display()
         error: (error, response) ->
+          $("#mask").hide()
           Backbone.Events.trigger "alert", {type: "error", message: "Profile could not be loaded", response: response, location: "modules/standard/views/profile", action: "read"}
 
     events: 
@@ -62,11 +65,14 @@ define ["jquery", "underscore", "backbone", "forms", "text!html/standard/user.ht
       compiled
     
     save: (e) ->
+      $("#mask").show()
       @form.commit()
       @model.save @model.changed, 
         success: (model, response) ->
+            $("#mask").hide()
             Backbone.Events.trigger "alert", {type: "complete", message: "User information saved successfully", response: response, location: "modules/stream/views/user", action: "update"}
         error: (model, response) ->
+	         $("#mask").hide()
 	         if response.status is 404
 	           self.$el.html _.template(user404, {})
 	         else 
