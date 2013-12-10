@@ -435,10 +435,18 @@ span#account a:hover {
 /** REGISTER **/
 /* Z-index of #mask must lower than #boxes .window */
 #mask {
-  position: absolute;
+  position: fixed;
   z-index: 9000;
-  background-color: #000;
+  background-color: #fff;
+  width: 100%;
+  height: 100%;
   display: none;
+  -moz-opacity: 0.5;
+  -khtml-opacity: 0.5;
+  -webkit-opacity: 0.5;
+  opacity: 0.5;
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);
+  filter: alpha(opacity=50);
 }
 .window {
   position: fixed;
