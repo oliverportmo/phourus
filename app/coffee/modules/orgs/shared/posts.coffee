@@ -1,4 +1,4 @@
-define ["jquery", "underscore", "backbone", "text!html/widgets/posts.html", "js/modules/orgs/collections/posts", "js/models/types", "text!html/items/post.html"], ($, _, Backbone, template, cPosts, mTypes, tPost) ->
+define ["jquery", "underscore", "backbone", "text!html/widgets/posts.html", "js/modules/orgs/collections/posts", "js/models/types", "text!html/items/post.html", "text!html/404/posts.html"], ($, _, Backbone, template, cPosts, mTypes, tPost, posts404) ->
   widget = Backbone.View.extend(
     
     initialize: (options) ->
@@ -11,7 +11,7 @@ define ["jquery", "underscore", "backbone", "text!html/widgets/posts.html", "js/
 
         error: (collection, response) ->
           if response.status is 404
-            $(self.el).append '<h3 style="text-align: center;margin: 0px; padding: 0px">No posts were found based on your criteria</h3>'
+            $(self.el).append _.template(posts404, {})
           if response.status is 503
             Backbone.Events.trigger "alert", {type: "error", message: "Posts could not be loaded", response: response, location: "modules/orgs/shared/posts", action: "read"}
           

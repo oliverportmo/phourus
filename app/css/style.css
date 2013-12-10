@@ -1,3 +1,18 @@
+.m404 {
+  text-align: center;
+}
+.m404 img {
+  border: none;
+  width: 100px;
+  height: 100px;
+}
+.m404 .message {
+  border-top: dashed 1px #ccc;
+  border-bottom: dashed 1px #ccc;
+  margin: 20px auto 40px auto;
+  padding: 10px 0px 10px 0px;
+  width: 80%;
+}
 /** HOME **/
 .about h1 {
   padding-top: 40px;

@@ -1,0 +1,21 @@
+<div class="m404">
+  <img src="/assets/elements/color/earth.png" />
+  <img src="/assets/elements/color/voice.png" />
+  <img src="/assets/elements/color/mind.png" />
+  <img src="/assets/elements/color/self.png" />
+  <div class="message">
+    <h2 style='text-align: center'>No Organizations were found based on your criteria</h2>
+    <p>You may need to broaden your search parameters to find Orgs, or...</p>
+    <% if(auth === true){ %>
+    <h3>Login/Register</h3>
+    <p>You are not currently logged-in, so it is suggested you login if you have an account, or create an account if you do not:</p>
+    <% }else{ %>
+    <h3>Create Organization</h3>
+    <p>If you would like to create an Organization account, please <a href="/#!orgs/signup">click here</a>.</p> 
+    <% } %>
+  </div>
+  <img src="/assets/orgs/companies.png" />
+  <img src="/assets/orgs/govs.png" />
+  <img src="/assets/orgs/schools.png" />
+  <img src="/assets/orgs/groups.png" />
+</div>

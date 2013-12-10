@@ -1,4 +1,4 @@
-define ["jquery", "underscore", "backbone", "marionette", "text!html/orgs/home.html", "text!html/items/org.html", "js/modules/orgs/collections/orgs", "js/views/sidebar"], ($, _, Backbone, marionette, template, tOrg, cOrgs, vSidebar) ->
+define ["jquery", "underscore", "backbone", "marionette", "text!html/orgs/home.html", "text!html/items/org.html", "js/modules/orgs/collections/orgs", "js/views/sidebar",  "text!html/404/orgs.html"], ($, _, Backbone, marionette, template, tOrg, cOrgs, vSidebar, orgs404) ->
   
   ###      
   item = Backbone.Marionette.ItemView.extend(
@@ -28,7 +28,8 @@ define ["jquery", "underscore", "backbone", "marionette", "text!html/orgs/home.h
 	          self.display()
 	
 	        error: (collection, response) ->
-	          Backbone.Events.trigger "alert", {type: "error", message: "Could not load Orgs", response: response, location: "modules/orgs/views/home", action: "read"}
+	          self.$el.html _.template(orgs404, {})
+	          #Backbone.Events.trigger "alert", {type: "error", message: "Could not load Orgs", response: response, location: "modules/orgs/views/home", action: "read"}
     	
     display: ->
       self = @

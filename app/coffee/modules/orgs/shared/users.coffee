@@ -1,4 +1,4 @@
-define ["jquery", "underscore", "backbone", "text!html/orgs/shared/posts.html", "js/modules/orgs/collections/community", "js/views/alerts", "js/models/types", "text!html/orgs/shared/users.html", "text!html/orgs/shared/user.html"], ($, _, Backbone, template, cCommunity, vAlerts, mTypes, tUsers, tUser) ->
+define ["jquery", "underscore", "backbone", "text!html/orgs/shared/posts.html", "js/modules/orgs/collections/community", "js/views/alerts", "js/models/types", "text!html/orgs/shared/users.html", "text!html/orgs/shared/user.html", "text!html/404/users.html"], ($, _, Backbone, template, cCommunity, vAlerts, mTypes, tUsers, tUser, users404) ->
   widget = Backbone.View.extend(
     
     initialize: (options) ->
@@ -14,7 +14,10 @@ define ["jquery", "underscore", "backbone", "text!html/orgs/shared/posts.html", 
           self.render()
 
         error: (collection, response) ->
-	        Backbone.Events.trigger "alert", {type: "error", message: "Users could not be loaded", response: response, location: "modules/orgs/shared/users", action: "read"}
+          if response.status is 404
+            self.$el.html _.template(users404, {})
+          else
+            Backbone.Events.trigger "alert", {type: "error", message: "Users could not be loaded", response: response, location: "modules/orgs/shared/users", action: "read"}
           
     render: ->
       self = @

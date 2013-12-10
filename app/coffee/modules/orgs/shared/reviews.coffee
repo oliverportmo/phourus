@@ -1,9 +1,9 @@
-define ["jquery", "underscore", "backbone", "text!html/widgets/posts.html", "js/modules/orgs/collections/reviews", "js/views/alerts", "js/models/types", "text!html/orgs/shared/review.html"], ($, _, Backbone, template, cReviews, vAlerts, mTypes, tReview) ->
+define ["jquery", "underscore", "backbone", "text!html/widgets/posts.html", "js/modules/orgs/collections/reviews", "js/views/alerts", "js/models/types", "text!html/orgs/shared/review.html", "text!html/404/reviews.html"], ($, _, Backbone, template, cReviews, vAlerts, mTypes, tReview, reviews404) ->
   widget = Backbone.View.extend(
     
     initialize: (options) ->
       self = @
-      options.id = 1;
+      options.id = options.id;
       options.page = 1;
       options.limit = 10;
       @collection = new cReviews(options)
@@ -13,7 +13,10 @@ define ["jquery", "underscore", "backbone", "text!html/widgets/posts.html", "js/
           self.render()
 
         error: (collection, response) ->
-	        Backbone.Events.trigger "alert", {type: "error", message: "Reviews could not be loaded", response: response, location: "modules/orgs/shared/reviews", action: "read"}
+	        if response.status is 404
+	         self.$el.html _.template(reviews404, {})
+	        else
+	         Backbone.Events.trigger "alert", {type: "error", message: "Reviews could not be loaded", response: response, location: "modules/orgs/shared/reviews", action: "read"}
           
     render: ->
       self = @

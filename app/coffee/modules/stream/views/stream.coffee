@@ -1,4 +1,4 @@
-define ["jquery", "underscore", "backbone", "js/modules/stream/views/filter", "js/views/elements", "js/views/alerts", "js/modules/stream/collections/posts", "text!html/stream/stream.html", "text!html/items/post.html", "js/models/types", "js/models/settings", "js/models/session"], ($, _, Backbone, vFilter, vElements, vAlerts, cPosts, tStream, tPost, mTypes, mSettings, mSession) ->
+define ["jquery", "underscore", "backbone", "js/modules/stream/views/filter", "js/views/elements", "js/views/alerts", "js/modules/stream/collections/posts", "text!html/stream/stream.html", "text!html/items/post.html", "js/models/types", "js/models/settings", "js/models/session", "text!html/404/posts.html"], ($, _, Backbone, vFilter, vElements, vAlerts, cPosts, tStream, tPost, mTypes, mSettings, mSession, posts404) ->
 
 	view = Backbone.View.extend(
 	    className: "stream"
@@ -34,10 +34,11 @@ define ["jquery", "underscore", "backbone", "js/modules/stream/views/filter", "j
            if response.status is 503
              Backbone.Events.trigger "alert", {type: "error", message: "Stream could not be updated", response: response, location: "modules/stream/views/stream", action: "filter"}
            if response.status is 404
-             if _.isUndefined(mSession.get("id")) or _.isUndefined(mSession.get("user_id")) or mSession.get("user_id") is 0
+             auth = (_.isUndefined(mSession.get("id")) or _.isUndefined(mSession.get("user_id")) or mSession.get("user_id"))
+             if auth is 0
                $("#stream").html "<h2 style='text-align: center'>You must be logged-in to see posts from your friends, followers, and those following you.</h2>"
              else
-               $("#stream").html "<h2 style='text-align: center'>No posts found based on your criteria</h2>"
+               $("#stream").html _.template(posts404, {})
 	
 	
       update: ->

@@ -1,4 +1,4 @@
-define ["jquery", "underscore", "backbone", "forms", "text!html/standard/user.html", "text!html/headings/user.html", "js/views/sidebar", "js/modules/standard/models/user", "js/models/session"], ($, _, Backbone, forms, template, tHeading, vSidebar, mUser, mSession) ->
+define ["jquery", "underscore", "backbone", "forms", "text!html/standard/user.html", "text!html/headings/user.html", "js/views/sidebar", "js/modules/standard/models/user", "js/models/session", "text!html/404/user.html"], ($, _, Backbone, forms, template, tHeading, vSidebar, mUser, mSession, user404) ->
   view = Backbone.View.extend(
 
     className: "user"
@@ -67,6 +67,9 @@ define ["jquery", "underscore", "backbone", "forms", "text!html/standard/user.ht
         success: (model, response) ->
             Backbone.Events.trigger "alert", {type: "complete", message: "User information saved successfully", response: response, location: "modules/stream/views/user", action: "update"}
         error: (model, response) ->
-	          Backbone.Events.trigger "alert", {type: "error", message: "User information could not be updated", response: response, location: "modules/stream/views/user", action: "update"}
+	         if response.status is 404
+	           self.$el.html _.template(user404, {})
+	         else 
+	           Backbone.Events.trigger "alert", {type: "error", message: "User information could not be updated", response: response, location: "modules/stream/views/user", action: "update"}
   )
   view

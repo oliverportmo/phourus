@@ -1,4 +1,4 @@
-define ["jquery", "underscore", "backbone", "js/modules/stream/models/post", "text!html/stream/post.html", "text!html/headings/post.html", "js/models/types", "js/models/session", "js/modules/stream/views/interact"], ($, _, Backbone, model, template, tHeading, mTypes, mSession, vInteract) ->
+define ["jquery", "underscore", "backbone", "js/modules/stream/models/post", "text!html/stream/post.html", "text!html/headings/post.html", "js/models/types", "js/models/session", "js/modules/stream/views/interact", "text!html/404/post.html"], ($, _, Backbone, model, template, tHeading, mTypes, mSession, vInteract, post404) ->
   view = Backbone.View.extend(
     
     className: "post"
@@ -24,8 +24,8 @@ define ["jquery", "underscore", "backbone", "js/modules/stream/models/post", "te
           
         error: (model, response) ->
 	          if response.status is 404
-	            self.$el.html '<h2 style="text-align: center">Post not found</h2>';
-	            Backbone.Events.trigger "alert", {type: "message", message: "Post could not be found", response: response, location: "modules/stream/views/single", action: "read"}
+	            self.$el.html _.template(post404, {})
+	            #Backbone.Events.trigger "alert", {type: "message", message: "Post could not be found", response: response, location: "modules/stream/views/single", action: "read"}
 	          if response.status is 503
 	            Backbone.Events.trigger "alert", {type: "error", message: "Post could not be loaded", response: response, location: "modules/stream/views/single", action: "read"}
 

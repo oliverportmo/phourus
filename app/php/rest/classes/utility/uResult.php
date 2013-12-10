@@ -8,9 +8,15 @@ class uResult
 		$DEV_DB_USER= 'developer';
 		$DEV_DB_PASS= 'phourus';
 		
+		// empty
+		if(0){
+  		$DEV_DB_NAME= 'phourus:empty'; 		
+  		$DEV_DB_USER= 'empty';
+  	}	
+		
 		//global $db;
 		try {  
-			$this->db= new PDO("mysql:host=localhost;port=8889;dbname=$DEV_DB_NAME;", $DEV_DB_USER, $DEV_DB_PASS);  
+			$this->db= new PDO("mysql:host=localhost;port=3706;dbname=$DEV_DB_NAME;", $DEV_DB_USER, $DEV_DB_PASS);  
 			$this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$this->db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 		}  

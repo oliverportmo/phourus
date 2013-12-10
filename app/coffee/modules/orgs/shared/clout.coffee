@@ -1,4 +1,4 @@
-define ["jquery", "underscore", "backbone", "text!html/orgs/shared/clout.html", "js/modules/orgs/collections/clout"], ($, _, Backbone, template, cClout) ->
+define ["jquery", "underscore", "backbone", "text!html/orgs/shared/clout.html", "js/modules/orgs/collections/clout", "text!html/404/clout.html"], ($, _, Backbone, template, cClout, clout404) ->
   widget = Backbone.View.extend(
 
     initialize: (options) ->
@@ -12,7 +12,7 @@ define ["jquery", "underscore", "backbone", "text!html/orgs/shared/clout.html", 
 
         error: (collection, response) ->
 	        if response.status is 404
-	         $(self.el).append '<h2 style="text-align:center">This Organization has not added any Clout</h2>'
+	         $(self.el).append _.template(clout404, {})
 	        else
 	         Backbone.Events.trigger "alert", {type: "error", message: "Clout could not be loaded", response: response, location: "modules/orgs/shared/clout", action: "read"}
 

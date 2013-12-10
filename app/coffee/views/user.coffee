@@ -1,4 +1,4 @@
-define ["jquery", "underscore", "backbone", "js/models/user", "text!html/user.html"], ($, _, Backbone, model, template) ->
+define ["jquery", "underscore", "backbone", "js/models/user", "text!html/user.html", "text!html/404/user.html"], ($, _, Backbone, model, template, user404) ->
   vUser = Backbone.View.extend(
     el: "#user"
     tagName: "div"
@@ -12,6 +12,10 @@ define ["jquery", "underscore", "backbone", "js/models/user", "text!html/user.ht
           self.render()
         
         error: (model, response) ->
+          console.log response
+          if response.status is 404
+            self.$el.html _.template(user404, {})
+          else
 	          Backbone.Events.trigger "alert", {type: "error", message: "User could not be loaded", response: response, location: "views/user", action: "read"}
 
     render: ->

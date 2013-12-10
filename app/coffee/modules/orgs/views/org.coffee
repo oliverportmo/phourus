@@ -1,4 +1,4 @@
-define ["jquery", "underscore", "backbone", "text!html/orgs/org.html", "text!html/headings/org.html", "js/modules/orgs/models/org"], ($, _, Backbone, template, tHeading, model) ->
+define ["jquery", "underscore", "backbone", "text!html/orgs/org.html", "text!html/headings/org.html", "js/modules/orgs/models/org", "text!html/404/org.html"], ($, _, Backbone, template, tHeading, model, org404) ->
   view = Backbone.View.extend(
     
     initialize: (options) ->      
@@ -21,7 +21,8 @@ define ["jquery", "underscore", "backbone", "text!html/orgs/org.html", "text!htm
           
         error: (model, response) ->
           if response.status is 404
-            Backbone.Events.trigger "alert", {type: "message", message: "Org could not be found", response: response, location: "modules/orgs/views/org", action: "read"}
+            self.$el.html _.template(org404, {})
+            #Backbone.Events.trigger "alert", {type: "message", message: "Org could not be found", response: response, location: "modules/orgs/views/org", action: "read"}
           if response.status is 503
 	          Backbone.Events.trigger "alert", {type: "error", message: "Org could not be loaded", response: response, location: "modules/orgs/views/org", action: "read"}
 

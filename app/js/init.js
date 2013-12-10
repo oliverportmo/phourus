@@ -155,6 +155,7 @@ define("init", function(require) {
     */
 
     return window.onhashchange = function() {
+      return $('#alerts').html('');
       /*
       alert('change')
       view= new mView()

@@ -142,6 +142,7 @@ define "init", (require) ->
     
     ### VIEW TRACKING ###
     window.onhashchange = ()->
+      $('#alerts').html ''
       ###
       alert('change')
       view= new mView()
