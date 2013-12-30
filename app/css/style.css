@@ -1564,7 +1564,7 @@ textarea {
 .form textarea {
   width: 820px;
 }
-div.bbf-error {
+.bbf-error div.bbf-error {
   border: solid 1px #F00;
   background-color: #Faa;
   margin-bottom: 20px;
