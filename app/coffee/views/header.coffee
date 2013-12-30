@@ -15,10 +15,10 @@ define ["jquery", "underscore", "backbone", "text!html/header.html", "js/views/l
       
       if options.subdomain in @subdomains
         $('nav#' + options.subdomain).show()
-        $('span#slogan').html(options.subdomain)
+        #$('span#slogan').html(options.subdomain)
       else
         $('nav#www').show()
-        $('span#slogan').html('')      	
+        #$('span#slogan').html('')      	
       
       @login = new vLogin()
       compiled

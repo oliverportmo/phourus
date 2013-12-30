@@ -20,10 +20,8 @@ define(["jquery", "underscore", "backbone", "text!html/header.html", "js/views/l
       $('nav').hide();
       if (_ref = options.subdomain, __indexOf.call(this.subdomains, _ref) >= 0) {
         $('nav#' + options.subdomain).show();
-        $('span#slogan').html(options.subdomain);
       } else {
         $('nav#www').show();
-        $('span#slogan').html('');
       }
       this.login = new vLogin();
       return compiled;
