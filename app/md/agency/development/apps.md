@@ -1,0 +1,1 @@
+Phourus is a Backbone application, which is a popular framework in a growing trend towards building apps using Javascript. By clear separation of the 'front-end' and 'back-end' of an app, the app can build better products.

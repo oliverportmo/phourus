@@ -1,0 +1,1 @@
+There are 2 parts to design, the first being what you'd normally expect, such as graphics, fonts, colors, logos etc. The lesser acknowledged part is User Experience (UX). User experience design is designing for the user and customizing their experience to their preferences. Both of these are considered in the process used by Phourus.

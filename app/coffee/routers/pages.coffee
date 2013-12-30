@@ -29,7 +29,6 @@ define ["jquery", "underscore", "backbone", "marionette"], ($, _, Backbone, mari
       params =
         path: path
       
-      console.log params
       require ["js/modules/pages/views/page"], (view) ->
         self.toss view, params
         

@@ -35,7 +35,6 @@ define(["jquery", "underscore", "backbone", "marionette"], function($, _, Backbo
       params = {
         path: path
       };
-      console.log(params);
       return require(["js/modules/pages/views/page"], function(view) {
         return self.toss(view, params);
       });

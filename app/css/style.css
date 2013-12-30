@@ -1234,6 +1234,16 @@ div#footing {
 #content .privacy ul {
   margin: 20px;
 }
+body.agency #content {
+  font-family: Palatino, "Palatino Linotype", "Book Antiqua", serif;
+  font-size: 1.3em;
+  line-height: 200%;
+}
+body.agency #sidebar h3 {
+  color: #ddd;
+  font-size: 1.2em;
+  font-family: Palatino, "Palatino Linotype", "Book Antiqua", serif;
+}
 /** WIDGETS **/
 #widgets .left {
   width: 500px;
@@ -1914,7 +1924,6 @@ nav {
 nav ul {
   padding: 0px 0px 0px 0px;
   margin: 0px auto;
-  width: 600px;
   float: right;
 }
 nav ul li {
@@ -1960,16 +1969,19 @@ nav ul li a:hover {
 nav ul li ul {
   display: none;
   float: left;
-  width: 160px;
+  width: 200px;
+  position: absolute;
 }
 nav ul li ul li {
   display: list-item;
   list-style: none;
   float: none;
   height: 20px;
+  margin-top: 4px;
 }
 nav ul li ul li a {
-  font-size: 0.6em;
+  color: #111;
+  font-size: 0.9em;
   text-align: left;
 }
 nav ul li:hover ul {

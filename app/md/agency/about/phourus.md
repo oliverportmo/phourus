@@ -1,0 +1,1 @@
+Phourus.com focuses on the 4 main elements of communities; education, companies & sustainability, politics and religion. By connecting and integrating these otherwise loosely-related aspects of society, Phourus intends to truly represent the political and religious ideologies of citizens, while factoring in local business, sustainability/environment, and education. 

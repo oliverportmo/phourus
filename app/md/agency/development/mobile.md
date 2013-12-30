@@ -1,0 +1,1 @@
+Responsive web design is a way to make websites and applications 'mobile friendly'. A variety of techniques, as well as libraries, can be used to make this happen in a seamless fashion, and knowing how to design a site from the start to accomodate various device sizes is a key part of the process.
