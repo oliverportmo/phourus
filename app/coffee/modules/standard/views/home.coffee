@@ -1,4 +1,4 @@
-define ["jquery", "underscore", "backbone", "text!html/standard/home.html", "js/models/types"], ($, _, Backbone, template, mTypes) ->
+define ["jquery", "underscore", "backbone", "text!html/standard/home.html", "js/models/types", "js/views/login"], ($, _, Backbone, template, mTypes, vLogin) ->
   view = Backbone.View.extend(
     className: "home"
     
@@ -30,6 +30,9 @@ define ["jquery", "underscore", "backbone", "text!html/standard/home.html", "js/
       $(@el).html html
       $("div#elements").hide()
       $("#content").addClass('homepage') 
+      
+      options = {}
+      @subviews "#auth-home", new vLogin()
       @
   )
   view

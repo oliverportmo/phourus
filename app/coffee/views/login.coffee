@@ -1,21 +1,17 @@
-define ["jquery", "underscore", "backbone", "auth", "text!html/login.html", "text!html/logout.html", "text!html/forgot.html", "text!html/password.html", "js/models/login", "js/models/session", "js/models/settings"], ($, _, Backbone, auth, tLogin, tLogout, tForgot, tPassword, mLogin, mSession, mSettings) ->
+define ["jquery", "underscore", "backbone", "auth", "text!html/login.html", "text!html/logout.html", "js/models/login", "js/models/session", "js/models/settings"], ($, _, Backbone, auth, tLogin, tLogout, mLogin, mSession, mSettings) ->
 
   view = Backbone.View.extend(
-    el: "#login"
     tagName: "div"
 	  
-    initialize: ->  
+    initialize: (options) ->  
       _.bindAll @
       mSession.on "change", @render
       @render()
     
     events: 
-      "click #auth": "login"
-      "click #logout": "logout"
-      "click #forgot": "forgot"
-      "click #cancel": "cancel"
-      "click #send": "send"
-      "click #me": "me"
+      "click .login": "login"
+      "click .logout": "logout"
+      "click .me": "me"
     
     # Render
     render: () ->
@@ -32,7 +28,7 @@ define ["jquery", "underscore", "backbone", "auth", "text!html/login.html", "tex
     login: ->
       self = @
       $("#mask").show()
-      Backbone.BasicAuth.set $("input#email").val(), $("input#password").val()
+      Backbone.BasicAuth.set $("input.email").val(), $("input.password").val()
       model = new mLogin()
       model.save {},
         success: (model, response) ->
@@ -65,22 +61,12 @@ define ["jquery", "underscore", "backbone", "auth", "text!html/login.html", "tex
       location.reload(false)
       #mSession.clear()
       #Backbone.Events.trigger "alert", {type: "complete", message: "You have been logged out successfully"}
-    
-    ### FORGOT ###
-    forgot: ->
-      compiled = _.template(tForgot, {})
-      @$el.html compiled
-      compiled
-              
-    # Cancel
-    cancel: ->
-      @render()
 	  
     # Collect
     form: ->
       output = {}
-      output.email = $("#email").val()
-      output.password = $("#password").val()
+      output.email = $(".email").val()
+      output.password = $(".password").val()
       output
      
     # Me

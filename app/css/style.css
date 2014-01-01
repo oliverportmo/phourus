@@ -356,7 +356,34 @@ div#alerts .error {
   background-color: #Faa;
 }
 /** LOGIN **/
-div#login {
+#footer #inner #signin .auth {
+  float: left;
+  width: 300px;
+}
+.auth {
+  /** SPECIFIC **/
+
+  /** ACCOUNT **/
+
+}
+.auth div .forgot {
+  font-size: 0.7em;
+  line-height: 13px;
+  text-transform: none;
+  color: #3ac;
+}
+.auth div .forgot:hover {
+  color: #666;
+}
+.auth #auth-header input,
+.auth #auth-footer input {
+  height: 25px;
+  width: 160px;
+  font-size: 1em;
+  float: left;
+  margin-right: 4px;
+}
+.auth #auth-header {
   width: 485px;
   float: right;
   margin-top: 16px;
@@ -364,29 +391,48 @@ div#login {
   color: #333;
   line-height: 8px;
 }
-div#login a.button {
+.auth #auth-header a.button {
   width: 60px;
   height: 21px;
   margin-top: 0px;
   padding-top: 14px;
-  text-transform: uppercase;
+  text-transform: none;
   font-size: 0.7em;
   text-decoration: none;
 }
-div#login a:hover {
-  color: #ff9900;
-}
-div#login input {
-  height: 25px;
-  width: 160px;
-  font-size: 1em;
+.auth #auth-footer {
+  margin-top: 0px !important;
   float: left;
-  margin-right: 4px;
 }
-div#login #auth.button {
-  text-transform: none;
+.auth #auth-footer .button {
+  float: right;
 }
-div#login #welcome {
+.auth #auth-footer .forgot {
+  display: none;
+}
+.auth #auth-footer input {
+  border: solid 1px #000;
+  height: 30px;
+  font-size: 1.2em;
+  background-color: #ddd;
+  box-shadow: 0px 0px 0px #000000;
+  -moz-box-shadow: 0px 0px 0px #000000;
+  -webkit-box-shadow: 0px 0px 0px #000000;
+}
+.auth #auth-home .button {
+  float: none;
+}
+.auth #auth-home .forgot {
+  display: none;
+}
+.auth span#account a {
+  color: #ccc;
+}
+.auth span#account a:hover {
+  color: #f90;
+}
+/** LOGOUT **/
+.auth #welcome {
   text-align: right;
   color: #333;
   float: right;
@@ -394,43 +440,27 @@ div#login #welcome {
   font-size: 0.8em;
   font-style: italic;
 }
-div#login #forgot {
-  font-size: 0.7em;
-  line-height: 13px;
-  text-transform: none;
-  color: #3ac;
-}
-div#login img {
+.auth #welcome img {
   margin: -9px 10px 0px 0px;
   float: right;
 }
-div#login ul {
+.auth #welcome ul {
   float: right;
   text-align: right;
   padding: 0px;
   margin: 10px 4px 0px 0px;
 }
-div#login ul li {
+.auth #welcome ul li {
   margin: 0px 0px 6px 0px;
   padding: 0px;
   list-style: none;
 }
-div#login ul li a {
+.auth #welcome ul li a {
   margin: 0px 0px 3px 0px;
   padding: 0px;
   font-size: 0.7em;
   color: #6ac;
   font-style: normal;
-}
-div#login #forgot:hover {
-  color: #666;
-}
-/** ACCOUNT **/
-span#account a {
-  color: #ccc;
-}
-span#account a:hover {
-  color: #f90;
 }
 /** REGISTER **/
 /* Z-index of #mask must lower than #boxes .window */
@@ -1319,7 +1349,7 @@ div#gmap {
   height: 240px;
   overflow: hidden;
 }
-#footer .mid .auth {
+#footer .mid .left {
   width: 50%;
 }
 #footer .mid #contact {
@@ -1580,21 +1610,11 @@ header {
   height: 80px;
   border-bottom: solid 1px #bbb;
   background-color: #fff;
-  /*background-image: url('images/repeat-header.png');
-  background-repeat: repeat-x;
-  background-position: bottom;
-  background-color: #333;
-  position: fixed; 
-  top: 0;
-  left: 0;*/
-
 }
 header #inner {
   margin: 0px 0px 0px 10px;
   padding: 0px;
   width: 100%;
-  /*background-image: url('../phourus/images/header.png');*/
-
 }
 header #inner #brand {
   float: left;
@@ -2024,16 +2044,16 @@ nav ul li:hover ul {
   font-size: 0.7em !important;
 }
 @media screen and (min-width: 1100px) {
-  #footer .mid .auth {
+  #footer .mid .left {
     width: 70%;
   }
-  #footer .mid .auth #signin {
+  #footer .mid .left #signin {
     display: block;
   }
-  #footer .mid .auth #signup {
+  #footer .mid .left #signup {
     width: 40%;
   }
-  #footer .mid .auth #signorg {
+  #footer .mid .left #signorg {
     width: 60%;
   }
   #footer .mid #contact {

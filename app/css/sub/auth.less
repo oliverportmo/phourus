@@ -1,95 +1,138 @@
 /** LOGIN **/
-div#login {
-  width: 485px;
-  float: right;
-  margin-top: 16px;
-  margin-left: 10px;
-  color: #333;
-  line-height: 8px;
+#footer #inner #signin {
+  .auth {
+    float: left;
+    width: 300px;
+  }
+}
+.auth {
 
-	a.button {
-  	width: 60px;
-  	height: 21px;
-  	margin-top: 0px;
-  	padding-top: 14px;
-  	text-transform: uppercase;
-  	font-size: 0.7em;
-  	text-decoration: none;
-	}
-	
-  a:hover {
-	 color: #ff9900;
-	}
-	
-	input {
-  	height: 25px;
-  	width: 160px;
-  	font-size: 1em;
-  	float: left;
-  	margin-right: 4px;	
-	}
-	
-	#auth.button {
-    text-transform: none;
-	}
-	
-	#welcome {
+  div {
+   	  	
+    .forgot {
+    	font-size: 0.7em;
+    	line-height: 13px;
+    	text-transform: none;
+    	color: #3ac;
+  	}
+  	
+  	.forgot:hover {
+    	color: #666;
+  	}
+  	
+  }
+  
+  /** SPECIFIC **/
+  #auth-header, #auth-footer {
+    input {
+    	height: 25px;
+    	width: 160px;
+    	font-size: 1em;
+    	float: left;
+    	margin-right: 4px;	
+  	}
+  }
+  
+  #auth-header {
+    width: 485px;
+    float: right;
+    margin-top: 16px;
+    margin-left: 10px;
+    color: #333;
+    line-height: 8px;
+    
+    a.button {
+    	width: 60px;
+    	height: 21px;
+    	margin-top: 0px;
+    	padding-top: 14px;
+    	text-transform: none;
+    	font-size: 0.7em;
+    	text-decoration: none;
+  	}
+  }
+  
+  #auth-footer {
+    margin-top: 0px !important;
+    float: left;
+    
+    .button {
+      float: right;
+    }
+    
+    .forgot {
+      display: none;
+    }
+    
+    input {
+      border: solid 1px #000;
+      height: 30px;
+      font-size: 1.2em;
+      background-color: #ddd;
+      .box-shadow(0px, 0px, 0px, #000);
+    }
+  }
+  
+  #auth-home {
+    
+    .button {
+      float: none;
+    }
+    
+    .forgot {
+      display: none;
+    }
+  }
+  
+  /** ACCOUNT **/
+  span#account { 
+    a {
+    color: #ccc;    
+    }
+    a:hover {
+    color: #f90;    
+    }
+  }
+}
+
+/** LOGOUT **/
+.auth {
+    
+  #welcome {
   	text-align: right;
   	color: #333;
   	float: right;
   	margin: -6px 4px 0px 0px;
   	font-size: 0.8em;
   	font-style: italic;
-	}
-	#forgot {
-  	font-size: 0.7em;
-  	line-height: 13px;
-  	text-transform: none;
-  	color: #3ac;
-	}
-	
-	img {
-    margin: -9px 10px 0px 0px;
-    float: right;	
-	}
-	
-	ul {
-  	float: right;
-  	text-align: right;
-  	padding: 0px;
-  	margin: 10px 4px 0px 0px;
   	
-  	
-  	li {
-    	margin: 0px 0px 6px 0px;
-    	padding: 0px;
-    	list-style: none;
-    	
-    	a {
-      	margin: 0px 0px 3px 0px;
-      	padding: 0px;
-      	font-size: 0.7em;
-      	color: #6ac;
-      	font-style: normal;
-    	}
+  	img {
+      margin: -9px 10px 0px 0px;
+      float: right;	
   	}
   	
+  	ul {
+    	float: right;
+    	text-align: right;
+    	padding: 0px;
+    	margin: 10px 4px 0px 0px;
+    	
+    	
+    	li {
+      	margin: 0px 0px 6px 0px;
+      	padding: 0px;
+      	list-style: none;
+      	
+      	a {
+        	margin: 0px 0px 3px 0px;
+        	padding: 0px;
+        	font-size: 0.7em;
+        	color: #6ac;
+        	font-style: normal;
+      	}
+    	}
+  	}
 	}
-	
-	#forgot:hover {
-  	color: #666;
-	}
-}
-
-
-/** ACCOUNT **/
-span#account { 
-  a {
-  color: #ccc;    
-  }
-  a:hover {
-  color: #f90;    
-  }
 }
 
 /** REGISTER **/

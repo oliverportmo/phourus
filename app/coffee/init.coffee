@@ -50,40 +50,16 @@ define "init", (require) ->
   marionette = require("marionette")
   mSession = require("js/models/session")
   mView = require("js/models/view")
-  mHeaders = require("js/models/headers")
-  vAlerts = require("js/views/alerts")
-  vHeader = require("js/views/header")
-  vSidebar = require("js/views/sidebar")
-  vFooter = require("js/views/footer")
+  mHeaders = require("js/models/headers") 
+  vAlerts = require("js/views/alerts")  
+    
+  Backbone.Collection = require("js/base/collection")
+  Backbone.Model = require("js/base/model")
+  Backbone.View = require("js/base/view")
+  Backbone.Router = require("js/base/router")
   
-  BaseCollection = require("js/base/collection")
-  BaseModel = require("js/base/model")
-  BaseView = require("js/base/view")
-  BaseRouter = require("js/base/router")
   app = new Backbone.Marionette.Application()
   
-  
-  # Header & Footer
-  app.addInitializer (options) ->
-    host = window.location.hostname
-    parts = host.split '.'
-    subdomain = parts[0]
-    options = {subdomain: subdomain}
-    
-    if subdomain in ['docs', 'wiki', 'agency']
-      pages = require("js/routers/pages")
-    else if subdomain is 'internal'
-      internal = require("js/routers/internal")
-    else
-      standard = require("js/routers/standard")
-      stream = require("js/routers/stream")
-      orgs = require("js/routers/orgs")
-      pages = require("js/routers/pages")
-    
-    app.header = new vHeader(options)
-    app.sidebar = new vSidebar(options)
-    app.footer = new vFooter()
-    1
      
   # Content
   app.addRegions content: "#content"
@@ -133,8 +109,37 @@ define "init", (require) ->
             map.render()
           1
   
+  # BEFORE
+  app.on "initialize:before", (options) ->
+
+    #Backbone.emulateHTTP = true
+
+
   # AFTER
-  app.on "initialize:after", (options) ->
+  app.on "initialize:after", (options) ->    
+    host = window.location.hostname
+    parts = host.split '.'
+    subdomain = parts[0]
+    options = {subdomain: subdomain}
+    
+    if subdomain in ['docs', 'wiki', 'agency']
+      pages = require("js/routers/pages")
+    else if subdomain is 'internal'
+      internal = require("js/routers/internal")
+    else
+      standard = require("js/routers/standard")
+      stream = require("js/routers/stream")
+      orgs = require("js/routers/orgs")
+      pages = require("js/routers/pages")
+    
+    vHeader = require("js/views/header")
+    vSidebar = require("js/views/sidebar")
+    vFooter = require("js/views/footer")
+    
+    app.header = new vHeader(options)
+    app.sidebar = new vSidebar(options)
+    app.footer = new vFooter()
+    
     # Backbone History
     Backbone.history = Backbone.history or new Backbone.History({})
     Backbone.history.start()
@@ -155,12 +160,6 @@ define "init", (require) ->
       )
       ###
   
-  # BEFORE
-  app.on "initialize:before", (options) ->
-    Backbone.View = BaseView
-    Backbone.Model = BaseModel
-    Backbone.Collection = BaseCollection
-    #Backbone.emulateHTTP = true
 
   # Start
   app.on "start", (options) ->
