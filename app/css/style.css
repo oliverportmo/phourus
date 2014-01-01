@@ -419,11 +419,50 @@ div#alerts .error {
   -moz-box-shadow: 0px 0px 0px #000000;
   -webkit-box-shadow: 0px 0px 0px #000000;
 }
+.auth #auth-footer a.profile {
+  float: left;
+  margin: 0px;
+}
+.auth #auth-footer #welcome {
+  text-align: left;
+  margin: 0px;
+}
+.auth #auth-footer #welcome ul {
+  margin: 0px;
+  text-align: left;
+  float: left;
+}
+.auth #auth-footer #welcome ul li {
+  display: inline;
+  margin-right: 6px;
+  padding-right: 4px;
+  border-right: solid 1px #aaa;
+}
+.auth #auth-footer #welcome ul li a {
+  font-size: 0.9em;
+}
 .auth #auth-home .button {
   float: none;
 }
 .auth #auth-home .forgot {
   display: none;
+}
+.auth #auth-home a.profile {
+  float: left;
+}
+.auth #auth-home #welcome {
+  float: left;
+  text-align: left;
+  font-size: 1.1em;
+}
+.auth #auth-home #welcome ul {
+  margin: 0px;
+  float: left;
+  text-align: left;
+  line-height: 18px;
+}
+.auth #auth-home #welcome ul li a {
+  font-size: 0.7em;
 }
 .auth span#account a {
   color: #ccc;
@@ -432,6 +471,11 @@ div#alerts .error {
   color: #f90;
 }
 /** LOGOUT **/
+.auth a.profile {
+  margin: -14px 10px 0px 0px;
+  float: right;
+  display: block;
+}
 .auth #welcome {
   text-align: right;
   color: #333;
@@ -439,10 +483,6 @@ div#alerts .error {
   margin: -6px 4px 0px 0px;
   font-size: 0.8em;
   font-style: italic;
-}
-.auth #welcome img {
-  margin: -9px 10px 0px 0px;
-  float: right;
 }
 .auth #welcome ul {
   float: right;

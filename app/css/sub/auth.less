@@ -71,6 +71,33 @@
       background-color: #ddd;
       .box-shadow(0px, 0px, 0px, #000);
     }
+    
+    a.profile {
+      float: left;
+      margin: 0px;
+    }
+    
+    #welcome {
+      text-align: left;
+      margin: 0px;
+      
+      ul {
+        margin: 0px;
+        text-align: left;
+        float: left;
+        
+        li {
+          display: inline;  
+          margin-right: 6px;
+          padding-right: 4px;
+          border-right: solid 1px #aaa;
+          
+          a {
+            font-size: 0.9em;
+          }
+        }
+      }
+    }
   }
   
   #auth-home {
@@ -81,6 +108,29 @@
     
     .forgot {
       display: none;
+    }
+    
+    a.profile {
+      float: left;
+    }
+    
+    #welcome {
+      float: left;
+      text-align: left;
+      font-size: 1.1em;
+      
+      ul {
+        margin: 0px;
+        float: left;
+        text-align: left;
+        line-height: 18px;
+        
+        li {
+          a {
+            font-size: 0.7em;
+          }
+        }
+      }
     }
   }
   
@@ -97,7 +147,13 @@
 
 /** LOGOUT **/
 .auth {
-    
+   
+  a.profile {
+  	margin: -14px 10px 0px 0px;
+    float: right;	
+    display: block;
+	} 
+	
   #welcome {
   	text-align: right;
   	color: #333;
@@ -106,10 +162,7 @@
   	font-size: 0.8em;
   	font-style: italic;
   	
-  	img {
-      margin: -9px 10px 0px 0px;
-      float: right;	
-  	}
+  	
   	
   	ul {
     	float: right;
