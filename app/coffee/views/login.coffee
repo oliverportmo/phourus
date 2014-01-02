@@ -28,7 +28,10 @@ define ["jquery", "underscore", "backbone", "auth", "text!html/login.html", "tex
     login: ->
       self = @
       $("#mask").show()
-      Backbone.BasicAuth.set $("input.email").val(), $("input.password").val()
+      id =  @el.id
+      email = $("#" + id + " input.email").val()
+      password = $("#" + id + " input.password").val()
+      Backbone.BasicAuth.set email, password
       model = new mLogin()
       model.save {},
         success: (model, response) ->

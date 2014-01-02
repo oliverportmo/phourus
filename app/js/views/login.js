@@ -31,11 +31,14 @@
       */
 
       login: function() {
-        var model, self;
+        var email, id, model, password, self;
 
         self = this;
         $("#mask").show();
-        Backbone.BasicAuth.set($("input.email").val(), $("input.password").val());
+        id = this.el.id;
+        email = $("#" + id + " input.email").val();
+        password = $("#" + id + " input.password").val();
+        Backbone.BasicAuth.set(email, password);
         model = new mLogin();
         return model.save({}, {
           success: function(model, response) {
