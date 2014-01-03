@@ -144,6 +144,18 @@ define(["jquery", "underscore", "backbone"], function($) {
         schema.email = email;
         schema.terms = terms;
       }
+      if (type === 'short-signup') {
+        schema.username = _.extend(handle, {
+          editorAttrs: {
+            'placeholder': 'desired username'
+          }
+        });
+        schema.email = _.extend(email, {
+          editorAttrs: {
+            'placeholder': 'your email address'
+          }
+        });
+      }
       element = {
         type: "Select",
         options: ["Earth", "Mind", "Voice", "Self"]

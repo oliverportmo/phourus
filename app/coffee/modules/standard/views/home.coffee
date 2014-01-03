@@ -1,4 +1,4 @@
-define ["jquery", "underscore", "backbone", "text!html/standard/home.html", "js/models/types", "js/views/login"], ($, _, Backbone, template, mTypes, vLogin) ->
+define ["jquery", "underscore", "backbone", "text!html/standard/home.html", "js/models/types", "js/views/login", "js/views/register"], ($, _, Backbone, template, mTypes, vLogin, vRegister) ->
   view = Backbone.View.extend(
     className: "home"
     
@@ -6,6 +6,7 @@ define ["jquery", "underscore", "backbone", "text!html/standard/home.html", "js/
     
     events:
       "click .learn": "learn"
+      "click .register": "register"
 
     learn: (e) ->
       id = e.currentTarget.id
@@ -33,7 +34,20 @@ define ["jquery", "underscore", "backbone", "text!html/standard/home.html", "js/
       
       options = {}
       @subviews "#auth-home", new vLogin()
+      
+      options = {}
+      options.type = 'short'
+      @register = new vRegister(options)    
+      @form = @register.render()  
+      
+      #$("#fields").append @form.el
+      container = @$el.find("#fields")
+      container.append @form
+      
       @
+    
+    register: (e) ->
+      @register.register e  
   )
   view
 ###

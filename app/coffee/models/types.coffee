@@ -108,6 +108,9 @@ define ["jquery", "underscore", "backbone"], ($) ->
         schema.last = required
         schema.email = email
         schema.terms = terms
+      if type is 'short-signup'
+        schema.username = _.extend(handle, {editorAttrs: {'placeholder': 'desired username'}})
+        schema.email = _.extend(email, {editorAttrs: {'placeholder': 'your email address'}})
         
       element = {type: "Select", options: ["Earth", "Mind", "Voice", "Self"]}
       privacy = {type: "Select", options: ["Public", "Phourus", "Friends", "Following", "Followers", "Private"]}

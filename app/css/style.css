@@ -1702,6 +1702,21 @@ header #inner #brand #slogan {
   border-left: dotted 1px #333;
   float: left;
 }
+.home #register-home {
+  float: right;
+}
+.home #register-home #fields label {
+  display: none;
+}
+.home #register-home #fields input {
+  width: 350px;
+  height: 36px;
+  padding: 4px;
+}
+.home #register-home a.register {
+  margin-top: -6px;
+  margin-right: 20px;
+}
 .item {
   border-left: solid 10px #333;
 }
