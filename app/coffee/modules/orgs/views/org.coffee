@@ -14,7 +14,7 @@ define ["jquery", "underscore", "backbone", "text!html/orgs/org.html", "text!htm
       self = @
       @model = new model({id: @options.id})
       params = {org_type: @options.type, page: @options.page, id: @options.id}
-      Backbone.Events.trigger "sidebar", {type: 'orgs', params: params}
+      Backbone.Events.trigger "sidebar", {type: 'hidden', params: params}
       @model.fetch 
         success: ->
           self.display()

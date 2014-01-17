@@ -5,6 +5,8 @@ define ["jquery", "underscore", "backbone", "js/models/types"], ($, _, Backbone,
     initialize: (options) ->   
       self = @
       @subdomain = options.subdomain
+      @width_sidebar = $("#sidebar").width()
+      @width_content = $("#content").width()
          
       Backbone.Events.on "sidebar", (params) ->
         if(_.isObject(params))
@@ -21,11 +23,15 @@ define ["jquery", "underscore", "backbone", "js/models/types"], ($, _, Backbone,
     hide: ->
       #@$el.animate({left: "-220"}, 500)
       #$("div#content").animate({left: "20"}, 500)
+      $("#sidebar").width("0%")
+      $("#content").width("93%")
       @$el.hide()
     
     show: ->
       #@$el.animate({left: "0"}, 500)
       #$("div#content").animate({left: "220"}, 500)
+      $("#sidebar").width(@width_sidebar)
+      $("#content").width(@width_content)
       @$el.show()
         
     render: ->         

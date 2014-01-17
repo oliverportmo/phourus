@@ -14,6 +14,7 @@ define ["jquery", "underscore", "backbone", "marionette", "text!html/orgs/home.h
   ###
   view = Backbone.View.extend(
     tagName: 'div'
+    className: 'orgs'
     
     initialize: (options) ->
       self = @
@@ -22,7 +23,7 @@ define ["jquery", "underscore", "backbone", "marionette", "text!html/orgs/home.h
     render: ()->
       self = @
       $("#mask").show()
-      Backbone.Events.trigger "sidebar", {type: 'map', params: @options}
+      Backbone.Events.trigger "sidebar", {type: 'hidden', params: @options}
       @collection= new cOrgs({type: @options.type})
       @collection.fetch
 	        success: ->
