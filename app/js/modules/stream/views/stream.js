@@ -8,10 +8,11 @@ define(["jquery", "underscore", "backbone", "js/modules/stream/views/filter", "j
       _.bindAll(this);
       mSettings.bind("change", this.filter);
       this.filter();
-      return Backbone.Events.trigger("sidebar", 'stream');
+      return Backbone.Events.trigger("sidebar", 'default');
     },
     events: {
-      "click #customize": "customize"
+      "click #customize": "customize",
+      "click #advanced": "advanced"
     },
     customize: function(e) {
       var hidden;
@@ -26,6 +27,9 @@ define(["jquery", "underscore", "backbone", "js/modules/stream/views/filter", "j
         $("#sidebar").hide();
         return $("#stream").css("width", "100%");
       }
+    },
+    advanced: function() {
+      return $("#filter").toggle();
     },
     filter: function() {
       var self;

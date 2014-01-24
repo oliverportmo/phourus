@@ -15,7 +15,7 @@ define ["jquery", "underscore", "backbone", "text!html/orgs/shared/clout.html", 
         error: (collection, response) ->
 	        $("#mask").hide()
 	        if response.status is 404
-	         $(self.el).append _.template(clout404, {})
+	         $(self.el).append _.template(clout404, {auth: false})
 	        else
 	         Backbone.Events.trigger "alert", {type: "error", message: "Clout could not be loaded", response: response, location: "modules/orgs/shared/clout", action: "read"}
 

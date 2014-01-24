@@ -16,7 +16,7 @@ define ["jquery", "underscore", "backbone", "js/modules/stream/models/post", "te
     load: (id) ->
       params = {id: id}
       $("#mask").show()
-      Backbone.Events.trigger "sidebar", {type: "post", params: params}
+      Backbone.Events.trigger "sidebar", {type: "default", params: params}
       @model = new model({id: id})
       self = this
       @model.fetch 

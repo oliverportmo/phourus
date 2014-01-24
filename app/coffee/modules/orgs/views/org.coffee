@@ -3,18 +3,18 @@ define ["jquery", "underscore", "backbone", "text!html/orgs/org.html", "text!htm
     
     initialize: (options) ->      
       @options= options
-
+        
     events:
       "click .back": "back"
     
     back: ->
       Backbone.Events.trigger "back", {}
-      
+        
     render: () ->
       self = @
       @model = new model({id: @options.id})
       params = {org_type: @options.type, page: @options.page, id: @options.id}
-      Backbone.Events.trigger "sidebar", {type: 'hidden', params: params}
+      Backbone.Events.trigger "sidebar", {type: 'default', params: params}
       @model.fetch 
         success: ->
           self.display()
@@ -34,6 +34,24 @@ define ["jquery", "underscore", "backbone", "text!html/orgs/org.html", "text!htm
       heading = _.template(tHeading, {org: data.org, stats: data.stats, pic: @pic})
       $(".heading").html heading
       @page(@options)
+      
+      $("ul.tabs a").removeClass('selected')
+      if @options.page is 'posts' or @options.page is 'users'
+        $("div#org_menu").removeClass('show')  
+        $("div#widgets").addClass('full')  
+        $("ul.tabs a#tabs_"+@options.page).addClass('selected')
+      else
+        $("div#org_menu").addClass('show')
+        $("div#widgets").removeClass('full')  
+        $("div#org_menu ul").hide()
+        info = ['about', 'social', 'reviews', 'clout', 'contact', 'events']
+        if @options.page in info        
+          $("ul.tabs a#tabs_info").addClass('selected')
+          $("div#org_menu ul.info").show()
+        else
+          $("ul.tabs a#tabs_extras").addClass('selected')
+          $("div#org_menu ul.extras").show()
+
       compiled
   )
   view

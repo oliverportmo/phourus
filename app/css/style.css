@@ -1306,15 +1306,26 @@ div#footing {
 #content .privacy ul {
   margin: 20px;
 }
-#content #menu {
-  float: left;
+#content #org_menu.show {
   width: 15%;
-  background-color: #eee;
   margin-right: 2%;
+}
+#content #org_menu {
+  float: left;
+  text-align: right;
   margin-top: 20px;
 }
-#content #menu ul li {
+#content #org_menu ul {
+  display: none;
+}
+#content #org_menu ul li {
   list-style: none;
+}
+#content #org_menu ul li a {
+  text-decoration: none;
+}
+#content #widgets.full {
+  width: 100%;
 }
 #content #widgets {
   float: left;

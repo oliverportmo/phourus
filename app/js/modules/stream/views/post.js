@@ -22,7 +22,7 @@ define(["jquery", "underscore", "backbone", "js/modules/stream/models/post", "te
       };
       $("#mask").show();
       Backbone.Events.trigger("sidebar", {
-        type: "post",
+        type: "default",
         params: params
       });
       this.model = new model({

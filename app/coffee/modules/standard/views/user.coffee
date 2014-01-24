@@ -7,7 +7,7 @@ define ["jquery", "underscore", "backbone", "forms", "text!html/standard/user.ht
       
     render: () ->
       self = @
-      Backbone.Events.trigger "sidebar", {type: 'profile', params: @options}
+      Backbone.Events.trigger "sidebar", {type: 'default', params: @options}
       @model = new mUser({id: @options.user})
       $("#mask").show()
       @model.fetch

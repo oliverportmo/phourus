@@ -2,20 +2,28 @@
 <div class="heading"></div>
 <br clear="all" />
 <ul class="tabs">
-  <li><a href="#!<%= org.type %>/<%= org.id %>/debates" class="selected">Content</a></li>
-  <li><a href="#!<%= org.type %>/<%= org.id %>/events">Users</a></li>
-  <li><a href="#!<%= org.type %>/<%= org.id %>/about">Info</a></li>
-  <li><a href="#!<%= org.type %>/<%= org.id %>/social">Extras (0)</a></li>
+  <li><a href="#!<%= org.type %>/<%= org.id %>/posts" class="selected" id="tabs_posts">Posts</a></li>
+  <li><a href="#!<%= org.type %>/<%= org.id %>/users" id="tabs_users">Users</a></li>
+  <li><a href="#!<%= org.type %>/<%= org.id %>/about" id="tabs_info">Info</a></li>
+  <li><a href="#!<%= org.type %>/<%= org.id %>/extras" id="tabs_extras">Extras (0)</a></li>
 </ul>
 <br clear="all" />
-<div id="menu">
-  <ul>
-    <li><a href="">About</a></li>
-    <li><a href="">Social</a></li>
-    <li><a href="">Reviews</a></li>
-    <li><a href="">Clout</a></li>
-    <li><a href="">Events</a></li>
-    <li><a href="">Contact</a></li>
+<div id="org_menu">
+  <ul class="info">
+    <li><a href="#!<%= org.type %>/<%= org.id %>/about">About</a></li>
+    <li><a href="#!<%= org.type %>/<%= org.id %>/social">Social</a></li>
+    <li><a href="#!<%= org.type %>/<%= org.id %>/reviews">Reviews</a></li>
+    <li><a href="#!<%= org.type %>/<%= org.id %>/clout">Clout</a></li>
+    <li><a href="#!<%= org.type %>/<%= org.id %>/events">Events</a></li>
+    <li><a href="#!<%= org.type %>/<%= org.id %>/contact">Contact</a></li>
+  </ul>
+  <ul class="extras">
+    <li><a href="#!<%= org.type %>/<%= org.id %>/extras">Grades</a></li>
+    <li><a href="#!<%= org.type %>/<%= org.id %>/extras">Student Body</a></li>
+    <li><a href="#!<%= org.type %>/<%= org.id %>/extras">Featured Students</a></li>
+    <li><a href="#!<%= org.type %>/<%= org.id %>/extras">Courses &amp; Departments</a></li>
+    <li><a href="#!<%= org.type %>/<%= org.id %>/extras">Awards</a></li>
+    <li><a href="#!<%= org.type %>/<%= org.id %>/extras">Administration</a></li>
   </ul>
 </div>
 <div id="widgets"></div>

@@ -58,21 +58,31 @@ margin: 0px;
     }
   }
   
-  #menu {
-    float: left;
+  #org_menu.show {
     width: 15%;
-    background-color: #eee;
     margin-right: 2%;
+  }
+  
+  #org_menu {
+    float: left;
+    text-align: right;
     margin-top: 20px;
     
     ul {
+      display: none;
       li {
         list-style: none;
+        a {
+          text-decoration: none;
+        }
       }
     }
   }
   
   /** WIDGETS **/
+  #widgets.full {
+    width: 100%;
+  }
   #widgets {
     float: left;
     width: 80%;

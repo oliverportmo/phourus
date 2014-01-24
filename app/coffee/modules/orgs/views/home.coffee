@@ -23,7 +23,7 @@ define ["jquery", "underscore", "backbone", "marionette", "text!html/orgs/home.h
     render: ()->
       self = @
       $("#mask").show()
-      Backbone.Events.trigger "sidebar", {type: 'hidden', params: @options}
+      Backbone.Events.trigger "sidebar", {type: 'default', params: @options}
       @collection= new cOrgs({type: @options.type})
       @collection.fetch
 	        success: ->
