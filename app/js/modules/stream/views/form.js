@@ -12,14 +12,21 @@ define(["jquery", "underscore", "backbone", "forms", "text!html/stream/form.html
       "click .back": "back",
       "click #create": "create",
       "click #update": "update",
-      "click #delete": "delete"
+      "click #delete": "delete",
+      "change #types": "select"
+    },
+    select: function(e) {
+      var type;
+
+      type = $("select#types").val();
+      return window.location = '#add/' + type;
     },
     render: function() {
       var self;
 
       self = this;
       $("#mask").show();
-      Backbone.Events.trigger("sidebar", "form");
+      Backbone.Events.trigger("sidebar", "default");
       if (_.isUndefined(mSession.get("user_id"))) {
         this.$el.html('<h2 style="text-align: center">You must log in to create or modify posts.</h2>');
         return;
@@ -85,14 +92,16 @@ define(["jquery", "underscore", "backbone", "forms", "text!html/stream/form.html
         }
       }
       compiled = _.template(tForm, {
-        data: this.options
+        data: this.options,
+        types: mTypes.attributes
       });
       $(this.el).html(compiled);
+      this.$el.find("select#types option[value=" + this.options.type + "]").attr('selected', 'selected');
       this.heading();
       return this.el;
     },
     heading: function() {
-      var data, element, heading, owner, params, t, type, user;
+      var data, element, owner, params, t, type, user;
 
       if (this.options.mode === 'add') {
         user = mSession.get("user");
@@ -122,8 +131,6 @@ define(["jquery", "underscore", "backbone", "forms", "text!html/stream/form.html
         };
         t = tPostHeading;
       }
-      heading = _.template(t, params);
-      $("div.heading").append(heading);
       return this.form();
     },
     form: function() {
@@ -144,7 +151,6 @@ define(["jquery", "underscore", "backbone", "forms", "text!html/stream/form.html
       }
       this.model = new mPost(m);
       schema = mTypes.schema(this.options.type);
-      console.log(schema);
       _.extend(this.model, {
         schema: schema
       });

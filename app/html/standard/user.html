@@ -21,31 +21,21 @@
 <br clear="all">
 <h3>User's Statistics</h3>
 <ul id="stats" class="tabs">
-	<li><a href="javascript:void(0)" id="core" class="selected">Core</a></li>
-	<li><a href="javascript:void(0)" id="earth">Earth</a></li>
+	<li><a href="javascript:void(0)" id="earth" class="selected">Earth</a></li>
 	<li><a href="javascript:void(0)" id="mind">Mind</a></li>
 	<li><a href="javascript:void(0)" id="voice">Voice</a></li>
 	<li><a href="javascript:void(0)" id="self">Self</a></li>
+  <li><a href="javascript:void(0)" id="social" >Social</a></li>
 </ul>
 <div style="background-color: #fff">
-	<table id="view_core" class="view" style="display: table;">
+	<table id="view_earth" class="view" style="display: table;">
 		<colgroup><col class="sidebar-form"><col width="200"><col></colgroup>
 		<tbody>
 			<tr><td>Blogs:</td><td><%= totals.blogs %></td><td>The current profile's Blog count</td></tr>
-			<tr><td>Ideas:</td><td><%= totals.ideas %></td><td>The current profile's Ideas count</td></tr>
-			<tr><td>Links:</td><td><%= totals.links %></td><td>The current profile's Links count</td></tr>
+			<tr><td>Events:</td><td><%= totals.ideas %></td><td>The current profile's Ideas count</td></tr>
 		</tbody>
 	</table>
-	
-	<table id="view_earth" class="view" style="display: none;">
-		<colgroup><col class="sidebar-form"><col width="200"><col></colgroup>
-		<tbody>
-			<tr><td>Checklist:</td><td>24 checked/40 total</td><td>The current profile's Checklist summary</td></tr>
-			<tr><td>Calculator:</td><td>70%</td><td>The current profile's Calculator grade</td></tr>
-			<tr><td>Matters:</td><td><%= totals.matters %></td><td>The current profile's Endorsement count</td></tr>
-		</tbody>
-	</table>
-	
+		
 	<table id="view_mind" class="view" style="display: none;">
 		<colgroup><col class="sidebar-form"><col width="200"><col></colgroup>
 		<tbody>
@@ -71,5 +61,14 @@
 			<tr><td>Timeline:</td><td><%= totals.timeline %></td><td>The current profile's Beliefs count</td></tr>
 			<tr><td>Quotes:</td><td><%= totals.quotes %></td><td>The current profile's Timeline Event count</td></tr>
         </tbody>
-    </table>
+  </table>
+    
+  <table id="view_social" class="view" style="display: none;">
+		<colgroup><col class="sidebar-form"><col width="200"><col></colgroup>
+		<tbody>
+			<tr><td>Comments:</td><td>247</td><td>The current profile's Checklist summary</td></tr>
+			<tr><td>Thumbs:</td><td>431+/142-</td><td>The current profile's Calculator grade</td></tr>
+			<tr><td>Views:</td><td>3,451</td><td>The current profile's Endorsement count</td></tr>
+		</tbody>
+	</table>
 </div>

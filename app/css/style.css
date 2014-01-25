@@ -1408,6 +1408,12 @@ div#footing {
 #content .orgs .state select {
   width: 160px;
 }
+#content .form select#types {
+  width: 180px;
+  text-transform: capitalize;
+  font-family: Palatino, "Palatino Linotype", "Book Antiqua", serif;
+  font-size: 0.6em;
+}
 body.agency #content {
   font-family: Palatino, "Palatino Linotype", "Book Antiqua", serif;
   font-size: 1.3em;

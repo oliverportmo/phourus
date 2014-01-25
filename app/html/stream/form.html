@@ -1,5 +1,14 @@
-<div class="heading"></div>
-<h1><%= data.action %> <%= data.title %></h1>
+<h1><%= data.action %> 
+<select id="types">
+  <% _.each(types, function(value, key){ %>
+    <option disabled="true">--- <%= value.element %> ---</option>
+    <% _.each(value.sections, function(value, key){ %>
+      <% var lowercase = key.toLowerCase(); %>
+      <option value="<%= lowercase %>"><%= key %></option>  
+    <% }); %> 
+  <% }); %> 
+</select>
+</h1>
 <div id="fields"></div>
 <div id="help"><img src="/assets/icons/general/about.png" />More Info</div>
 <div id="description"><%= data.description %></div>

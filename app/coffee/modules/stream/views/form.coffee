@@ -5,18 +5,23 @@ define ["jquery", "underscore", "backbone", "forms", "text!html/stream/form.html
     initialize: (options) ->
       # mode, type, id
       @options= options  
-      @model = new mPost(options)   
-
+      @model = new mPost(options) 
+ 
     events: 
       "click .back": "back"
       "click #create": "create"
       "click #update": "update"
       "click #delete": "delete"
+      "change #types": "select"
+    
+    select: (e) ->
+      type = $("select#types").val()
+      window.location = '#add/' + type
             
     render: ->
       self = @
       $("#mask").show()
-      Backbone.Events.trigger "sidebar", "form"
+      Backbone.Events.trigger "sidebar", "default"
       if _.isUndefined(mSession.get("user_id"))
         @$el.html '<h2 style="text-align: center">You must log in to create or modify posts.</h2>'
         return
@@ -54,8 +59,9 @@ define ["jquery", "underscore", "backbone", "forms", "text!html/stream/form.html
       if @options.mode is "add"
         @options.title = @options.type.slice(0, @options.type.length - 1)
         @options.title = "Timeline" if @options.type is "timeline"
-      compiled = _.template(tForm, {data: @options})
+      compiled = _.template(tForm, {data: @options, types: mTypes.attributes})
       $(@el).html compiled
+      @$el.find("select#types option[value=" + @options.type + "]").attr('selected', 'selected')
       @heading()
       @el
 
@@ -73,8 +79,8 @@ define ["jquery", "underscore", "backbone", "forms", "text!html/stream/form.html
         params = {address: data.user.address[0], meta: data.meta, post: data.post, stats: data.stats, element: element, user: data.user.user, owner: owner, pic: @pic, format_date: @format_date}
         t = tPostHeading
         
-      heading = _.template(t, params)  
-      $("div.heading").append heading
+      #heading = _.template(t, params)  
+      #$("div.heading").append heading
       @form()
     
     # Form      
@@ -90,7 +96,6 @@ define ["jquery", "underscore", "backbone", "forms", "text!html/stream/form.html
         return
       @model = new mPost(m)
       schema = mTypes.schema(@options.type)
-      console.log schema
       _.extend @model, {schema: schema}
 
       @form = new Backbone.Form({schema: schema, model: @model})
