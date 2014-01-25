@@ -14,11 +14,11 @@ define ["jquery", "underscore", "backbone", "text!html/widgets/posts.html", "js/
           self.render()
 
         error: (collection, response) ->
-	        $("#mask").hide()
-	        if response.status is 404
-	         self.$el.html _.template(reviews404, {})
-	        else
-	         Backbone.Events.trigger "alert", {type: "error", message: "Reviews could not be loaded", response: response, location: "modules/orgs/shared/reviews", action: "read"}
+          $("#mask").hide()
+          if response.status is 404
+            self.$el.append _.template(reviews404, {auth: false})
+          else
+            Backbone.Events.trigger "alert", {type: "error", message: "Reviews could not be loaded", response: response, location: "modules/orgs/shared/reviews", action: "read"}
           
     render: ->
       self = @

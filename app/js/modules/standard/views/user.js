@@ -10,7 +10,7 @@ define(["jquery", "underscore", "backbone", "forms", "text!html/standard/user.ht
 
       self = this;
       Backbone.Events.trigger("sidebar", {
-        type: 'profile',
+        type: 'default',
         params: this.options
       });
       this.model = new mUser({

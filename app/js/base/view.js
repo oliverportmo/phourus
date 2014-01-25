@@ -173,8 +173,8 @@ define(["jquery", "backbone", "underscore", "js/collections/widgets"], function(
           return v = new view(params);
         });
       } else {
-        posts = ['checklist', 'calculator', 'matters', 'subjects', 'questions', 'answers', 'debates', 'bills', 'votes', 'beliefs', 'quotes', 'timeline'];
-        users = ['employees', 'executives', 'teachers', 'students', 'citizens', 'reps', 'leaders', 'members'];
+        posts = ['posts', 'checklist', 'calculator', 'matters', 'subjects', 'questions', 'answers', 'debates', 'bills', 'votes', 'beliefs', 'quotes', 'timeline'];
+        users = ['users', 'employees', 'executives', 'teachers', 'students', 'citizens', 'reps', 'leaders', 'members'];
         if (__indexOf.call(posts, page) >= 0) {
           page = 'posts';
         }

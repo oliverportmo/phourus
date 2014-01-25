@@ -1,7 +1,7 @@
-define ["jquery", "underscore", "backbone", "text!html/orgs/shared/posts.html", "js/modules/orgs/collections/community", "js/views/alerts", "js/models/types", "text!html/orgs/shared/users.html", "text!html/orgs/shared/user.html", "text!html/404/users.html"], ($, _, Backbone, template, cCommunity, vAlerts, mTypes, tUsers, tUser, users404) ->
+define ["jquery", "underscore", "backbone", "text!html/orgs/shared/posts.html", "js/modules/orgs/collections/community", "js/views/alerts", "js/models/types", "text!html/orgs/shared/users.html", "text!html/items/user.html", "text!html/404/users.html"], ($, _, Backbone, template, cCommunity, vAlerts, mTypes, tUsers, tUser, users404) ->
   widget = Backbone.View.extend(
     
-    initialize: (options) ->
+    initialize: (options) -> 
       self = @
       params = {}
       params.org_id = options.id
@@ -17,9 +17,10 @@ define ["jquery", "underscore", "backbone", "text!html/orgs/shared/posts.html", 
         error: (collection, response) ->
           $("#mask").hide()
           if response.status is 404
-            self.$el.html _.template(users404, {})
+            self.$el.html _.template(users404, {auth: false})
           else
             Backbone.Events.trigger "alert", {type: "error", message: "Users could not be loaded", response: response, location: "modules/orgs/shared/users", action: "read"}
+
           
     render: ->
       self = @
@@ -31,8 +32,7 @@ define ["jquery", "underscore", "backbone", "text!html/orgs/shared/posts.html", 
       _.each @collection.models, (model) ->
         user = model.toJSON()
         user.influence = 48
-        $(self.el).append _.template(tUser, {user: user, pic: self.pic})
+        self.$el.append _.template(tUser, {user: user, pic: self.pic})
       @$el
-      
   )
   widget

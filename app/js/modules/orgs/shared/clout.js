@@ -19,7 +19,9 @@ define(["jquery", "underscore", "backbone", "text!html/orgs/shared/clout.html", 
         error: function(collection, response) {
           $("#mask").hide();
           if (response.status === 404) {
-            return $(self.el).append(_.template(clout404, {}));
+            return $(self.el).append(_.template(clout404, {
+              auth: false
+            }));
           } else {
             return Backbone.Events.trigger("alert", {
               type: "error",

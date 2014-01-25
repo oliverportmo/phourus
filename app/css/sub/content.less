@@ -58,28 +58,36 @@ margin: 0px;
     }
   }
   
-  
-}
-
-body.agency {
-
-  #content {
-    font-family: @palatino;
-    font-size: 1.3em;
-    line-height: 200%;
+  #org_menu.show {
+    width: 15%;
+    margin-right: 2%;
   }
   
-  #sidebar h3 {
-    color: #ddd;
-    font-size: 1.2em;
-    font-family: @palatino;
+  #org_menu {
+    float: left;
+    text-align: right;
+    margin-top: 20px;
+    
+    ul {
+      display: none;
+      li {
+        list-style: none;
+        a {
+          text-decoration: none;
+        }
+      }
+    }
   }
-}
-
-
-/** WIDGETS **/
-#widgets {
-  .left {
+  
+  /** WIDGETS **/
+  #widgets.full {
+    width: 100%;
+  }
+  #widgets {
+    float: left;
+    width: 80%;
+    
+    .left {
     width: 500px;
     float: left;  
     }
@@ -126,7 +134,71 @@ body.agency {
         border: none;
       }
     }
+  }
+
+  .orgs {
+    
+    span {
+      font-family: @palatino;
+      font-style: italic;
+      font-size: 1.3em;
+    }
+    .zip {
+      float: left;
+      width: 45%;  
+      height: 60px; 
+      text-align: right;
+      
+      input {
+        width: 120px;
+        height: 28px;
+      }
+      
+      button {
+        width: 60px;
+        float: right;
+        margin-top: 0px;
+      }
+    }
+    
+    .or {
+      float: left;
+      width: 8%;
+      text-align: center;
+      font-size: 2em;
+      font-weight: bold;   
+      padding-top: 6px;
+    }
+    .state {
+      float: left;
+      width: 45%; 
+      height: 60px;
+      
+      select {
+        width: 160px;
+      }
+    }  
+  }
+  
+  
 }
+
+body.agency {
+
+  #content {
+    font-family: @palatino;
+    font-size: 1.3em;
+    line-height: 200%;
+  }
+  
+  #sidebar h3 {
+    color: #ddd;
+    font-size: 1.2em;
+    font-family: @palatino;
+  }
+}
+
+
 
 
 div#gmap {

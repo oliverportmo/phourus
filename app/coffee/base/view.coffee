@@ -151,8 +151,8 @@ format_url: (input) ->
           v =  new view(params)
             
       else
-        posts = ['checklist', 'calculator', 'matters', 'subjects', 'questions', 'answers', 'debates', 'bills', 'votes', 'beliefs', 'quotes', 'timeline']
-        users = ['employees', 'executives', 'teachers', 'students', 'citizens', 'reps', 'leaders', 'members']
+        posts = ['posts', 'checklist', 'calculator', 'matters', 'subjects', 'questions', 'answers', 'debates', 'bills', 'votes', 'beliefs', 'quotes', 'timeline']
+        users = ['users', 'employees', 'executives', 'teachers', 'students', 'citizens', 'reps', 'leaders', 'members']
         
         page = 'posts' if page in posts
         page = 'users' if page in users

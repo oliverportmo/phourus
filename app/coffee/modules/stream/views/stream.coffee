@@ -6,10 +6,11 @@ define ["jquery", "underscore", "backbone", "js/modules/stream/views/filter", "j
 	      _.bindAll this
 	      mSettings.bind "change", @filter
 	      @filter()
-	      Backbone.Events.trigger "sidebar", 'stream'
+	      Backbone.Events.trigger "sidebar", 'default'
 	
 	    events:
 	      "click #customize": "customize"
+	      "click #advanced": "advanced"
 	
 	    customize: (e) ->
 	      hidden = (if $("#sidebar").css("display") is "none" then true else false)
@@ -22,6 +23,9 @@ define ["jquery", "underscore", "backbone", "js/modules/stream/views/filter", "j
 	        $("#sidebar").hide()
 	        $("#stream").css "width", "100%"
 	
+      advanced: ->
+        $("#filter").toggle()
+      
 	    filter: ->
 	      @collection = new cPosts()
 	      self = @

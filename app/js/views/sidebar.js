@@ -11,6 +11,8 @@ define(["jquery", "underscore", "backbone", "js/models/types"], function($, _, B
 
       self = this;
       this.subdomain = options.subdomain;
+      this.width_sidebar = $("#sidebar").width();
+      this.width_content = $("#content").width();
       Backbone.Events.on("sidebar", function(params) {
         if (_.isObject(params)) {
           self.type = params.type;
@@ -24,9 +26,13 @@ define(["jquery", "underscore", "backbone", "js/models/types"], function($, _, B
       return window.onhashchange = function() {};
     },
     hide: function() {
+      $("#sidebar").width("0%");
+      $("#content").width("93%");
       return this.$el.hide();
     },
     show: function() {
+      $("#sidebar").width(this.width_sidebar);
+      $("#content").width(this.width_content);
       return this.$el.show();
     },
     render: function() {

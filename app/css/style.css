@@ -1286,6 +1286,8 @@ div#footing {
   /*background-color: #ffffff;
   border: solid 1px #ccc;
   .box-shadow;*/
+  /** WIDGETS **/
+
 }
 #content p.summary {
   font-size: 1.2em;
@@ -1304,6 +1306,108 @@ div#footing {
 #content .privacy ul {
   margin: 20px;
 }
+#content #org_menu.show {
+  width: 15%;
+  margin-right: 2%;
+}
+#content #org_menu {
+  float: left;
+  text-align: right;
+  margin-top: 20px;
+}
+#content #org_menu ul {
+  display: none;
+}
+#content #org_menu ul li {
+  list-style: none;
+}
+#content #org_menu ul li a {
+  text-decoration: none;
+}
+#content #widgets.full {
+  width: 100%;
+}
+#content #widgets {
+  float: left;
+  width: 80%;
+}
+#content #widgets .left {
+  width: 500px;
+  float: left;
+}
+#content #widgets .right {
+  width: 240px;
+  float: right;
+}
+#content #widgets #award {
+  width: 47%;
+  float: left;
+}
+#content #widgets #press {
+  width: 47%;
+  float: right;
+}
+#content #widgets #award img,
+#content #widgets #press img {
+  border: none;
+  float: left;
+}
+#content #widgets #award h4,
+#content #widgets #press h4 {
+  clear: both;
+}
+#content #widgets #award div,
+#content #widgets #press div {
+  background-color: #f7f7f7;
+  padding: 10px;
+  margin: 4px;
+}
+#content #widgets #award div:hover,
+#content #widgets #press div:hover {
+  background-color: #fafafa;
+  cursor: pointer;
+}
+#content #widgets .item img.star {
+  margin: 0px -8px 0px 0px;
+  padding: 0px;
+  border: none;
+}
+#content .orgs span {
+  font-family: Palatino, "Palatino Linotype", "Book Antiqua", serif;
+  font-style: italic;
+  font-size: 1.3em;
+}
+#content .orgs .zip {
+  float: left;
+  width: 45%;
+  height: 60px;
+  text-align: right;
+}
+#content .orgs .zip input {
+  width: 120px;
+  height: 28px;
+}
+#content .orgs .zip button {
+  width: 60px;
+  float: right;
+  margin-top: 0px;
+}
+#content .orgs .or {
+  float: left;
+  width: 8%;
+  text-align: center;
+  font-size: 2em;
+  font-weight: bold;
+  padding-top: 6px;
+}
+#content .orgs .state {
+  float: left;
+  width: 45%;
+  height: 60px;
+}
+#content .orgs .state select {
+  width: 160px;
+}
 body.agency #content {
   font-family: Palatino, "Palatino Linotype", "Book Antiqua", serif;
   font-size: 1.3em;
@@ -1313,48 +1417,6 @@ body.agency #sidebar h3 {
   color: #ddd;
   font-size: 1.2em;
   font-family: Palatino, "Palatino Linotype", "Book Antiqua", serif;
-}
-/** WIDGETS **/
-#widgets .left {
-  width: 500px;
-  float: left;
-}
-#widgets .right {
-  width: 240px;
-  float: right;
-}
-#widgets #award {
-  width: 47%;
-  float: left;
-}
-#widgets #press {
-  width: 47%;
-  float: right;
-}
-#widgets #award img,
-#widgets #press img {
-  border: none;
-  float: left;
-}
-#widgets #award h4,
-#widgets #press h4 {
-  clear: both;
-}
-#widgets #award div,
-#widgets #press div {
-  background-color: #f7f7f7;
-  padding: 10px;
-  margin: 4px;
-}
-#widgets #award div:hover,
-#widgets #press div:hover {
-  background-color: #fafafa;
-  cursor: pointer;
-}
-#widgets .item img.star {
-  margin: 0px -8px 0px 0px;
-  padding: 0px;
-  border: none;
 }
 div#gmap {
   height: 400px;

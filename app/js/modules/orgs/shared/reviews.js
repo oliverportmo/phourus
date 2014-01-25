@@ -20,7 +20,9 @@ define(["jquery", "underscore", "backbone", "text!html/widgets/posts.html", "js/
         error: function(collection, response) {
           $("#mask").hide();
           if (response.status === 404) {
-            return self.$el.html(_.template(reviews404, {}));
+            return self.$el.append(_.template(reviews404, {
+              auth: false
+            }));
           } else {
             return Backbone.Events.trigger("alert", {
               type: "error",

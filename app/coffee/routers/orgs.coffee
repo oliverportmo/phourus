@@ -44,7 +44,7 @@ define ["jquery", "underscore", "backbone", "marionette"], ($, _, Backbone, mari
 
     org: (type, id, page) ->
       self = @
-      page = "about" if _.isUndefined(page) or page is ""
+      page = "posts" if _.isUndefined(page) or page is ""
       params =
         id: id
         type: type

@@ -3,7 +3,7 @@ define ["jquery", "underscore", "backbone", "text!html/widgets/posts.html", "js/
     
     initialize: (options) ->
       self = @
-      options.types = options.page
+      options.types = 'subjects;questions'
       @collection = new cPosts(options)
       $("#mask").show()
       @collection.fetch
@@ -14,7 +14,7 @@ define ["jquery", "underscore", "backbone", "text!html/widgets/posts.html", "js/
         error: (collection, response) ->
           $("#mask").hide()
           if response.status is 404
-            $(self.el).append _.template(posts404, {})
+            $(self.el).append _.template(posts404, {auth: false})
           if response.status is 503
             Backbone.Events.trigger "alert", {type: "error", message: "Posts could not be loaded", response: response, location: "modules/orgs/shared/posts", action: "read"}
           

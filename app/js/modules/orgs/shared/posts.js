@@ -7,7 +7,7 @@ define(["jquery", "underscore", "backbone", "text!html/widgets/posts.html", "js/
       var self;
 
       self = this;
-      options.types = options.page;
+      options.types = 'subjects;questions';
       this.collection = new cPosts(options);
       $("#mask").show();
       return this.collection.fetch({
@@ -18,7 +18,9 @@ define(["jquery", "underscore", "backbone", "text!html/widgets/posts.html", "js/
         error: function(collection, response) {
           $("#mask").hide();
           if (response.status === 404) {
-            $(self.el).append(_.template(posts404, {}));
+            $(self.el).append(_.template(posts404, {
+              auth: false
+            }));
           }
           if (response.status === 503) {
             return Backbone.Events.trigger("alert", {

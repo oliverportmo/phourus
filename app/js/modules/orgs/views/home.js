@@ -17,6 +17,7 @@ define(["jquery", "underscore", "backbone", "marionette", "text!html/orgs/home.h
 
   view = Backbone.View.extend({
     tagName: 'div',
+    className: 'orgs',
     initialize: function(options) {
       var self;
 
@@ -29,7 +30,7 @@ define(["jquery", "underscore", "backbone", "marionette", "text!html/orgs/home.h
       self = this;
       $("#mask").show();
       Backbone.Events.trigger("sidebar", {
-        type: 'map',
+        type: 'default',
         params: this.options
       });
       this.collection = new cOrgs({
