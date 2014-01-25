@@ -23,6 +23,7 @@ define ["jquery", "underscore", "backbone", "forms", "text!html/stream/form.html
       if @options.mode is "add"
         @model.clear()
         @display "add"
+        $("#mask").hide()
       if @options.mode is "edit"
         @model.fetch
           success: (model, response) ->

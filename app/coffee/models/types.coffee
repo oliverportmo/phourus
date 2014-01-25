@@ -1,6 +1,7 @@
 define ["jquery", "underscore", "backbone"], ($) ->
   mTypes = Backbone.Model.extend(
     initialize: ->
+      ###
       core = {}
       core.blogs = "Blogs"
       core.links = "Links"
@@ -10,33 +11,27 @@ define ["jquery", "underscore", "backbone"], ($) ->
       earth.calculator = "Calculator"
       earth.checklist = "Checklist"
       earth.matters = "Matters"
-      #earth.companies = "Companies"
+      #earth.stores= 'Stores'
+      ###
       
-      #earth.stores= 'Stores';
+      earth = {}
+      earth.blogs = "Blogs"
+      earth.events = "Events"
+      
       mind = {}
       mind.subjects = "Subjects"
       mind.questions = "Questions"
-      mind.answers = "Answers"
-      #mind.schools = "Schools"
+      mind.answers = "Answers"      
       
-      #mind.scores= 'Scores';
       voice = {}
       voice.debates = "Debates"
       voice.bills = "Bills"
       voice.votes = "Votes"
-      #voice.govs = "Govs"
       
-      #voice.budget= 'Budget';
       self = {}
       self.beliefs = "Beliefs"
       self.quotes = "Quotes"
       self.timeline = "Timeline"
-      #self.groups = "Groups"
-      
-      #self.ranks= 'Ranks';
-      CORE =
-        element: "core"
-        sections: core
 
       EARTH =
         element: "earth"
@@ -58,7 +53,7 @@ define ["jquery", "underscore", "backbone"], ($) ->
         sections: self
         description: "Phourus Self is centered around belief systems such as religion, philosophy, and spirituality"
 
-      @set [CORE, EARTH, MIND, VOICE, SELF]
+      @set [EARTH, MIND, VOICE, SELF]
 
     get_parent: (child) ->
       parent = ""
@@ -119,20 +114,9 @@ define ["jquery", "underscore", "backbone"], ($) ->
         when "blogs"
           schema.title = "Text"
           schema.element = element
-          schema.category = "Text"
+          schema.category = {type: "Select", options: ["Factual", "Opinion", "Idea", "Humor", "Rant"]}
           schema.privacy = privacy
-          schema.content = "TextArea"
-        when "links"
-          schema.url = "Text"
-          schema.element = element
-          schema.category = "Text"
-          schema.privacy = privacy
-          schema.content = "TextArea"
-        when "ideas"
-          schema.title = "Text"
-          schema.element = element
-          schema.category = "Text"
-          schema.privacy = privacy
+          schema.positive = "Checkbox"
           schema.content = "TextArea"
         when "events"
           schema.title = "Text"
@@ -141,12 +125,7 @@ define ["jquery", "underscore", "backbone"], ($) ->
           schema.privacy = privacy
           schema.date = "Date"
           schema.content = "TextArea"
-          #schema.address= {type: 'NestedModel', model: Address };
-        when "calculator", "checklist", "matters"
-          schema.title = "Text"
-          schema.category = "Text"
-          schema.privacy = privacy
-          schema.positive = "Checkbox"
+          #schema.address= {type: 'NestedModel', model: Address };    
         when "subjects"
           schema.title = "Text"
           schema.category = "Text"
@@ -210,6 +189,25 @@ define ["jquery", "underscore", "backbone"], ($) ->
           schema.about = "TextArea"
           schema.contact = "TextArea"
         else
+          ###
+          when "links"
+            schema.url = "Text"
+            schema.element = element
+            schema.category = "Text"
+            schema.privacy = privacy
+            schema.content = "TextArea"
+          when "ideas"
+            schema.title = "Text"
+            schema.element = element
+            schema.category = "Text"
+            schema.privacy = privacy
+            schema.content = "TextArea"
+          when "calculator", "checklist", "matters"
+            schema.title = "Text"
+            schema.category = "Text"
+            schema.privacy = privacy
+            schema.positive = "Checkbox"
+          ###
       schema
 
     description: (type) ->
@@ -221,13 +219,13 @@ define ["jquery", "underscore", "backbone"], ($) ->
     descriptions:
       #Contact
       contact: "We want to hear from you! Let us know what you think whether it be ways to improve Phourus, things you like or dislike, or any issues you've encountered. We appreciate the feedback!"
-      #Core
+      
+      #Earth
       blogs: "Blogs are the most basic post on Phourus, and can be used to write about virtually any topic, as long as it's relevant to the 4 Elements of Phourus, meaning they should somewhat relate to the Environment, Education, Politics or Religion in one way or another."
       links: "Links are about finding the best resources on the Internet and bookmarking them on Phourus. Links can be articles, images, podcasts or videos, but should relate to one of the 4 Elements of Phourus (Earth, Mind, Voice and Faith)."
       ideas: "Ideas are structured very similarly to Blogs, but should be used to share Ideas for solving simple or complex problems that individuals, organizations or even the world faces, and give them the exposure they deserve using the 'Influence' rank."
       events: "Events are a great way to share an upcoming seminar, conference or meetup with the Phourus community. Phourus encourages it's members to take it's virtual discussions into the real world, and has built the events section to do just that."
       
-      #Earth
       checklist: "The Checklist is a simple yet powerful tool to reduce your negative impact on the Environment. Simply check off list items that you feel you meet the requirements for, save your results, and improve your results over time. Increase your Influence rank, decrease your consumption."
       calculator: "A Carbon Calculator is used to estimate how much Carbon Dioxide an individual creates throughout the year. With the Phourus Earth Carbon Calculator, you can save your results, compare them with other members, and even compare them to the Phourus community as a whole."
       matters: "Matters are a way to report both the good, the bad, and the ugly to the Phourus Community. Catch an organization doing wrong? Create a Matter. Catch somebody doing good? Create a Matter. Don't let anybody get away with anything, good or bad, and boost your Influence in return."
@@ -253,7 +251,8 @@ define ["jquery", "underscore", "backbone"], ($) ->
       timeline: "The Phourus Self Timeline is used to track the significant life experiences that led you to your current belief system. With the Phourus Self Timeline, you can share these experiences so others can see how these events made you the person you are today."
       groups: "Groups is a way to match members based on similar or dissimilar beliefs. By using Ranks, Phourus can get a good idea how a user and the Phourus community as a whole views the world. From there, individual users can be matched up based on this data using Phourus Faith Searching."
       ranks: "Ranks is an easy way to get a snapshot of a person's viewpoints and how they view the world. Each member can create up to 4 different Rank topics, such as 'Belief in a Higher Power', and select a number from -5 to +5 to describe how strongly they agree or disagree with the statement."
-
+      
+      
     states:  
       AK: "Alaska"
       AL: "Alabama"
@@ -346,7 +345,7 @@ define ["jquery", "underscore", "backbone"], ($) ->
           output += "<option value=\"faith\">Faith</option>"
           output += "</select>"
       output
-
+      ###
     calculator: ->
       output = undefined
       output += "<table>"
@@ -422,5 +421,6 @@ define ["jquery", "underscore", "backbone"], ($) ->
       
       #facebook('comments'); 
       output
+    ###
   )
   new mTypes()
