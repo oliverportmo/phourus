@@ -1,4 +1,4 @@
-define ["jquery", "underscore", "backbone", "js/modules/stream/views/filter", "js/views/elements", "js/views/alerts", "js/modules/stream/collections/posts", "text!html/stream/stream.html", "text!html/items/post.html", "js/models/types", "js/models/settings", "js/models/session", "text!html/404/posts.html"], ($, _, Backbone, vFilter, vElements, vAlerts, cPosts, tStream, tPost, mTypes, mSettings, mSession, posts404) ->
+define ["jquery", "underscore", "backbone", "js/modules/stream/views/filter", "js/views/elements", "js/views/alerts", "js/modules/stream/collections/posts", "js/modules/stream/models/total", "text!html/stream/stream.html", "text!html/items/post.html", "js/models/types", "js/models/settings", "js/models/session", "text!html/404/posts.html"], ($, _, Backbone, vFilter, vElements, vAlerts, cPosts, mTotal, tStream, tPost, mTypes, mSettings, mSession, posts404) ->
 
 	view = Backbone.View.extend(
 	    className: "stream"
@@ -7,6 +7,7 @@ define ["jquery", "underscore", "backbone", "js/modules/stream/views/filter", "j
 	      mSettings.bind "change", @filter
 	      if _.isUndefined(@options.org)
           mSettings.set("org_id", 0)
+          @filter()
         else
           mSettings.set("org_id", @options.org.id)
 	      Backbone.Events.trigger "sidebar", 'default'
@@ -15,11 +16,35 @@ define ["jquery", "underscore", "backbone", "js/modules/stream/views/filter", "j
 	      "click #customize": "customize"
 	      "click #advanced": "advanced"
 	      "click #search": "search"
+	      "click #paging a": "page"
 	      
       search: ()->
         term = $("#term").val()
-        mSettings.set("search", term)
+        mSettings.set({"search": term, "page": 0})
 	
+      page: (e)->
+        id = e.currentTarget.id
+        current = mSettings.get('page')
+        if id is 'prev' and current > 0
+          mSettings.set('page', current - 1)
+        if id is 'next'
+          mSettings.set('page', current + 1)
+          
+          
+      count: ()->
+        @paging()
+        total = new mTotal()
+        total.fetch
+          success: (model, response)->
+            $("div#paging span.totals").append ' out of ' + response.total + ' total'    
+        
+      paging: ()->
+        page = mSettings.get('page')
+        limit = mSettings.get('limit')
+        first = page*limit+1
+        last = (page+1)*limit
+        $("div#paging span.totals").html 'Displaying posts ' + first + '-' + last
+        
 	    customize: (e) ->
 	      hidden = (if $("#sidebar").css("display") is "none" then true else false)
 	      if hidden is true
@@ -43,6 +68,7 @@ define ["jquery", "underscore", "backbone", "js/modules/stream/views/filter", "j
 	        success: ->
 	          $("#mask").hide()
 	          self.update()
+	          self.count()
 	
 	        error: (collection, response) ->
 	          $("#mask").hide() 

@@ -5,7 +5,9 @@ class oPost
 	
 	# GET
 	public function get($params){
-		if(isset($params['id'])){
+		if(!isset($params['id'])){
+		  $out= dRead::posts($params);
+		}else{
   		$meta= dRead::meta($params['id']);
   		if(is_numeric($meta)){
     		return $meta;
@@ -22,9 +24,7 @@ class oPost
   		$out['meta']= $meta;
   		$out['post']= $post;
   		$out['stats']= $stats;
-  		$out['user']= $user;
-		}else{   		
-		  $out= dRead::posts($params);
+  		$out['user']= $user;		  
 		}
 		return $out;	
 	}
@@ -46,51 +46,127 @@ class oPost
 		$out= dDelete::post($id);
 		return $out;
 	}
+	
+	# TOTAL 
+	public function total($params){
+  	$out= dRead::total($params);
+  	return $out;
+	}
 		
 	/** PARAMS **/
+	static public function q($params){
+    $q = '';
+    if($params['count']== true){
+      $q.= 'SELECT COUNT(*) FROM (';
+    }
+    $p = self::params($params);
+    extract($p);
+    $exploded = explode(";", $params['types']);
+		foreach($exploded as $k => $v){
+		  $t= uUtilities::table($v); 
+  		$search = self::search($params['search'], $t); 
+  		$field = 'app_posts.id';
+  		$select = "SELECT $field FROM `app_posts`";
+  		$join = "INNER JOIN `$t` ON app_posts.id = $t.post_id";
+  		$q.= "$select $join $privacy $search $when UNION "; 
+		}
+		$q = substr($q, 0, -7);
+		// order requires field present in query
+		//$q.= $order." ";
+		if($params['count'] != true){
+  		$q.= $paging;
+		}else{
+  		$q.= ') AS total'; 
+		}
+		return $q;
+	}
+	
 	static public function params($params){
-		//types, page, limit, field, asc, mode, date
+		//types, page, limit, field, asc, mode, date, search
 		extract($params);
 		
-		//$ids= self::search($search);
-		$ids = '';
-		
 		$out= array();
-		$out['mode']= self::mode($params);
-		$out['types']= self::types($types);
-		$out['order']= self::order($field, $asc);
-		$out['paging']= self::paging($page, $limit);		
-		if($mode== 'user' && isset($author_id)){
-  		$out['author']= self::author($author_id);	
-		}
-		if(isset($users)){
-  		$out['users']= self::users($users);
-		}else{
-  		$out['users']= '';
-		}
-		//$params['when']= $this->when();				
+		$out['privacy']= self::privacy($mode);
+		// types() no longer needed?
+		//$out['types']= self::types($types);
+		// search is custom per table
+		$out['when']= self::when($params);
+		$out['order']= self::order($params);
+		$out['paging']= self::paging($params);	
 		return $out;
 	}
 	
-  private function mode($params){	
-		/** EXCLUDE CURRENT USER **/
-		$mode = $params['mode'];
-		$search = $params['search'];
+	private function search($search, $table){
+    if($search == ''){
+      return '';
+    }
+    $trimmed = preg_replace('/\s\s+/', ' ', $search);
+    $s = str_replace(" ", "%", $trimmed);
+    		
+		// answers: no title, quotes: no title, votes: no title, bills: no title
+    switch($table)
+		  {
+  		  case 'mind_answers':
+  		    return "AND $table.content LIKE '%$s%'";
+  		  break;
+  		  case 'voice_bills':
+  		    return "AND $table.question LIKE '%$s%' OR $table.content LIKE '%$s%'";
+  		  break;
+  		  case 'voice_votes':
+  		    return "AND $table.content LIKE '%$s%'";
+  		  break;
+  		  case 'self_quotes':
+  		    return "AND $table.quote LIKE '%$s%' OR $table.author LIKE '%$s%'";
+  		  break;
+  		  default:
+  		    return "AND $table.title LIKE '%$s%' OR $table.content LIKE '%$s%'";
+  		  break;
+  		}
+	}
+	
+  private function privacy($mode){	
+		// Get current logged in user
 		$auth_id= 0;
 		if(isset($GLOBALS['phourus_auth_id'])){
 		  $auth_id= $GLOBALS['phourus_auth_id'];
-		}
-				
+		  $exclude= "WHERE user_id != '$auth_id'";
+		  /*$relationships= oUser::relationships($auth_id);
+      extract($relationships);
+  		if($following == ""){ $following= "'0'"; }
+  		if($followers == ""){ $followers= "'0'"; }
+  		if($friends == ""){ $friends= "'0'"; }*/
+		}else{
+  		return "WHERE 1 = 1";
+		}		
+		
+		return $exclude;
+		/*
+		
+		if(isset($users)){
+  		$out['users']= self::users($users);
+  		private function users($users){
+	  $list= "";
+  	return "AND user_id IN ($users)";
+	}
 		if($search != ''){
 		  $ids = self::search($params);
   		$search = "AND id IN($ids)";
 		}
-		$select= "SELECT id FROM app_posts WHERE user_id != '$auth_id' $search ";
-		$relationships= oUser::relationships($auth_id);
-    extract($relationships);
-		if($following == ""){ $following= "'0'"; }
-		if($followers == ""){ $followers= "'0'"; }
-		if($friends == ""){ $friends= "'0'"; }
+  		  //WHERE post.user_id = $user_id
+  		  //if($user_id = $GLOBALS['user_id']){}
+  		  //$out= self::advanced(array('user_id', 'EQUALS', '1', ''));
+  		  return "SELECT id FROM app_posts WHERE app_posts.user_id = '$auth_id'";  
+  		break;
+  		default: 
+  		  return "$select AND privacy = 'public'";
+  		break;
+    }
+		}else{
+  		$out['users']= '';
+		}
+		
+		
+		
 		
 		$in= '';
 		if(isset($params['org_id']) && $params['org_id'] != 0){
@@ -104,8 +180,9 @@ class oPost
   		$in= substr($in, 0, -1);
   		return "$select AND privacy IN('following', 'followers', 'friends', 'public') AND user_id IN($in)";
     }
+    
+    
 
-		
 		switch($mode){
   		case 'phourus':
   		  // Should followers/following be included??
@@ -132,18 +209,19 @@ class oPost
   		  //if(isset($following) && $following== true){ $filter.= ",following"; }
   		  //if(isset($follower) && $follower = true){ $filter.= ",followers"; }
   		  //return "SELECT post_id FROM app_posts WHERE user_id = $user_id AND privacy IN();";
+  		  if(isset($author_id)){
+      		$out['author']= self::author($author_id);	
+    		}
   		  return $select;
   		break;
   		case 'me':
-  		  //WHERE post.user_id = $user_id
-  		  //if($user_id = $GLOBALS['user_id']){}
-  		  //$out= self::advanced(array('user_id', 'EQUALS', '1', ''));
-  		  return "SELECT id FROM app_posts WHERE app_posts.user_id = '$auth_id'";  
-  		break;
-  		default: 
-  		  return "$select AND privacy = 'public'";
-  		break;
-    }
+  		
+		private function author($author_id){
+	  $privacy= "'followers','following'";
+  	return "AND user_id = '$author_id' AND privacy IN('public'$privacy)";
+	}
+	
+	 */
 	}
 
 	private function types($types){
@@ -152,90 +230,42 @@ class oPost
 		return "AND type IN($string) ";
 	}
 		
-	private function order(){
-		/*if($sort== null)
+	// When	
+	private function when($params){
+  	/*if(isset($params['date_start']) && isset($params['date_end']) && $params['date_start'] < $params['date_end']){
+    	return "AND app_posts.created BETWEEN $params['date_start'] AND $params['date_end']";
+  	}*/
+  	return '';
+	}	
+	
+	// Order
+	private function order($params){
+		extract($params);
+		if($sort== null)
 		{
-			return '';
+			$sort = 'app_posts.influence';
 		}
-		$direction= 'DESC';
-		if($this->_asc== true)
+		if($direction== null)
 		{
-			$direction= 'ASC';	
+			$direction= 'DESC';	
 		}
-		return "ORDER BY ".$this->_sort." ".$direction;*/
+		return "ORDER BY $sort $direction";
 	}	
 	
 	//Paging
-	private function paging($page, $limit= 10){		
-		//If no 'page' param is set, omit paging altogether
+	private function paging($params){	
+    extract($params);	
+		//If no 'page' param is set, set page to 0
 		if($page== null || $page < 1)
 		{
-			return '';	
+			$page = 0;	
 		}
-		return '';
+		if($limit== null){
+  		$limit = 10;
+		}
 		
 		$offset= $page * $limit;
 		return "LIMIT $offset, $limit";	 
-	}
-	
-	private function author($author_id){
-	  $privacy= "'followers','following'";
-  	return "AND user_id = '$author_id' AND privacy IN('public'$privacy)";
-	}
-	
-	private function users($users){
-	  $list= "";
-  	return "AND user_id IN ($users)";
-	}
-	
-	private function search($params){
-    extract($params);
-    if($search == ''){
-      return '';
-    }
-    $trimmed = preg_replace('/\s\s+/', ' ', $search);
-    $s = str_replace(" ", "%", $trimmed);
-    
-    $exploded = explode(";", $types);
-    $q = '';
-    
-		foreach($exploded as $k => $v){
-		  $t= uUtilities::table($v); 
-		  // answers: no title, quotes: no title, votes: no title, bills: no title
-		  switch($v)
-		  {
-  		  case 'answers':
-  		  
-  		  break;
-  		  case 'bills':
-  		  
-  		  break;
-  		  case 'votes':
-  		  
-  		  break;
-  		  case 'quotes':
-  		  
-  		  break;
-  		  default:
-  		    $q.= "SELECT post_id FROM $t WHERE title LIKE '%$s%' OR content LIKE '%$s%' UNION ";
-  		  break;
-		  }
-		  
-		}
-		
-		$q = substr($q, 0, -7);
-		$q.= ';';
-		
-		$result= new uResult();
-		$ids= $result->r_read($q);
-		if(is_numeric($ids)){
-  		return '';
-		}
-		$out= '';
-		foreach($ids as $i){
-		  $out.= $i['post_id'].',';
-		}
-    return substr($out, 0, -1);
 	}
 	
 	/** GENERIC **/
@@ -319,8 +349,6 @@ class oPost
 	public static function comments($post_id, $type){
   	$out= dRead::comments($post_id, $type);
 	} 
-	
-	
 	
 		/** PRIVATE **/
 	/*private function privacy($privacy= false){

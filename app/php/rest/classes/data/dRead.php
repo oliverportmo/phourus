@@ -4,7 +4,7 @@ class dRead {
 	
 	/** CORE **/
 	public static function posts($params){
-		$q= uQueries::posts($params);	
+		$q= oPost::q($params);	
 		$result= new uResult();
 		$posts= $result->r_read($q);
 		if(is_numeric($posts)){
@@ -13,6 +13,15 @@ class dRead {
 		foreach($posts as $i){	
 			$out[]= oPost::get(array('id' => $i['id']));
 		}
+		return $out;
+	}
+	
+	public static function total($params){
+		$q= oPost::q($params);		
+		$result= new uResult();
+		$total= $result->r_single($q);
+		$out= array();
+		$out['total']= $total['COUNT(*)']; 
 		return $out;
 	}
 	

@@ -4,12 +4,12 @@ class uQueries {
 
   /** POSTS **/
   # STREAM
-	public static function posts($params){					
+	/*public static function posts($params){					
 		$params= oPost::params($params);
 		extract($params);
 		if(!isset($author)){ $author= ''; }
 		return "$mode $types $author $order $paging $users;";
-	}
+	}*/
 	
 	# META
 	public static function meta($params){		

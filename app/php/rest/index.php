@@ -87,8 +87,12 @@ function out($data){
 # === #  
 #######
 $app->get('/rest/post/:query', function($query) use ($get){
-	if(!$get){ $get= array('id' => $query);	}
-	$out= oPost::get($get);
+	if(isset($get['count'])){
+  	$out= oPost::total($get);
+	}else{
+  	if(!$get){ $get= array('id' => $query);	}
+  	$out= oPost::get($get);
+	}
 	out($out);
 });
 
