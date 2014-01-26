@@ -154,11 +154,15 @@ format_url: (input) ->
         posts = ['posts', 'checklist', 'calculator', 'matters', 'subjects', 'questions', 'answers', 'debates', 'bills', 'votes', 'beliefs', 'quotes', 'timeline']
         users = ['users', 'employees', 'executives', 'teachers', 'students', 'citizens', 'reps', 'leaders', 'members']
         
-        page = 'posts' if page in posts
-        page = 'users' if page in users
+        page = 'users' if page in users  
+        module = "js/modules/orgs/shared/" + page
         
-        require ["js/modules/orgs/shared/" + page], (view) ->
+        if page in posts
+          module = "js/modules/stream/views/stream"
+        
+        require [module], (view) ->
           v = new view(params)
+          v.render()
 
       page
       

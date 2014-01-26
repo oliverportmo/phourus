@@ -10,6 +10,18 @@ define ["jquery", "underscore", "backbone", "js/models/settings", "text!html/str
       "change #direction": "selected"
       "change #type": "create"
       "click ul#mode li a": "mode"
+      "click div.types input": "toggle"
+    
+    toggle: (e) ->
+      target = e.currentTarget.id
+      types = ""
+      $("div.types input:checked").each (index, value) ->
+        id = $(this).attr("id")
+        types += id + ";"
+        
+      console.log types
+      types = types.slice(0, types.length - 1)
+      mSettings.set "types", types
 
     create: (e) ->
       id = e.currentTarget.id

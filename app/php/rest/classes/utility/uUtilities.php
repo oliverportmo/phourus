@@ -72,30 +72,20 @@ class uUtilities
 	public function table($type)
 	{
 		$tables= array();	
-		$tables['blogs']= 'core_blogs';
-		$tables['ideas']= 'core_ideas';
-		$tables['links']= 'core_links';
-		$tables['events']= 'core_events';
-		
-		$tables['checklist']= 'earth_matters';
-		$tables['calculator']= 'earth_matters';
-		$tables['matters']= 'earth_matters';
-		$tables['stores']= 'earth_stores';
+		$tables['blogs']= 'earth_blogs';
+		$tables['events']= 'earth_events';
 		
 		$tables['subjects']= 'mind_subjects';
 		$tables['questions']= 'mind_questions';
 		$tables['answers']= 'mind_answers';
-		$tables['scores']= 'mind_scores';
 		
 		$tables['debates']= 'voice_debates';
 		$tables['bills']= 'voice_bills';
 		$tables['votes']= 'voice_votes';
-		$tables['budget']= 'voice_budget';
 		
 		$tables['beliefs']= 'self_beliefs';
 		$tables['quotes']= 'self_quotes';
 		$tables['timeline']= 'self_timeline';
-		$tables['ranks']= 'self_ranks';	
 		
 		$tables['stream']= 'app_stream';
 		

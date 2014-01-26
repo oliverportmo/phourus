@@ -7,12 +7,23 @@ define(["jquery", "underscore", "backbone", "js/modules/stream/views/filter", "j
     initialize: function() {
       _.bindAll(this);
       mSettings.bind("change", this.filter);
-      this.filter();
+      if (_.isUndefined(this.options.org)) {
+        mSettings.set("org_id", 0);
+      } else {
+        mSettings.set("org_id", this.options.org.id);
+      }
       return Backbone.Events.trigger("sidebar", 'default');
     },
     events: {
       "click #customize": "customize",
-      "click #advanced": "advanced"
+      "click #advanced": "advanced",
+      "click #search": "search"
+    },
+    search: function() {
+      var term;
+
+      term = $("#term").val();
+      return mSettings.set("search", term);
     },
     customize: function(e) {
       var hidden;
@@ -46,21 +57,14 @@ define(["jquery", "underscore", "backbone", "js/modules/stream/views/filter", "j
           var auth;
 
           $("#mask").hide();
-          if (response.status === 503) {
-            Backbone.Events.trigger("alert", {
-              type: "error",
-              message: "Stream could not be updated",
-              response: response,
-              location: "modules/stream/views/stream",
-              action: "filter"
-            });
-          }
-          if (response.status === 404) {
+          if (response.status === 404 || response.status === 503) {
             auth = _.isUndefined(mSession.get("id")) || _.isUndefined(mSession.get("user_id")) || mSession.get("user_id");
             if (auth === 0) {
               return $("#stream").html("<h2 style='text-align: center'>You must be logged-in to see posts from your friends, followers, and those following you.</h2>");
             } else {
-              return $("#stream").html(_.template(posts404, {}));
+              return $("#stream").html(_.template(posts404, {
+                auth: auth
+              }));
             }
           }
         }

@@ -175,16 +175,18 @@ define(["jquery", "backbone", "underscore", "js/collections/widgets"], function(
       } else {
         posts = ['posts', 'checklist', 'calculator', 'matters', 'subjects', 'questions', 'answers', 'debates', 'bills', 'votes', 'beliefs', 'quotes', 'timeline'];
         users = ['users', 'employees', 'executives', 'teachers', 'students', 'citizens', 'reps', 'leaders', 'members'];
-        if (__indexOf.call(posts, page) >= 0) {
-          page = 'posts';
-        }
         if (__indexOf.call(users, page) >= 0) {
           page = 'users';
         }
-        require(["js/modules/orgs/shared/" + page], function(view) {
+        module = "js/modules/orgs/shared/" + page;
+        if (__indexOf.call(posts, page) >= 0) {
+          module = "js/modules/stream/views/stream";
+        }
+        require([module], function(view) {
           var v;
 
-          return v = new view(params);
+          v = new view(params);
+          return v.render();
         });
       }
       return page;

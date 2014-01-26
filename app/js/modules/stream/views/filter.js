@@ -12,7 +12,23 @@ define(["jquery", "underscore", "backbone", "js/models/settings", "text!html/str
       "change #sort": "selected",
       "change #direction": "selected",
       "change #type": "create",
-      "click ul#mode li a": "mode"
+      "click ul#mode li a": "mode",
+      "click div.types input": "toggle"
+    },
+    toggle: function(e) {
+      var target, types;
+
+      target = e.currentTarget.id;
+      types = "";
+      $("div.types input:checked").each(function(index, value) {
+        var id;
+
+        id = $(this).attr("id");
+        return types += id + ";";
+      });
+      console.log(types);
+      types = types.slice(0, types.length - 1);
+      return mSettings.set("types", types);
     },
     create: function(e) {
       var id, value;

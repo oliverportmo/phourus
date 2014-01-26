@@ -2341,6 +2341,17 @@ nav ul li:hover ul {
   padding: 0px;
   margin: 0px;
 }
+.stream #filter div.types div {
+  float: left;
+  width: 10%;
+}
+.stream #filter div.types div label {
+  font-size: 0.8em;
+  font-weight: bold;
+}
+.stream #filter div.types div input {
+  width: 20px;
+}
 .stream #sort_by {
   float: right;
   width: 300px;

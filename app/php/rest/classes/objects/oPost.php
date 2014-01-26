@@ -23,19 +23,8 @@ class oPost
   		$out['post']= $post;
   		$out['stats']= $stats;
   		$out['user']= $user;
-		}else if(isset($params['org_id'])){
-  		$members= dRead::community(array('mode' => 'id', 'org_id' => $params['org_id']));
-  		$in= '';
-  		if(is_numeric($members)){
-    		return $members;
-  		}
-  		foreach($members as $member){
-  		  $in.= $member['id'].",";
-  		}
-  		$in= substr($in, 0, -1);
-  		$out= dRead::posts(array('mode' => 'phourus', 'users' => $in, 'types' => $params['types']));
-		}else{
-  		$out= dRead::posts($params);
+		}else{   		
+		  $out= dRead::posts($params);
 		}
 		return $out;	
 	}
@@ -63,37 +52,59 @@ class oPost
 		//types, page, limit, field, asc, mode, date
 		extract($params);
 		
-		$params= array();
-		$params['mode']= self::mode($mode);
-		$params['types']= self::types($types);
-		$params['order']= self::order($field, $asc);
-		$params['paging']= self::paging($page, $limit);		
+		//$ids= self::search($search);
+		$ids = '';
+		
+		$out= array();
+		$out['mode']= self::mode($params);
+		$out['types']= self::types($types);
+		$out['order']= self::order($field, $asc);
+		$out['paging']= self::paging($page, $limit);		
 		if($mode== 'user' && isset($author_id)){
-  		$params['author']= self::author($author_id);
-  		
+  		$out['author']= self::author($author_id);	
 		}
 		if(isset($users)){
-  		$params['users']= self::users($users);
+  		$out['users']= self::users($users);
 		}else{
-  		$params['users']= '';
+  		$out['users']= '';
 		}
 		//$params['when']= $this->when();				
-		return $params;
+		return $out;
 	}
 	
-  private function mode($mode){	
+  private function mode($params){	
 		/** EXCLUDE CURRENT USER **/
+		$mode = $params['mode'];
+		$search = $params['search'];
 		$auth_id= 0;
 		if(isset($GLOBALS['phourus_auth_id'])){
 		  $auth_id= $GLOBALS['phourus_auth_id'];
 		}
-		
-		$select= "SELECT id FROM app_posts WHERE user_id != '$auth_id'";
+				
+		if($search != ''){
+		  $ids = self::search($params);
+  		$search = "AND id IN($ids)";
+		}
+		$select= "SELECT id FROM app_posts WHERE user_id != '$auth_id' $search ";
 		$relationships= oUser::relationships($auth_id);
     extract($relationships);
 		if($following == ""){ $following= "'0'"; }
 		if($followers == ""){ $followers= "'0'"; }
 		if($friends == ""){ $friends= "'0'"; }
+		
+		$in= '';
+		if(isset($params['org_id']) && $params['org_id'] != 0){
+  		$members= dRead::community(array('mode' => 'id', 'org_id' => $params['org_id']));	
+  		if(is_numeric($members)){
+    		return $members;
+  		}
+  		foreach($members as $member){
+  		  $in.= $member['id'].",";
+  		}
+  		$in= substr($in, 0, -1);
+  		return "$select AND privacy IN('following', 'followers', 'friends', 'public') AND user_id IN($in)";
+    }
+
 		
 		switch($mode){
   		case 'phourus':
@@ -127,7 +138,7 @@ class oPost
   		  //WHERE post.user_id = $user_id
   		  //if($user_id = $GLOBALS['user_id']){}
   		  //$out= self::advanced(array('user_id', 'EQUALS', '1', ''));
-  		  return "SELECT id FROM app_posts WHERE user_id = '$auth_id'";  
+  		  return "SELECT id FROM app_posts WHERE app_posts.user_id = '$auth_id'";  
   		break;
   		default: 
   		  return "$select AND privacy = 'public'";
@@ -177,6 +188,56 @@ class oPost
   	return "AND user_id IN ($users)";
 	}
 	
+	private function search($params){
+    extract($params);
+    if($search == ''){
+      return '';
+    }
+    $trimmed = preg_replace('/\s\s+/', ' ', $search);
+    $s = str_replace(" ", "%", $trimmed);
+    
+    $exploded = explode(";", $types);
+    $q = '';
+    
+		foreach($exploded as $k => $v){
+		  $t= uUtilities::table($v); 
+		  // answers: no title, quotes: no title, votes: no title, bills: no title
+		  switch($v)
+		  {
+  		  case 'answers':
+  		  
+  		  break;
+  		  case 'bills':
+  		  
+  		  break;
+  		  case 'votes':
+  		  
+  		  break;
+  		  case 'quotes':
+  		  
+  		  break;
+  		  default:
+  		    $q.= "SELECT post_id FROM $t WHERE title LIKE '%$s%' OR content LIKE '%$s%' UNION ";
+  		  break;
+		  }
+		  
+		}
+		
+		$q = substr($q, 0, -7);
+		$q.= ';';
+		
+		$result= new uResult();
+		$ids= $result->r_read($q);
+		if(is_numeric($ids)){
+  		return '';
+		}
+		$out= '';
+		foreach($ids as $i){
+		  $out.= $i['post_id'].',';
+		}
+    return substr($out, 0, -1);
+	}
+	
 	/** GENERIC **/
 	private function selector(){
 		$selector= '*';
@@ -186,7 +247,7 @@ class oPost
 		}
 		return $selector;
 	}
-	
+		
 	private function advanced($input){
 		if(!is_array($input))
 		{
