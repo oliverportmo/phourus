@@ -7,10 +7,13 @@ define ["jquery", "underscore", "backbone", "text!html/orgs/shared/clout.html", 
       params.org_id = options.id
       @collection = new cClout(params)
       $("#mask").show()
+    
+    render: () ->
+      self = @
       @collection.fetch
         success: ->
           $("#mask").hide()
-          self.render()
+          self.display()
 
         error: (collection, response) ->
 	        $("#mask").hide()
@@ -19,7 +22,7 @@ define ["jquery", "underscore", "backbone", "text!html/orgs/shared/clout.html", 
 	        else
 	         Backbone.Events.trigger "alert", {type: "error", message: "Clout could not be loaded", response: response, location: "modules/orgs/shared/clout", action: "read"}
 
-    render: ->
+    display: ->
       data = @collection.models
       console.log data
       compiled = _.template(template, {data: data})

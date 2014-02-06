@@ -4,8 +4,7 @@ define(["jquery", "underscore", "backbone", "text!html/orgs/shared/social.html",
 
   widget = Backbone.View.extend({
     initialize: function(options) {
-      this.model = new mSocial;
-      return this.render();
+      return this.model = new mSocial;
     },
     render: function() {
       var compiled, data;

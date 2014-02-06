@@ -7,7 +7,6 @@ define(["jquery", "underscore", "backbone", "text!html/widgets/posts.html", "js/
       var self;
 
       self = this;
-      options.types = 'subjects;questions';
       this.collection = new cPosts(options);
       $("#mask").show();
       return this.collection.fetch({

@@ -9,11 +9,16 @@ define(["jquery", "underscore", "backbone", "text!html/orgs/shared/about.html", 
       this.options = options;
       self = this;
       this.model = new mOrg(options);
-      $("#mask").show();
+      return $("#mask").show();
+    },
+    render: function() {
+      var self;
+
+      self = this;
       return this.model.fetch({
         success: function() {
           $("#mask").hide();
-          return self.render();
+          return self.display();
         },
         error: function(collection, response) {
           $("#mask").hide();
@@ -27,7 +32,7 @@ define(["jquery", "underscore", "backbone", "text!html/orgs/shared/about.html", 
         }
       });
     },
-    render: function() {
+    display: function() {
       var compiled, data;
 
       data = this.options.org;

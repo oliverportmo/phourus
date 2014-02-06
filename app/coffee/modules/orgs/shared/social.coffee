@@ -3,7 +3,6 @@ define ["jquery", "underscore", "backbone", "text!html/orgs/shared/social.html",
 
     initialize: (options) ->  
       @model = new mSocial   
-      @render()
       
     render: ->
       data = @model.toJSON()

@@ -4,14 +4,17 @@ define ["jquery", "underscore", "backbone", "text!html/widgets/posts.html", "js/
     initialize: (options) ->
       self = @
       $("#mask").show()
-      options.id = options.id;
-      options.page = 1;
-      options.limit = 10;
-      @collection = new cReviews(options)
+      @options.id = options.id;
+      @options.page = 1;
+      @options.limit = 10;
+    
+    render: () ->
+      self = @
+      @collection = new cReviews(@options)
       @collection.fetch
         success: ->
           $("#mask").hide()
-          self.render()
+          self.display()
 
         error: (collection, response) ->
           $("#mask").hide()
@@ -20,8 +23,9 @@ define ["jquery", "underscore", "backbone", "text!html/widgets/posts.html", "js/
           else
             Backbone.Events.trigger "alert", {type: "error", message: "Reviews could not be loaded", response: response, location: "modules/orgs/shared/reviews", action: "read"}
           
-    render: ->
+    display: ->
       self = @
+      $(@el).html "<h2>Reviews</h2>"
       _.each @collection.models, (model) ->
         data = model.toJSON()
         $(self.el).append _.template(tReview, {review: data.review, pic: self.pic, user: data.user.user, format_date: self.format_date})

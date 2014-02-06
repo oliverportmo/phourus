@@ -6,16 +6,19 @@ define ["jquery", "underscore", "backbone", "text!html/orgs/shared/about.html", 
       self = @
       @model = new mOrg(options)
       $("#mask").show()
+    
+    render: () ->
+      self = @
       @model.fetch
         success: ->
           $("#mask").hide()
-          self.render()
+          self.display()
 
         error: (collection, response) ->
           $("#mask").hide()
           Backbone.Events.trigger "alert", {type: "error", message: "About page could not be loaded", response: response, location: "modules/orgs/shared/about", action: "read"}
       
-    render: ->
+    display: ->
       data = @options.org 
       compiled = _.template(template, {org: data.org, address: data.address[0], stats: data.stats})
       $(@el).append compiled

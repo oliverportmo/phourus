@@ -4,19 +4,24 @@ define(["jquery", "underscore", "backbone", "text!html/orgs/shared/posts.html", 
 
   widget = Backbone.View.extend({
     initialize: function(options) {
-      var params, self;
+      var self;
 
       self = this;
-      params = {};
-      params.org_id = options.id;
-      params.type = options.page.slice(0, -1);
-      params.mode = 'full';
-      $("#mask").show();
-      this.collection = new cCommunity(params);
+      this.params = {};
+      this.params.org_id = options.id;
+      this.params.type = options.page.slice(0, -1);
+      this.params.mode = 'full';
+      return $("#mask").show();
+    },
+    render: function() {
+      var self;
+
+      self = this;
+      this.collection = new cCommunity(this.params);
       return this.collection.fetch({
         success: function() {
           $("#mask").hide();
-          return self.render();
+          return self.display();
         },
         error: function(collection, response) {
           $("#mask").hide();
@@ -36,9 +41,10 @@ define(["jquery", "underscore", "backbone", "text!html/orgs/shared/posts.html", 
         }
       });
     },
-    render: function() {
+    display: function() {
       var compiled, l, self;
 
+      console.log('hey');
       self = this;
       l = this.collection.models.length;
       compiled = _.template(tUsers, '');
@@ -47,13 +53,15 @@ define(["jquery", "underscore", "backbone", "text!html/orgs/shared/posts.html", 
         $(self.el).append('<h3 style="text-align: center;margin: 0px; padding: 0px">No users were found based on your criteria</h3>');
       }
       _.each(this.collection.models, function(model) {
-        var user;
+        var o;
 
-        user = model.toJSON();
-        user.influence = 48;
+        o = model.toJSON();
         return self.$el.append(_.template(tUser, {
-          user: user,
-          pic: self.pic
+          user: o.user,
+          stats: o.stats,
+          address: o.address,
+          pic: self.pic,
+          format_date: self.format_date
         }));
       });
       return this.$el;

@@ -4,8 +4,7 @@ define(["jquery", "underscore", "backbone", "text!html/orgs/shared/events.html",
 
   widget = Backbone.View.extend({
     initialize: function(options) {
-      this.collection = cEvents;
-      return this.render();
+      return this.collection = cEvents;
     },
     render: function() {
       var compiled, data, editable, events, header;

@@ -3,7 +3,7 @@ define ["jquery", "underscore", "backbone", "text!html/widgets/posts.html", "js/
     
     initialize: (options) ->
       self = @
-      options.types = 'subjects;questions'
+      #options.types = 'subjects;questions'
       @collection = new cPosts(options)
       $("#mask").show()
       @collection.fetch

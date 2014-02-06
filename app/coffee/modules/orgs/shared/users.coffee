@@ -3,16 +3,19 @@ define ["jquery", "underscore", "backbone", "text!html/orgs/shared/posts.html", 
     
     initialize: (options) -> 
       self = @
-      params = {}
-      params.org_id = options.id
-      params.type = options.page.slice(0,-1)
-      params.mode = 'full' 
+      @params = {}
+      @params.org_id = options.id
+      @params.type = options.page.slice(0,-1)
+      @params.mode = 'full' 
       $("#mask").show()
-      @collection = new cCommunity(params)
+    
+    render: ->  
+      self = @
+      @collection = new cCommunity(@params)
       @collection.fetch
         success: ->
           $("#mask").hide()
-          self.render()
+          self.display()
 
         error: (collection, response) ->
           $("#mask").hide()
@@ -22,7 +25,8 @@ define ["jquery", "underscore", "backbone", "text!html/orgs/shared/posts.html", 
             Backbone.Events.trigger "alert", {type: "error", message: "Users could not be loaded", response: response, location: "modules/orgs/shared/users", action: "read"}
 
           
-    render: ->
+    display: ->
+      console.log 'hey'
       self = @
       l = @collection.models.length
       compiled = _.template(tUsers, '')
@@ -30,9 +34,8 @@ define ["jquery", "underscore", "backbone", "text!html/orgs/shared/posts.html", 
       if l is 0
         $(self.el).append '<h3 style="text-align: center;margin: 0px; padding: 0px">No users were found based on your criteria</h3>'
       _.each @collection.models, (model) ->
-        user = model.toJSON()
-        user.influence = 48
-        self.$el.append _.template(tUser, {user: user, pic: self.pic})
+        o = model.toJSON()
+        self.$el.append _.template(tUser, {user: o.user, stats: o.stats, address: o.address, pic: self.pic, format_date: self.format_date})
       @$el
   )
   widget

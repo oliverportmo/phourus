@@ -8,14 +8,19 @@ define(["jquery", "underscore", "backbone", "text!html/widgets/posts.html", "js/
 
       self = this;
       $("#mask").show();
-      options.id = options.id;
-      options.page = 1;
-      options.limit = 10;
-      this.collection = new cReviews(options);
+      this.options.id = options.id;
+      this.options.page = 1;
+      return this.options.limit = 10;
+    },
+    render: function() {
+      var self;
+
+      self = this;
+      this.collection = new cReviews(this.options);
       return this.collection.fetch({
         success: function() {
           $("#mask").hide();
-          return self.render();
+          return self.display();
         },
         error: function(collection, response) {
           $("#mask").hide();
@@ -35,10 +40,11 @@ define(["jquery", "underscore", "backbone", "text!html/widgets/posts.html", "js/
         }
       });
     },
-    render: function() {
+    display: function() {
       var self;
 
       self = this;
+      $(this.el).html("<h2>Reviews</h2>");
       _.each(this.collection.models, function(model) {
         var data;
 

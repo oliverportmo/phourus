@@ -5,7 +5,6 @@ define ["jquery", "underscore", "backbone", "text!html/orgs/shared/events.html",
     initialize: (options) ->
       #@collection = new cEvents
       @collection = cEvents
-      @render()
       
     render: ->
       data = {}

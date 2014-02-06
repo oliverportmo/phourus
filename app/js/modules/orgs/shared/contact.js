@@ -8,8 +8,7 @@ define(["jquery", "underscore", "backbone", "forms", "text!html/orgs/shared/cont
 
       self = this;
       this.options.id = 1;
-      console.log(options);
-      return this.render();
+      return console.log(options);
     },
     render: function() {
       var compiled, data;

@@ -5,7 +5,6 @@ define ["jquery", "underscore", "backbone", "forms", "text!html/orgs/shared/cont
       self = @
       @options.id = 1
       console.log options
-      @render()
 
     render: ->
       data = @options.org
