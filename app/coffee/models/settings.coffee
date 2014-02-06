@@ -9,6 +9,6 @@ define ["jquery", "underscore", "backbone"], ($, _, Backbone) ->
     search: ""
     page: 0
     limit: 10
-    types: "blogs;events;subjects;questions;answers;debates;bills;votes;beliefs;timeline;quotes"
+    types: "blogs;events;subjects;questions;debates;bills;beliefs;timeline;quotes"
   )
   new mSettings()
