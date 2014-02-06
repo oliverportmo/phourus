@@ -1,6 +1,17 @@
 /** STREAM **/
-.stream {
+.stream, #widgets {
 
+  button#search {
+    height: 49px;
+    margin: 0px;
+  }
+  
+  a#advanced {
+    img {
+      margin: -2px 0px 0px 5px;
+    }
+  }
+  
   #stream {      
     padding: 4px;
     margin: 0px;
@@ -34,34 +45,94 @@
   }
   
   #filter {
-    width: 860px; 
+    width: 98%;
     float: left;
+    background-color: #fafafa;
+    border: solid 1px #eee;
+    padding: 1%;
+    margin-bottom: 40px;
+    
+    h3 {
+      margin: 0px 0px 10px 0px;
+      padding: 0px;
+      font-style: italic;
+    }
     
     ul#mode {
       padding: 0px;
       margin: 0px;
+      width: 90%;
     }
     
     div.types {
+      width: 90%;
       div {
         float: left;
-        width: 10%;
+        width: 24%;
+        
+        span {
+          font-size: 1.1em;
+          border-bottom: solid 1px #eee;
+          display: block;
+        }
+        
         label {
           font-size: 0.8em;
-        font-weight: bold;
+          font-weight: bold;
+          display: block;
+          margin: 0px;
+          width: 40px;
         }
         
         input {
           width: 20px;
+          display: block;
+          margin: 0px;
+          padding: 0px;
         }
         
       }
     }
     
   }
+  
+  #paging {
+    margin-top: 20px;
+    font-size: 1.3em;
+    font-style: italic;
+    color: #444;
+    
+    a#prev, a#next {
+      display: block;
+      width: 25%;
+      float: left;
+      font-size: 1.3em;
+      color: @blue-dark;
+    }
+    
+    a#prev {
+      width: 25%;
+    }
+    
+    a#prev:hover, a#next:hover {
+      color: #555;
+    }
+    a#next {
+      text-align: right;
+    }
+    div.totals {
+      width: 20%;
+    }
+    div.viewing {
+      text-align: right;
+      width: 30%;
+    }
+    div {
+      float: left;
+    }
+  }
   #sort_by {
-    float: right;
-    width: 300px; 
+    float: right; 
     margin: 0px 0px 10px 0px; 
     padding: 0px;
     color: #777;

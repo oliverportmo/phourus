@@ -1,55 +1,57 @@
-<div id="sort_by">
-	Sort by: 
-    <select id="sort">
-        <option value="influence">Influence</option>
-        <option value="comments">Comments</option>
-        <option value="likes">Likes</option>
-        <option value="likes">Shares</option>
-    </select>
-    <select id="direction">
-        <option value="DESC">High to Low</option>
-        <option value="ASC">Low to High</option>
-    </select>
-	Distance: 
-    <select id="miles" style="width: 120px;">
-        <option value="likes">Any Miles</option>
-        <option value="influence">10 Miles</option>
-        <option value="comments">50 Miles</option>
-        <option value="likes">100 Miles</option>   
-    </select>
-    <input id="zip" maxlength="5" placeholder="zip" style="width: 100px; height: 20px" />
-</div>
-<div class="types">
-  <div>
-  <label>Blogs:</label> <input type="checkbox" checked id="blogs" /><br />
-  <label>Event:</label> <input type="checkbox" checked id="events" />
-  </div>
-  <div>
-  <label>Subjects:</label> <input type="checkbox" checked id="subjects" /><br />
-  <label>Questions:</label> <input type="checkbox" checked id="questions" />
-  </div>
-  <div>
-  <label>Debates:</label> <input type="checkbox" checked id="debates" /><br />
-  <label>Bills:</label> <input type="checkbox" checked id="bills" />
-  </div>
-  <div>
-  <label>Beliefs:</label> <input type="checkbox" checked id="beliefs" /><br />
-  <label>Quotes:</label> <input type="checkbox" checked id="quotes" />
+<h3>Advanced Settings</h3>
+<div style="width: 70%; float: left;">
+  <ul id="mode" class="tabs">
+      <li><a href="javascript: void(0)" id="phourus" class="selected">Phourus</a></li>
+      <li><a href="javascript: void(0)" id="friends">Friends</a></li>
+      <li><a href="javascript: void(0)" id="following">Following</a></li>
+      <li><a href="javascript: void(0)" id="followers">Followers</a></li>
+  </ul>
+  <br clear="left" /><br />
+  <div class="types">
+    <div>
+      <span>Earth</span>
+      <label>Blogs:</label><input type="checkbox" checked id="blogs" />
+      <label>Event:</label><input type="checkbox" checked id="events" />
+    </div>
+    <div>
+      <span>Mind</span>
+      <label>Subjects:</label> <input type="checkbox" checked id="subjects" />
+      <label>Questions:</label> <input type="checkbox" checked id="questions" />
+    </div>
+    <div>
+      <span>Voice</span>
+      <label>Debates:</label> <input type="checkbox" checked id="debates" />
+      <label>Bills:</label> <input type="checkbox" checked id="bills" />
+    </div>
+    <div>
+      <span>Self</span>
+      <label>Beliefs:</label> <input type="checkbox" checked id="beliefs" />
+      <label>Quotes:</label> <input type="checkbox" checked id="quotes" />
+    </div>
   </div>
 </div>
-<div class="clear"></div>
-<ul id="mode" class="tabs">
-    <li><a href="javascript: void(0)" id="phourus" class="selected">Phourus</a></li>
-    <li><a href="javascript: void(0)" id="friends">Friends</a></li>
-    <li><a href="javascript: void(0)" id="following">Following</a></li>
-    <li><a href="javascript: void(0)" id="followers">Followers</a></li>
-</ul>
-<br />
-<!--<ul id="scope" class="tabs">
+<div style="30%; float: left;">
+  <div id="sort_by">
+  	Sort by:<br />
+      <select id="sort">
+          <option value="influence">Influence</option>
+          <option value="comments">Comments</option>
+          <option value="thumbs">Thumbs</option>
+          <option value="views">Views</option>
+      </select>
+      <select id="direction">
+          <option value="DESC">High to Low</option>
+          <option value="ASC">Low to High</option>
+      </select>
+  </div>
+  <!--<div id="dates">
+  	<label for="start">Start:</label><select><option>January</option></select><select><option>1</option></select><select><option>2014</option></select>
+    End: <select><option>January</option></select><select><option>1</option></select><select><option>2015</option></select>
+  </div>-->
+  <!--<ul id="scope" class="tabs">
     <li><a href="javascript: void(0)" id="local" class="selected">Local</a></li>
     <li><a href="javascript: void(0)" id="state">Current</a></li>
     <li><a href="javascript: void(0)" id="national">National</a></li>
-</ul>
-<input type="date" />
-<input type="date" />-->
-<br clear="all" />
+    </ul>-->
+</div>
+<div class="clear"></div>

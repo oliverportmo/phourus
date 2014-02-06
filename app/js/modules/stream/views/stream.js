@@ -8,10 +8,16 @@ define(["jquery", "underscore", "backbone", "js/modules/stream/views/filter", "j
       _.bindAll(this);
       mSettings.bind("change", this.filter);
       if (_.isUndefined(this.options.org)) {
-        mSettings.set("org_id", 0);
+        mSettings.set({
+          "org_id": 0,
+          "mode": "phourus"
+        });
         this.filter();
       } else {
-        mSettings.set("org_id", this.options.org.id);
+        mSettings.set({
+          "org_id": this.options.org.id,
+          "mode": "org"
+        });
       }
       return Backbone.Events.trigger("sidebar", 'default');
     },
@@ -49,7 +55,7 @@ define(["jquery", "underscore", "backbone", "js/modules/stream/views/filter", "j
       total = new mTotal();
       return total.fetch({
         success: function(model, response) {
-          return $("div#paging span.totals").append(' out of ' + response.total + ' total');
+          return $("div#paging div.totals").html('&nbsp;out of <strong>' + response.total + '</strong> total');
         }
       });
     },
@@ -60,7 +66,7 @@ define(["jquery", "underscore", "backbone", "js/modules/stream/views/filter", "j
       limit = mSettings.get('limit');
       first = page * limit + 1;
       last = (page + 1) * limit;
-      return $("div#paging span.totals").html('Displaying posts ' + first + '-' + last);
+      return $("div#paging div.viewing").html('Displaying posts <strong>' + first + '-' + last + '</strong>');
     },
     customize: function(e) {
       var hidden;

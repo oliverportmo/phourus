@@ -6,10 +6,10 @@ define ["jquery", "underscore", "backbone", "js/modules/stream/views/filter", "j
 	      _.bindAll this
 	      mSettings.bind "change", @filter
 	      if _.isUndefined(@options.org)
-          mSettings.set("org_id", 0)
+          mSettings.set({"org_id": 0, "mode": "phourus"})  
           @filter()
         else
-          mSettings.set("org_id", @options.org.id)
+          mSettings.set({"org_id": @options.org.id, "mode": "org"})
 	      Backbone.Events.trigger "sidebar", 'default'
 	
 	    events:
@@ -36,14 +36,14 @@ define ["jquery", "underscore", "backbone", "js/modules/stream/views/filter", "j
         total = new mTotal()
         total.fetch
           success: (model, response)->
-            $("div#paging span.totals").append ' out of ' + response.total + ' total'    
+            $("div#paging div.totals").html '&nbsp;out of <strong>' + response.total + '</strong> total'    
         
       paging: ()->
         page = mSettings.get('page')
         limit = mSettings.get('limit')
         first = page*limit+1
         last = (page+1)*limit
-        $("div#paging span.totals").html 'Displaying posts ' + first + '-' + last
+        $("div#paging div.viewing").html 'Displaying posts <strong>' + first + '-' + last + '</strong>'
         
 	    customize: (e) ->
 	      hidden = (if $("#sidebar").css("display") is "none" then true else false)
