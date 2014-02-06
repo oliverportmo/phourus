@@ -1,18 +1,52 @@
-<a href="#profile/<%= user_id %>" id="<%= user_id%>" class="profile"><img src="/assets/pics/users/<%= user_id %>.png" onerror="this.src='/assets/pics/default.png'" height="120" /></a>
-<div id="welcome">David Cruz</strong>
-  <ul>
-    <li>
-      <a href="#gov/<%= user_id %>" id="<%= user_id %>">Sioux City, IA</a>
-    </li>
-    <li>
-      <a href="#user/<%= user_id %>" id="<%= user_id %>">My Account</a>
-    </li>
-    <li>
-      <a href="#!stream" class="me">My Posts</a>
-    </li>
-    <li>
-      <a href="javascript:void(0)" class="logout">Logout</a>
-    </li>
-  </ul>
-</div>
+<h3 class="user">David Cruz</h3>
+<a href="#profile/<%= user_id %>" id="<%= user_id%>" class="profile"><img src="/assets/pics/users/1.jpg" onerror="this.src='/assets/pics/default.png'" height="120" /></a>
+<ul id="user">
+  <li>
+    <a href="#gov/<%= user_id %>" id="<%= user_id %>">Sioux City, IA</a>
+  </li>
+  <li>
+    <a href="#user/<%= user_id %>" id="<%= user_id %>">My Account</a>
+  </li>
+  <li>
+    <a href="#!stream" class="me">My Posts</a>
+  </li>
+  <li>
+    <a href="javascript:void(0)" class="logout">Logout</a>
+  </li>
+</ul>
 <a href="#add/blogs" class="button blue">Create Post</a>
+<br clear="all" /><br />
+<h3 class="notifications">Notifications</h3>
+<ul id="notifications">
+  <li>
+    <a href="#!post/40">New Comment: </a>
+  </li>
+  <li>
+    <a href="#!post/65">New Comment: </a>
+  </li>
+  <li>
+    <a href="#!gov/3" class="me">New Thumb: </a>
+  </li>
+  <li>
+    <a href="#user/4" class="logout">New Favorite:</a>
+  </li>
+</ul>
+<a href="#notifications" class="button red">Notifications</a>
+<br clear="all" /><br />
+<h3 class="history">Browsing History</h3>
+<ul id="history">
+  <li>
+    <a href="#!post/40">Atheist vs. Agnostic?</a>
+  </li>
+  <li>
+    <a href="#!post/65">Alternative to stricter gun laws</a>
+  </li>
+  <li>
+    <a href="#!gov/3" class="me">State of Iowa</a>
+  </li>
+  <li>
+    <a href="#user/4" class="logout">Regina Wall</a>
+  </li>
+</ul>
+<a href="#history" class="button green">History</a>
+<br clear="all" /><br />

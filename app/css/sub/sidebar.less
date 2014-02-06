@@ -1,8 +1,7 @@
 /* SIDEBAR */
 #sidebar {
-  width: 16%;
   float: left;
-  text-align: right;
+  text-align: left;
   border-right: solid 2px #000;
   background-color: #2a2a2a;
   .box-shadow();
@@ -11,6 +10,12 @@
   padding-bottom: 5000px;
   color: #eee;
   font-size: 1em;
+  
+  .profile img {
+    margin-top: 10px;
+    border: solid 1px #aaa;
+    padding: 2px;  
+  }
   
   p {
     font-family: @century;
@@ -21,32 +26,49 @@
   img {
     border: none;
     cursor: pointer;
+    margin: 0px 0px 0px 10px;
   }
   /*border-right: solid 1px #ccc;*/
   h3 { 
     clear: both;
     font-size: 0.9em;
+    font-weight: normal;
+    font-family: @century;
     letter-spacing: 2px;
     background-color: #222;
     background-image: url('/assets/layout/texture.png');
     border-bottom: groove 2px #333;
-    margin: 0px;
-    padding: 10px 10px 10px 0px;
-    color: #777;
+    margin: 0px 0px 0px 0px;
+    padding: 12px 10px 10px 20px;
+    color: #eee;
+    text-transform: uppercase;
+    
     a {
       color: #ddd;
       font-size: 1em;
     }
   }
+  
+  h3.user, h3.notifications, h3.history {
+    background-position: left center;
+    background-repeat: no-repeat;
+  }
+  h3.user { background-image: url('/assets/icons/sidebar/user.png'); }
+  h3.history { background-image: url('/assets/icons/sidebar/history.png'); }
+  h3.notifications { background-image: url('/assets/icons/sidebar/notifications.png'); }
+  
   h3.collapsible { 
     cursor: pointer;  
   }
   a {
     font-size: 0.8em;
     letter-spacing: 2px;
-    color: #eee; 
+    color: #eee;
     text-decoration: none; 
     font-weight: normal;
+  }
+  ul li a:hover {
+    color: #f90 !important;
   }
   a:hover {
     color: #f90;
@@ -64,9 +86,32 @@
   a.link {
     width: 100px;
   }
+  ul {
+    margin-left: 10px;
+  }
+  
+  ul#user {
+    li a {
+      color: @blue-light;
+    }  
+  }
+  
+  ul#notifications {
+    li a {
+      color: @red-light;
+    }
+  }
+  
+  ul#history {
+    li a {
+      color: @green-light;
+    }
+  }
+  
   li {
     margin-bottom: 4px; 
     list-style: none;
+    border-bottom: solid 1px #444;
   }
   select {
   width: 180px;
@@ -76,7 +121,8 @@
   }
   
   .button {
-    float: right;
+    float: left;
+    margin: 10px 0px 0px 8px;
   }
   table {
     display: none;
