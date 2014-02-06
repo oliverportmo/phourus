@@ -24,8 +24,6 @@ define(["jquery", "underscore", "backbone", "text!html/header.html", "js/views/l
         $('nav#www').show();
       }
       options = {};
-      options.el = "#auth-header";
-      this.login = new vLogin(options);
       return compiled;
     }
   });

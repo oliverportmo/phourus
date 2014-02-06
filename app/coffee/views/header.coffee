@@ -21,8 +21,8 @@ define ["jquery", "underscore", "backbone", "text!html/header.html", "js/views/l
         #$('span#slogan').html('')      	
       
       options = {}
-      options.el = "#auth-header"
-      @login = new vLogin(options)
+      #options.el = "#auth-header"
+      #@login = new vLogin(options)
       compiled
   )
   view

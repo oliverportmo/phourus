@@ -1372,41 +1372,38 @@ div#footing {
   padding: 0px;
   border: none;
 }
+#content .orgs div#settings {
+  width: 20%;
+  float: left;
+}
+#content .orgs div#settings .zip {
+  height: 60px;
+  text-align: left;
+}
+#content .orgs div#settings .zip input {
+  width: 120px;
+  height: 28px;
+}
+#content .orgs div#settings .zip button {
+  width: 60px;
+  margin-top: 0px;
+}
+#content .orgs div#settings .or {
+  text-align: left;
+  font-size: 2em;
+  font-weight: bold;
+  margin: 20px 0px;
+}
+#content .orgs div#settings .state {
+  height: 60px;
+}
+#content .orgs div#settings .state select {
+  width: 160px;
+}
 #content .orgs span {
   font-family: Palatino, "Palatino Linotype", "Book Antiqua", serif;
   font-style: italic;
   font-size: 1.3em;
-}
-#content .orgs .zip {
-  float: left;
-  width: 45%;
-  height: 60px;
-  text-align: right;
-}
-#content .orgs .zip input {
-  width: 120px;
-  height: 28px;
-}
-#content .orgs .zip button {
-  width: 60px;
-  float: right;
-  margin-top: 0px;
-}
-#content .orgs .or {
-  float: left;
-  width: 8%;
-  text-align: center;
-  font-size: 2em;
-  font-weight: bold;
-  padding-top: 6px;
-}
-#content .orgs .state {
-  float: left;
-  width: 45%;
-  height: 60px;
-}
-#content .orgs .state select {
-  width: 160px;
 }
 #content .form select#types {
   width: 180px;
@@ -1427,6 +1424,9 @@ body.agency #sidebar h3 {
 div#gmap {
   height: 400px;
   border: solid 4px #777;
+  width: 75%;
+  float: left;
+  margin-right: 2%;
 }
 #footer {
   clear: both;
@@ -1715,29 +1715,24 @@ header {
   margin: 0px;
   padding: 0px;
   width: 100%;
-  height: 80px;
+  height: 100px;
   border-bottom: solid 1px #bbb;
   background-color: #fff;
 }
-header #inner {
-  margin: 0px 0px 0px 10px;
-  padding: 0px;
-  width: 100%;
-}
-header #inner #brand {
+header #brand {
   float: left;
-  width: 300px;
+  width: 40%;
   height: 80px;
 }
-header #inner #brand img {
+header #brand img {
   border: none;
 }
-header #inner #brand #slogan {
-  font-size: 0.7em;
+header #brand #slogan {
+  font-size: 0.6em;
   font-style: italic;
   letter-spacing: 1px;
-  margin-top: -30px;
-  margin-left: 60px;
+  margin-top: -36px;
+  margin-left: 70px;
   color: #777;
 }
 .home {
@@ -1787,6 +1782,7 @@ header #inner #brand #slogan {
 }
 .item {
   border-left: solid 10px #333;
+  margin-bottom: 20px !important;
 }
 .item:hover {
   border-left: solid 10px #6ac;
@@ -1799,7 +1795,7 @@ header #inner #brand #slogan {
 }
 .item,
 .heading {
-  margin: 0px 0px 20px 0px;
+  margin: 0px 0px 0px 0px;
   padding: 10px 10px 0px 10px;
   background-color: #f3f3f3;
   /** BOX **/
@@ -2059,27 +2055,28 @@ dl dd {
   ---------------------------------------------------*/
 /* NAV */
 nav {
-  clear: both;
+  float: left;
+  width: 60%;
   margin: 0px;
-  width: 100%;
-  height: 30px;
-  background-color: #f7f7f7;
-  border-bottom: solid 1px #ccc;
-  border-top: solid 1px #ddd;
+  height: 100%;
 }
 nav ul {
   padding: 0px 0px 0px 0px;
   margin: 0px auto;
   float: right;
+  width: 100%;
+  height: 100%;
 }
 nav ul li {
   list-style: none;
   padding: 0px;
   cursor: pointer;
   float: left;
+  width: 20%;
+  height: 100%;
 }
 nav ul li a {
-  padding: 4px 0px 0px 0px;
+  padding: 40px 0px 0px 0px;
   color: #777;
   font-size: 0.9em;
   letter-spacing: 2px;
@@ -2088,8 +2085,7 @@ nav ul li a {
   display: block;
   text-align: left;
   margin: 0px 0px 0px 0px;
-  height: 26px;
-  width: 120px;
+  height: 60px;
   text-align: center;
   font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, Verdana, sans-serif;
 }
@@ -2183,11 +2179,42 @@ nav ul li:hover ul {
     width: 30%;
   }
 }
+@media screen and (min-width: 1200px) {
+  #sidebar {
+    width: 15%;
+  }
+  #content {
+    width: 78%;
+  }
+}
+@media screen and (max-width: 1200px) {
+  #sidebar {
+    width: 19%;
+  }
+  #content {
+    width: 74%;
+  }
+}
+@media screen and (max-width: 1100px) {
+  #sidebar {
+    width: 20%;
+  }
+  #content {
+    width: 73%;
+  }
+}
+@media screen and (max-width: 960px) {
+  #sidebar {
+    width: 23%;
+  }
+  #content {
+    width: 70%;
+  }
+}
 /* SIDEBAR */
 #sidebar {
-  width: 16%;
   float: left;
-  text-align: right;
+  text-align: left;
   border-right: solid 2px #000;
   background-color: #2a2a2a;
   box-shadow: 0px 0px 8px #aaaaaa;
@@ -2201,6 +2228,11 @@ nav ul li:hover ul {
   /*border-right: solid 1px #ccc;*/
 
 }
+#sidebar .profile img {
+  margin-top: 10px;
+  border: solid 1px #aaa;
+  padding: 2px;
+}
 #sidebar p {
   font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, Verdana, sans-serif;
   font-size: 0.8em;
@@ -2209,21 +2241,40 @@ nav ul li:hover ul {
 #sidebar img {
   border: none;
   cursor: pointer;
+  margin: 0px 0px 0px 10px;
 }
 #sidebar h3 {
   clear: both;
   font-size: 0.9em;
+  font-weight: normal;
+  font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, Verdana, sans-serif;
   letter-spacing: 2px;
   background-color: #222;
   background-image: url('/assets/layout/texture.png');
   border-bottom: groove 2px #333;
-  margin: 0px;
-  padding: 10px 10px 10px 0px;
-  color: #777;
+  margin: 0px 0px 0px 0px;
+  padding: 12px 10px 10px 20px;
+  color: #eee;
+  text-transform: uppercase;
 }
 #sidebar h3 a {
   color: #ddd;
   font-size: 1em;
+}
+#sidebar h3.user,
+#sidebar h3.notifications,
+#sidebar h3.history {
+  background-position: left center;
+  background-repeat: no-repeat;
+}
+#sidebar h3.user {
+  background-image: url('/assets/icons/sidebar/user.png');
+}
+#sidebar h3.history {
+  background-image: url('/assets/icons/sidebar/history.png');
+}
+#sidebar h3.notifications {
+  background-image: url('/assets/icons/sidebar/notifications.png');
 }
 #sidebar h3.collapsible {
   cursor: pointer;
@@ -2234,6 +2285,9 @@ nav ul li:hover ul {
   color: #eee;
   text-decoration: none;
   font-weight: normal;
+}
+#sidebar ul li a:hover {
+  color: #f90 !important;
 }
 #sidebar a:hover {
   color: #f90;
@@ -2251,9 +2305,22 @@ nav ul li:hover ul {
 #sidebar a.link {
   width: 100px;
 }
+#sidebar ul {
+  margin-left: 10px;
+}
+#sidebar ul#user li a {
+  color: #72afc3;
+}
+#sidebar ul#notifications li a {
+  color: #d65e35;
+}
+#sidebar ul#history li a {
+  color: #a7c266;
+}
 #sidebar li {
   margin-bottom: 4px;
   list-style: none;
+  border-bottom: solid 1px #444;
 }
 #sidebar select {
   width: 180px;
@@ -2262,7 +2329,8 @@ nav ul li:hover ul {
   font-size: 1em;
 }
 #sidebar .button {
-  float: right;
+  float: left;
+  margin: 10px 0px 0px 8px;
 }
 #sidebar table {
   display: none;
@@ -2304,7 +2372,17 @@ nav ul li:hover ul {
   color: #f90;
 }
 /** STREAM **/
-.stream #stream {
+.stream button#search,
+#widgets button#search {
+  height: 49px;
+  margin: 0px;
+}
+.stream a#advanced img,
+#widgets a#advanced img {
+  margin: -2px 0px 0px 5px;
+}
+.stream #stream,
+#widgets #stream {
   padding: 4px;
   margin: 0px;
   /*background-color: #fafafa;
@@ -2312,49 +2390,130 @@ nav ul li:hover ul {
     .box_shadow;*/
 
 }
-.stream #stream p {
+.stream #stream p,
+#widgets #stream p {
   margin: 0px;
 }
-.stream #stream h3 {
+.stream #stream h3,
+#widgets #stream h3 {
   text-align: center;
 }
-.stream #create {
+.stream #create,
+#widgets #create {
   width: 300px;
   float: right;
   margin-top: -20px;
   width: 400px;
 }
-.stream #create select {
+.stream #create select,
+#widgets #create select {
   width: 200px;
   float: right;
   margin-top: 4px;
   height: 40px;
 }
-.stream #create .button {
+.stream #create .button,
+#widgets #create .button {
   float: right;
 }
-.stream #filter {
-  width: 860px;
+.stream #filter,
+#widgets #filter {
+  width: 98%;
   float: left;
+  background-color: #fafafa;
+  border: solid 1px #eee;
+  padding: 1%;
+  margin-bottom: 40px;
 }
-.stream #filter ul#mode {
+.stream #filter h3,
+#widgets #filter h3 {
+  margin: 0px 0px 10px 0px;
+  padding: 0px;
+  font-style: italic;
+}
+.stream #filter ul#mode,
+#widgets #filter ul#mode {
   padding: 0px;
   margin: 0px;
+  width: 90%;
 }
-.stream #filter div.types div {
+.stream #filter div.types,
+#widgets #filter div.types {
+  width: 90%;
+}
+.stream #filter div.types div,
+#widgets #filter div.types div {
   float: left;
-  width: 10%;
+  width: 24%;
 }
-.stream #filter div.types div label {
+.stream #filter div.types div span,
+#widgets #filter div.types div span {
+  font-size: 1.1em;
+  border-bottom: solid 1px #eee;
+  display: block;
+}
+.stream #filter div.types div label,
+#widgets #filter div.types div label {
   font-size: 0.8em;
   font-weight: bold;
+  display: block;
+  margin: 0px;
+  width: 40px;
 }
-.stream #filter div.types div input {
+.stream #filter div.types div input,
+#widgets #filter div.types div input {
   width: 20px;
+  display: block;
+  margin: 0px;
+  padding: 0px;
 }
-.stream #sort_by {
+.stream #paging,
+#widgets #paging {
+  margin-top: 20px;
+  font-size: 1.3em;
+  font-style: italic;
+  color: #444;
+}
+.stream #paging a#prev,
+#widgets #paging a#prev,
+.stream #paging a#next,
+#widgets #paging a#next {
+  display: block;
+  width: 25%;
+  float: left;
+  font-size: 1.3em;
+  color: #4f9db6;
+}
+.stream #paging a#prev,
+#widgets #paging a#prev {
+  width: 25%;
+}
+.stream #paging a#prev:hover,
+#widgets #paging a#prev:hover,
+.stream #paging a#next:hover,
+#widgets #paging a#next:hover {
+  color: #555;
+}
+.stream #paging a#next,
+#widgets #paging a#next {
+  text-align: right;
+}
+.stream #paging div.totals,
+#widgets #paging div.totals {
+  width: 20%;
+}
+.stream #paging div.viewing,
+#widgets #paging div.viewing {
+  text-align: right;
+  width: 30%;
+}
+.stream #paging div,
+#widgets #paging div {
+  float: left;
+}
+.stream #sort_by,
+#widgets #sort_by {
   float: right;
-  width: 300px;
   margin: 0px 0px 10px 0px;
   padding: 0px;
   color: #777;
@@ -2364,7 +2523,9 @@ nav ul li:hover ul {
   font-weight: normal;
 }
 .stream select#sort,
-.stream select#direction {
+#widgets select#sort,
+.stream select#direction,
+#widgets select#direction {
   width: 120px;
   font-size: 0.9em;
 }
@@ -2469,7 +2630,7 @@ h1 {
   font-weight: normal;
   font-family: Arial, Helvetica, Verdana, sans-serif;
   color: #444;
-  text-transform: capitalize;
+  text-transform: uppercase;
 }
 h1 a {
   text-decoration: none;
