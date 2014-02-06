@@ -5,28 +5,31 @@ class oPost
 	
 	# GET
 	public function get($params){
-		if(!isset($params['id'])){
-		  $out= dRead::posts($params);
-		}else{
-  		$meta= dRead::meta($params['id']);
-  		if(is_numeric($meta)){
-    		return $meta;
-  		}
-  		$post= dRead::post($meta['id'], $meta['type']);
-  		if(is_numeric($post)){
-    		return $post;
-  		}
-  		$user= oUser::get(array('id' => $meta['user_id']));
-  		$stats= oStats::stats(array('post_id' => $meta['id']));
-  		$address= dRead::address(array('user_id' => $meta['user_id']));
-  		
-  		$out= array();
-  		$out['meta']= $meta;
-  		$out['post']= $post;
-  		$out['stats']= $stats;
-  		$out['user']= $user;		  
+		if(isset($params['id'])){
+		  return self::single($params['id']);
 		}
-		return $out;	
+		return dRead::posts($params);	
+	}
+	
+	public function single($id){
+    $meta= dRead::meta($id);
+		if(is_numeric($meta)){
+  		return $meta;
+		}
+		$post= dRead::post($id, $meta['type']);
+		if(is_numeric($post)){
+  		return $post;
+		}
+		$user= oUser::get(array('id' => $meta['user_id']));
+		$stats= oStats::stats(array('post_id' => $id));
+		$address= dRead::address(array('user_id' => $meta['user_id']));
+		
+		$out= array();
+		$out['meta']= $meta;
+		$out['post']= $post;
+		$out['stats']= $stats;
+		$out['user']= $user;		  
+		return $out;
 	}
 	
 	# POST
@@ -55,47 +58,59 @@ class oPost
 		
 	/** PARAMS **/
 	static public function q($params){
-    $q = '';
+    // Selector
+    $selector= 'id, sort';    
     if($params['count']== true){
-      $q.= 'SELECT COUNT(*) FROM (';
+      $selector= 'COUNT(*)';  
     }
-    $p = self::params($params);
-    extract($p);
+    $q= "SELECT $selector FROM (";
+    
+    // Params
+    $privacy = self::privacy($params);
+    $when = self::when($params);
+    $paging = self::paging($params);
     $exploded = explode(";", $params['types']);
+    
+    // Query
 		foreach($exploded as $k => $v){
 		  $t= uUtilities::table($v); 
+  		
+  		// Search
   		$search = self::search($params['search'], $t); 
-  		$field = 'app_posts.id';
-  		$select = "SELECT $field FROM `app_posts`";
-  		$join = "INNER JOIN `$t` ON app_posts.id = $t.post_id";
+  		
+  		// Sorting
+  		$sort_field = "app_posts.influence AS sort";
+  		$sort_join = '';
+  		if($params['sort'] == 'comments' || $params['sort'] == 'thumbs' || $params['sort'] == 'views'){
+    		$sort = $params['sort'];
+    		$sort_field = "COUNT(app_$sort.id) AS sort";
+    		$sort_join = "LEFT JOIN `app_$sort` ON app_posts.id = app_$sort.post_id";
+  		}
+  		$fields = "app_posts.id AS id, $sort_field";
+  		
+  		// Select 
+  		$select = "SELECT $fields FROM `app_posts`";
+  		
+  		// Join
+  		$join = "INNER JOIN `$t` ON app_posts.id = $t.post_id $sort_join";
+  		
+  		// Query
   		$q.= "$select $join $privacy $search $when UNION "; 
 		}
+		// Remove last UNION
 		$q = substr($q, 0, -7);
-		// order requires field present in query
-		//$q.= $order." ";
-		if($params['count'] != true){
-  		$q.= $paging;
+		
+		// Closer
+		if($params['count'] == true){
+		  $closer= ') AS total';
 		}else{
-  		$q.= ') AS total'; 
-		}
+  		if($direction != 'ASC'){ $direction = 'DESC'; }
+  		$closer= ") AS x ORDER BY sort $direction $paging";
+		}	
+		$q.= $closer;
 		return $q;
 	}
-	
-	static public function params($params){
-		//types, page, limit, field, asc, mode, date, search
-		extract($params);
 		
-		$out= array();
-		$out['privacy']= self::privacy($mode);
-		// types() no longer needed?
-		//$out['types']= self::types($types);
-		// search is custom per table
-		$out['when']= self::when($params);
-		$out['order']= self::order($params);
-		$out['paging']= self::paging($params);	
-		return $out;
-	}
-	
 	private function search($search, $table){
     if($search == ''){
       return '';
@@ -124,76 +139,45 @@ class oPost
   		}
 	}
 	
-  private function privacy($mode){	
-		// Get current logged in user
-		$auth_id= 0;
-		if(isset($GLOBALS['phourus_auth_id'])){
-		  $auth_id= $GLOBALS['phourus_auth_id'];
-		  $exclude= "WHERE user_id != '$auth_id'";
+  private function privacy($params){	
+		$mode = $params['mode'];
+		switch($mode){
+		  case 'user':
+		    $user_id = $params['user_id'];
+		    return "WHERE app_posts.privacy = 'public' AND app_posts.user_id = '$user_id'";
+		  break;
+		  case 'org':
+		    $org_id = $params['org_id'];
+		    $members= dRead::community(array('mode' => 'id', 'org_id' => $org_id));
+		    if(is_numeric($members)){
+      		return $members;
+    		}
+    		foreach($members as $member){
+    		  $in.= $member['id'].",";
+    		}
+    		$in= substr($in, 0, -1);
+		    return "WHERE app_posts.privacy = 'public' AND app_posts.user_id IN($in)";
+		  break;
+		  case 'me':
+		    if(isset($GLOBALS['phourus_auth_id'])){
+  		    $auth_id= $GLOBALS['phourus_auth_id'];
+  		    return "WHERE app_posts.user_id = '$auth_id'";
+  		  }else{
+  		    return "WHERE app_posts.privacy = 'public'";
+  		  }
+		  break;
+		  default:
+		    return "WHERE app_posts.privacy = 'public'";
+		  break;
+		}
+		
+		/** ADVANCED **/
 		  /*$relationships= oUser::relationships($auth_id);
       extract($relationships);
   		if($following == ""){ $following= "'0'"; }
   		if($followers == ""){ $followers= "'0'"; }
-  		if($friends == ""){ $friends= "'0'"; }*/
-		}else{
-  		return "WHERE 1 = 1";
-		}		
-		
-		return $exclude;
-		/*
-		
-		if(isset($users)){
-  		$out['users']= self::users($users);
-  		private function users($users){
-	  $list= "";
-  	return "AND user_id IN ($users)";
-	}
-		if($search != ''){
-		  $ids = self::search($params);
-  		$search = "AND id IN($ids)";
-		}
-  		  //WHERE post.user_id = $user_id
-  		  //if($user_id = $GLOBALS['user_id']){}
-  		  //$out= self::advanced(array('user_id', 'EQUALS', '1', ''));
-  		  return "SELECT id FROM app_posts WHERE app_posts.user_id = '$auth_id'";  
-  		break;
-  		default: 
-  		  return "$select AND privacy = 'public'";
-  		break;
-    }
-		}else{
-  		$out['users']= '';
-		}
-		
-		
-		
-		
-		$in= '';
-		if(isset($params['org_id']) && $params['org_id'] != 0){
-  		$members= dRead::community(array('mode' => 'id', 'org_id' => $params['org_id']));	
-  		if(is_numeric($members)){
-    		return $members;
-  		}
-  		foreach($members as $member){
-  		  $in.= $member['id'].",";
-  		}
-  		$in= substr($in, 0, -1);
-  		return "$select AND privacy IN('following', 'followers', 'friends', 'public') AND user_id IN($in)";
-    }
-    
-    
-
-		switch($mode){
-  		case 'phourus':
-  		  // Should followers/following be included??
-  		  $exclude= '';
-  		  $merged= trim($following.$followers, ',');
-  		  if(count($merged) > 1){
-    		  $exclude= "AND user_id NOT IN($merged)";
-  		  }
-  		  return "$select AND privacy = 'public' $exclude";
-  		break;
-  		case 'following':	  
+  		if($friends == ""){ $friends= "'0'"; }
+		  case 'following':	  
   		  return "$select AND privacy IN('followers', 'public') AND user_id IN($following) AND user_id NOT IN($friends)";
   		break;
   		case 'followers':
@@ -202,54 +186,21 @@ class oPost
   		case 'friends':  
   		  return "$select AND privacy IN('following', 'followers', 'friends', 'public') AND user_id IN($friends)";
   		break;
-  		case 'user':
-  		  //WHERE post.user_id = $user_id AND post.privacy = 'public' OR post
-  		  //$out= self::advanced(array('user_id', 'EQUALS', '2', ''));
-  		  //$filter= 'public';
-  		  //if(isset($following) && $following== true){ $filter.= ",following"; }
-  		  //if(isset($follower) && $follower = true){ $filter.= ",followers"; }
-  		  //return "SELECT post_id FROM app_posts WHERE user_id = $user_id AND privacy IN();";
-  		  if(isset($author_id)){
-      		$out['author']= self::author($author_id);	
-    		}
-  		  return $select;
-  		break;
-  		case 'me':
-  		
-		private function author($author_id){
-	  $privacy= "'followers','following'";
-  	return "AND user_id = '$author_id' AND privacy IN('public'$privacy)";
-	}
-	
-	 */
-	}
-
-	private function types($types){
-		$formatted= str_replace(";", "','",  $types);
-		$string= "'$formatted'";
-		return "AND type IN($string) ";
+  		*/
 	}
 		
 	// When	
 	private function when($params){
-  	/*if(isset($params['date_start']) && isset($params['date_end']) && $params['date_start'] < $params['date_end']){
-    	return "AND app_posts.created BETWEEN $params['date_start'] AND $params['date_end']";
-  	}*/
   	return '';
-	}	
-	
-	// Order
-	private function order($params){
-		extract($params);
-		if($sort== null)
-		{
-			$sort = 'app_posts.influence';
-		}
-		if($direction== null)
-		{
-			$direction= 'DESC';	
-		}
-		return "ORDER BY $sort $direction";
+  	$out= '';
+  	extract($params);
+  	if(isset($date_start)){
+      $out.= "app_posts.created > $date_start"; 
+  	} 
+  	if(isset($date_end)){
+      $out.= "app_posts.created < $date_end";	
+  	}
+  	return $out;
 	}	
 	
 	//Paging
