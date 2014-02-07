@@ -108,7 +108,7 @@ define ["jquery", "underscore", "backbone"], ($) ->
         schema.email = _.extend(email, {editorAttrs: {'placeholder': 'your email address'}})
         
       element = {type: "Select", options: ["Earth", "Mind", "Voice", "Self"]}
-      privacy = {type: "Select", options: ["Public", "Phourus", "Friends", "Following", "Followers", "Private"]}
+      privacy = {type: "Select", options: ["Public", "Phourus", "Private"]}
       switch type
         
         when "blogs"
