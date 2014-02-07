@@ -1,4 +1,4 @@
-define ["jquery", "underscore", "backbone", "text!html/sidebar/default.html"], ($, _, Backbone, template) ->
+define ["jquery", "underscore", "backbone", "text!html/sidebar/default.html", "js/models/settings"], ($, _, Backbone, template, mSettings) ->
    
   view = Backbone.View.extend(
     el: "#sidebar"
@@ -6,7 +6,14 @@ define ["jquery", "underscore", "backbone", "text!html/sidebar/default.html"], (
     
     initialize: (options) ->
       @render()
-              
+    
+    events: 
+      "click .me": "me"
+    
+    me: () ->
+      console.log mSettings
+      mSettings.set("mode", "me")
+                
     render: ->
       data = {user_id: 1}
       compiled = _.template(template, data)

@@ -67,6 +67,7 @@ class oPost
     
     // Params
     $privacy = self::privacy($params);
+    $mode = self::mode($params);
     $when = self::when($params);
     $paging = self::paging($params);
     $exploded = explode(";", $params['types']);
@@ -95,7 +96,7 @@ class oPost
   		$join = "INNER JOIN `$t` ON app_posts.id = $t.post_id $sort_join";
   		
   		// Query
-  		$q.= "$select $join $privacy $search $when UNION "; 
+  		$q.= "$select $join $privacy $mode $search $when UNION "; 
 		}
 		// Remove last UNION
 		$q = substr($q, 0, -7);
@@ -140,11 +141,38 @@ class oPost
 	}
 	
   private function privacy($params){	
+		$auth_id = 0;
 		$mode = $params['mode'];
+		$privacy = "";
+		if(isset($GLOBALS['phourus_auth_id'])){
+  		$auth_id = $GLOBALS['phourus_auth_id'];
+  		$values= "'public','phourus'"; 
+  		if($mode == 'me'){
+    	  $values.= ",'private'";
+  		}
+		}else{
+  		$values = "'public'";
+		}	
+		$out = "WHERE app_posts.privacy IN($values)";
+		return $out;
+  }
+		
+  private function mode($params){
+    $mode = $params['mode'];
+    
+		if(isset($GLOBALS['phourus_auth_id'])){
+  		$auth_id = $GLOBALS['phourus_auth_id'];
+  		$relationships= oUser::relationships($auth_id, true);
+  		extract($relationships);
+    }
+		
 		switch($mode){
+		  case 'phourus':
+		    return "AND app_posts.user_id NOT IN(".$auth_id.",".$followers.",".$following.",".$friends.")";
+		  break;
 		  case 'user':
 		    $user_id = $params['user_id'];
-		    return "WHERE app_posts.privacy = 'public' AND app_posts.user_id = '$user_id'";
+		    return "AND app_posts.user_id = '$user_id'";
 		  break;
 		  case 'org':
 		    $org_id = $params['org_id'];
@@ -153,30 +181,33 @@ class oPost
       		return $members;
     		}
     		foreach($members as $member){
-    		  $in.= $member['id'].",";
+    		  $community.= $member['id'].",";
     		}
-    		$in= substr($in, 0, -1);
-		    return "WHERE app_posts.privacy = 'public' AND app_posts.user_id IN($in)";
+    		$community= substr($in, 0, -1);
+		    return "AND app_posts.user_id IN($community)";
+		  break;
+		  case 'fans':
+		    return "AND app_posts.user_id IN(".$followers.")";
+		  break;
+		  case 'favs':
+		    return "AND app_posts.user_id IN(".$following.")";
+		  break;
+		  case 'friends':
+		    return "AND app_posts.user_id IN(".$friends.")";
 		  break;
 		  case 'me':
-		    if(isset($GLOBALS['phourus_auth_id'])){
-  		    $auth_id= $GLOBALS['phourus_auth_id'];
-  		    return "WHERE app_posts.user_id = '$auth_id'";
-  		  }else{
-  		    return "WHERE app_posts.privacy = 'public'";
+		    if($auth_id != 0){
+  		    return "AND app_posts.user_id = '$auth_id'";
   		  }
+  		  return 401;
 		  break;
 		  default:
-		    return "WHERE app_posts.privacy = 'public'";
+		    return 400;
 		  break;
 		}
 		
 		/** ADVANCED **/
-		  /*$relationships= oUser::relationships($auth_id);
-      extract($relationships);
-  		if($following == ""){ $following= "'0'"; }
-  		if($followers == ""){ $followers= "'0'"; }
-  		if($friends == ""){ $friends= "'0'"; }
+		  /*
 		  case 'following':	  
   		  return "$select AND privacy IN('followers', 'public') AND user_id IN($following) AND user_id NOT IN($friends)";
   		break;

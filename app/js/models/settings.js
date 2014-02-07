@@ -4,16 +4,15 @@ define(["jquery", "underscore", "backbone"], function($, _, Backbone) {
 
   mSettings = Backbone.Model.extend({
     defaults: {
-      debug: false,
-      sort: "influence",
-      direction: "DESC",
-      type: "stream",
+      search: "",
+      types: "blogs;events;subjects;questions;debates;bills;beliefs;timeline;quotes",
       mode: "phourus",
       org_id: 0,
-      search: "",
+      user_id: 0,
+      sort: "influence",
+      direction: "DESC",
       page: 0,
-      limit: 10,
-      types: "blogs;events;subjects;questions;debates;bills;beliefs;timeline;quotes"
+      limit: 10
     }
   });
   return new mSettings();

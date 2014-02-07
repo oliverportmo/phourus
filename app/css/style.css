@@ -2372,10 +2372,19 @@ nav ul li:hover ul {
   color: #f90;
 }
 /** STREAM **/
+.stream input#term,
+#widgets input#term {
+  width: 40%;
+}
 .stream button#search,
 #widgets button#search {
   height: 49px;
   margin: 0px;
+  width: 15%;
+}
+.stream a#add,
+#widgets a#add {
+  width: 20%;
 }
 .stream a#advanced img,
 #widgets a#advanced img {

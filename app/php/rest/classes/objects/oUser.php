@@ -55,7 +55,7 @@ class oUser
 	}
 	
 	/** RELATIONSHIPS **/
-	public function relationships($id){
+	public function relationships($id, $quotes = false){
   	$out= array();
   	$out['followers']= array();
   	$out['following']= array();
@@ -86,21 +86,28 @@ class oUser
   	}else{
     	foreach($friends as $key => $value){
     	 $out['friends'][]= $value;
+    	 unset($out['following'][array_search($value, $out['following'])]);
+    	 unset($out['followers'][array_search($value, $out['followers'])]);
     	}
   	}
-  	$out= self::commas($out);
+  	$out= self::commas($out, $quotes);
   	return $out;
 	}
 	
 	/** COMMAS **/
-	private function commas($data){
+	private function commas($data, $quotes = false){
 	  $out= array();
 	  foreach($data as $key => $value){
   	  $temp= ''; 
   	  foreach($value as $k => $v){
-  	   $temp.= $v.",";
-  	  }
-  	  $out[$key]= trim($temp, ",");
+  	    if($quotes == true){
+    	    $temp.= "'$v',";
+  	    }else{
+    	    $temp.= "$v,";
+  	    }
+  	  }  
+  	  $trim= trim($temp, ",");
+  	  $out[$key]= $trim;
 	  }
   	return $out;
 	}
