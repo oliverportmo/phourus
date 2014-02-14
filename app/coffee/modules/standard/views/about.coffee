@@ -21,7 +21,6 @@ define ["jquery", "underscore", "backbone", "text!html/standard/about.html", "js
     render: ->
       Backbone.Events.trigger "sidebar", "hidden"
       data = mTypes.toJSON()
-      delete data[0]
 
       _.extend data, @viewHelpers
       html = _.template(template,

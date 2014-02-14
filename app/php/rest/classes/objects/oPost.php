@@ -160,6 +160,7 @@ class oPost
   private function mode($params){
     $mode = $params['mode'];
     
+    $auth_id = 0;
 		if(isset($GLOBALS['phourus_auth_id'])){
   		$auth_id = $GLOBALS['phourus_auth_id'];
   		$relationships= oUser::relationships($auth_id, true);
@@ -168,7 +169,10 @@ class oPost
 		
 		switch($mode){
 		  case 'phourus':
-		    return "AND app_posts.user_id NOT IN(".$auth_id.",".$followers.",".$following.",".$friends.")";
+		    if(isset($auth_id) && $auth_id > 0){
+  		    return "AND app_posts.user_id NOT IN(".$auth_id.",".$followers.",".$following.",".$friends.")";
+		    }
+		    return "";
 		  break;
 		  case 'user':
 		    $user_id = $params['user_id'];
@@ -183,7 +187,7 @@ class oPost
     		foreach($members as $member){
     		  $community.= $member['id'].",";
     		}
-    		$community= substr($in, 0, -1);
+    		$community= substr($community, 0, -1);
 		    return "AND app_posts.user_id IN($community)";
 		  break;
 		  case 'fans':
