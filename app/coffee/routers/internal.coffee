@@ -6,21 +6,35 @@ define ["jquery", "underscore", "backbone", "marionette"], ($, _, Backbone, mari
       @bind 'route', @track
     
     appRoutes:
-      "internal": "home"
-      
+      "contacts/:page": "contacts"
+      "finance/:page": "finance"
+      "more/:page": "more"
   )
+  
   controller =
-    home: ->
+    contacts: (page) ->
       self = this
-      params = mode: "stream"
-      require ["js/modules/internal/views/home"], (view) ->
+      params = {}
+      require ["js/modules/internal/views/contacts/" + page], (view) ->
         self.toss view, params
 
+    finance: (page) ->
+      self = this
+      params = {}
+      require ["js/modules/internal/views/finance/" + page], (view) ->
+        self.toss view, params
+        
+    more: (page) ->
+      self = this
+      params = {}
+      require ["js/modules/internal/views/more/" + page], (view) ->
+        self.toss view, params
+        
     toss: (view, params) ->
       data =
         view: view
         params: params
-        id: "stream"
+        id: "internal"
 
       Backbone.Events.trigger "module", data, this
 

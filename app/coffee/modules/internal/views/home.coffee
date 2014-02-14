@@ -1,6 +1,6 @@
 define ["jquery", "underscore", "backbone", "text!html/internal/home.html"], ($, _, Backbone, template) ->
   view = Backbone.View.extend(
-    el: "#internal"
+    className: "home"
     
     initialize: (options) ->
       @render(options)

@@ -3,7 +3,7 @@ define(["jquery", "underscore", "backbone", "text!html/internal/home.html"], fun
   var view;
 
   view = Backbone.View.extend({
-    el: "#internal",
+    className: "home",
     initialize: function(options) {
       return this.render(options);
     },

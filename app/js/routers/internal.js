@@ -8,18 +8,36 @@ define(["jquery", "underscore", "backbone", "marionette"], function($, _, Backbo
       return this.bind('route', this.track);
     },
     appRoutes: {
-      "internal": "home"
+      "contacts/:page": "contacts",
+      "finance/:page": "finance",
+      "more/:page": "more"
     }
   });
   controller = {
-    home: function() {
+    contacts: function(page) {
       var params, self;
 
       self = this;
-      params = {
-        mode: "stream"
-      };
-      return require(["js/modules/internal/views/home"], function(view) {
+      params = {};
+      return require(["js/modules/internal/views/contacts/" + page], function(view) {
+        return self.toss(view, params);
+      });
+    },
+    finance: function(page) {
+      var params, self;
+
+      self = this;
+      params = {};
+      return require(["js/modules/internal/views/finance/" + page], function(view) {
+        return self.toss(view, params);
+      });
+    },
+    more: function(page) {
+      var params, self;
+
+      self = this;
+      params = {};
+      return require(["js/modules/internal/views/more/" + page], function(view) {
         return self.toss(view, params);
       });
     },
@@ -29,7 +47,7 @@ define(["jquery", "underscore", "backbone", "marionette"], function($, _, Backbo
       data = {
         view: view,
         params: params,
-        id: "stream"
+        id: "internal"
       };
       return Backbone.Events.trigger("module", data, this);
     }
