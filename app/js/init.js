@@ -120,7 +120,9 @@ define("init", function(require) {
       }
     });
   });
-  app.on("initialize:before", function(options) {});
+  app.on("initialize:before", function(options) {
+    return mSession.local();
+  });
   app.on("initialize:after", function(options) {
     var host, internal, orgs, pages, parts, standard, stream, subdomain, vFooter, vHeader, vSidebar;
 
@@ -148,7 +150,6 @@ define("init", function(require) {
     app.footer = new vFooter();
     Backbone.history = Backbone.history || new Backbone.History({});
     Backbone.history.start();
-    mSession.local();
     /* VIEW TRACKING
     */
 

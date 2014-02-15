@@ -11,6 +11,13 @@ define(["jquery", "underscore", "backbone", "storage"], function($, _, Backbone,
       Backbone._sync = Backbone.sync;
       return this.on("change", this.update);
     },
+    auth: function() {
+      if (_.isUndefined(this.get("id")) || _.isUndefined(this.get("user_id")) || _.isEmpty(this.attributes)) {
+        return false;
+      } else {
+        return this.get("user_id");
+      }
+    },
     local: function() {
       var data;
 

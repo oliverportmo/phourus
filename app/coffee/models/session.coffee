@@ -8,7 +8,13 @@ define ["jquery", "underscore", "backbone", "storage"], ($, _, Backbone, storage
     initialize: () ->
       Backbone._sync = Backbone.sync
       @.on "change", @update
-      
+    
+    auth: () ->
+      if _.isUndefined(@get("id")) or _.isUndefined(@get("user_id")) or _.isEmpty(@.attributes)
+        false
+      else
+        @get("user_id")
+       
     # Local (Called after event listener set on init.coffee)
     local: () ->
       unless _.isNull(localStorage.getItem("session"))

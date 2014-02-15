@@ -6,7 +6,7 @@ define ["jquery", "underscore", "backbone", "marionette"], ($, _, Backbone, mari
       @bind 'route', @track
       
     appRoutes:
-      "": "about"
+      "": "homepage"
       "!home": "homepage"
       "!about": "about"
       #"!help": "help"

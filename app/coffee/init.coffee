@@ -111,7 +111,7 @@ define "init", (require) ->
   
   # BEFORE
   app.on "initialize:before", (options) ->
-
+    mSession.local()
     #Backbone.emulateHTTP = true
 
 
@@ -143,7 +143,6 @@ define "init", (require) ->
     # Backbone History
     Backbone.history = Backbone.history or new Backbone.History({})
     Backbone.history.start()
-    mSession.local()
     
     ### VIEW TRACKING ###
     window.onhashchange = ()->
