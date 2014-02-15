@@ -1,6 +1,7 @@
+<h3><%= post.title %></h3>
 <div class="pic">
 	<a href="#user/<%= user.id %>">
-		<img src="<%= pic('users', user.id, user.img) %>" onerror="this.src='/assets/pics/default.png'" width="100" />
+		<img src="<%= pic('users', user.id, user.img) %>" onerror="this.src='/assets/pics/default.png'" height="80" />
 	</a>
 </div>
 <div class="box">
@@ -28,14 +29,14 @@
   </ul> 
 </div>	
 <div class="influence">
-	Influence:<br />
-	<span style="font-size: 48px;"><%= meta.influence %></span>
+	<div class="label">Post Influence:</div>
+	<span class="value"><%= meta.influence %></span>
 </div>
-<div class="clear"></div>
-<ul class="meta" id="stats">
-	<li><strong>Views:</strong> <%= stats.views %></li> 
-	<li><strong>Comments:</strong> <%= stats.comments %></li>
-	<li><strong>Thumbs:</strong> <%= stats.thumbs %></li>
-	<li><strong>Popularity:</strong> <%= stats.popularity %>%</li>
-</ul> 
-<div class="clear"></div>
+<div class="social">
+  <ul>
+  	<li><strong>Views:</strong> <%= stats.views %></li> 
+  	<li><strong>Comments:</strong> <%= stats.comments %></li>
+  	<li><strong>Thumbs:</strong> <%= stats.thumbs %></li>
+  	<li><strong>Popularity:</strong> <%= stats.popularity %>%</li>
+  </ul> 
+</div>

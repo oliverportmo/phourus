@@ -1,40 +1,34 @@
 <h3><%= org.name %></h3>
-<div class="details">
-  <img src="<%= pic('orgs', org.id, org.img) %>" onerror="this.src='/assets/pics/default.png'" width="80" style="display: block;float:left;" />
-	<div class="box">
-		<dl>
-		  <% if(org['type'] === 'gov'){ %><dt>Population:</dt><% } %>
-		  <% if(org['type'] === 'company'){ %><dt>Employees:</dt><% } %>
-		  <% if(org['type'] === 'school'){ %><dt>Students & Faculty:</dt><% } %>
-		  <% if(org['type'] === 'group'){ %><dt>Members:</dt><% } %>
-			<dd><%= org.people %></dd>
-			<dt>Users:</dt>
-			<dd><%= stats.members %></dd>
-			<dt>Pending:</dt>
-			<dd><%= stats.pending %></dd>
-		</dl>	
-	</div>
-	<div class="box">
-		<dl>
-			<dt>Total Posts:</dt>
-			<dd><%= stats.posts %></dd>
-			<dt>Avg Post:</dt>
-			<dd><%= stats.avg_post %></dd>
-			<dt>Avg User:</dt>
-			<dd><%= stats.avg_user %></dd>
-		</dl>	
-	</div>
-	<div class="box">
-		<dl>
-			<dt>Views:</dt>
-			<dd><%= stats.views %></dd>
-			<dt>Thumbs:</dt>
-			<dd><%= stats.thumbs %></dd>
-			<dt>Comments:</dt>
-			<dd><%= stats.comments %></dd>
-			<dt>Follows:</dt>
-			<dd><%= stats.follows %></dd>
-		</dl>	
-	</div>
-	<br clear="all" />
+<div class="pic">
+  <img src="<%= pic('orgs', org.id, org.img) %>" onerror="this.src='/assets/pics/default.png'" height="80" />
+</div>
+<div class="box">
+	<ul>
+	  <% if(org['type'] === 'gov'){ %><li><strong>Population:</strong><% } %>
+	  <% if(org['type'] === 'company'){ %><li><strong>Employees:</strong><% } %>
+	  <% if(org['type'] === 'school'){ %><li><strong>Students & Faculty:</strong><% } %>
+	  <% if(org['type'] === 'group'){ %><li><strong>Members:</strong><% } %>
+		<%= org.people %></li>
+		<li><strong>Users:</strong> <%= stats.members %></li>
+		<li><strong>Pending:</strong> <%= stats.pending %></li>
+	</ul>	
+</div>
+<div class="box">
+	<ul>
+		<li><strong>Total Posts:</strong> <%= stats.posts %></li>
+		<li><strong>Avg Post:</strong> <%= stats.avg_post %></li>
+		<li><strong>Avg User:</strong> <%= stats.avg_user %></li>
+	</ul>	
+</div>
+<div class="influence">
+	<div class="label">Org Influence:</div>
+	<span class="value"><%= org.influence %></span>	
+</div>
+<div class="social">
+	<ul>
+		<li><strong>Views:</strong> <%= stats.views %></li>
+		<li><strong>Comments:</strong> <%= stats.comments %></li>
+		<li><strong>Fans:</strong> <%= stats.follows %></li>
+		<li><strong>Thumbs:</strong> <%= stats.thumbs %></li>
+	</dl>	
 </div>

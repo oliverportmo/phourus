@@ -142,17 +142,6 @@
   margin: 0px;
   padding: 0px;
 }
-.about #what,
-.about #why {
-  width: 400px;
-  float: left;
-  text-align: center;
-  margin-right: 40px;
-}
-.about #what p,
-.about #why p {
-  width: inherit;
-}
 .about .term {
   font-style: normal;
   color: #111;
@@ -1383,16 +1372,20 @@ div#footing {
 #content .orgs div#settings .zip input {
   width: 120px;
   height: 28px;
+  float: left;
 }
 #content .orgs div#settings .zip button {
   width: 60px;
   margin-top: 0px;
+  float: left;
 }
 #content .orgs div#settings .or {
+  font-family: Palatino, "Palatino Linotype", "Book Antiqua", serif;
   text-align: left;
   font-size: 2em;
   font-weight: bold;
   margin: 20px 0px;
+  font-style: italic;
 }
 #content .orgs div#settings .state {
   height: 60px;
@@ -1401,8 +1394,6 @@ div#footing {
   width: 160px;
 }
 #content .orgs span {
-  font-family: Palatino, "Palatino Linotype", "Book Antiqua", serif;
-  font-style: italic;
   font-size: 1.3em;
 }
 #content .form select#types {
@@ -1738,11 +1729,40 @@ header #brand #slogan {
 .home {
   margin-top: 40px;
 }
+.home #hook {
+  margin: auto;
+  width: 880px;
+}
+.home #hook #what,
+.home #hook #why {
+  width: 400px;
+  float: left;
+  text-align: center;
+  margin-right: 40px;
+}
+.home #hook #what h3,
+.home #hook #why h3 {
+  font-family: Palatino, "Palatino Linotype", "Book Antiqua", serif;
+  border-bottom: dotted 1px #333;
+}
+.home #hook #what p,
+.home #hook #why p {
+  width: inherit;
+}
+.home #hook .icons {
+  width: 460px;
+  margin: auto;
+}
 .home h1 {
   text-align: center;
   font-size: 2.2em;
 }
-.home h1 a {
+.home h4 {
+  text-align: center !important;
+  font-size: 1.2em;
+  font-style: italic;
+}
+.home h4 a {
   color: #72afc3;
 }
 .home img {
@@ -1783,6 +1803,7 @@ header #brand #slogan {
 .item {
   border-left: solid 10px #333;
   margin-bottom: 20px !important;
+  height: 160px;
 }
 .item:hover {
   border-left: solid 10px #6ac;
@@ -1792,6 +1813,13 @@ header #brand #slogan {
 }
 .heading {
   border-bottom: solid 10px #333;
+  height: 160px;
+}
+#stream .item {
+  height: 240px;
+}
+.orgs .item {
+  height: 190px;
 }
 .item,
 .heading {
@@ -1826,14 +1854,16 @@ header #brand #slogan {
 .item .box,
 .heading .box {
   float: left;
-  width: 220px;
+  width: 30%;
+  font-size: 0.9em;
+  font-family: Palatino, "Palatino Linotype", "Book Antiqua", serif;
 }
 .item .pic,
 .heading .pic {
   float: left;
-  margin: 10px 30px 10px 0px;
-  width: 120px;
-  text-align: center;
+  margin: 0px 2% 10px 0px;
+  width: 20%;
+  text-align: left;
 }
 .item .pic img,
 .heading .pic img {
@@ -1871,10 +1901,11 @@ header #brand #slogan {
 .heading .type span.label {
   display: block;
   margin-top: 2px;
-  font-size: 0.9em;
+  font-size: 0.8em;
   font-weight: bold;
   text-transform: uppercase;
   text-align: left;
+  height: 24px;
 }
 .item a.username,
 .heading a.username {
@@ -1899,9 +1930,20 @@ header #brand #slogan {
 .item .influence,
 .heading .influence {
   float: right;
-  width: 200px;
+  width: 18%;
   text-align: center;
   font-size: 1.1em;
+}
+.item .influence .label,
+.heading .influence .label {
+  font-size: 1em;
+  font-style: italic;
+  margin-bottom: 10px;
+  font-family: Palatino, "Palatino Linotype", "Book Antiqua", serif;
+}
+.item .influence .value,
+.heading .influence .value {
+  font-size: 3em;
 }
 .item .comment,
 .heading .comment {
@@ -1949,6 +1991,20 @@ header #brand #slogan {
 }
 .item ul.meta li,
 .heading ul.meta li {
+  display: inline;
+  margin-right: 20px;
+}
+.item div.social,
+.heading div.social {
+  font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, Verdana, sans-serif;
+  font-size: 0.9em;
+  letter-spacing: 2px;
+  width: 100%;
+  border-top: solid 1px #ccc;
+  clear: both;
+}
+.item div.social ul li,
+.heading div.social ul li {
   display: inline;
   margin-right: 20px;
 }
@@ -2088,6 +2144,7 @@ nav ul li a {
   height: 60px;
   text-align: center;
   font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, Verdana, sans-serif;
+  border-bottom: solid 4px;
 }
 nav ul li a:hover {
   font-weight: bold;
@@ -2104,6 +2161,18 @@ nav ul li a.schools:hover {
 }
 nav ul li a.groups:hover {
   background-color: #ffeeda;
+}
+nav ul li a.companies {
+  border-color: #a7c266;
+}
+nav ul li a.govs {
+  border-color: #d65e35;
+}
+nav ul li a.schools {
+  border-color: #72afc3;
+}
+nav ul li a.groups {
+  border-color: #f90;
 }
 nav ul li a:hover {
   background-color: #eee;
@@ -2130,6 +2199,11 @@ nav ul li:hover ul {
   display: block;
 }
 /** POST **/
+.post .type {
+  font-size: 1.5em;
+  text-transform: uppercase;
+  padding-top: 10px;
+}
 .post h1 {
   font-size: 1.8em;
   font-weight: normal;
@@ -2209,6 +2283,44 @@ nav ul li:hover ul {
   }
   #content {
     width: 70%;
+  }
+}
+@media screen and (max-width: 800px) {
+  #sidebar {
+    width: 100%;
+    float: none;
+    margin-bottom: 10px !important;
+    padding-bottom: 0px !important;
+  }
+  #sidebar div {
+    float: left;
+    width: 33%;
+  }
+  #sidebar div img {
+    display: none;
+  }
+  #content {
+    width: 93%;
+    float: none;
+  }
+  #header {
+    height: 80px;
+  }
+  #header img {
+    height: 50px;
+  }
+  #header #brand {
+    width: 35% !important;
+  }
+  #header #slogan {
+    margin-top: -30px !important;
+    margin-left: 50px !important;
+  }
+  #header nav {
+    width: 65% !important;
+  }
+  #header nav ul li a {
+    padding-top: 30px;
   }
 }
 /* SIDEBAR */
@@ -2321,6 +2433,8 @@ nav ul li:hover ul {
   margin-bottom: 4px;
   list-style: none;
   border-bottom: solid 1px #444;
+  height: 30px;
+  overflow: hidden;
 }
 #sidebar select {
   width: 180px;

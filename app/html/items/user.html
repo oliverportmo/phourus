@@ -1,14 +1,7 @@
 <div class="item">
   <div class="pic">
-    <a href="#user/<%= user.id %>"><img src="<%= pic('users', user.id, user.img) %>" width="100"></a>
-  	<a href="#user/<%= user.id %>" class="username"><%= user.username %> (<%= user.influence %>)</a>
+    <a href="#user/<%= user.id %>"><img src="<%= pic('users', user.id, user.img) %>" height="100"></a>
   </div>
-	<div class="influence">
-		<span style="color:#777; font-size: 14px;">Influence</span>
-		<br>
-		<span style="font-size: 48px;"><%= user.influence %></span>
-		<br>
-	</div>
 	<div class="box">
   	<ul class="user">
   	  <li><strong><%= user.first %> <% if(!_.isUndefined(user.last)) { %><%= user.last.slice(0, 1) %><% } %>.</strong></li>
@@ -22,11 +15,16 @@
   	  <% if(user.created !== '0000-00-00 00:00:00'){ %><li class="created"><%= format_date(user.created, 'relative') %></li><% } %>
   	</ul>	
 	</div>
-  <ul class="meta">
-		<li class="views"><strong>Views:</strong> <%= stats.views %></li>
-		<li class="comments"><strong>Comments:</strong> <%= stats.comments %></li>
-		<li class="thumbs"><strong>Thumbs:</strong> <%= stats.thumbs %></li>
-		<li class="popularity"><strong>Popularity:</strong> <%= stats.popularity %>%</li>
-	</ul>
-	<br clear="all" />
+	<div class="influence">
+  	<div class="label">Influence:</div>
+  	<span class="value"><%= user.influence %></span>
+  </div>
+	<div class="social">
+    <ul>
+  		<li class="views"><strong>Views:</strong> <%= stats.views %></li>
+  		<li class="comments"><strong>Comments:</strong> <%= stats.comments %></li>
+  		<li class="thumbs"><strong>Thumbs:</strong> <%= stats.thumbs %></li>
+  		<li class="popularity"><strong>Popularity:</strong> <%= stats.popularity %>%</li>
+  	</ul>
+	</div>
 </div>

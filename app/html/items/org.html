@@ -2,7 +2,7 @@
 	<h3><a href="#!<%= org.type %>/<%= org.id %>" class="<%= org.type %>"><%= org.name %></a></h3>	
 	<div class="pic">
 		<a href="#!<%= org.type %>/<%= org.id %>" class="<%= org.type %>">
-  	  <img src="<%= pic('orgs', org.id, org.img) %>" width="120" onerror="this.src='/assets/pics/default.png'" />	
+  	  <img src="<%= pic('orgs', org.id, org.img) %>" height="100" onerror="this.src='/assets/pics/default.png'" />	
 		</a>
 	</div>
 	<div class="box">
@@ -28,17 +28,16 @@
 			<dd><%= stats.avg_user %></dd>
 		</dl>	
 	</div>
-	<div class="box">
-		<dl>
-			<dt>Views:</dt>
-			<dd><%= stats.views %></dd>
-			<dt>Thumbs:</dt>
-			<dd><%= stats.thumbs %></dd>
-			<dt>Comments:</dt>
-			<dd><%= stats.comments %></dd>
-			<dt>Follows:</dt>
-			<dd><%= stats.follows %></dd>
-		</dl>	
+	<div class="influence">
+  	<div class="label">Influence:</div>
+  	<span class="value"><%= org.influence %></span>
+  </div>
+	<div class="social">
+		<ul>
+			<li><strong>Views:</strong> <%= stats.views %></li>
+			<li><strong>Thumbs:</strong> <%= stats.thumbs %></li>
+			<li><strong>Comments:</strong> <%= stats.comments %></li>
+			<li><strong>Follows:</strong> <%= stats.follows %></li>
+		</ul>	
 	</div>
-  <br clear="all" />
 </div>

@@ -1,7 +1,9 @@
-.item { border-left: solid 10px #333; margin-bottom: 20px !important; }
+.item { border-left: solid 10px #333; margin-bottom: 20px !important; height: 160px; }
 .item:hover { border-left: solid 10px #6ac; }
 .heading:hover { border-bottom: solid 10px #6ac; }
-.heading { border-bottom: solid 10px #333; }
+.heading { border-bottom: solid 10px #333; height: 160px; }
+#stream .item { height: 240px; }
+.orgs .item { height: 190px; }
 
 .item, .heading {
   margin: 0px 0px 0px 0px; 
@@ -11,15 +13,17 @@
   /** BOX **/
   .box {
     float: left;
-    width: 220px;
+    width: 30%;
+    font-size: 0.9em;
+    font-family: @palatino;
   }
   
    /** PIC **/
   .pic {
     float: left;
-    margin: 10px 30px 10px 0px;   
-    width: 120px;
-    text-align: center;
+    margin: 0px 2% 10px 0px;   
+    width: 20%;
+    text-align: left;
     
     img {
       padding: 2px;   
@@ -57,10 +61,12 @@
     span.label {
       display: block;
       margin-top: 2px;
-      font-size: 0.9em; 
+      font-size: 0.8em; 
       font-weight: bold; 
       text-transform: uppercase; 
       text-align: left;
+      height: 24px;
+      
     } 
   }
   
@@ -89,9 +95,20 @@
   /** INFLUENCE **/
   .influence {
     float: right; 
-    width: 200px;
+    width: 18%;
     text-align: center; 
     font-size: 1.1em;
+    
+    .label {
+      font-size: 1em;
+      font-style: italic;
+      margin-bottom: 10px;
+      font-family: @palatino;
+    }
+    
+    .value {
+      font-size: 3em; 
+    }
   }
   
   /** COMMENT **/
@@ -141,6 +158,22 @@
     li {
       display: inline;
       margin-right: 20px;
+    }
+  }
+  
+  div.social {
+    font-family: @century;
+    font-size: 0.9em;
+    letter-spacing: 2px;
+    width: 100%;
+    border-top: solid 1px #ccc;
+    clear: both;
+    
+    ul {
+      li {
+        display: inline;
+        margin-right: 20px;
+      }
     }
   }
     

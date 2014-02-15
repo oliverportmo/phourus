@@ -1,7 +1,6 @@
-<span class="pic">
-	<a href="javascript:void(0)">
-		<img src="<%= pic('users', user.id, user.img) %>" onerror="this.src='/assets/pics/default.png'" width="120" />
-	</a>
+<h3><%= user.username %></h3>
+<div class="pic">
+  <img src="<%= pic('users', user.id, user.img) %>" onerror="this.src='/assets/pics/default.png'" height="80" />
 	<% if(owner== true){ %>
   	<form action="/rest/pic/<%= user.id %>" method="post" enctype="multipart/form-data" target="upload">
       <input type="file" name="pic" id="pic"><br>
@@ -10,21 +9,30 @@
     </form>
     <iframe id="upload" style="width:0px;height:0px;display:none;" />
   <% } %>
-</span>
-<div style="float: left; width: 400px">
+</div>
+<div class="box">
 	<ul>
-		<li><strong><%= user.username %></strong></li>
 		<li><%= user.city %>, <%= user.state %></li>
 		<li><%= user.occupation %> at <%= user.company %></li>
-		<li><strong>Website: </strong><%= user.website %></li>
-		<li><strong>Email: </strong><%= user.email %></li>
+		<span style="font-size: 14px;"><strong>Member Since:</strong> <%= user.created %></span>
 		<% if(owner== true){ %><li><a href="javascript:void(0)" id="update_account">Edit Profile Information</a></li><% } %>
 	</ul>
 </div>
-<div class="influence" style="margin-top: 10px; width: 120px;">
-	User Influence:<br>
-	<span style="font-size: 48px;"><%= user.influence %></span>
-	<br><br>
-	<span style="font-size: 14px;">Member Since:<br><strong><%= user.created %></strong></span>
+<div class="box">
+  <ul>
+		<li><strong>Website: </strong><%= user.website %></li>
+		<li><strong>Email: </strong><%= user.email %></li>
+  </ul>
 </div>
-<br clear="all" />
+<div class="influence">
+	<div class="label">User Influence:</div>
+	<span class="value"><%= user.influence %></span>	
+</div>
+<div class="social">
+  <ul>
+  	<li><strong>Views:</strong> <%= stats.views %></li> 
+  	<li><strong>Comments:</strong> <%= stats.comments %></li>
+  	<li><strong>Thumbs:</strong> <%= stats.thumbs %></li>
+  	<li><strong>Popularity:</strong> <%= stats.popularity %>%</li>
+  </ul> 
+</div>

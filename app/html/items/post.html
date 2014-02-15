@@ -8,14 +8,11 @@
 	<a href="#!post/<%= post.post_id %>" class="title"><%= post.title %><%= post.url %></a>
 	<div class="clear"></div>
   <div class="pic">
-    <a href="#user/<%= user.id %>"><img src="<%= pic('users', user.id, user.img) %>" width="100"></a>
-  	<a href="#user/<%= user.id %>" class="username"><%= user.username %> (<%= user.influence %>)</a>
+    <a href="#user/<%= user.id %>"><img src="<%= pic('users', user.id, user.img) %>" height="100" onerror="this.src='/assets/pics/default.png'" /></a>
   </div>
 	<div class="influence">
-		<span style="color:#777; font-size: 14px;">Influence</span>
-		<br>
-		<span style="font-size: 48px;"><%= meta.influence %></span>
-		<br />
+		<div class="label">Influence:</div>
+  	<span class="value"><%= meta.influence %></span>
 		<% if(owner == true){ %>
 		  <div style="width:90px;margin: auto"><a href="#edit/<%= post.post_id %>" class="button blue edit">Edit Post</a></div>
 		<% } %>
@@ -38,12 +35,12 @@
 	<% if(!_.isUndefined(post.content)){ %>
 	 <p class="excerpt"><%= post.content.substr(0, 200) %>... <a href="#!post/<%= meta.type %>/<%= post.post_id %>">[read more]</a></p>
   <% } %>
-	<ul class="meta">
-		<li class="views"><strong>Views:</strong> <%= stats.views %></li>
-		<li class="comments"><strong>Comments:</strong> <%= stats.comments %></li>
-		<li class="thumbs"><strong>Thumbs:</strong> <%= stats.thumbs %></li>
-		<li class="popularity"><strong>Popularity:</strong> <%= stats.popularity %>%</li>
-	</ul>
-  
-	<div class="clear"></div>
+  <div class="social">
+  	<ul>
+  		<li class="views"><strong>Views:</strong> <%= stats.views %></li>
+  		<li class="comments"><strong>Comments:</strong> <%= stats.comments %></li>
+  		<li class="thumbs"><strong>Thumbs:</strong> <%= stats.thumbs %></li>
+  		<li class="popularity"><strong>Popularity:</strong> <%= stats.popularity %>%</li>
+  	</ul>
+	</div>
 </div>
