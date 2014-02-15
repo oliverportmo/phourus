@@ -28,9 +28,9 @@ define ["jquery", "underscore", "backbone", "async!http://maps.google.com/maps/a
             if status == 'OK'
               key = data.org.id
               loc = results[0].geometry.location
-              data.lat = loc.ob
-              data.lng = loc.pb 
-               
+              data.lat = loc.d
+              data.lng = loc.e 
+              
               self.markers[key] = self.createMarkers data  
               self.windows[key] = self.createWindows data
                            

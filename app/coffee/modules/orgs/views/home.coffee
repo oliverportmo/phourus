@@ -1,4 +1,4 @@
-define ["jquery", "underscore", "backbone", "marionette", "text!html/orgs/home.html", "text!html/items/org.html", "js/modules/orgs/collections/orgs", "js/views/sidebar",  "text!html/404/orgs.html"], ($, _, Backbone, marionette, template, tOrg, cOrgs, vSidebar, orgs404) ->
+define ["jquery", "underscore", "backbone", "marionette", "text!html/orgs/home.html", "text!html/items/org.html", "js/modules/orgs/collections/orgs", "js/views/sidebar", "js/models/types", "js/models/special", "text!html/404/orgs.html"], ($, _, Backbone, marionette, template, tOrg, cOrgs, vSidebar, mTypes, mSpecial, orgs404) ->
   
   ###      
   item = Backbone.Marionette.ItemView.extend(
@@ -20,6 +20,16 @@ define ["jquery", "underscore", "backbone", "marionette", "text!html/orgs/home.h
       self = @
       @options = options
     
+    events:
+      "change select": "select"
+      "click button#zipcode": "zip"
+    
+    select: (e) ->
+      Backbone.Events.trigger "location", $("select#state").val()
+      
+    zip: (e) ->
+      Backbone.Events.trigger "location", $("input#zip").val()
+          
     render: ()->
       self = @
       $("#mask").show()
@@ -48,6 +58,30 @@ define ["jquery", "underscore", "backbone", "marionette", "text!html/orgs/home.h
       
       
       Backbone.Events.trigger "map", @collection.models
+      @dropdown()
       compiled
+
+    dropdown: ->
+      self = @
+      @model = new mSpecial({mode: 'states', type: @options.type})
+      @model.fetch
+        success: (model, response) ->
+          self.values(response)
+        error: (model, response) ->
+          self.values(false)
+       
+    values: (data) ->
+      states = mTypes.states
+      if data is false
+        data = states
+      $select = $("select#state")
+      _.each data, (obj, key) ->
+        v = key 
+        s = obj
+        if !_.isUndefined(obj.state) 
+          v = obj.state
+          s = states[obj.state] + '(' + obj.total + ')'
+        $select.append "<option value='" + v + "'>" + s + "</option>"
+        
   )
   view	
