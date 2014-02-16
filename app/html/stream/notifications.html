@@ -1,0 +1,38 @@
+<h1>Notifications</h1>
+<ul>
+<% _.each(data, function(obj, key){ %>
+  <% if(obj.type === 'comment'){ %>
+    <li class="<%= obj.type %>">
+      <% if(!_.isNumber(obj.user)){ %><a href="#user/<%= obj.user.user.id %>"><%= obj.user.user.username %></a> commented on your post<% } %> 
+      <% if(!_.isNumber(obj.post)){ %><a href="#!post/<%= obj.post.meta.id %>">"<%= obj.post.post.title %>"</a><% } %> 
+      <div class="date"><%= obj.created %></div>
+    </li>
+  <% } %>
+  <% if(obj.type === 'thumb'){ %>
+    <li class="<% obj.type %>">
+      <% if(!_.isNumber(obj.user)){ %><a href="#user/<%= obj.user.user.id %>"><%= obj.user.user.username %></a> thumbed your post<% } %> 
+      <% if(!_.isNumber(obj.post)){ %><a href="#!post/<%= obj.post.meta.id %>">"<%= obj.post.post.title %>"</a><% } %>
+      <div class="date"><%= obj.created %></div>
+    </li>
+  <% } %>
+  <% if(obj.type === 'post'){ %>
+    <li class="<%= obj.type %>">
+      <% if(!_.isNumber(obj.user)){ %><a href="#user/<%= obj.user.user.id %>"><%= obj.user.user.username %></a> created a new post<% } %> 
+      <% if(!_.isNumber(obj.post)){ %><a href="#!post/<%= obj.post.meta.id %>">"<%= obj.post.post.title %>"</a><% } %>
+      <div class="date"><%= obj.created %></div>
+    </li>
+  <% } %>
+  <% if(obj.type === 'favorite'){ %>
+    <li class="<%= obj.type %>">
+      <% if(!_.isNumber(obj.user)){ %>You are now one of <a href="#user/<%= obj.user.user.id %>"><%= obj.user.user.username %></a> favorites
+      <div class="date"><%= obj.created %></div><% } %>
+    </li>
+  <% } %>
+  <% if(obj.type === 'member'){ %>
+    <li class="<%= obj.type %>">
+      <% if(!_.isNumber(obj.org)){ %><a href="#<%= obj.org.type %>/<%= obj.org.id %>"><%= obj.org.shortname %></a> accepted/rejected your membership request<% } %> 
+      <div class="date"><%= obj.created %></div>
+    </li>
+  <% } %>  
+<% }); %>
+</ul>

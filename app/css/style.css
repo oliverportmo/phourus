@@ -2084,6 +2084,46 @@ ul.tabs li a.disabled {
   color: #ccc;
   cursor: default;
 }
+/** NOTIFICATIONS **/
+.notifications ul {
+  width: 100%;
+}
+.notifications ul li {
+  list-style: none;
+  background-repeat: no-repeat;
+  height: 40px;
+  border-bottom: solid 1px #eee;
+  padding: 4px 0px 0px 40px;
+  font-size: 1.2em;
+  font-family: Palatino, "Palatino Linotype", "Book Antiqua", serif;
+}
+.notifications ul a {
+  font-weight: bold;
+  color: #72afc3;
+}
+.notifications ul a:hover {
+  color: #f90;
+}
+.notifications ul li.comment {
+  background-image: url('/assets/icons/notifications/comment.png');
+}
+.notifications ul li.thumb {
+  background-image: url('/assets/icons/notifications/thumb.png');
+}
+.notifications ul li.post {
+  background-image: url('/assets/icons/notifications/post.png');
+}
+.notifications ul li.favorite {
+  background-image: url('/assets/icons/notifications/favorite.png');
+}
+.notifications ul li.member {
+  background-image: url('/assets/icons/notifications/member.png');
+}
+.notifications ul div.date {
+  width: 200px;
+  float: right;
+  display: block;
+}
 /** DEFINITION LISTS **/
 dl {
   display: block;

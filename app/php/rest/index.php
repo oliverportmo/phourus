@@ -20,7 +20,9 @@ require($base.'oClout.php');
 require($base.'oComment.php');
 require($base.'oCommunity.php');
 require($base.'oFollow.php');
+require($base.'oHistory.php');
 require($base.'oInfluence.php');
+require($base.'oNotification.php');
 require($base.'oOrg.php');
 require($base.'oPost.php');
 require($base.'oReview.php');
@@ -192,6 +194,18 @@ $app->get('/rest/schema/', function() use ($get){
 # SPECIAL 
 $app->get('/rest/special/:query', function() use ($get){
   $out= dRead::special($get);
+  out($out);
+});
+
+# HISTORY
+$app->get('/rest/history/:query', function() use ($get){
+  $out= oHistory::get($get);
+  out($out);
+});
+
+# NOTIFICATIONS
+$app->get('/rest/notifications/:query', function() use ($get){
+  $out= oNotification::get($get);
   out($out);
 });
 

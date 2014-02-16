@@ -1,12 +1,14 @@
 <div>
-  <h3 class="user">David Cruz</h3>
-  <a href="#profile/<%= user_id %>" id="<%= user_id%>" class="profile"><img src="/assets/pics/users/1.jpg" onerror="this.src='/assets/pics/default.png'" height="120" /></a>
+  <h3 class="user"><%= user.first %> <%= user.last %></h3>
+  <a href="#profile/<%= user.id %>" id="<%= user.id%>" class="profile"><img src="/assets/pics/users/<%= user.id %>.<%= user.img %>" onerror="this.src='/assets/pics/default.png'" height="120" /></a>
   <ul id="user">
+    <% if(!_.isUndefined(address)){ %>
+      <li>
+        <% if(!_.isUndefined(address.city)){ %><%= address.city %>, <% } %><% if(!_.isUndefined(address.state)){ %><%= address.state %><% } %>
+      </li>
+    <% } %>
     <li>
-      <a href="#gov/<%= user_id %>" id="<%= user_id %>">Sioux City, IA</a>
-    </li>
-    <li>
-      <a href="#user/<%= user_id %>" id="<%= user_id %>">My Account</a>
+      <a href="#user/<%= user.id %>" id="<%= user.id %>">My Account</a>
     </li>
     <li>
       <a href="#!stream" class="me">My Posts</a>
@@ -21,40 +23,14 @@
 
 <div>
   <h3 class="notifications">Activity</h3>
-  <ul id="notifications">
-    <li>
-      <a href="#!post/40">New Comment: </a>
-    </li>
-    <li>
-      <a href="#!post/65">New Comment: </a>
-    </li>
-    <li>
-      <a href="#!gov/3" class="me">New Thumb: </a>
-    </li>
-    <li>
-      <a href="#user/4" class="logout">New Favorite:</a>
-    </li>
-  </ul>
-  <a href="#notifications" class="button red">Notifications</a>
+  <ul id="notifications"></ul>
+  <a href="#!notifications" class="button red">Notifications</a>
   <br clear="all" /><br />
 </div>
 
 <div>
   <h3 class="history">History</h3>
-  <ul id="history">
-    <li>
-      <a href="#!post/40">Atheist vs. Agnostic?</a>
-    </li>
-    <li>
-      <a href="#!post/65">Alternative to stricter gun laws</a>
-    </li>
-    <li>
-      <a href="#!gov/3" class="me">State of Iowa</a>
-    </li>
-    <li>
-      <a href="#user/4" class="logout">Regina Wall</a>
-    </li>
-  </ul>
-  <a href="#history" class="button green">History</a>
+  <ul id="history"></ul>
+  <a href="#!history" class="button green">History</a>
   <br clear="all" /><br />
 </div>

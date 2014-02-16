@@ -130,8 +130,18 @@ class uQueries {
 		if(isset($org_id)){
   		$where= "WHERE org_id = '$org_id'";
 		}
+		if(!isset($limit)){
+  		$limit = 20;
+		} 
+		if(isset($page)){
+  		$offset = $page * $limit; 
+		}else{
+  		$offset = 0;
+		}
+		$paging = "LIMIT $offset, $limit";
 		
-	  return "SELECT * FROM app_views $where;";
+		
+	  return "SELECT * FROM app_views $where $paging;";
 	}
 	
 	# THUMBS
@@ -292,6 +302,45 @@ class uQueries {
   	}
   	return "SELECT $fields FROM app_members $users $where $filter;";
   	// SELECT COUNT(*) AS total FROM [comments/views/thumbs/ WHERE  
+	}
+	
+	public function notifications($params){
+    $user_id = $params['user_id'];
+    isset($params['limit']) ? $limit = $params['limit'] : $limit = 20;
+    isset($params['page']) ? $page = $params['page'] : $page = 0;
+    $offset = $page * $limit;
+    $favorites = '1,3,4';
+    
+    $query = "SELECT user_id, target_id, created, type FROM (";
+    
+    /** POSTS **/
+    // thumbs
+    $fields = "app_thumbs.user_id AS user_id, app_posts.id AS target_id, app_thumbs.created AS created, 'thumb' AS type";
+    $query.= "SELECT $fields FROM `app_posts` INNER JOIN `app_thumbs` ON app_posts.id = app_thumbs.post_id WHERE app_posts.user_id = $user_id UNION ";   
+
+    // comments
+    $fields = "app_comments.user_id AS user_id, app_posts.id AS target_id, app_comments.created AS created, 'comment' AS type";
+    $query.= "SELECT $fields FROM `app_posts` INNER JOIN `app_comments` ON app_posts.id = app_comments.post_id WHERE app_posts.user_id = $user_id UNION ";
+      
+    // posts
+    $fields = "app_posts.user_id AS user_id, app_posts.id AS target_id, app_posts.created AS created, 'post' AS type";
+    $query.= "SELECT $fields FROM `app_posts` WHERE app_posts.user_id IN($favorites) UNION ";
+
+    /** USERS **/
+    // favorites
+    $fields = "app_follows.user_id AS user_id, app_follows.target_id AS target_id, app_follows.created AS created, 'favorite' AS type";
+    $query.= "SELECT $fields FROM `app_follows` WHERE app_follows.target_id = $user_id UNION ";
+    
+    // profile views
+    $fields = "app_views.user_id AS user_id, app_views.user_id AS target_id, app_views.created AS created, 'view' AS type";
+    $query.= "SELECT $fields FROM `app_views` WHERE app_views.user_id = $user_id";
+
+    /** ORGS **/
+    // accept
+    
+    
+    $query.= ") AS x ORDER BY created DESC LIMIT $offset, $limit;";
+    return $query;
 	}
 	
   /** AUTH **/

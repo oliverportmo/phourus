@@ -16,6 +16,8 @@ define(["jquery", "underscore", "backbone", "marionette"], function($, _, Backbo
       "privacy": "privacy",
       "!signup": "signup",
       "user/:id": "user",
+      "!history": "history",
+      "!notifications": "notifications",
       "!core": "standard",
       "!earth": "standard",
       "!mind": "standard",
@@ -129,6 +131,24 @@ define(["jquery", "underscore", "backbone", "marionette"], function($, _, Backbo
         user: id
       };
       return require(["js/modules/standard/views/user"], function(view) {
+        return self.toss(view, params);
+      });
+    },
+    history: function() {
+      var params, self;
+
+      self = this;
+      params = {};
+      return require(["js/views/history"], function(view) {
+        return self.toss(view, params);
+      });
+    },
+    notifications: function() {
+      var params, self;
+
+      self = this;
+      params = {};
+      return require(["js/views/notifications"], function(view) {
         return self.toss(view, params);
       });
     },

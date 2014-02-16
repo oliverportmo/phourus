@@ -52,6 +52,42 @@ ul.tabs
     }
 }
 
+/** NOTIFICATIONS **/
+.notifications ul {
+  width: 100%;
+  
+  li {
+    list-style: none;
+    background-repeat: no-repeat;
+    height: 40px;
+    border-bottom: solid 1px #eee;
+    padding: 4px 0px 0px 40px;
+    font-size: 1.2em;
+    font-family: @palatino;
+  }
+  
+  a {
+    font-weight: bold;
+    color: @blue-light;
+  }
+  
+  a:hover {
+    color: #f90;
+  }
+  
+  li.comment { background-image: url('/assets/icons/notifications/comment.png'); }
+  li.thumb { background-image: url('/assets/icons/notifications/thumb.png'); }
+  li.post { background-image: url('/assets/icons/notifications/post.png'); }
+  li.favorite { background-image: url('/assets/icons/notifications/favorite.png'); }
+  li.member { background-image: url('/assets/icons/notifications/member.png'); }
+  
+  div.date {
+    width: 200px;
+    float: right;
+    display: block;
+  }
+  
+}
 
 /** DEFINITION LISTS **/
 dl {

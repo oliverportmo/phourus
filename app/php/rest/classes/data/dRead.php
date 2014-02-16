@@ -221,6 +221,13 @@ class dRead {
   	return $out;
   }
   
+  public static function notifications($params){
+    $q= uQueries::notifications($params);
+  	$result= new uResult();
+  	$out= $result->r_read($q);  	
+  	return $out;    
+  }
+  
 	/** STATS **/
   public static function stats_post($post_id){
   	$out= array();

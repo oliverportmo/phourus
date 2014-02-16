@@ -18,6 +18,8 @@ define ["jquery", "underscore", "backbone", "marionette"], ($, _, Backbone, mari
       "!signup": "signup"
       #"me": "user"
       "user/:id": "user"
+      "!history": "history"
+      "!notifications": "notifications"
       
       #Elements
       "!core": "standard"
@@ -94,6 +96,18 @@ define ["jquery", "underscore", "backbone", "marionette"], ($, _, Backbone, mari
       require ["js/modules/standard/views/user"], (view) ->
         self.toss view, params
     
+    history: () ->
+      self = this
+      params = {}
+      require ["js/views/history"], (view) ->
+        self.toss view, params
+
+    notifications: () ->
+      self = this
+      params = {}
+      require ["js/views/notifications"], (view) ->
+        self.toss view, params
+        
     page: (page) ->
       console.log "Route page:" + page
       self = this
