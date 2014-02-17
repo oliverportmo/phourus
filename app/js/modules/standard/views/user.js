@@ -96,8 +96,9 @@ define(["jquery", "underscore", "backbone", "forms", "text!html/standard/user.ht
         "email": "Text",
         "phone": "Text"
       };
+      this.user = new mUser(this.model.get('user'));
       this.form = new Backbone.Form({
-        model: this.model,
+        model: this.user,
         schema: schema
       });
       this.form.render();
@@ -108,7 +109,7 @@ define(["jquery", "underscore", "backbone", "forms", "text!html/standard/user.ht
     save: function(e) {
       $("#mask").show();
       this.form.commit();
-      return this.model.save(this.model.changed, {
+      return this.user.save(this.user.changed, {
         success: function(model, response) {
           $("#mask").hide();
           return Backbone.Events.trigger("alert", {

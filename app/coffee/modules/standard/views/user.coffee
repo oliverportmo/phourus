@@ -55,8 +55,9 @@ define ["jquery", "underscore", "backbone", "forms", "text!html/standard/user.ht
         "website": "Text"
         "email": "Text"
         "phone": "Text"
-        
-      @form = new Backbone.Form({model: @model, schema: schema})
+      
+      @user = new mUser(@model.get('user'))     
+      @form = new Backbone.Form({model: @user, schema: schema})
       @form.render()
       
       container = @$el.find("#fields")
@@ -67,7 +68,7 @@ define ["jquery", "underscore", "backbone", "forms", "text!html/standard/user.ht
     save: (e) ->
       $("#mask").show()
       @form.commit()
-      @model.save @model.changed, 
+      @user.save @user.changed, 
         success: (model, response) ->
             $("#mask").hide()
             Backbone.Events.trigger "alert", {type: "complete", message: "User information saved successfully", response: response, location: "modules/stream/views/user", action: "update"}

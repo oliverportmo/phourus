@@ -1,20 +1,32 @@
 <div class="heading"></div>
-
+<br clear="all" />
 <% if(owner== true){ %>
-<div id="update">
-  <div class="left">
-    <h3>Contact Info</h3>
-    <div id="fields"></div>
-    <button class="button green save">Save Info</button>
+	<div id="upload">
+	  <h3>Photo Upload</h3>
+	  <div class="pic">
+  	  <img src="<%= pic('users', user.id, user.img) %>" onerror="this.src='/assets/pics/default.png'" height="200" />
+    </div>
+    <form action="/rest/pic/<%= user.id %>" method="post" enctype="multipart/form-data" target="upload">
+      <input type="file" name="pic" id="pic"><br>
+      <input type="hidden" name="type" value="user" />
+      <input type="submit" name="submit" value="Upload" class="button blue">
+    </form>
+    <iframe id="message" style="width:0px;height:0px;display:none;" />
+	</div>
+	<div id="update">
+      <h3>Contact Info</h3>
+      <div id="fields"></div>
+      <button class="button green save">Save Info</button>
+    </div>
   </div>
-  <div class="right">
-    <h3>Social Accounts</h3>
+  <br clear="left" /><br />
+  <div id="social">
+    <h3>Verify Social Accounts</h3>
     <button id="facebook" class="social"></button> 
     <button id="linkedin" class="social"></button>
     <button id="linkedin" class="social"></button>
     <button id="google" class="social"></button>
   </div>
-</div>
 <% } %>
 
 <br clear="all">
@@ -71,3 +83,4 @@
 		</tbody>
 	</table>
 </div>
+<br clear="all"><br />

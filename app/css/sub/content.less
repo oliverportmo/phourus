@@ -8,7 +8,6 @@
   width: 100%;
   margin: 0px;
   padding: 0px;
-  .box-shadow(0px, 0px, 0px, #fff);
 }  
 
 /** FORM/SINGLE **/
@@ -30,10 +29,7 @@ margin: 0px;
   background-color: #fff;
   .box-shadow();
   height: 100%;
-  min-height: 600px;
-  /*background-color: #ffffff;
-  border: solid 1px #ccc;
-  .box-shadow;*/    
+  min-height: 600px; 
   
   p.summary {
     font-size: 1.2em;
@@ -135,7 +131,33 @@ margin: 0px;
       }
     }
   }
-
+  
+  .user {
+    #upload {
+      width: 30%;
+      float: left;  
+    
+      #pic {
+        background: none;
+        .box-shadow(0px, 0px, 0px, #fff);
+      }
+    }
+    
+    #update {
+      width: 65%;
+      float: left;
+      #fields {
+        float: none;
+      }
+    }
+    
+    #social {
+      clear: left;
+      width: 325px;
+    }
+    
+  }
+  
   .orgs {
     
     div#settings {
@@ -217,4 +239,3 @@ width: 75%;
 float: left;
 margin-right: 2%;
 }
-
