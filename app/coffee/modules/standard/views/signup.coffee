@@ -6,7 +6,7 @@ define ["jquery", "underscore", "backbone", "text!html/standard/signup.html", "j
       
     render: ->
       data = {}
-      Backbone.Events.trigger "sidebar", "general"
+      Backbone.Events.trigger "sidebar", "default"
       compiled = _.template(template, data)
       @$el.html compiled
       @register = new vRegister()    

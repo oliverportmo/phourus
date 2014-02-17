@@ -11,7 +11,7 @@ define(["jquery", "underscore", "backbone", "forms", "text!html/orgs/signup.html
       var compiled, container, data, schema;
 
       data = {};
-      Backbone.Events.trigger("sidebar", "general");
+      Backbone.Events.trigger("sidebar", "default");
       compiled = _.template(template, data);
       this.$el.html(compiled);
       this.model = new mOrg();

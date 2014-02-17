@@ -10,7 +10,7 @@ define(["jquery", "underscore", "backbone", "text!html/standard/signup.html", "j
       var compiled, container, data;
 
       data = {};
-      Backbone.Events.trigger("sidebar", "general");
+      Backbone.Events.trigger("sidebar", "default");
       compiled = _.template(template, data);
       this.$el.html(compiled);
       this.register = new vRegister();

@@ -7,7 +7,7 @@ define ["jquery", "underscore", "backbone", "forms", "text!html/orgs/signup.html
       
     render: ->
       data = {}
-      Backbone.Events.trigger "sidebar", "general"
+      Backbone.Events.trigger "sidebar", "default"
       compiled = _.template(template, data)
       @$el.html compiled
       

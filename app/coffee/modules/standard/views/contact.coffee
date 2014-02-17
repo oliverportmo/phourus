@@ -11,7 +11,7 @@ define ["jquery", "underscore", "backbone", "forms", "text!html/standard/contact
     render: ->
       data = {}
       data.description = mTypes.description "contact"
-      Backbone.Events.trigger "sidebar", "general"  
+      Backbone.Events.trigger "sidebar", "default"  
       compiled = _.template(template, {data: data})
       @$el.html compiled
       

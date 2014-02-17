@@ -1,4 +1,4 @@
-define ["jquery", "underscore", "backbone", "text!html/sidebar/default.html", "js/models/settings", "js/models/session", "js/modules/standard/models/user", "js/collections/history", "js/collections/notifications"], ($, _, Backbone, template, mSettings, mSession, mUser, cHistory, cNotifications) ->
+define ["jquery", "underscore", "backbone", "text!html/sidebar/user.html", "text!html/sidebar/guest.html", "js/models/settings", "js/models/session", "js/modules/standard/models/user", "js/collections/history", "js/collections/notifications", "js/views/login"], ($, _, Backbone, tUser, tGuest, mSettings, mSession, mUser, cHistory, cNotifications, vLogin) ->
    
   view = Backbone.View.extend(
     el: "#sidebar"
@@ -24,7 +24,13 @@ define ["jquery", "underscore", "backbone", "text!html/sidebar/default.html", "j
 
     render: ->
       if mSession.auth() is false
-        $(@el).html 'You must be logged in' 
+        compiled = _.template(tGuest, {})
+        $(@el).html compiled
+        
+        options = {}
+        options.el = "#auth-sidebar"
+        @login = new vLogin(options)
+        
       else
         self = @
         u = new mUser(id: mSession.auth())
@@ -39,7 +45,7 @@ define ["jquery", "underscore", "backbone", "text!html/sidebar/default.html", "j
     
     user: (model) ->
       data = {user: model.user, stats: model.stats, address: model.address[0]}
-      compiled = _.template(template, data)
+      compiled = _.template(tUser, data)
       $(@el).append compiled
       @history()
       @notifications()
