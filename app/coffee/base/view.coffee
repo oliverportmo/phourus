@@ -145,9 +145,8 @@ format_url: (input) ->
       page= params.page
       self = @
           
-      if @extra(page) is true
-        module = 'govs'
-        require ["js/modules/orgs/extras/" + module + "/" + page], (view) ->
+      if page is 'extras'
+        require ["js/modules/orgs/views/extras"], (view) ->
           v =  new view(params)
             
       else

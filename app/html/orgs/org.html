@@ -1,10 +1,10 @@
 <div class="heading"></div>
 <br clear="all" />
 <ul class="tabs">
-  <li><a href="#!<%= org.type %>/<%= org.id %>/posts" class="selected" id="tabs_posts">Posts</a></li>
-  <li><a href="#!<%= org.type %>/<%= org.id %>/users" id="tabs_users">Users</a></li>
-  <li><a href="#!<%= org.type %>/<%= org.id %>/about" id="tabs_info">Info</a></li>
-  <li><a href="#!<%= org.type %>/<%= org.id %>/extras" id="tabs_extras">Extras (0)</a></li>
+  <li><a href="#!<%= org.type %>/<%= org.id %>/about" class="selected" id="tabs_info">Info</a></li>
+  <li><a href="#!<%= org.type %>/<%= org.id %>/posts" id="tabs_posts">Posts</a></li>
+  <li><a href="#!<%= org.type %>/<%= org.id %>/users" id="tabs_users">Members</a></li>
+  <li><a href="#!<%= org.type %>/<%= org.id %>/extras" id="tabs_extras">Extras</a></li>
 </ul>
 <br clear="all" /><br />
 <div id="org_menu">
@@ -16,14 +16,35 @@
     <li><a href="#!<%= org.type %>/<%= org.id %>/events">Events</a></li>
     <li><a href="#!<%= org.type %>/<%= org.id %>/contact">Contact</a></li>
   </ul>
-  <ul class="extras">
-    <li><a href="#!<%= org.type %>/<%= org.id %>/extras">Grades</a></li>
-    <li><a href="#!<%= org.type %>/<%= org.id %>/extras">Student Body</a></li>
-    <li><a href="#!<%= org.type %>/<%= org.id %>/extras">Featured Students</a></li>
-    <li><a href="#!<%= org.type %>/<%= org.id %>/extras">Courses &amp; Departments</a></li>
-    <li><a href="#!<%= org.type %>/<%= org.id %>/extras">Awards</a></li>
-    <li><a href="#!<%= org.type %>/<%= org.id %>/extras">Administration</a></li>
+  <ul class="extras">  
+    <% if(org.type == 'company'){ %>
+      <li><a href="#!<%= org.type %>/<%= org.id %>/extras">Mission</a></li>
+    <% } %>
+    <% if(org.type == 'school'){ %>
+      <li><a href="#!<%= org.type %>/<%= org.id %>/extras">Featured Students</a></li>
+      <li><a href="#!<%= org.type %>/<%= org.id %>/extras">Student Body</a></li>
+      <li><a href="#!<%= org.type %>/<%= org.id %>/extras">Courses &amp; Departments</a></li>
+      <li><a href="#!<%= org.type %>/<%= org.id %>/extras">School Schedule</a></li>
+      <li><a href="#!<%= org.type %>/<%= org.id %>/extras">Administration</a></li>
+      <li><h3>PRIVATE</h3></li>
+      <li><a href="#!<%= org.type %>/<%= org.id %>/extras">Grades</a></li>
+      <li><a href="#!<%= org.type %>/<%= org.id %>/extras">Assignments</a></li>
+    <% } %>
+    <% if(org.type == 'gov'){ %>
+      <li><a href="#!<%= org.type %>/<%= org.id %>/extras">Climate & Demographics</a></li>
+      <li><a href="#!<%= org.type %>/<%= org.id %>/extras">Financial</a></li>
+      <li><a href="#!<%= org.type %>/<%= org.id %>/extras">Projects</a></li>
+      <li><a href="#!<%= org.type %>/<%= org.id %>/extras">Real Estate</a></li>
+    <% } %>
+    <% if(org.type == 'group'){ %>
+      <li><a href="#!<%= org.type %>/<%= org.id %>/extras">Donate</a></li>
+    <% } %> 
+    <li><h3>COMMON</h3></li>
+    <li><a href="#!<%= org.type %>/<%= org.id %>/extras">Jobs</a></li>
+    <li><a href="#!<%= org.type %>/<%= org.id %>/extras">Org Chart</a></li>
+    <li><a href="#!<%= org.type %>/<%= org.id %>/extras">Pages</a></li>
+    <li><a href="#!<%= org.type %>/<%= org.id %>/extras">* Feedback</a></li>
   </ul>
 </div>
 <div id="widgets"></div>
-<br clear="all" />
+<br clear="all" /><br />

@@ -165,9 +165,8 @@ define(["jquery", "backbone", "underscore", "js/collections/widgets"], function(
       params.el = "#widgets";
       page = params.page;
       self = this;
-      if (this.extra(page) === true) {
-        module = 'govs';
-        require(["js/modules/orgs/extras/" + module + "/" + page], function(view) {
+      if (page === 'extras') {
+        require(["js/modules/orgs/views/extras"], function(view) {
           var v;
 
           return v = new view(params);

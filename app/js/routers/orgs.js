@@ -46,7 +46,7 @@ define(["jquery", "underscore", "backbone", "marionette"], function($, _, Backbo
 
       self = this;
       if (_.isUndefined(page) || page === "") {
-        page = "posts";
+        page = "about";
       }
       params = {
         id: id,
