@@ -14,7 +14,7 @@ class uQueries {
 	# META
 	public static function meta($params){		
 		extract($params); 
-		return "SELECT * FROM app_posts WHERE id = '$post_id';";
+		return "SELECT * FROM ".TABLE_POSTS." WHERE id = '$post_id';";
 	}
 	
 	# POST
@@ -35,7 +35,7 @@ class uQueries {
   		$where= "WHERE id = '$params'";
 		}
 		
-		return "SELECT * FROM app_users $where;";	
+		return "SELECT * FROM ".TABLE_USERS." $where;";	
 	}
 	
 	# ORGS
@@ -43,14 +43,14 @@ class uQueries {
 		// state, zip
 		extract($params);
 		$where= '';
-		//if(isset($state)) { $filter= "AND app_address.state = '$state'"; }
-		//if(isset($zip)) { $filter= "AND app_address.zip = '$zip'"; }
+		//if(isset($state)) { $filter= "AND ".TABLE_ADDRESS.".state = '$state'"; }
+		//if(isset($zip)) { $filter= "AND ".TABLE_ADDRESS.".zip = '$zip'"; }
 		if(isset($type)) {		
   		if($type== 'companies'){ $type= 'company'; }
   		if($type== 'govs'){ $type= 'gov'; }
   		if($type== 'groups'){ $type= 'group'; }
   		if($type== 'schools'){ $type= 'school'; }
-		  $where= "WHERE app_orgs.type = '$type'"; 
+		  $where= "WHERE ".TABLE_ORGS.".type = '$type'"; 
 		}
 		if(isset($id)) {
   		$where= "WHERE id = '$id'";
@@ -63,7 +63,7 @@ class uQueries {
 		}else{
   		$fields= '*';
 		}
-		return "SELECT $fields FROM app_orgs $where ORDER BY app_orgs.influence DESC;";
+		return "SELECT $fields FROM ".TABLE_ORGS." $where ORDER BY ".TABLE_ORGS.".influence DESC;";
 	}
 	
 	/** CRUD **/
@@ -107,7 +107,7 @@ class uQueries {
 	public static function delete($id, $type){
 		$table= uUtilities::table($type);
 		return "DELETE FROM $table WHERE id = '$id';";
-		//return "UPDATE app_posts SET privacy = '-1', modified = NOW() WHERE id = '$id';";		
+		//return "UPDATE  SET privacy = '-1', modified = NOW() WHERE id = '$id';";		
 	}	
 
 	/** META **/
@@ -141,7 +141,7 @@ class uQueries {
 		$paging = "LIMIT $offset, $limit";
 		
 		
-	  return "SELECT * FROM app_views $where $paging;";
+	  return "SELECT * FROM ".TABLE_VIEWS." $where $paging;";
 	}
 	
 	# THUMBS
@@ -160,7 +160,7 @@ class uQueries {
 	  if(isset($params['id'])){
   	  $where= "WHERE id = $id";
 	  }
-		return "SELECT * FROM app_thumbs $where;";
+		return "SELECT * FROM ".TABLE_THUMBS." $where;";
 	}
 		
 	# COMMENTS
@@ -176,7 +176,7 @@ class uQueries {
 	  if(isset($id)){
   	  $where= "WHERE id = '$id'";
 	  }
-		return "SELECT * FROM app_comments $where;";
+		return "SELECT * FROM ".TABLE_COMMENTS." $where;";
 	}
 	
 	# FOLLOWS
@@ -195,7 +195,7 @@ class uQueries {
 	  if(isset($id)){
   	  $where= "WHERE id = '$id'";
 	  }
-		return "SELECT * FROM app_follows $where;";
+		return "SELECT * FROM ".TABLE_FAVORITES." $where;";
 	}
 	
 	
@@ -210,7 +210,7 @@ class uQueries {
 	  if(isset($id)){
   	  $where= "WHERE id = '$id'";
 	  }
-		return "SELECT * FROM app_clout $where";
+		return "SELECT * FROM ".TABLE_CLOUT." $where";
 	}
 	
 	# REVIEWS
@@ -231,7 +231,7 @@ class uQueries {
 	  if(isset($id)){
   	  $where= "WHERE id = '$id'";
 	  }
-		return "SELECT * FROM app_reviews $where;";
+		return "SELECT * FROM ".TABLE_REVIEWS." $where;";
 	}
 	
 	# ADDRESS
@@ -247,7 +247,7 @@ class uQueries {
 	  if(isset($id)){
   	  $where= "WHERE id = '$id'";
 	  }
-		return "SELECT * FROM app_address $where;";
+		return "SELECT * FROM ".TABLE_ADDRESS." $where;";
 	}
 	
 	public static function tag($params){
@@ -259,19 +259,19 @@ class uQueries {
 	  if(isset($id)){
   	  $where= "WHERE id = '$id'";
 	  }
-		return "SELECT * FROM app_tags $where;";
+		return "SELECT * FROM ".TABLE_TAGS." $where;";
 	}
 	
 	public static function influence($params){
   	extract($params);
   	if(isset($post_id)){
-    	return "SELECT influence FROM app_posts WHERE id = '$post_id';";
+    	return "SELECT influence FROM ".TABLE_POSTS." WHERE id = '$post_id';";
   	}
   	if(isset($user_id)){
-    	return "SELECT influence FROM app_users WHERE id = '$user_id';";
+    	return "SELECT influence FROM ".TABLE_USERS." WHERE id = '$user_id';";
   	}
   	if(isset($org_id)){
-    	return "SELECT influence FROM app_orgs WHERE id = '$org_id';";
+    	return "SELECT influence FROM ".TABLE_ORGS." WHERE id = '$org_id';";
   	}
   	return false;
 	}
@@ -294,13 +294,13 @@ class uQueries {
   	}
   	if(isset($mode) && $mode == 'full'){
     	$fields= "*";
-    	$where= "WHERE app_members.org_id = '$org_id' AND app_members.user_id = app_users.id";
-    	$users= ", app_users";
+    	$where= "WHERE ".TABLE_MEMBERS.".org_id = '$org_id' AND ".TABLE_MEMBERS.".user_id = ".TABLE_USERS.".id";
+    	$users= ", ".TABLE_USERS;
   	}
   	if(isset($types)){
-    	$filter= "AND app_members.type IN('$types')";
+    	$filter= "AND ".TABLE_MEMBERS.".type IN('$types')";
   	}
-  	return "SELECT $fields FROM app_members $users $where $filter;";
+  	return "SELECT $fields FROM ".TABLE_MEMBERS." $users $where $filter;";
   	// SELECT COUNT(*) AS total FROM [comments/views/thumbs/ WHERE  
 	}
 	
@@ -315,25 +315,25 @@ class uQueries {
     
     /** POSTS **/
     // thumbs
-    $fields = "app_thumbs.user_id AS user_id, app_posts.id AS target_id, app_thumbs.created AS created, 'thumb' AS type";
-    $query.= "SELECT $fields FROM `app_posts` INNER JOIN `app_thumbs` ON app_posts.id = app_thumbs.post_id WHERE app_posts.user_id = $user_id UNION ";   
+    $fields = TABLE_THUMBS.".user_id AS user_id, ".TABLE_POSTS.".id AS target_id, ".TABLE_THUMBS.".created AS created, 'thumb' AS type";
+    $query.= "SELECT $fields FROM `".TABLE_POSTS."` INNER JOIN `".TABLE_THUMBS."` ON ".TABLE_POSTS.".id = ".TABLE_THUMBS.".post_id WHERE ".TABLE_POSTS.".user_id = $user_id UNION ";   
 
     // comments
-    $fields = "app_comments.user_id AS user_id, app_posts.id AS target_id, app_comments.created AS created, 'comment' AS type";
-    $query.= "SELECT $fields FROM `app_posts` INNER JOIN `app_comments` ON app_posts.id = app_comments.post_id WHERE app_posts.user_id = $user_id UNION ";
+    $fields = TABLE_COMMENTS.".user_id AS user_id, ".TABLE_POSTS.".id AS target_id, ".TABLE_COMMENTS.".created AS created, 'comment' AS type";
+    $query.= "SELECT $fields FROM `".TABLE_POSTS."` INNER JOIN `".TABLE_COMMENTS."` ON ".TABLE_POSTS.".id = ".TABLE_COMMENTS.".post_id WHERE ".TABLE_POSTS.".user_id = $user_id UNION ";
       
     // posts
-    $fields = "app_posts.user_id AS user_id, app_posts.id AS target_id, app_posts.created AS created, 'post' AS type";
-    $query.= "SELECT $fields FROM `app_posts` WHERE app_posts.user_id IN($favorites) UNION ";
+    $fields = TABLE_POSTS.".user_id AS user_id, ".TABLE_POSTS.".id AS target_id, ".TABLE_POSTS.".created AS created, 'post' AS type";
+    $query.= "SELECT $fields FROM `".TABLE_POSTS."` WHERE ".TABLE_POSTS.".user_id IN($favorites) UNION ";
 
     /** USERS **/
     // favorites
-    $fields = "app_follows.user_id AS user_id, app_follows.target_id AS target_id, app_follows.created AS created, 'favorite' AS type";
-    $query.= "SELECT $fields FROM `app_follows` WHERE app_follows.target_id = $user_id UNION ";
+    $fields = TABLE_FAVORITES.".user_id AS user_id, ".TABLE_FAVORITES.".target_id AS target_id, ".TABLE_FAVORITES.".created AS created, 'favorite' AS type";
+    $query.= "SELECT $fields FROM `".TABLE_FAVORITES."` WHERE ".TABLE_FAVORITES.".target_id = $user_id UNION ";
     
     // profile views
-    $fields = "app_views.user_id AS user_id, app_views.user_id AS target_id, app_views.created AS created, 'view' AS type";
-    $query.= "SELECT $fields FROM `app_views` WHERE app_views.user_id = $user_id";
+    $fields = TABLE_VIEWS.".user_id AS user_id, ".TABLE_VIEWS.".user_id AS target_id, ".TABLE_VIEWS.".created AS created, 'view' AS type";
+    $query.= "SELECT $fields FROM `".TABLE_VIEWS."` WHERE ".TABLE_VIEWS.".user_id = $user_id";
 
     /** ORGS **/
     // accept
@@ -347,30 +347,30 @@ class uQueries {
 	# LOGIN
 	public static function login($params){			
 		extract($params);
-		return "SELECT id FROM app_users WHERE `$key` = '$username';";
+		return "SELECT id FROM ".TABLE_USERS." WHERE `$key` = '$username';";
 	}
 	
 	# HASH
 	public static function hash($user_id){			
-		return "SELECT hash FROM app_passwords WHERE `user_id` = '$user_id';";
+		return "SELECT hash FROM ".TABLE_PASSWORDS." WHERE `user_id` = '$user_id';";
 	}
 	
 	# SESSION GET
 	public static function session($params){		
 		extract($params);
-		return "SELECT * FROM app_tokens WHERE id = '$id' AND user_id = '$user_id';";
+		return "SELECT * FROM ".TABLE_TOKENS." WHERE id = '$id' AND user_id = '$user_id';";
 	}
 	
 	# SESSION AUTH
 	public static function session_auth($params){
   	extract($params);
-  	return "SELECT user_id FROM app_tokens WHERE id = '$id' AND user_id = '$user_id' AND expires >= NOW();";
+  	return "SELECT user_id FROM ".TABLE_TOKENS." WHERE id = '$id' AND user_id = '$user_id' AND expires >= NOW();";
 	}
 	
 	# SESSION CREATE
 	public static function session_create($params){	
 		extract($params);
-		return "INSERT INTO app_tokens (`id`, `expires`, `user_id`) VALUES ('$id', '$expires', '$user_id');";
+		return "INSERT INTO ".TABLE_TOKENS." (`id`, `expires`, `user_id`) VALUES ('$id', '$expires', '$user_id');";
 	}	
 
   /** GENERIC **/
@@ -403,26 +403,26 @@ class uQueries {
 	
 	/** STATS **/
 	public static function stats_posts($user_id){
-    return "SELECT type, COUNT(type) AS total FROM app_posts WHERE user_id = '$user_id' GROUP BY `type`;";
+    return "SELECT type, COUNT(type) AS total FROM ".TABLE_POSTS." WHERE user_id = '$user_id' GROUP BY `type`;";
 	}
 	
 	public static function stats_followers($user_id){
-	 return "SELECT AVG(app_users.influence) AS average, COUNT(app_users.influence) AS total FROM app_users, app_follows WHERE app_follows.user_id = app_users.id AND app_follows.target_id = '$user_id';";
+	 return "SELECT AVG(".TABLE_USERS.".influence) AS average, COUNT(".TABLE_USERS.".influence) AS total FROM ".TABLE_USERS.", ".TABLE_FAVORITES." WHERE ".TABLE_FAVORITES.".user_id = ".TABLE_USERS.".id AND ".TABLE_FAVORITES.".target_id = '$user_id';";
 	}
 	
 	public static function stats_org($org_id){
   
   	
   	// user stats for each user
-  	return "SELECT * FROM app_users WHERE id = '$org_id';";
+  	return "SELECT * FROM ".TABLE_USERS." WHERE id = '$org_id';";
 	}
 	
 	public static function total_community($org_id){
-  	return "SELECT type, COUNT(*) AS total FROM app_members WHERE org_id = '$org_id' GROUP BY type;";
+  	return "SELECT type, COUNT(*) AS total FROM ".TABLE_MEMBERS." WHERE org_id = '$org_id' GROUP BY type;";
 	}
 	
 	public static function posts_org($users, $types){
-  	return "SELECT id FROM app_posts WHERE user_id IN ($users) AND types IN ($types);";
+  	return "SELECT id FROM ".TABLE_POSTS." WHERE user_id IN ($users) AND types IN ($types);";
 	}
 	
 	
@@ -430,45 +430,45 @@ class uQueries {
 	public static function total_comments($params){
 	 extract($params);
 	 if(isset($post_id)){
-  	 $where= "WHERE app_posts.id = '$post_id' AND app_comments.post_id = app_posts.id";
+  	 $where= "WHERE ".TABLE_POSTS.".id = '$post_id' AND ".TABLE_COMMENTS.".post_id = ".TABLE_POSTS.".id";
 	 }
 	 if(isset($user_id)){
-  	  $where= "WHERE app_posts.user_id = '$user_id' AND app_comments.post_id = app_posts.id";
+  	  $where= "WHERE ".TABLE_POSTS.".user_id = '$user_id' AND ".TABLE_COMMENTS.".post_id = ".TABLE_POSTS.".id";
 	 }
-	 return "SELECT COUNT(*) AS total FROM app_posts, app_comments $where;";	
+	 return "SELECT COUNT(*) AS total FROM ".TABLE_POSTS.", ".TABLE_COMMENTS." $where;";	
 	}
 	
 	public static function total_thumbs($params){
 	 $where= "";
 	 $stream= "";
 	 extract($params);
-	 //$exclude= "WHERE app_thumbs.user_id != app_posts.user_id";
+	 //$exclude= "WHERE ".TABLE_THUMBS.".user_id != .user_id";
 	 if(isset($post_id)){
 	   $where= "WHERE post_id = '$post_id'";
 	 }
 	 if(isset($user_id)){
-  	 $where= "WHERE app_posts.user_id = '$user_id' AND app_thumbs.post_id = app_posts.id";
-  	 $stream= 'app_posts,';
+  	 $where= "WHERE ".TABLE_POSTS.".user_id = '$user_id' AND ".TABLE_THUMBS.".post_id = ".TABLE_POSTS.".id";
+  	 $stream= TABLE_POSTS.',';
 	 }
-	 return "SELECT COUNT(*) AS total, SUM(positive) AS positive FROM $stream app_thumbs $where;";
+	 return "SELECT COUNT(*) AS total, SUM(positive) AS positive FROM $stream ".TABLE_THUMBS." $where;";
 	}
 	
 	public static function total_views($params){
 	 extract($params);
 	 $posts= '';
-	 //$exclude= "AND app_views.user_id != app_posts.user_id";
+	 //$exclude= "AND ".TABLE_VIEWS.".user_id != .user_id";
 	 if(isset($user_id)){
-  	 $where= "WHERE app_posts.user_id = '$user_id' AND app_views.post_id = app_posts.id";
-  	 $posts= 'app_posts,';
+  	 $where= "WHERE ".TABLE_POSTS.".user_id = '$user_id' AND ".TABLE_VIEWS.".post_id = ".TABLE_POSTS.".id";
+  	 $posts= TABLE_POSTS.',';
 	 } 
 	 if(isset($post_id)){
-  	 $where= "WHERE app_views.post_id = '$post_id'";
+  	 $where= "WHERE ".TABLE_VIEWS.".post_id = '$post_id'";
 	 }
-	 return "SELECT COUNT(*) AS total FROM $posts app_views $where;";
+	 return "SELECT COUNT(*) AS total FROM $posts ".TABLE_VIEWS." $where;";
 	} 
 	
 	public static function total_posts($user_id){
-	 return "SELECT COUNT(*) AS total FROM app_posts WHERE app_posts.user_id = '$user_id';";
+	 return "SELECT COUNT(*) AS total FROM ".TABLE_POSTS." WHERE ".TABLE_POSTS.".user_id = '$user_id';";
 	} 
 	
 	/** ORG STATES **/
@@ -481,7 +481,7 @@ class uQueries {
 	  if($short[$type]){
 	   $type = $short[$type];
 	  }
-  	return "SELECT state, COUNT(state) as total FROM app_address, app_orgs WHERE app_address.org_id = app_orgs.id AND app_orgs.type = '$type' GROUP BY (state);";
+  	return "SELECT state, COUNT(state) as total FROM ".TABLE_ADDRESS.", ".TABLE_ORGS." WHERE ".TABLE_ADDRESS.".org_id = ".TABLE_ORGS.".id AND ".TABLE_ORGS.".type = '$type' GROUP BY (state);";
 	}
 	
 	/** PERMISSION **/

@@ -66,7 +66,7 @@ class oUser
   	$out['followers']= array();
   	$out['following']= array();
   	$out['friends']= array();
-  	//followers: SELECT id FROM follow WHERE target_id = $user_id
+  	//followers: SELECT id FROM ".TABLE_FOLLOWS." WHERE target_id = $user_id
   	$followers= dRead::followers($id);
   	if($followers== 404){
     	$followers= '';
@@ -76,7 +76,7 @@ class oUser
     	}
   	}
   	
-  	//following: SELECT id FROM app_follows WHERE user_id = $user_id
+  	//following: SELECT id FROM ".TABLE_FAVORITES." WHERE user_id = $user_id
   	$following= dRead::following($id);
   	if($following== 404){
     	$following= '';

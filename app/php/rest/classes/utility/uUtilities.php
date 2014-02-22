@@ -1,5 +1,43 @@
 <?php
 
+/** TABLE_NAMES **/
+// App
+define('TABLE_ADDRESS', "app_address");
+define('TABLE_POSTS', 'app_posts');
+define('TABLE_USERS', 'app_users');	
+define('TABLE_ORGS', 'app_orgs');	
+		
+// User
+define('TABLE_PASSWORDS', 'user_passwords');
+define('TABLE_TOKENS', 'user_tokens');
+		
+// Posts	
+define('TABLE_TAGS', 'post_tags');
+define('TABLE_LINKS', 'post_links');
+
+define('TABLE_BLOGS', 'post_blogs');
+define('TABLE_EVENTS', 'post_events');	
+define('TABLE_SUBJECTS', 'post_subjects');
+define('TABLE_QUESTIONS', 'post_questions');
+define('TABLE_ANSWERS', 'post_answers');
+define('TABLE_DEBATES', 'post_debates');
+define('TABLE_BILLS', 'post_bills');
+define('TABLE_VOTES', 'post_votes');
+define('TABLE_BELIEFS', 'post_beliefs');
+define('TABLE_QUOTES', 'post_quotes');
+define('TABLE_TIMELINE', 'post_timeline');
+
+// Social		
+define('TABLE_VIEWS', 'social_views');
+define('TABLE_COMMENTS', 'social_comments');
+define('TABLE_THUMBS', 'social_thumbs');
+define('TABLE_FAVORITES', 'social_favorites');
+
+// Orgs		
+define('TABLE_MEMBERS', 'org_members');
+define('TABLE_CLOUT', 'org_clout');
+define('TABLE_REVIEWS', 'org_reviews');
+
 class uUtilities
 {
 	
@@ -82,50 +120,60 @@ class uUtilities
   	return move_uploaded_file($pic['tmp_name'], $dir.$filename);
 	}
 	
-	/** REPLACE WITH CONSTANTS **/	
+	/** PHASE OUT DYNAMIC TABLE NAMES WITH CONSTANTS **/	
+	// Posts
+	// Generic Get, Create, Read, Delete
+	// Total, Owner, Schema
 	public function table($type)
 	{
 		$tables= array();	
-		$tables['blogs']= 'earth_blogs';
-		$tables['events']= 'earth_events';
 		
-		$tables['subjects']= 'mind_subjects';
-		$tables['questions']= 'mind_questions';
-		$tables['answers']= 'mind_answers';
+		// App
+		$tables['address']= TABLE_ADDRESS;
+		$tables['addresses']= TABLE_ADDRESS;
+		$tables['post']= TABLE_POSTS;
+		$tables['posts']= TABLE_POSTS;
+		$tables['user']= TABLE_USERS;
+		$tables['users']= TABLE_USERS;	
+		$tables['org']= TABLE_ORGS;
+		$tables['orgs']= TABLE_ORGS;	
 		
-		$tables['debates']= 'voice_debates';
-		$tables['bills']= 'voice_bills';
-		$tables['votes']= 'voice_votes';
+		// Posts
+		$tables['blogs']= TABLE_BLOGS;
+		$tables['events']= TABLE_EVENTS;
+		$tables['subjects']= TABLE_SUBJECTS;
+		$tables['questions']= TABLE_QUESTIONS;
+		$tables['answers']= TABLE_ANSWERS;
+		$tables['debates']= TABLE_DEBATES;
+		$tables['bills']= TABLE_BILLS;
+		$tables['votes']= TABLE_VOTES;
+		$tables['beliefs']= TABLE_BELIEFS;
+		$tables['quotes']= TABLE_QUOTES;
+		$tables['timeline']= TABLE_TIMELINE;
 		
-		$tables['beliefs']= 'self_beliefs';
-		$tables['quotes']= 'self_quotes';
-		$tables['timeline']= 'self_timeline';
+		// Social
+		$tables['view']= TABLE_VIEWS;
+		$tables['views']= TABLE_VIEWS;
+		$tables['comment']= TABLE_COMMENTS;
+		$tables['comments']= TABLE_COMMENTS;
+		$tables['thumb']= TABLE_THUMBS;
+		$tables['thumbs']= TABLE_THUMBS;
+		$tables['favorite']= TABLE_FAVORITES;
+		$tables['favorites']= TABLE_FAVORITES;
 		
-		$tables['stream']= 'app_stream';
+    // Users		
+		$tables['password']= TABLE_PASSWORD;
+		$tables['passwords']= TABLE_PASSWORDS;
+		$tables['token']= TABLE_TOKEN;
+		$tables['tokens']= TABLE_TOKENS;
 		
-		$tables['view']= "app_views";
-		$tables['views']= "app_views";
-		$tables['comment']= "app_comments";
-		$tables['comments']= "app_comments";
-		$tables['thumb']= "app_thumbs";
-		$tables['thumbs']= "app_thumbs";
-		$tables['follow']= "app_follows";
-		$tables['follows']= "app_follows";
-		$tables['address']= "app_address";
-		$tables['addresses']= "app_address";
-		$tables['post']= 'app_posts';
-		$tables['posts']= 'app_posts';
-		$tables['user']= 'app_users';
-		$tables['users']= 'app_users';	
-		$tables['org']= 'app_orgs';
-		$tables['orgs']= 'app_orgs';	
-		$tables['password']= 'app_passwords';
-		$tables['passwords']= 'app_passwords';	
-		$tables['clout']= 'app_clout';
-		$tables['review']= 'app_reviews';
-		$tables['reviews']= 'app_reviews';
-		$tables['tag']= 'app_tags';
-		$tables['tags']= 'app_tags';
+		// Orgs	
+		$tables['clout']= TABLE_CLOUT;
+		$tables['review']= TABLE_REVIEWS;
+		$tables['reviews']= TABLE_REVIEWS;
+		$tables['tag']= TABLE_TAGS;
+		$tables['tags']= TABLE_TAGS;
+		
 		if(array_key_exists($type, $tables)){
 			return $tables[$type];
 		}

@@ -80,20 +80,20 @@ class oPost
   		$search = self::search($params['search'], $t); 
   		
   		// Sorting
-  		$sort_field = "app_posts.influence AS sort";
+  		$sort_field = TABLE_POSTS.".influence AS sort";
   		$sort_join = '';
   		if($params['sort'] == 'comments' || $params['sort'] == 'thumbs' || $params['sort'] == 'views'){
     		$sort = $params['sort'];
     		$sort_field = "COUNT(app_$sort.id) AS sort";
-    		$sort_join = "LEFT JOIN `app_$sort` ON app_posts.id = app_$sort.post_id";
+    		$sort_join = "LEFT JOIN `app_$sort` ON ".TABLE_POSTS.".id = app_$sort.post_id";
   		}
-  		$fields = "app_posts.id AS id, $sort_field";
+  		$fields = TABLE_POSTS.".id AS id, $sort_field";
   		
   		// Select 
-  		$select = "SELECT $fields FROM `app_posts`";
+  		$select = "SELECT $fields FROM `".TABLE_POSTS."`";
   		
   		// Join
-  		$join = "INNER JOIN `$t` ON app_posts.id = $t.post_id $sort_join";
+  		$join = "INNER JOIN `$t` ON ".TABLE_POSTS.".id = $t.post_id $sort_join";
   		
   		// Query
   		$q.= "$select $join $privacy $mode $search $when UNION "; 
@@ -153,7 +153,7 @@ class oPost
 		}else{
   		$values = "'public'";
 		}	
-		$out = "WHERE app_posts.privacy IN($values)";
+		$out = "WHERE ".TABLE_POSTS.".privacy IN($values)";
 		return $out;
   }
 		
@@ -170,13 +170,13 @@ class oPost
 		switch($mode){
 		  case 'phourus':
 		    if(isset($auth_id) && $auth_id > 0){
-  		    return "AND app_posts.user_id NOT IN(".$auth_id.",".$followers.",".$following.",".$friends.")";
+  		    return "AND ".TABLE_POSTS.".user_id NOT IN(".$auth_id.",".$followers.",".$following.",".$friends.")";
 		    }
 		    return "";
 		  break;
 		  case 'user':
 		    $user_id = $params['user_id'];
-		    return "AND app_posts.user_id = '$user_id'";
+		    return "AND ".TABLE_POSTS.".user_id = '$user_id'";
 		  break;
 		  case 'org':
 		    $org_id = $params['org_id'];
@@ -188,20 +188,20 @@ class oPost
     		  $community.= $member['id'].",";
     		}
     		$community= substr($community, 0, -1);
-		    return "AND app_posts.user_id IN($community)";
+		    return "AND ".TABLE_POSTS.".user_id IN($community)";
 		  break;
 		  case 'fans':
-		    return "AND app_posts.user_id IN(".$followers.")";
+		    return "AND ".TABLE_POSTS.".user_id IN(".$followers.")";
 		  break;
 		  case 'favs':
-		    return "AND app_posts.user_id IN(".$following.")";
+		    return "AND ".TABLE_POSTS.".user_id IN(".$following.")";
 		  break;
 		  case 'friends':
-		    return "AND app_posts.user_id IN(".$friends.")";
+		    return "AND ".TABLE_POSTS.".user_id IN(".$friends.")";
 		  break;
 		  case 'me':
 		    if($auth_id != 0){
-  		    return "AND app_posts.user_id = '$auth_id'";
+  		    return "AND ".TABLE_POSTS.".user_id = '$auth_id'";
   		  }
   		  return 401;
 		  break;
@@ -230,10 +230,10 @@ class oPost
   	$out= '';
   	extract($params);
   	if(isset($date_start)){
-      $out.= "app_posts.created > $date_start"; 
+      $out.= TABLE_POSTS.".created > $date_start"; 
   	} 
   	if(isset($date_end)){
-      $out.= "app_posts.created < $date_end";	
+      $out.= TABLE_POSTS.".created < $date_end";	
   	}
   	return $out;
 	}	
