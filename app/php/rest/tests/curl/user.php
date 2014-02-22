@@ -5,7 +5,7 @@ require '../curl.php';
 class usertest extends PHPUnit_Framework_TestCase
 {
   # GET	
-	public function testuser_get(){
+	/*public function testuser_get(){
 		// Valid
 		$id= '1';
 		$r= curl("user/?id=$id");
@@ -22,9 +22,9 @@ class usertest extends PHPUnit_Framework_TestCase
 		$this->assertEquals('davidcruz', $user['username']);
 		$this->assertEquals('David', $user['first']);
 		$this->assertEquals('Cruz', $user['last']);
-		$this->assertEquals('dcruz@ymail.com', $user['email']);
+		$this->assertEquals('dcruz@phourus.com', $user['email']);
 		$this->assertEquals('555-555-5555', $user['phone']);
-		$this->assertEquals('Intuit', $user['company']);
+		$this->assertEquals('ABC Company', $user['company']);
 		$this->assertEquals(41, $user['influence']);
 		
 		# ADDRESS
@@ -34,14 +34,15 @@ class usertest extends PHPUnit_Framework_TestCase
 		$id= 'I-DONT-EXIST';
 		$r= curl("user/?id=abc");
 		$this->assertEquals(404, $r);
-	}
+	}*/
 	
 	# POST
   public function testuser_post(){
+    $auth= 'dGVzdHVzZXJAcGhvdXJ1cy5jb206cGhvdXJ1cw==';
+    
     $model= array();
-    $model['username']= 'jessedrelick';
-    $model['password']= 'phourus';
-    $model['first']= 'Jesse';
+    //$model['username']= 'jessedrelick';
+    /*$model['first']= 'Jesse';
     $model['last']= 'Drelick';
     $model['email']= 'info@jessedrelick.com';
     $model['phone']= '6037831358';
@@ -57,10 +58,11 @@ class usertest extends PHPUnit_Framework_TestCase
     $model['li']= '67890';
     $model['dob']= '1987-07-09';
     $model['notes']= 'Here are some user notes, soon to be replaced with a notes table.';
-    $model['influence']= 44;
+    $model['influence']= 44;*/
     
     # PROCESS
-    $r= curl("user/", array('post' => $model));
+    $r= curl("user/", array('post' => $model, 'auth' => $auth));
+    print_r($r);
     /*$c= oUser::get(array('id' => $r));
     
     # OBJECTS

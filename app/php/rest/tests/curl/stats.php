@@ -33,7 +33,7 @@ class statstest extends PHPUnit_Framework_TestCase
 		$this->assertEquals($posts['quotes'], 3);
 		
 		$followers= $r['followers'];
-		$this->assertEquals($followers['average'], 51);
+		$this->assertEquals($followers['average'], 42);
 		$this->assertEquals($followers['total'], 4);
 		
 		// Org

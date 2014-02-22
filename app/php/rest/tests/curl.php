@@ -1,7 +1,7 @@
 <?php
 
 	ini_set('display_errors', 1);
-  $root= '../../../php/rest/classes/';
+  $root= '../../classes/';
   $base= $root.'objects/';
   require($base.'oAddress.php');
   require($base.'oClout.php');

@@ -40,7 +40,7 @@ class sessiontest extends PHPUnit_Framework_TestCase
 		
     // Pass
 		$options= array();
-		$options['auth']= 'ZGNydXpAeW1haWwuY29tOnBob3VydXM=';
+		$options['auth']= 'ZGNydXpAcGhvdXJ1cy5jb206cGhvdXJ1cw==';
 		$options['method']= 'POST';
 		$r= curl("session/", $options);
 		/* REVISIT

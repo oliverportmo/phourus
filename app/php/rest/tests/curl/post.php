@@ -35,9 +35,9 @@ class posttest extends PHPUnit_Framework_TestCase
 		$this->assertEquals('davidcruz', $user['username']);
 		$this->assertEquals('David', $user['first']);
 		$this->assertEquals('Cruz', $user['last']);
-		$this->assertEquals('dcruz@ymail.com', $user['email']);
+		$this->assertEquals('dcruz@phourus.com', $user['email']);
 		$this->assertEquals('555-555-5555', $user['phone']);
-		$this->assertEquals('Intuit', $user['company']);
+		$this->assertEquals('ABC Company', $user['company']);
 		$this->assertEquals(41, $user['influence']);
 		
 		# STATS
@@ -58,7 +58,7 @@ class posttest extends PHPUnit_Framework_TestCase
 	  $params= array();
 	  $params['page']= 1;
 	  $params['limit']= 100;
-	  $params['types']= 'blogs;debates;ideas;subjects;';
+	  $params['types']= 'blogs;debates;subjects;quotes;';
 	  $params['mode']= 'phourus'; 
 	  extract($params);
 	  $query= $this->queryize($params);
@@ -204,7 +204,7 @@ class posttest extends PHPUnit_Framework_TestCase
 		//$this->assertEquals($model, $r['model']);
 		//$this->assertEquals($original, $r['original']);
 		//$this->assertTrue($r['status']); //
-		var_dump($current);	
+		//var_dump($current);	
 		$this->assertEquals($update['title'], $current['post']['title']);
 	}
 	
