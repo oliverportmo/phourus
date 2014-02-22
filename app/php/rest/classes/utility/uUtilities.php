@@ -162,9 +162,9 @@ class uUtilities
 		$tables['favorites']= TABLE_FAVORITES;
 		
     // Users		
-		$tables['password']= TABLE_PASSWORD;
+		$tables['password']= TABLE_PASSWORDS;
 		$tables['passwords']= TABLE_PASSWORDS;
-		$tables['token']= TABLE_TOKEN;
+		$tables['token']= TABLE_TOKENS;
 		$tables['tokens']= TABLE_TOKENS;
 		
 		// Orgs	
