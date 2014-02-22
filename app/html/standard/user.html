@@ -13,74 +13,36 @@
     </form>
     <iframe id="message" style="width:0px;height:0px;display:none;" />
 	</div>
-	<div id="update">
-      <h3>Contact Info</h3>
-      <div id="fields"></div>
-      <button class="button green save">Save Info</button>
-    </div>
-  </div>
-  <br clear="left" /><br />
-  <div id="social">
+	<div id="social">
     <h3>Verify Social Accounts</h3>
     <button id="facebook" class="social"></button> 
     <button id="linkedin" class="social"></button>
     <button id="linkedin" class="social"></button>
     <button id="google" class="social"></button>
   </div>
+  <div id="password">
+    <h3>Change Password</h3>
+    <div id="user_password"></div>
+    <button id="save_password" class="button green save">Save Info</button>
+  </div>
+  <br clear="left" /><br />
+	<div>
+    <h3>My Basic Info</h3>
+    <div id="user_basic"></div>
+    <button id="save_basic" class="button green save">Save Info</button>
+  </div>
+  <div>
+    <h3>My Details</h3>
+    <div id="user_detail"></div>
+    <button id="save_detail" class="button green save">Save Info</button>
+  </div>
+  <div>
+    <h3>My Address</h3>
+    <div id="user_address"></div>
+    <button id="save_address" class="button green save">Save Info</button>
+  </div>
+  <br clear="left" /><br />
+  
 <% } %>
 
 <br clear="all">
-<h3>User's Statistics</h3>
-<ul id="stats" class="tabs">
-	<li><a href="javascript:void(0)" id="earth" class="selected">Earth</a></li>
-	<li><a href="javascript:void(0)" id="mind">Mind</a></li>
-	<li><a href="javascript:void(0)" id="voice">Voice</a></li>
-	<li><a href="javascript:void(0)" id="self">Self</a></li>
-  <li><a href="javascript:void(0)" id="social" >Social</a></li>
-</ul>
-<div style="background-color: #fff">
-	<table id="view_earth" class="view" style="display: table;">
-		<colgroup><col class="sidebar-form"><col width="200"><col></colgroup>
-		<tbody>
-			<tr><td>Blogs:</td><td><%= totals.blogs %></td><td>The current profile's Blog count</td></tr>
-			<tr><td>Events:</td><td><%= totals.ideas %></td><td>The current profile's Ideas count</td></tr>
-		</tbody>
-	</table>
-		
-	<table id="view_mind" class="view" style="display: none;">
-		<colgroup><col class="sidebar-form"><col width="200"><col></colgroup>
-		<tbody>
-			<tr><td>Subjects:</td><td><%= totals.subjects %></td><td>The current profile's Subject count</td></tr>
-			<tr><td>Questions:</td><td><%= totals.questions %></td><td>The current profile's Scores</td></tr>
-			<tr><td>Answers:</td><td><%= totals.answers %></td><td>The current profile's Course count</td></tr>
-		</tbody>
-	</table>
-	
-	<table id="view_voice" class="view" style="display: none;">
-		<colgroup><col class="sidebar-form"><col width="200"><col></colgroup>
-		<tbody>
-			<tr><td>Debates:</td><td><%= totals.debates %></td><td>The current profile's Discussion count</td></tr>
-			<tr><td>Bills:</td><td><%= totals.bills %></td><td>The current profile's Debate count</td></tr>
-			<tr><td>Votes:</td><td><%= totals.votes %></td><td>The current profile's Representative count</td></tr>
-		</tbody>
-	</table>
-	
-	<table id="view_self" class="view" style="display: none;">
-		<colgroup><col class="sidebar-form"><col width="200"><col></colgroup>
-		<tbody>
-			<tr><td>Beliefs:</td><td><%= totals.beliefs %></td><td>The current profile's Rank summary</td></tr>
-			<tr><td>Timeline:</td><td><%= totals.timeline %></td><td>The current profile's Beliefs count</td></tr>
-			<tr><td>Quotes:</td><td><%= totals.quotes %></td><td>The current profile's Timeline Event count</td></tr>
-        </tbody>
-  </table>
-    
-  <table id="view_social" class="view" style="display: none;">
-		<colgroup><col class="sidebar-form"><col width="200"><col></colgroup>
-		<tbody>
-			<tr><td>Comments:</td><td>247</td><td>The current profile's Checklist summary</td></tr>
-			<tr><td>Thumbs:</td><td>431+/142-</td><td>The current profile's Calculator grade</td></tr>
-			<tr><td>Views:</td><td>3,451</td><td>The current profile's Endorsement count</td></tr>
-		</tbody>
-	</table>
-</div>
-<br clear="all"><br />

@@ -1,4 +1,4 @@
-define ["jquery", "underscore", "backbone"], ($) ->
+define ["jquery", "underscore", "backbone", "forms"], ($, _, Backbone, forms) ->
   mTypes = Backbone.Model.extend(
     initialize: ->
       ###
@@ -84,7 +84,9 @@ define ["jquery", "underscore", "backbone"], ($) ->
       required = {type: "Text", validators: ['required']}
       email = {type: "Text", validators: ['required', 'email']}
       handle = {type: "Text", validators: [@validate_handle]}
+      password = {type: "Password"}
       terms = {type: "Checkbox", help: "Click to accept the terms & conditions", validators: [@validate_terms]}
+      zip = {type: "Text", editorAttrs: {"maxlength": 5}}
       if type is 'contact'
         schema.first = required
         schema.last = required
@@ -188,6 +190,31 @@ define ["jquery", "underscore", "backbone"], ($) ->
           schema.address = "Text"
           schema.about = "TextArea"
           schema.contact = "TextArea"
+        when "user_basic"
+          schema.username = _.extend(handle, {editorAttrs: {'disabled': 'true'}})
+          schema.first = "Text"
+          schema.last = "Text"
+          schema.email = email
+          schema.phone = "Text"        
+        when "user_detail"
+          schema.company = "Text"
+          schema.occupation = "Text"  
+          schema.website = {type: "Text", validators: ["url"]}
+          schema.dob = "Date"
+          schema.gender = {type: "Select", options: [{label: "Not specified", val: ""}, {label: "Male", val: "m"}, {label: "Female", val: "f"}]}
+        when "password"
+          schema.current = {type: "Password"}
+          schema.changed = {type: "Password"}
+          schema.verify  = {type: "Password"}
+        when "address"
+          states = []
+          _.each @states, (val, key, obj) ->
+            states.push {label: val, val: key}
+            
+          schema.street = "Text"
+          schema.city = "Text"
+          schema.state = {type: "Select", options: states}
+          schema.zip = zip
         else
           ###
           when "links"
@@ -209,7 +236,7 @@ define ["jquery", "underscore", "backbone"], ($) ->
             schema.positive = "Checkbox"
           ###
       schema
-
+    
     description: (type) ->
       if _.isUndefined(@descriptions[type])
         ""

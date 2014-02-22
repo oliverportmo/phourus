@@ -133,29 +133,56 @@ margin: 0px;
   }
   
   .user {
-    #upload {
-      width: 30%;
-      float: left;  
     
-      #pic {
-        background: none;
-        .box-shadow(0px, 0px, 0px, #fff);
-      }
-    }
-    
-    #update {
-      width: 65%;
+    > div:not(.heading) {
       float: left;
-      #fields {
-        float: none;
+      width: 30%;
+      background-color: #f7f7f7;
+      margin: 1%;
+      border: solid 1px #eee;
+      border-left: solid 4px #ccc;
+        
+      #upload {    
+        #pic {
+          background: none;
+          .box-shadow(0px, 0px, 0px, #fff);
+        }
       }
+         
+      h3 { 
+        clear: both;
+        font-size: 0.9em;
+        font-weight: normal;
+        font-family: @century;
+        letter-spacing: 2px;
+        background-color: #222;
+        background-image: url('/assets/layout/texture.png');
+        border-bottom: groove 2px #333;
+        margin: 0px 0px 0px -4px;
+        padding: 12px 10px 10px 20px;
+        color: #eee;
+        text-transform: uppercase;
+        
+        a {
+          color: #ddd;
+          font-size: 1em;
+        }
+      } 
+      
+      label {
+        color: #333;
+        font-size: 0.9em;
+      }
+          
+      input, select {
+        width: 80%;
+        height: 80%;
+      }
+      
+      input[disabled=disabled] {
+        color: #ccc;
+      }   
     }
-    
-    #social {
-      clear: left;
-      width: 325px;
-    }
-    
   }
   
   .orgs {

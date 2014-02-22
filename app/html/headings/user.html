@@ -20,6 +20,7 @@
 	<div class="label">User Influence:</div>
 	<span class="value"><%= user.influence %></span>	
 </div>
+<% if(!_.isUndefined(stats)){ %>
 <div class="social">
   <ul>
   	<li><strong>Views:</strong> <%= stats.views %></li> 
@@ -28,4 +29,5 @@
   	<li><strong>Popularity:</strong> <%= stats.popularity %>%</li>
   </ul> 
 </div>
+<% } %>
 <div class="clear"></div>

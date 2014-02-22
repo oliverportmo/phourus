@@ -1355,26 +1355,49 @@ div#footing {
   padding: 0px;
   border: none;
 }
-#content .user #upload {
-  width: 30%;
+#content .user > div:not(.heading) {
   float: left;
+  width: 30%;
+  background-color: #f7f7f7;
+  margin: 1%;
+  border: solid 1px #eee;
+  border-left: solid 4px #ccc;
 }
-#content .user #upload #pic {
+#content .user > div:not(.heading) #upload #pic {
   background: none;
   box-shadow: 0px 0px 0px #ffffff;
   -moz-box-shadow: 0px 0px 0px #ffffff;
   -webkit-box-shadow: 0px 0px 0px #ffffff;
 }
-#content .user #update {
-  width: 65%;
-  float: left;
+#content .user > div:not(.heading) h3 {
+  clear: both;
+  font-size: 0.9em;
+  font-weight: normal;
+  font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, Verdana, sans-serif;
+  letter-spacing: 2px;
+  background-color: #222;
+  background-image: url('/assets/layout/texture.png');
+  border-bottom: groove 2px #333;
+  margin: 0px 0px 0px -4px;
+  padding: 12px 10px 10px 20px;
+  color: #eee;
+  text-transform: uppercase;
 }
-#content .user #update #fields {
-  float: none;
+#content .user > div:not(.heading) h3 a {
+  color: #ddd;
+  font-size: 1em;
 }
-#content .user #social {
-  clear: left;
-  width: 325px;
+#content .user > div:not(.heading) label {
+  color: #333;
+  font-size: 0.9em;
+}
+#content .user > div:not(.heading) input,
+#content .user > div:not(.heading) select {
+  width: 80%;
+  height: 80%;
+}
+#content .user > div:not(.heading) input[disabled=disabled] {
+  color: #ccc;
 }
 #content .orgs div#settings {
   width: 20%;
