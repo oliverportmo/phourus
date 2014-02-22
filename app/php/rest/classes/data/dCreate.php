@@ -22,10 +22,24 @@ class dCreate {
 		 
 		$result= new uResult();
 		$create= $result->r_create($queries, true);
-		if(!$create['id']){
-  		return 503;
+		if($create['id']){	
+  		return $create['id'];
 		} 
-		return $create['id'];
+		return 503;
+	}	
+	
+	# USER
+	public static function user($model){
+		$split= uUtilities::splitter($model, 'user');
+		
+		$u= uQueries::create($split['user'], 'users');
+		$p= uQueries::create($split['pass'], 'passwords');	
+		$queries[]= $u;
+		$queries[]= $p;
+		
+		$result= new uResult();
+		$create= $result->r_create($queries, true);
+		return $create;
 	}	
 	
 	# SESSION

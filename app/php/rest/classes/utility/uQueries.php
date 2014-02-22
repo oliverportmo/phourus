@@ -347,7 +347,12 @@ class uQueries {
 	# LOGIN
 	public static function login($params){			
 		extract($params);
-		return "SELECT id FROM app_users WHERE `$key` = '$username' AND `password` = '$password';";
+		return "SELECT id FROM app_users WHERE `$key` = '$username';";
+	}
+	
+	# HASH
+	public static function hash($user_id){			
+		return "SELECT hash FROM app_passwords WHERE `user_id` = '$user_id';";
 	}
 	
 	# SESSION GET

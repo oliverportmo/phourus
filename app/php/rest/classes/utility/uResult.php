@@ -72,7 +72,6 @@ class uResult
 	}
 	
 	private function transaction($queries, $mode){
-  	$out= array();
   	/*$id= 0;
     
     $out= $this->db->exec($q);
@@ -100,18 +99,14 @@ class uResult
       $out[]= $r;*/
       try {
         $r= $this->db->exec($q);
-        if($r== 0){
-          $out[]= $q;
-        }else{
-          $out[]= $r;
-        }
-        $last= $this->db->lastInsertId(); 
-        if($last != "0"){
-          $out['id']= $last;
-        }
+        $out[]= $r;
+        $id = $this->db->lastInsertId();
+        if(is_numeric($id) && $id > 0){
+          $out['id'] = $id; 
+        } 
       }catch (Exception $e){
         $this->db->rollBack();
-        return $q;
+        return false;
       }
   	}
   	$this->db->commit();

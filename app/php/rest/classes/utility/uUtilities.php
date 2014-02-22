@@ -3,26 +3,40 @@
 class uUtilities
 {
 	
-  public function splitter($model){
-  	//posts table
-  	$posts= array();
-  	$posts['user_id']= $model['user_id'];
-  	$posts['privacy']= $model['privacy'];
-  	$posts['influence']= 0;
-  	$posts['type']= $model['type'];
-  	//detail table
-  	$detail= $model;
-  	$detail['post_id']= 'LAST_INSERT_ID()';
-  	unset($detail['id']);
-  	unset($detail['created']);
-  	unset($detail['modified']);
-  	unset($detail['user_id']);
-  	unset($detail['privacy']);
-  	unset($detail['influence']);
-  	unset($detail['type']);
-  	$out= array();
-  	$out['posts']= $posts;
-  	$out['detail']= $detail;
+  public function splitter($model, $type='post'){ 	
+  	if($type == 'user'){
+  	  $pass = array();
+  	  $pass['user_id']= 'LAST_INSERT_ID()';
+  	  $pass['hash']= $model['hash'];
+  	  
+  	  $user = $model;
+  	  unset($user['hash']);
+  	  
+  	  $out= array();
+  	  $out['pass']= $pass;
+  	  $out['user']= $user;
+  	}else{ 
+    	//posts table
+    	$posts= array();
+    	$posts['user_id']= $model['user_id'];
+    	$posts['privacy']= $model['privacy'];
+    	$posts['influence']= 0;
+    	$posts['type']= $model['type'];
+    	//detail table
+    	$detail= $model;
+    	$detail['post_id']= 'LAST_INSERT_ID()';
+    	unset($detail['id']);
+    	unset($detail['created']);
+    	unset($detail['modified']);
+    	unset($detail['user_id']);
+    	unset($detail['privacy']);
+    	unset($detail['influence']);
+    	unset($detail['type']);
+    	$out= array();
+    	$out['posts']= $posts;
+    	$out['detail']= $detail;
+    	
+  	}
   	return $out;	
 	}
 	
@@ -105,6 +119,8 @@ class uUtilities
 		$tables['users']= 'app_users';	
 		$tables['org']= 'app_orgs';
 		$tables['orgs']= 'app_orgs';	
+		$tables['password']= 'app_passwords';
+		$tables['passwords']= 'app_passwords';	
 		$tables['clout']= 'app_clout';
 		$tables['review']= 'app_reviews';
 		$tables['reviews']= 'app_reviews';
@@ -201,6 +217,12 @@ class uUtilities
 				}
 			break;	
 			case 'post_id':
+			 if($value == 'LAST_INSERT_ID()'){
+  			 return "LAST_INSERT_ID()";
+			 }else{
+  			 return $value;
+			 }
+		  case 'user_id':
 			 if($value == 'LAST_INSERT_ID()'){
   			 return "LAST_INSERT_ID()";
 			 }else{

@@ -27,9 +27,15 @@ class oUser
 	}
 		
 	# POST
-	public function create($model){
-		$out= dCreate::create($model, 'users');	
-		return $out;
+	public function create($headers, $model){
+	  $params= uUtilities::decode($headers['AUTHENTICATION']);
+	  $model['email']= $params['username'];
+		$model['hash'] = create_hash($params['password']);	
+		$user= dCreate::user($model);
+		if($user !== false){
+  		return oSession::create($headers);
+		}
+		return false;
 	}
 	
 	# PUT
@@ -93,7 +99,7 @@ class oUser
   	$out= self::commas($out, $quotes);
   	return $out;
 	}
-	
+		
 	/** COMMAS **/
 	private function commas($data, $quotes = false){
 	  $out= array();

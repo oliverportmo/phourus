@@ -13,17 +13,26 @@ class oSession
 	
 	# POST
 	public function create($headers){
-    $params= uUtilities::decode($headers['AUTHENTICATION']);
-		$authorized= dRead::login($params['username'], $params['password']);
-
-		if($authorized != false){
-			return dCreate::session($authorized['id']);
+    $params= uUtilities::decode($headers['AUTHENTICATION']); 
+		$user= dRead::login($params['username']);
+		if(!$user){
+  	  return 403;		
+    }		
+    $user_id = $user['id'];
+		$hash= dRead::hash($user_id);
+		if(is_numeric($hash)){
+  		return 403;
 		}
-		return false;
+		$check= validate_password($params['password'], $hash['hash']);
+		if($check === true){	
+  		return dCreate::session($user_id);
+		}
+		return 503;				
 	}
 	
 	# PUT
 	// Not necessary
+	
 	
 	# DELETE
 	public function delete($token){

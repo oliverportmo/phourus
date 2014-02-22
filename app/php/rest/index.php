@@ -19,6 +19,7 @@ require($base.'oAddress.php');
 require($base.'oClout.php');
 require($base.'oComment.php');
 require($base.'oCommunity.php');
+//require($base.'oEmail.php');
 require($base.'oFollow.php');
 require($base.'oHistory.php');
 require($base.'oInfluence.php');
@@ -44,6 +45,7 @@ require($base.'dRead.php');
 require($base.'dUpdate.php');
 
 $base= __DIR__.'/classes/utility/';
+require($base.'uPassword.php');
 require($base.'uQueries.php');
 require($base.'uResult.php');
 require($base.'uUtilities.php');
@@ -179,6 +181,18 @@ $app->get('/rest/stats/:query', function() use ($get){
 	out($out);
 });
 
+# NOTIFICATIONS
+$app->get('/rest/notifications/:query', function() use ($get){
+  $out= oNotification::get($get);
+  out($out);
+});
+
+# HISTORY
+$app->get('/rest/history/:query', function() use ($get){
+  $out= oHistory::get($get);
+  out($out);
+});
+
 # COMMUNITY
 $app->get('/rest/community/:query', function() use ($get){ 
 	$out= oCommunity::get($get);
@@ -197,18 +211,6 @@ $app->get('/rest/special/:query', function() use ($get){
   out($out);
 });
 
-# HISTORY
-$app->get('/rest/history/:query', function() use ($get){
-  $out= oHistory::get($get);
-  out($out);
-});
-
-# NOTIFICATIONS
-$app->get('/rest/notifications/:query', function() use ($get){
-  $out= oNotification::get($get);
-  out($out);
-});
-
 ########
 # ==== #
 # POST #
@@ -219,8 +221,8 @@ $app->post('/rest/post/', function() use ($post){
 	out($out);
 }); 
     
-$app->post('/rest/user/', function() use ($post){
-	$out= oUser::create($post);
+$app->post('/rest/user/', function() use ($headers, $post){
+	$out= oUser::create($headers, $post);
 	out($out);
 });  
 
@@ -338,6 +340,12 @@ $app->put('/rest/review/:id', function($id) use ($put){
 $app->put('/rest/address/:id', function($id) use ($put){
 	$out= oAddress::update($id, $put);
 	out($out);
+});
+
+# PASSWORD 
+$app->put('/rest/password/', function() use ($put){
+  $out= dUpdate::password($put);
+  out($out);
 });
 
 // X tag

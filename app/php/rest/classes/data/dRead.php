@@ -178,13 +178,19 @@ class dRead {
 	}
 	
 	/** SESSION **/
-	public static function login($user, $pass){
+	public static function login($user, $key = 'email'){
 		$params['username']= $user;
-		$params['password']= $pass;
-		$params['key']= 'email';
+		$params['key']= $key;
 		$q= uQueries::login($params);
 		$result= new uResult();
 		$out= $result->r_login($q);
+		return $out;
+	}
+	
+	public static function hash($user_id){
+		$q= uQueries::hash($user_id);
+		$result= new uResult();
+		$out= $result->r_single($q);
 		return $out;
 	}
 	
