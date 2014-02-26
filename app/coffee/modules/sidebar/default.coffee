@@ -18,6 +18,7 @@ define ["jquery", "underscore", "backbone", "text!html/sidebar/user.html", "text
     logout: ->
       localStorage.removeItem "session"
       #mSession.destroy()
+      location.href = '/'
       location.reload(false)
       #mSession.clear()
       #Backbone.Events.trigger "alert", {type: "complete", message: "You have been logged out successfully"}

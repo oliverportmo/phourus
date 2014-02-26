@@ -71,6 +71,7 @@ define(["jquery", "underscore", "backbone", "auth", "text!html/login.html", "tex
 
       session = JSON.stringify(response);
       localStorage.setItem("session", session);
+      location.href = '/#!stream';
       return location.reload(false);
     },
     /* LOGOUT
@@ -78,6 +79,7 @@ define(["jquery", "underscore", "backbone", "auth", "text!html/login.html", "tex
 
     logout: function() {
       localStorage.removeItem("session");
+      location.href = '/#!home';
       return location.reload(false);
     },
     form: function() {

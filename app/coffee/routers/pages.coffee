@@ -1,60 +1,13 @@
 define ["jquery", "underscore", "backbone", "marionette"], ($, _, Backbone, marionette) ->
   router = Backbone.Marionette.AppRouter.extend(
-    controller: controller
     
     initialize: (options) ->
-      @bind 'all', @track
+      @bind 'route', @track
     
     appRoutes:
       "pages": "pages"
-      "page/*path": "page"
-      #"add": "add"
-      #"edit/:id": "edit"
+      #"page/add/": "add"
+      #"page/edit/:id": "edit"
+      "*page": "page"
       
   )
-  controller =
-    slug: "pages"
-    path: () -> 
-    	"modules/{{@slug}}/"
-    pages: () ->
-      self = this
-      params =
-        params: settings
-
-      require ["pages"], (view) ->
-        self.toss view, params
-    
-    page: (path) ->
-      self = this
-      params =
-        path: path
-      
-      require ["js/modules/pages/views/page"], (view) ->
-        self.toss view, params
-        
-    add: () ->
-      self = this
-      params =
-        mode: "add"
-
-      require ["form"], (view) ->
-        self.toss view, params
-        
-    edit: (id) ->
-      self = this
-      params =
-        id: id
-        mode: "edit"
-
-      require ["form"], (view) ->
-        self.toss view, params        
-
-
-    toss: (view, params) ->
-      data =
-        view: view
-        params: params
-
-      Backbone.Events.trigger "module", data, this
-
-  new router(controller: controller)

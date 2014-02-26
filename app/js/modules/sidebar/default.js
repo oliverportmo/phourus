@@ -18,6 +18,7 @@ define(["jquery", "underscore", "backbone", "text!html/sidebar/user.html", "text
     },
     logout: function() {
       localStorage.removeItem("session");
+      location.href = '/';
       return location.reload(false);
     },
     render: function() {

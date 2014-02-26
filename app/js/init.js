@@ -43,12 +43,8 @@ require.config({
   }
 });
 
-window.debug = function(input) {
-  return console.log(input);
-};
-
 define("init", function(require) {
-  var $, Backbone, app, mHeaders, mSession, mView, marionette, options, vAlerts, _;
+  var $, Backbone, app, cInternal, cOrgs, cPages, cStandard, cStream, mHeaders, mSession, mView, marionette, options, rInternal, rOrgs, rPages, rStandard, rStream, vAlerts, vFooter, vHeader, vSidebar, _;
 
   $ = require("jquery");
   _ = require("underscore");
@@ -58,6 +54,34 @@ define("init", function(require) {
   mView = require("js/models/view");
   mHeaders = require("js/models/headers");
   vAlerts = require("js/views/alerts");
+  rStandard = require("js/routers/standard");
+  rStream = require("js/routers/stream");
+  rOrgs = require("js/routers/orgs");
+  rInternal = require("js/routers/internal");
+  rPages = require("js/routers/pages");
+  cStandard = require("js/controllers/standard");
+  cStream = require("js/controllers/stream");
+  cOrgs = require("js/controllers/orgs");
+  cInternal = require("js/controllers/internal");
+  cPages = require("js/controllers/pages");
+  new rPages({
+    controller: cPages
+  });
+  new rStandard({
+    controller: cStandard
+  });
+  new rStream({
+    controller: cStream
+  });
+  new rOrgs({
+    controller: cOrgs
+  });
+  new rInternal({
+    controller: cInternal
+  });
+  vHeader = require("js/views/header");
+  vSidebar = require("js/views/sidebar");
+  vFooter = require("js/views/footer");
   Backbone.Collection = require("js/base/collection");
   Backbone.Model = require("js/base/model");
   Backbone.View = require("js/base/view");
@@ -89,17 +113,6 @@ define("init", function(require) {
     Backbone.Events.on("token", function(data) {
       mHeaders.set("x-api-key", data.token);
       return mHeaders.set("from", data.user_id);
-      /*
-      Backbone.sync = (method, model, options) ->
-        
-        options.headers = options.headers or {}
-        _.extend options.headers,
-          "x-api-key": data.token
-          "from": data.user_id
-        
-        Backbone._sync method, model, options
-      */
-
     });
     return Backbone.Events.on("map", function(data) {
       var dev;
@@ -124,27 +137,20 @@ define("init", function(require) {
     return mSession.local();
   });
   app.on("initialize:after", function(options) {
-    var host, internal, orgs, pages, parts, standard, stream, subdomain, vFooter, vHeader, vSidebar;
+    var admin, host, parts, subdomain;
 
     host = window.location.hostname;
     parts = host.split('.');
     subdomain = parts[0];
-    options = {
-      subdomain: subdomain
-    };
-    if (subdomain === 'docs' || subdomain === 'wiki' || subdomain === 'agency') {
-      pages = require("js/routers/pages");
-    } else if (subdomain === 'internal') {
-      internal = require("js/routers/internal");
-    } else {
-      standard = require("js/routers/standard");
-      stream = require("js/routers/stream");
-      orgs = require("js/routers/orgs");
-      pages = require("js/routers/pages");
+    this.subdomain = subdomain;
+    admin = 0;
+    if ((subdomain === 'wiki' || subdomain === 'internal') && admin !== 1) {
+      alert("You must be an admin to access this page. Please log in with an Admin account if you wish to access this subdomain.");
+      location.href = "http://www.phourus.local/";
     }
-    vHeader = require("js/views/header");
-    vSidebar = require("js/views/sidebar");
-    vFooter = require("js/views/footer");
+    options = {
+      subdomain: this.subdomain
+    };
     app.header = new vHeader(options);
     app.sidebar = new vSidebar(options);
     app.footer = new vFooter();

@@ -40,9 +40,6 @@ require.config
       deps: ["jquery", "underscore", "backbone"]
       exports: "Marionette"
 
-window.debug = (input) ->
-  console.log input
-
 define "init", (require) ->
   $ = require("jquery")
   _ = require("underscore")
@@ -52,7 +49,30 @@ define "init", (require) ->
   mView = require("js/models/view")
   mHeaders = require("js/models/headers") 
   vAlerts = require("js/views/alerts")  
-    
+  
+  # Still no runtime routers :(
+  rStandard = require("js/routers/standard")
+  rStream = require("js/routers/stream")
+  rOrgs = require("js/routers/orgs")
+  rInternal = require("js/routers/internal")
+  rPages = require("js/routers/pages")
+  
+  cStandard = require("js/controllers/standard")
+  cStream = require("js/controllers/stream")
+  cOrgs = require("js/controllers/orgs")
+  cInternal = require("js/controllers/internal")
+  cPages = require("js/controllers/pages")
+  
+  new rPages({controller: cPages})
+  new rStandard({controller: cStandard})
+  new rStream({controller: cStream})
+  new rOrgs({controller: cOrgs})
+  new rInternal({controller: cInternal})
+  
+  vHeader = require("js/views/header")
+  vSidebar = require("js/views/sidebar")
+  vFooter = require("js/views/footer")
+     
   Backbone.Collection = require("js/base/collection")
   Backbone.Model = require("js/base/model")
   Backbone.View = require("js/base/view")
@@ -60,7 +80,6 @@ define "init", (require) ->
   
   app = new Backbone.Marionette.Application()
   
-     
   # Content
   app.addRegions content: "#content"
   
@@ -87,16 +106,7 @@ define "init", (require) ->
     Backbone.Events.on "token", (data) ->
       mHeaders.set("x-api-key", data.token)
       mHeaders.set("from", data.user_id)
-      ###
-      Backbone.sync = (method, model, options) ->
-        
-        options.headers = options.headers or {}
-        _.extend options.headers,
-          "x-api-key": data.token
-          "from": data.user_id
-        
-        Backbone._sync method, model, options
-      ###
+
     #map
     Backbone.Events.on "map", (data) ->  
       dev = false
@@ -112,30 +122,21 @@ define "init", (require) ->
   # BEFORE
   app.on "initialize:before", (options) ->
     mSession.local()
-    #Backbone.emulateHTTP = true
-
-
+    #Backbone.emulateHTTP = true  
+  
   # AFTER
   app.on "initialize:after", (options) ->    
     host = window.location.hostname
     parts = host.split '.'
     subdomain = parts[0]
-    options = {subdomain: subdomain}
+    @subdomain = subdomain
+    admin = 0
     
-    if subdomain in ['docs', 'wiki', 'agency']
-      pages = require("js/routers/pages")
-    else if subdomain is 'internal'
-      internal = require("js/routers/internal")
-    else
-      standard = require("js/routers/standard")
-      stream = require("js/routers/stream")
-      orgs = require("js/routers/orgs")
-      pages = require("js/routers/pages")
-    
-    vHeader = require("js/views/header")
-    vSidebar = require("js/views/sidebar")
-    vFooter = require("js/views/footer")
-    
+    if subdomain in ['wiki', 'internal'] and admin isnt 1
+      alert "You must be an admin to access this page. Please log in with an Admin account if you wish to access this subdomain."
+      location.href = "http://www.phourus.local/" 
+
+    options = {subdomain: @subdomain}   
     app.header = new vHeader(options)
     app.sidebar = new vSidebar(options)
     app.footer = new vFooter()

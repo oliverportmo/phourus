@@ -1,11 +1,5 @@
-define (require) ->
-  $= require("jquery")
-  _= require("underscore")
-  Backbone= require("Backbone")
-					
-  model = Backbone.Model.extend(
-  	initialize: (options) ->
-     
+define ["jquery", "underscore", "backbone"], ($, _, Backbone) ->		
+  model = Backbone.Model.extend(     
   	url: "/rest/page/"
   )
   model

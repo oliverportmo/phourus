@@ -52,6 +52,7 @@ define ["jquery", "underscore", "backbone", "auth", "text!html/login.html", "tex
       
       # Set localStorage
       localStorage.setItem "session", session
+      location.href = '/#!stream'
       location.reload(false)
       #data = localStorage.getItem("session")
       #out = $.parseJSON(data)
@@ -61,6 +62,7 @@ define ["jquery", "underscore", "backbone", "auth", "text!html/login.html", "tex
     logout: ->
       localStorage.removeItem "session"
       #mSession.destroy()
+      location.href = '/#!home'
       location.reload(false)
       #mSession.clear()
       #Backbone.Events.trigger "alert", {type: "complete", message: "You have been logged out successfully"}
