@@ -21,17 +21,17 @@ class oStats
 
 	# PRIVATE
 	static function post($post_id){
-  	$out= dRead::stats_post($post_id);
+  	$out= dRead::post_stats($post_id);
 		return $out;
 	}
 	
 	static function user($user_id){
-	  $out= dRead::stats_user($user_id);	  
+	  $out= dRead::user_stats($user_id);	  
 		return $out;
 	}
 	
 	static function org($org_id){
-	  $out= dRead::stats_org($org_id);
+	  $out= dRead::org_stats($org_id);
   	return $out;
 	}
 }

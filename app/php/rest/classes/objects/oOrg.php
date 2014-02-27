@@ -6,15 +6,15 @@ class oOrg
 	# GET
 	public function get($params){
 	  if(isset($params['id'])){
-  	  $out= dRead::orgs($params);
+  	  $out= dRead::org($params);
 	  }else{
 	    $params['mode']= 'id';
-  	  $ids= dRead::orgs($params);
+  	  $ids= dRead::org($params);
   	  if(is_numeric($ids)){
     	  return $ids;
   	  }
   	  foreach($ids as $id){
-    	  $out[]= dRead::orgs(array('id' => $id['id']));
+    	  $out[]= dRead::org(array('id' => $id['id']));
   	  }
 	  }
 		return $out;	
@@ -22,7 +22,7 @@ class oOrg
 	
 	# POST
 	public function create($model){
-		$out= dCreate::create($model, 'orgs');	
+		$out= dCreate::create($model, 'org');	
 		return $out;
 	}
 	

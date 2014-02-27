@@ -2,90 +2,21 @@
 
 class uQueries {
 
-  /** POSTS **/
-  # STREAM
-	/*public static function posts($params){					
-		$params= oPost::params($params);
-		extract($params);
-		if(!isset($author)){ $author= ''; }
-		return "$mode $types $author $order $paging $users;";
-	}*/
-	
-	# META
-	public static function meta($params){		
-		extract($params); 
-		return "SELECT * FROM ".TABLE_POSTS." WHERE id = '$post_id';";
-	}
-	
-	# POST
-	public static function post($params){	
-		extract($params); 
-		return "SELECT * FROM $table WHERE post_id = '$post_id';";
-	}
-	
-	# USERS
-	public static function users($params){			
-		$where= "";
-		if(is_array($params)){
-  		extract($params);
-  		if(isset($id)){
-    		$where= "WHERE id = '$id'";
-  		}
-		}else{
-  		$where= "WHERE id = '$params'";
-		}
-		
-		return "SELECT * FROM ".TABLE_USERS." $where;";	
-	}
-	
-	# ORGS
-	public static function orgs($params){
-		// state, zip
-		extract($params);
-		$where= '';
-		//if(isset($state)) { $filter= "AND ".TABLE_ADDRESS.".state = '$state'"; }
-		//if(isset($zip)) { $filter= "AND ".TABLE_ADDRESS.".zip = '$zip'"; }
-		if(isset($type)) {		
-  		if($type== 'companies'){ $type= 'company'; }
-  		if($type== 'govs'){ $type= 'gov'; }
-  		if($type== 'groups'){ $type= 'group'; }
-  		if($type== 'schools'){ $type= 'school'; }
-		  $where= "WHERE ".TABLE_ORGS.".type = '$type'"; 
-		}
-		if(isset($id)) {
-  		$where= "WHERE id = '$id'";
-		}
-		if(isset($user_id)) {
-  		$where= "WHERE user_id = '$user_id'";
-		}
-		if(isset($mode) && $mode== 'id'){
-  		$fields= 'id';
-		}else{
-  		$fields= '*';
-		}
-		return "SELECT $fields FROM ".TABLE_ORGS." $where ORDER BY ".TABLE_ORGS.".influence DESC;";
-	}
-	
 	/** CRUD **/
-	# READ
+	# get
 	public static function get($id, $type){
     $table= uUtilities::table($type);
-    return "SELECT * FROM $table WHERE id = '$id';";
+    return sprintf("SELECT * FROM $table WHERE id = %d;", $table, $id);
 	}
 	
-	# CREATE
+	# create
 	public static function create($model, $type){		
-		$table= uUtilities::table($type);
-		//unset($model['id']);
-		//unset($model['created']);
-		//unset($model['modified']);
-		
+		$table= uUtilities::table($type);		
 		$pairs= uUtilities::pairs($model);
-		extract($pairs);
-		return "INSERT INTO $table ($keys) VALUES ($values);";
+		return sprintf("INSERT INTO `%s` (%s) VALUES (%s);", $table, $pairs['keys'], $pairs['values']);
 	}	
 
-	# UPDATE
+	# update
 	public static function update($id, $type, $model){
 		$table= uUtilities::table($type);
 		unset($model['id']);
@@ -93,385 +24,81 @@ class uQueries {
 		$model['modified']= 'NOW()';
 		
 		$pairs= uUtilities::pairs($model, true);  
-		return "UPDATE $table SET $pairs WHERE id = '$id';";		
+		return sprintf("UPDATE `%s` SET %s WHERE id = %d;", $table, $pairs, $id);		
 	}
 	
-	public static function update_post($id, $type, $model){
-		extract($model);
-		$table= uUtilities::table($type);
-		$pairs= uUtilities::pairs($model, true); 
-		return "UPDATE $table SET $pairs WHERE post_id = '$id';";		
-	}
-
-	# DELETE
+	# delete
 	public static function delete($id, $type){
 		$table= uUtilities::table($type);
-		return "DELETE FROM $table WHERE id = '$id';";
+		return sprintf("DELETE FROM `%s` WHERE id = %d;", $table, $id);
 		//return "UPDATE  SET privacy = '-1', modified = NOW() WHERE id = '$id';";		
-	}	
-
-	/** META **/
-	# VIEWS
-	public static function views($params){
-		$where= '';
-		extract($params);
-		if(isset($viewer_id)){
-  		$where= "WHERE viewer_id = '$viewer_id'";
-		}
-		if(isset($id)){
-  		$where= "WHERE id = '$id'";
-		}
-		if(isset($post_id)){
-  		$where= "WHERE post_id = '$post_id'";
-		}
-		if(isset($user_id)){
-  		$where= "WHERE user_id = '$user_id'";
-		}
-		if(isset($org_id)){
-  		$where= "WHERE org_id = '$org_id'";
-		}
-		if(!isset($limit)){
-  		$limit = 20;
-		} 
-		if(isset($page)){
-  		$offset = $page * $limit; 
+	}
+		
+	/** POST **/
+	public static function post($params){		 
+		return sprintf("SELECT * FROM `%s` WHERE id = %d;", TABLE_POSTS, $params['post_id']);
+	}
+	
+	# meta
+	public static function post_meta($params){	
+		return sprintf("SELECT * FROM `%s` WHERE post_id = %d;", $params['table'], $params['post_id']);
+	}
+	
+	# stats
+	public static function post_stats($user_id){
+    return sprintf("SELECT type, COUNT(type) AS total FROM %s WHERE user_id = %d GROUP BY `type`;", TABLE_POSTS, $user_id);
+	}
+	
+	# update
+	public static function post_update($id, $type, $model){
+		$table= uUtilities::table($type);
+		$pairs= uUtilities::pairs($model, true); 
+		return sprintf("UPDATE `%s` SET %s WHERE post_id = %d;", $table, $pairs, $id);		
+	}
+	
+	/** USER **/
+	public static function user($params){			
+		$user_id= 0;
+		if(is_array($params)){
+  		if(isset($params['id'])){
+    		$user_id= $params['id'];
+  		}
 		}else{
-  		$offset = 0;
+  		$user_id= $params;
 		}
-		$paging = "LIMIT $offset, $limit";
-		
-		
-	  return "SELECT * FROM ".TABLE_VIEWS." $where $paging;";
+		return sprintf("SELECT * FROM `%s` WHERE id = %s;", TABLE_USERS, $user_id);	
 	}
 	
-	# THUMBS
-	public static function thumbs($params){
-	  $where= "";
-	  extract($params);
-	  if(isset($user_id)){
-  	  $where= "WHERE user_id = '$user_id'";
-	  }
-	  if(isset($post_id)){
-  	  $where= "WHERE post_id = '$post_id'";
-	  }
-	  if(isset($user_id) && isset($post_id)){
-  	  $where= "WHERE user_id = '$user_id' AND post_id = '$post_id'";
-	  }
-	  if(isset($params['id'])){
-  	  $where= "WHERE id = $id";
-	  }
-		return "SELECT * FROM ".TABLE_THUMBS." $where;";
-	}
-		
-	# COMMENTS
-	public static function comments($params){
-	  $where= '';
-	  extract($params);
-	  if(isset($post_id)){
-  	  $where= "WHERE post_id = '$post_id'";
-	  }
-	  if(isset($user_id)){
-  	  $where= "WHERE user_id = '$user_id'";
-	  }
-	  if(isset($id)){
-  	  $where= "WHERE id = '$id'";
-	  }
-		return "SELECT * FROM ".TABLE_COMMENTS." $where;";
-	}
-	
-	# FOLLOWS
-	public static function follows($params){
-	  $where= '';
-	  extract($params);
-	  if(isset($user_id)){
-  	  $where= "WHERE user_id = '$user_id'";
-	  }
-	  if(isset($target_id)){
-  	  $where= "WHERE target_id = '$target_id'";
-	  }
-	  if(isset($target_id) && isset($user_id)){
-  	  $where= "WHERE target_id = '$target_id' AND user_id = '$user_id'";
-	  }
-	  if(isset($id)){
-  	  $where= "WHERE id = '$id'";
-	  }
-		return "SELECT * FROM ".TABLE_FAVORITES." $where;";
-	}
-	
-	
-	/** ORGS **/
-	# CLOUT
-	public static function clout($params){
-	  $where= '';
-	  extract($params);
-	  if(isset($org_id)){
-  	  $where= "WHERE org_id = '$org_id'";
-	  }
-	  if(isset($id)){
-  	  $where= "WHERE id = '$id'";
-	  }
-		return "SELECT * FROM ".TABLE_CLOUT." $where";
-	}
-	
-	# REVIEWS
-	public static function reviews($params){
-	  $where= '';
-	  $paging= "";
-	  extract($params);
-	  if(isset($page) && isset($limit)){
-  	  $start= ($page - 1) * $limit;
-  	  $paging= "LIMIT $start, $limit";
-	  }
-	  if(isset($org_id)){
-  	  $where= "WHERE org_id = '$org_id'";
-	  }
-	  if(isset($user_id)){
-  	  $where= "WHERE user_id = '$user_id'";
-	  }
-	  if(isset($id)){
-  	  $where= "WHERE id = '$id'";
-	  }
-		return "SELECT * FROM ".TABLE_REVIEWS." $where;";
-	}
-	
-	# ADDRESS
-	public static function address($params){
-	  extract($params);
-	  $where= '';
-	  if(isset($user_id)){
-  	  $where= "WHERE user_id = '$user_id'";
-	  }
-	  if(isset($org_id)){
-  	  $where= "WHERE org_id = '$org_id'";
-	  }
-	  if(isset($id)){
-  	  $where= "WHERE id = '$id'";
-	  }
-		return "SELECT * FROM ".TABLE_ADDRESS." $where;";
-	}
-	
-	public static function tag($params){
-	  extract($params);
-	  $where= '';
-	  if(isset($post_id)){
-  	  $where= "WHERE post_id = '$post_id'";
-	  }
-	  if(isset($id)){
-  	  $where= "WHERE id = '$id'";
-	  }
-		return "SELECT * FROM ".TABLE_TAGS." $where;";
-	}
-	
-	public static function influence($params){
-  	extract($params);
-  	if(isset($post_id)){
-    	return "SELECT influence FROM ".TABLE_POSTS." WHERE id = '$post_id';";
-  	}
-  	if(isset($user_id)){
-    	return "SELECT influence FROM ".TABLE_USERS." WHERE id = '$user_id';";
-  	}
-  	if(isset($org_id)){
-    	return "SELECT influence FROM ".TABLE_ORGS." WHERE id = '$org_id';";
-  	}
-  	return false;
-	}
-	
-	public function community($params){
-  	$users= '';
-  	$type= '';
-  	extract($params);
-  	if(isset($id))
-    	$where= "WHERE id = $id";
-  	if(isset($org_id)){
-    	$where= "WHERE org_id = '$org_id'";
-  	}
-  	if(isset($id)){
-    	$where= "WHERE user_id = '$user_id'";
-  	}
-  	$fields= 'id, type';
-  	if(isset($mode) && $mode == 'id'){
-    	$fields= 'id';
-  	}
-  	if(isset($mode) && $mode == 'full'){
-    	$fields= "*";
-    	$where= "WHERE ".TABLE_MEMBERS.".org_id = '$org_id' AND ".TABLE_MEMBERS.".user_id = ".TABLE_USERS.".id";
-    	$users= ", ".TABLE_USERS;
-  	}
-  	if(isset($types)){
-    	$filter= "AND ".TABLE_MEMBERS.".type IN('$types')";
-  	}
-  	return "SELECT $fields FROM ".TABLE_MEMBERS." $users $where $filter;";
-  	// SELECT COUNT(*) AS total FROM [comments/views/thumbs/ WHERE  
-	}
-	
-	public function notifications($params){
-    $user_id = $params['user_id'];
-    isset($params['limit']) ? $limit = $params['limit'] : $limit = 20;
-    isset($params['page']) ? $page = $params['page'] : $page = 0;
-    $offset = $page * $limit;
-    $favorites = '1,3,4';
-    
-    $query = "SELECT user_id, target_id, created, type FROM (";
-    
-    /** POSTS **/
-    // thumbs
-    $fields = TABLE_THUMBS.".user_id AS user_id, ".TABLE_POSTS.".id AS target_id, ".TABLE_THUMBS.".created AS created, 'thumb' AS type";
-    $query.= "SELECT $fields FROM `".TABLE_POSTS."` INNER JOIN `".TABLE_THUMBS."` ON ".TABLE_POSTS.".id = ".TABLE_THUMBS.".post_id WHERE ".TABLE_POSTS.".user_id = $user_id UNION ";   
-
-    // comments
-    $fields = TABLE_COMMENTS.".user_id AS user_id, ".TABLE_POSTS.".id AS target_id, ".TABLE_COMMENTS.".created AS created, 'comment' AS type";
-    $query.= "SELECT $fields FROM `".TABLE_POSTS."` INNER JOIN `".TABLE_COMMENTS."` ON ".TABLE_POSTS.".id = ".TABLE_COMMENTS.".post_id WHERE ".TABLE_POSTS.".user_id = $user_id UNION ";
-      
-    // posts
-    $fields = TABLE_POSTS.".user_id AS user_id, ".TABLE_POSTS.".id AS target_id, ".TABLE_POSTS.".created AS created, 'post' AS type";
-    $query.= "SELECT $fields FROM `".TABLE_POSTS."` WHERE ".TABLE_POSTS.".user_id IN($favorites) UNION ";
-
-    /** USERS **/
-    // favorites
-    $fields = TABLE_FAVORITES.".user_id AS user_id, ".TABLE_FAVORITES.".target_id AS target_id, ".TABLE_FAVORITES.".created AS created, 'favorite' AS type";
-    $query.= "SELECT $fields FROM `".TABLE_FAVORITES."` WHERE ".TABLE_FAVORITES.".target_id = $user_id UNION ";
-    
-    // profile views
-    $fields = TABLE_VIEWS.".user_id AS user_id, ".TABLE_VIEWS.".user_id AS target_id, ".TABLE_VIEWS.".created AS created, 'view' AS type";
-    $query.= "SELECT $fields FROM `".TABLE_VIEWS."` WHERE ".TABLE_VIEWS.".user_id = $user_id";
-
-    /** ORGS **/
-    // accept
-    
-    
-    $query.= ") AS x ORDER BY created DESC LIMIT $offset, $limit;";
-    return $query;
-	}
-	
-  /** AUTH **/
-	# LOGIN
-	public static function login($params){			
-		extract($params);
-		return "SELECT id FROM ".TABLE_USERS." WHERE `$key` = '$username';";
-	}
-	
-	# HASH
-	public static function hash($user_id){			
-		return "SELECT hash FROM ".TABLE_PASSWORDS." WHERE `user_id` = '$user_id';";
-	}
-	
-	# SESSION GET
-	public static function session($params){		
-		extract($params);
-		return "SELECT * FROM ".TABLE_TOKENS." WHERE id = '$id' AND user_id = '$user_id';";
-	}
-	
-	# SESSION AUTH
-	public static function session_auth($params){
-  	extract($params);
-  	return "SELECT user_id FROM ".TABLE_TOKENS." WHERE id = '$id' AND user_id = '$user_id' AND expires >= NOW();";
-	}
-	
-	# SESSION CREATE
-	public static function session_create($params){	
-		extract($params);
-		return "INSERT INTO ".TABLE_TOKENS." (`id`, `expires`, `user_id`) VALUES ('$id', '$expires', '$user_id');";
-	}	
-
-  /** GENERIC **/
-	# TOTAL
-	public static function total($params){
-		extract($params);
+	# ORGS
+	public static function org($params){
+		// state, zip, type, id, user_id
 		$where= '';
-		/*if($params['viewer_id']){
-  		$where= "WHERE viewer_id = $viewer_id";
+		//if(isset($state)) { $filter= "AND ".TABLE_ADDRESS.".state = '$state'"; }
+		//if(isset($zip)) { $filter= "AND ".TABLE_ADDRESS.".zip = '$zip'"; }
+		if(isset($params['type'])) {	
+		  // mapping?	
+  		if($type== 'companies'){ $type= 'company'; }
+  		if($type== 'govs'){ $type= 'gov'; }
+  		if($type== 'groups'){ $type= 'group'; }
+  		if($type== 'schools'){ $type= 'school'; }
+  		
+		  $where= sprintf("WHERE %s.type = '%s'", TABLE_ORGS, $type); 
 		}
-		if($params['post_id'] && $params['type']){
-  		$where= "WHERE post_id = $post_id AND type = '$type'";
+		if(isset($id)) {
+  		$where= sprintf("WHERE id = %d", $id);
 		}
-		if($params['user_id']){
-  		$where= "WHERE user_id = $user_id";
-		}
-		if($params['org_id']){
-  	  $where= "WHERE org_id = $org_id;";	
-		}	*/
-		return $where;	
-		//$table= uUtilities::table->($type);
-		//return "SELECT COUNT(*) AS total FROM $table $where;"; 
+		$fields = isset($mode) && $mode== 'id' ? 'id' : '*';
+		return sprintf("SELECT %s FROM `%s` %s ORDER BY %s.influence DESC;", $fields, TABLE_ORGS, $where, TABLE_ORGS);
+	}
+	
+	public static function org_stats($org_id){
+
 	}
 
-	# UNIQUE
-	public static function unique($params){
-		extract($params);
-		return "SELECT DISTINCT($field) FROM $table;";
+	public static function org_posts($users, $types){
+  	return sprintf("SELECT id FROM `%s` WHERE user_id IN (%s) AND types IN (%s);", TABLE_POSTS, $users, $types);
 	}
 	
-	/** STATS **/
-	public static function stats_posts($user_id){
-    return "SELECT type, COUNT(type) AS total FROM ".TABLE_POSTS." WHERE user_id = '$user_id' GROUP BY `type`;";
-	}
-	
-	public static function stats_followers($user_id){
-	 return "SELECT AVG(".TABLE_USERS.".influence) AS average, COUNT(".TABLE_USERS.".influence) AS total FROM ".TABLE_USERS.", ".TABLE_FAVORITES." WHERE ".TABLE_FAVORITES.".user_id = ".TABLE_USERS.".id AND ".TABLE_FAVORITES.".target_id = '$user_id';";
-	}
-	
-	public static function stats_org($org_id){
-  
-  	
-  	// user stats for each user
-  	return "SELECT * FROM ".TABLE_USERS." WHERE id = '$org_id';";
-	}
-	
-	public static function total_community($org_id){
-  	return "SELECT type, COUNT(*) AS total FROM ".TABLE_MEMBERS." WHERE org_id = '$org_id' GROUP BY type;";
-	}
-	
-	public static function posts_org($users, $types){
-  	return "SELECT id FROM ".TABLE_POSTS." WHERE user_id IN ($users) AND types IN ($types);";
-	}
-	
-	
-	/** TOTALS **/
-	public static function total_comments($params){
-	 extract($params);
-	 if(isset($post_id)){
-  	 $where= "WHERE ".TABLE_POSTS.".id = '$post_id' AND ".TABLE_COMMENTS.".post_id = ".TABLE_POSTS.".id";
-	 }
-	 if(isset($user_id)){
-  	  $where= "WHERE ".TABLE_POSTS.".user_id = '$user_id' AND ".TABLE_COMMENTS.".post_id = ".TABLE_POSTS.".id";
-	 }
-	 return "SELECT COUNT(*) AS total FROM ".TABLE_POSTS.", ".TABLE_COMMENTS." $where;";	
-	}
-	
-	public static function total_thumbs($params){
-	 $where= "";
-	 $stream= "";
-	 extract($params);
-	 //$exclude= "WHERE ".TABLE_THUMBS.".user_id != .user_id";
-	 if(isset($post_id)){
-	   $where= "WHERE post_id = '$post_id'";
-	 }
-	 if(isset($user_id)){
-  	 $where= "WHERE ".TABLE_POSTS.".user_id = '$user_id' AND ".TABLE_THUMBS.".post_id = ".TABLE_POSTS.".id";
-  	 $stream= TABLE_POSTS.',';
-	 }
-	 return "SELECT COUNT(*) AS total, SUM(positive) AS positive FROM $stream ".TABLE_THUMBS." $where;";
-	}
-	
-	public static function total_views($params){
-	 extract($params);
-	 $posts= '';
-	 //$exclude= "AND ".TABLE_VIEWS.".user_id != .user_id";
-	 if(isset($user_id)){
-  	 $where= "WHERE ".TABLE_POSTS.".user_id = '$user_id' AND ".TABLE_VIEWS.".post_id = ".TABLE_POSTS.".id";
-  	 $posts= TABLE_POSTS.',';
-	 } 
-	 if(isset($post_id)){
-  	 $where= "WHERE ".TABLE_VIEWS.".post_id = '$post_id'";
-	 }
-	 return "SELECT COUNT(*) AS total FROM $posts ".TABLE_VIEWS." $where;";
-	} 
-	
-	public static function total_posts($user_id){
-	 return "SELECT COUNT(*) AS total FROM ".TABLE_POSTS." WHERE ".TABLE_POSTS.".user_id = '$user_id';";
-	} 
-	
-	/** ORG STATES **/
 	public static function org_states($type){
 	  $short= array();
 	  $short['govs']= 'gov';
@@ -481,9 +108,318 @@ class uQueries {
 	  if($short[$type]){
 	   $type = $short[$type];
 	  }
-  	return "SELECT state, COUNT(state) as total FROM ".TABLE_ADDRESS.", ".TABLE_ORGS." WHERE ".TABLE_ADDRESS.".org_id = ".TABLE_ORGS.".id AND ".TABLE_ORGS.".type = '$type' GROUP BY (state);";
+  	return sprintf("SELECT state, COUNT(state) AS total FROM `%s`, `%s` WHERE %s.org_id = %s.id AND %s.type = '%s' GROUP BY (state);", TABLE_ADDRESS, TABLE_ORGS, TABLE_ADDRESS, TABLE_ORGS, TABLE_ORGS, $type);
 	}
 	
+	/** SOCIAL **/
+	# views
+	public static function views($params){
+		$where= '';
+		if(isset($params['viewer_id'])){
+  		$where= sprintf("WHERE viewer_id = %d", $params['viewer_id']);
+		}
+		if(isset($params['id'])){
+  		$where= sprintf("WHERE id = %d", $params['id']);
+		}
+		if(isset($params['post_id'])){
+  		$where= sprintf("WHERE post_id = %d", $params['post_id']);
+		}
+		if(isset($params['user_id'])){
+  		$where= sprintf("WHERE user_id = %d", $params['user_id']);
+		}
+		if(isset($params['org_id'])){
+  		$where= sprintf("WHERE org_id = %d", $params['org_id']);
+		}
+		if(!isset($params['limit'])){
+  		$params['limit'] = 20;
+		} 
+		if(isset($params['page'])){
+  		$offset = $params['page'] * $params['limit']; 
+		}else{
+  		$offset = 0;
+		}
+		$paging = sprintf("LIMIT %d, %d", $offset, $params['limit']);
+		
+	  return sprintf("SELECT * FROM ".TABLE_VIEWS." $where $paging;", TABLE_VIEWS, $where, $paging);
+	}
+	
+	# thumbs
+	public static function thumbs($params){
+	  $where= "";
+	  if(isset($params['user_id'])){
+  	  $where= sprintf("WHERE user_id = %d", $params['user_id']);
+	  }
+	  if(isset($params['post_id'])){
+  	  $where= sprintf("WHERE post_id = %d", $params['post_id']);
+	  }
+	  if(isset($params['user_id']) && isset($params['post_id'])){
+  	  $where= sprintf("WHERE user_id = %d AND post_id = %d", $params['user_id'], $params['post_id']);
+	  }
+	  if(isset($params['id'])){
+  	  $where= sprintf("WHERE id = %d", $params['id']);
+	  }
+		return sprintf("SELECT * FROM `%s` %s;", TABLE_THUMBS, $where);
+	}
+		
+	# comments
+	public static function comments($params){
+	  $where= '';
+	  if(isset($params['post_id'])){
+  	  $where= sprintf("WHERE post_id = %d", $params['post_id']);
+	  }
+	  if(isset($params['user_id'])){
+  	  $where= sprintf("WHERE user_id = %d", $params['user_id']);
+	  }
+	  if(isset($params['id'])){
+  	  $where= sprintf("WHERE id = %d", $params['id']);
+	  }
+		return sprintf("SELECT * FROM `%s` %s;", TABLE_COMMENTS, $where);
+	}
+	
+	# follows
+	public static function follows($params){
+	  $where= '';
+	  if(isset($params['user_id'])){
+  	  $where= sprintf("WHERE user_id = %d", $params['user_id']);
+	  }
+	  if(isset($params['target_id'])){
+  	  $where= sprintf("WHERE target_id = %d", $params['target_id']);
+	  }
+	  if(isset($params['target_id']) && isset($params['user_id'])){
+  	  $where= sprintf("WHERE target_id = %d AND user_id = %d", $params['target_id'], $params['user_id']);
+	  }
+	  if(isset($params['id'])){
+  	  $where= sprintf("WHERE id = %d", $params['id']);
+	  }
+		return sprintf("SELECT * FROM `%s` %s;", TABLE_FAVORITES, $where);
+	}
+	
+	/** INFO **/
+	# clout
+	public static function clout($params){
+	  $where= '';
+	  if(isset($params['org_id'])){
+  	  $where= sprintf("WHERE org_id = %d", $params['org_id']);
+	  }
+	  if(isset($params['id'])){
+  	  $where= sprintf("WHERE id = %d", $params['id']);
+	  }
+		return sprintf("SELECT * FROM `%s` %s", TABLE_CLOUT, $where);
+	}
+	
+	# reviews
+	public static function reviews($params){
+	  $where= '';
+	  $paging= "";
+	  if(isset($params['page']) && isset($params['limit'])){
+  	  $start= ($params['page'] - 1) * $params['limit'];
+  	  $paging= sprintf("LIMIT %d, %d", $start, $params['limit']);
+	  }
+	  if(isset($params['org_id'])){
+  	  $where= sprintf("WHERE org_id = %d", $params['org_id']);
+	  }
+	  if(isset($params['user_id'])){
+  	  $where= sprintf("WHERE user_id = %d", $params['user_id']);
+	  }
+	  if(isset($params['id'])){
+  	  $where= sprintf("WHERE id = %d", $params['id']);
+	  }
+		return sprintf("SELECT * FROM `%s` %s;", TABLE_REVIEWS, $where);
+	}
+	
+	/** OTHER **/
+	# address
+	public static function address($params){
+	  $where= '';
+	  if(isset($params['user_id'])){
+  	  $where= sprintf("WHERE user_id = %d", $params['user_id']);
+	  }
+	  if(isset($params['org_id'])){
+  	  $where= sprintf("WHERE org_id = %d", $params['org_id']);
+	  }
+	  if(isset($params['id'])){
+  	  $where= sprintf("WHERE id = %d", $params['id']);
+	  }
+		return sprintf("SELECT * FROM `%s` %s;", TABLE_ADDRESS, $where);
+	}
+	
+	# tag
+	public static function tag($params){
+	  $where= '';
+	  if(isset($params['post_id'])){
+  	  $where= sprintf("WHERE post_id = %d", $params['post_id']);
+	  }
+	  if(isset($params['id'])){
+  	  $where= sprintf("WHERE id = %d", $params['id']);
+	  }
+		return sprintf("SELECT * FROM `%` %s;", TABLE_TAGS, $where);
+	}
+	
+	# influence
+	public static function influence($params){
+  	if(isset($params['post_id'])){
+    	return sprintf("SELECT influence FROM `%s` WHERE id = %d;", TABLE_POSTS, $params['post_id']);
+  	}
+  	if(isset($params['user_id'])){
+    	return sprintf("SELECT influence FROM `%s` WHERE id = %d;", TABLE_USERS, $params['user_id']);
+  	}
+  	if(isset($params['org_id'])){
+    	return sprintf("SELECT influence FROM `%s` WHERE id = %d;", TABLE_ORGS, $params['org_id']);
+  	}
+  	return false;
+	}
+	
+	# community
+	public function community($params){
+  	$users= '';
+  	$type= '';
+  	if(isset($params['id']))
+    	$where= sprintf("WHERE id = %d", $params['id']);
+  	if(isset($params['org_id'])){
+    	$where= sprintf("WHERE org_id = %d", $params['org_id']);
+  	}
+  	if(isset($params['user_id'])){
+    	$where= sprintf("WHERE user_id = %d", $params['user_id']);
+  	}
+  	$fields= 'id, type';
+  	if(isset($params['mode']) && $params['mode'] == 'id'){
+    	$fields= 'id';
+  	}
+  	if(isset($params['mode']) && $params['mode'] == 'full'){
+    	$fields= "*";
+    	$where= sprintf("WHERE %s.org_id = %d AND %s.user_id = %s.id", TABLE_MEMBERS, $params['org_id'], TABLE_MEMBERS, TABLE_USERS);
+    	$users= sprintf(", `%s`", TABLE_USERS);
+  	}
+  	if(isset($params['types'])){
+    	$filter= sprintf("AND %s.type IN(%s)", TABLE_MEMBERS, $params['types']);
+  	}
+  	return sprintf("SELECT %s FROM `%s` %s %s %s;", $fields, TABLE_MEMBERS, $users, $where, $filter);
+  	// SELECT COUNT(*) AS total FROM [comments/views/thumbs/ WHERE  
+	}
+	
+	# notifications
+	public function notifications($params){
+    $user_id = $params['user_id'];
+    isset($params['limit']) ? $limit = $params['limit'] : $limit = 20;
+    isset($params['page']) ? $page = $params['page'] : $page = 0;
+    $offset = $page * $limit;
+    $favorites = '1,3,4';
+    
+    $query = sprintf("SELECT user_id, target_id, created, type FROM (");
+    
+    /** POSTS **/
+    // thumbs
+    $fields = sprintf("%s.user_id AS user_id, %s.id AS target_id, %s.created AS created, 'thumb' AS type", TABLE_THUMBS, TABLE_POSTS, TABLE_THUMBS);
+    $query.= sprintf("SELECT $fields FROM `%s` INNER JOIN `%s` ON %s.id = %s.post_id WHERE %s.user_id = %d UNION ", $fields, TABLE_POSTS, TABLE_THUMBS, TABLE_POSTS, TABLE_THUMBS, TABLE_POSTS, $user_id);   
+
+    // comments
+    $fields = sprintf("%s.user_id AS user_id, %s.id AS target_id, %s.created AS created, 'comment' AS type", TABLE_COMMENTS, TABLE_POSTS, TABLE_COMMENTS);
+    $query.= sprintf("SELECT $fields FROM `%s` INNER JOIN `%s` ON %s.id = %s.post_id WHERE %s.user_id = %d UNION ", $fields, TABLE_POSTS, TABLE_COMMENTS, TABLE_POSTS, TABLE_COMMENTS, TABLE_POSTS, $user_id);
+      
+    // posts
+    $fields = sprintf("%s.user_id AS user_id, %s.id AS target_id, %s.created AS created, 'post' AS type", TABLE_POSTS, TABLE_POSTS, TABLE_POSTS);
+    $query.= sprintf("SELECT %s FROM `%s` WHERE %s.user_id IN(%s) UNION ", $fields, TABLE_POSTS, TABLE_POSTS, $favorites);
+
+    /** USERS **/
+    // favorites
+    $fields = sprintf("%s.user_id AS user_id, %s.target_id AS target_id, %s.created AS created, 'favorite' AS type", TABLE_FAVORITES, TABLE_FAVORITES, TABLE_FAVORITES);
+    $query.= sprintf("SELECT %s FROM `%s` WHERE %s.target_id = %d UNION ", $fields, TABLE_FAVORITES, TABLE_FAVORITES, $user_id);
+    
+    // profile views
+    $fields = sprintf("%s.user_id AS user_id, %s.user_id AS target_id, %s.created AS created, 'view' AS type", TABLE_VIEWS, TABLE_VIEWS, TABLE_VIEWS);
+    $query.= sprintf("SELECT %s FROM `%s` WHERE %s.user_id = %d", $fields, TABLE_VIEWS, TABLE_VIEWS, $user_id);
+
+    /** ORGS **/
+    // accept
+    
+    
+    $query.= sprintf(") AS x ORDER BY created DESC LIMIT %d, %d;", $offset, $limit);
+    return $query;
+	}
+	
+  /** AUTH **/
+	# login
+	public static function login($params){			
+  	// @key not good!
+		return sprintf("SELECT id FROM %s WHERE %s = '%s';", TABLE_USERS, $params['key'], $params['username']);
+	}
+	
+	# hash
+	public static function hash($user_id){			
+		return sprintf("SELECT hash FROM %s WHERE user_id = %d;", TABLE_PASSWORDS, $user_id);
+	}
+	
+	# session get
+	public static function session($params){		
+		return sprintf("SELECT * FROM `%s` WHERE id = %d AND user_id = %d;", TABLE_TOKENS, $params['id'], $params['user_id']);
+	}
+	
+	# session auth
+	public static function session_auth($params){
+  	return sprintf("SELECT user_id FROM `%s` WHERE id = %d AND user_id = %d AND expires >= NOW();", TABLE_TOKENS, $params['id'], $params['user_id']);
+	}
+	
+	# session create
+	public static function session_create($params){	
+		return sprintf("INSERT INTO %s (`id`, `expires`, `user_id`) VALUES (%d, '%s', %d);", TABLE_TOKENS, $params['id'], $params['expires'], $params['user_id']);
+	}	
+	
+	/** STATS **/
+	public static function stats_followers($user_id){
+	 return sprintf("SELECT AVG(%s.influence) AS average, COUNT(%s.influence) AS total FROM `%s`, `%s` WHERE %s.user_id = %s.id AND %s.target_id = %d;", TABLE_USERS, TABLE_USERS, TABLE_USERS, TABLE_FAVORITES, TABLE_FAVORITES, TABLE_USERS, TABLE_FAVORITES, $params['user_id']);
+	}
+	
+	/** TOTALS **/
+	# comments
+	public static function total_comments($params){
+	 if(isset($params['post_id'])){
+  	 $where= sprintf("WHERE %s.id = %d AND %s.post_id = %s.id", TABLE_POSTS, $params['post_id'], TABLE_COMMENTS, TABLE_POSTS);
+	 }
+	 if(isset($params['user_id'])){
+  	  $where= sprintf("WHERE %s.user_id = %d AND %s.post_id = %s.id", TABLE_POSTS, $params['user_id'], TABLE_COMMENTS, TABLE_POSTS);
+	 }
+	 return sprintf("SELECT COUNT(*) AS total FROM %s, %s %s;", TABLE_POSTS, TABLE_COMMENTS, $where);	
+	}
+	
+	# thumbs
+	public static function total_thumbs($params){
+	 $where= "";
+	 $posts= "";
+	 //$exclude= "WHERE ".TABLE_THUMBS.".user_id != .user_id";
+	 if(isset($params['post_id'])){
+	   $where= sprintf("WHERE post_id = %d", $params['post_id']);
+	 }
+	 if(isset($params['user_id'])){
+  	 $where= sprintf("WHERE %s.user_id = %d AND %s.post_id = %s.id", TABLE_POSTS, $params['user_id'], TABLE_THUMBS, TABLE_POSTS);
+  	 $posts= sprintf("`%s`,", TABLE_POSTS);
+	 }
+	 return sprintf("SELECT COUNT(*) AS total, SUM(positive) AS positive FROM %s %s %s;", $posts, TABLE_THUMBS, $where);
+	}
+	
+	# views
+	public static function total_views($params){
+	 $posts= '';
+	 //$exclude= "AND ".TABLE_VIEWS.".user_id != .user_id";
+	 if(isset($params['user_id'])){
+  	 $where= sprintf("WHERE %s.user_id = %d AND %s.post_id = %s.id", TABLE_POSTS, $params['user_id'], TABLE_VIEWS, TABLE_POSTS);
+  	 $posts= sprintf("`%s`,", TABLE_POSTS);
+	 } 
+	 if(isset($params['post_id'])){
+  	 $where= sprintf("WHERE %s.post_id = %d", TABLE_VIEWS, $params['post_id']);
+	 }
+	 return sprintf("SELECT COUNT(*) AS total FROM %s %s %s;", $posts, TABLE_VIEWS, $where);
+	} 
+	
+	# posts
+	public static function total_posts($user_id){
+	 return sprintf("SELECT COUNT(*) AS total FROM `%s` WHERE %s.user_id = %d;", TABLE_POSTS, TABLE_POSTS, $user_id);
+	} 
+	
+	# community
+	public static function total_community($org_id){
+  	return sprintf("SELECT type, COUNT(*) AS total FROM `%s` WHERE org_id = %d GROUP BY type;", TABLE_MEMBERS, $org_id);
+	}
+		
 	/** PERMISSION **/
 	public function owner($auth_id, $resource){
     $url= explode('/', $resource);
@@ -495,15 +431,14 @@ class uQueries {
     $resource_key= 'id';
     $user_key= 'user_id';
     
-    return "SELECT * FROM $table WHERE $resource_key = '$id' AND $user_key = '$auth_id';";
+    return sprintf("SELECT * FROM `%s` WHERE %s = %d AND %s = %d;", $table, $resource_key, $id, $user_key, $auth_id);
 	}
 	
+	/** SCHEMA **/
 	public function schema($table){
     $table= uUtilities::table($table);
-    return "SELECT column_name, column_type FROM information_schema.columns WHERE table_schema = 'phourus:dev' AND table_name = '$table';";
+    return sprintf("SELECT column_name, column_type FROM information_schema.columns WHERE table_schema = 'phourus:dev' AND table_name = '%s';", $table);
 	}
-	
-	
 }	
 
 ?>

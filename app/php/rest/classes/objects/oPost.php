@@ -12,21 +12,21 @@ class oPost
 	}
 	
 	public function single($id){
-    $meta= dRead::meta($id);
-		if(is_numeric($meta)){
-  		return $meta;
-		}
-		$post= dRead::post($id, $meta['type']);
+    $post= dRead::post($id);
 		if(is_numeric($post)){
   		return $post;
 		}
-		$user= oUser::get(array('id' => $meta['user_id']));
+		$meta= dRead::meta($id, $post['type']);
+		if(is_numeric($meta)){
+  		return $meta;
+		}
+		$user= oUser::get(array('id' => $post['user_id']));
 		$stats= oStats::stats(array('post_id' => $id));
-		$address= dRead::address(array('user_id' => $meta['user_id']));
+		$address= dRead::address(array('user_id' => $post['user_id']));
 		
 		$out= array();
-		$out['meta']= $meta;
 		$out['post']= $post;
+		$out['meta']= $meta;
 		$out['stats']= $stats;
 		$out['user']= $user;		  
 		return $out;
@@ -80,23 +80,23 @@ class oPost
   		$search = self::search($params['search'], $t); 
   		
   		// Sorting
-  		$sort_field = TABLE_POSTS.".influence AS sort";
+  		$sort_field = sprintf("%s.influence AS sort", TABLE_POSTS);
   		$sort_join = '';
   		if($params['sort'] == 'comments' || $params['sort'] == 'thumbs' || $params['sort'] == 'views'){
     		$sort = $params['sort'];
-    		$sort_field = "COUNT(app_$sort.id) AS sort";
-    		$sort_join = "LEFT JOIN `app_$sort` ON ".TABLE_POSTS.".id = app_$sort.post_id";
+    		$sort_field = sprintf("COUNT(app_%s.id) AS sort", $sort);
+    		$sort_join = sprintf("LEFT JOIN `app_%s` ON %s.id = app_%s.post_id", $sort, TABLE_POSTS, $sort);
   		}
-  		$fields = TABLE_POSTS.".id AS id, $sort_field";
+  		$fields = sprintf("%s.id AS id, %s", TABLE_POSTS, $sort_field);
   		
   		// Select 
-  		$select = "SELECT $fields FROM `".TABLE_POSTS."`";
+  		$select = sprintf("SELECT %s FROM `%s`", $fields, TABLE_POSTS);
   		
   		// Join
-  		$join = "INNER JOIN `$t` ON ".TABLE_POSTS.".id = $t.post_id $sort_join";
+  		$join = sprintf("INNER JOIN `%s` ON %s.id = %s.post_id %s", $t, TABLE_POSTS, $t, $sort_join);
   		
   		// Query
-  		$q.= "$select $join $privacy $mode $search $when UNION "; 
+  		$q.= sprintf("%s %s %s %s %s %s UNION ", $select, $join, $privacy, $mode, $search, $when); 
 		}
 		// Remove last UNION
 		$q = substr($q, 0, -7);
@@ -106,7 +106,7 @@ class oPost
 		  $closer= ') AS total';
 		}else{
   		if($direction != 'ASC'){ $direction = 'DESC'; }
-  		$closer= ") AS x ORDER BY sort $direction $paging";
+  		$closer= sprintf(") AS x ORDER BY sort %s %s" $direction, $paging);
 		}	
 		$q.= $closer;
 		return $q;
@@ -118,24 +118,25 @@ class oPost
     }
     $trimmed = preg_replace('/\s\s+/', ' ', $search);
     $s = str_replace(" ", "%", $trimmed);
+    $s = "'%$s%'";
     		
 		// answers: no title, quotes: no title, votes: no title, bills: no title
     switch($table)
 		  {
   		  case 'mind_answers':
-  		    return "AND $table.content LIKE '%$s%'";
+  		    return sprintf("AND %s.content LIKE %s", $table, $s);
   		  break;
   		  case 'voice_bills':
-  		    return "AND $table.question LIKE '%$s%' OR $table.content LIKE '%$s%'";
+  		    return sprintf("AND %s.question LIKE %s OR %s.content LIKE %s", $table, $s, $table, $s);
   		  break;
   		  case 'voice_votes':
-  		    return "AND $table.content LIKE '%$s%'";
+  		    return sprintf("AND %s.content LIKE %s", $table, $s);
   		  break;
   		  case 'self_quotes':
-  		    return "AND $table.quote LIKE '%$s%' OR $table.author LIKE '%$s%'";
+  		    return sprintf("AND %s.quote LIKE %s OR %s.author LIKE %s", $table, $s, $table, $s);
   		  break;
   		  default:
-  		    return "AND $table.title LIKE '%$s%' OR $table.content LIKE '%$s%'";
+  		    return sprintf("AND %s.title LIKE %s OR %s.content LIKE %s", $table, $s, $table, $s);
   		  break;
   		}
 	}
@@ -170,13 +171,13 @@ class oPost
 		switch($mode){
 		  case 'phourus':
 		    if(isset($auth_id) && $auth_id > 0){
-  		    return "AND ".TABLE_POSTS.".user_id NOT IN(".$auth_id.",".$followers.",".$following.",".$friends.")";
+  		    return sprintf("AND %s.user_id NOT IN(%s,%s,%s,%s)", TABLE_POSTS, $auth_id, $followers, $following, $friends);
 		    }
 		    return "";
 		  break;
 		  case 'user':
 		    $user_id = $params['user_id'];
-		    return "AND ".TABLE_POSTS.".user_id = '$user_id'";
+		    return sprintf("AND %s.user_id = %d", TABLE_POSTS, $user_id);
 		  break;
 		  case 'org':
 		    $org_id = $params['org_id'];
@@ -188,20 +189,20 @@ class oPost
     		  $community.= $member['id'].",";
     		}
     		$community= substr($community, 0, -1);
-		    return "AND ".TABLE_POSTS.".user_id IN($community)";
+		    return sprintf("AND %s.user_id IN(%s)", TABLE_POSTS, $community);
 		  break;
 		  case 'fans':
-		    return "AND ".TABLE_POSTS.".user_id IN(".$followers.")";
+		    return sprintf("AND %s.user_id IN(%s)", TABLE_POSTS, $followers);
 		  break;
 		  case 'favs':
-		    return "AND ".TABLE_POSTS.".user_id IN(".$following.")";
+		    return sprintf("AND %s.user_id IN(%s)", TABLE_POSTS, $following);
 		  break;
 		  case 'friends':
-		    return "AND ".TABLE_POSTS.".user_id IN(".$friends.")";
+		    return sprintf("AND %s.user_id IN(%s)", TABLE_POSTS, $friends);
 		  break;
 		  case 'me':
 		    if($auth_id != 0){
-  		    return "AND ".TABLE_POSTS.".user_id = '$auth_id'";
+  		    return sprintf("AND %s.user_id = %d", TABLE_POSTS, $auth_id);
   		  }
   		  return 401;
 		  break;
@@ -228,30 +229,21 @@ class oPost
 	private function when($params){
   	return '';
   	$out= '';
-  	extract($params);
-  	if(isset($date_start)){
-      $out.= TABLE_POSTS.".created > $date_start"; 
+  	if(isset($params['date_start'])){
+      $out.= sprintf("%s.created > %s", TABLE_POSTS, $params['date_start']); 
   	} 
-  	if(isset($date_end)){
-      $out.= TABLE_POSTS.".created < $date_end";	
+  	if(isset($params['date_end'])){
+      $out.= sprintf("%s.created < %s", TABLE_POSTS, $params['date_end']);	
   	}
   	return $out;
 	}	
 	
 	//Paging
 	private function paging($params){	
-    extract($params);	
-		//If no 'page' param is set, set page to 0
-		if($page== null || $page < 1)
-		{
-			$page = 0;	
-		}
-		if($limit== null){
-  		$limit = 10;
-		}
-		
+		$page = isset($params['page']) && $params['page'] > 1 ? $params['page'] : 0;
+		$limit = isset($params['limit']) ? $params['limit'] : 20;
 		$offset= $page * $limit;
-		return "LIMIT $offset, $limit";	 
+		return sprintf("LIMIT %d, %d", $offset, $limit);	 
 	}
 	
 	/** GENERIC **/
@@ -328,7 +320,7 @@ class oPost
 	
 	# OTHER
 	public static function stats($post_id, $type){
-  	$out= dRead::stats_post($post_id, $type);
+  	$out= dRead::post_stats($post_id, $type);
   	return $out;
 	}
 	

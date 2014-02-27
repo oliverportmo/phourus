@@ -27,7 +27,7 @@ class dRead {
 	
 	public static function meta($post_id){
 		$params['post_id']= $post_id;
-		$q= uQueries::meta($params);
+		$q= uQueries::post_meta($params);
 		$result= new uResult();
 		$out= $result->r_single($q);
 		return $out;
@@ -45,8 +45,8 @@ class dRead {
 		return $out;
 	}
 	
-	public static function users($params){
-  	$q= uQueries::users($params);
+	public static function user($params){
+  	$q= uQueries::user($params);
   	$result= new uResult();
   	if(isset($params['id'])){
     	$out= $result->r_single($q);
@@ -56,8 +56,8 @@ class dRead {
   	return $out;
 	}		
 	
-	public static function orgs($params){
-  	$q= uQueries::orgs($params);
+	public static function org($params){
+  	$q= uQueries::org($params);
   	$result= new uResult();
   	if(isset($params['id'])){
     	$out['org']= $result->r_single($q);
@@ -235,7 +235,7 @@ class dRead {
   }
   
 	/** STATS **/
-  public static function stats_post($post_id){
+  public static function post_stats($post_id){
   	$out= array();
     $result= new uResult();
     
@@ -259,7 +259,7 @@ class dRead {
   	return $out;
 	}
 	
-	public function stats_user($user_id){
+	public function user_stats($user_id){
   	$out= array();
   	$result= new uResult();
   	
@@ -272,10 +272,10 @@ class dRead {
 		$q= uQueries::total_comments(array('user_id' => $user_id));	
 		$comments= $result->r_single($q);
 		
-		$q= uQueries::stats_posts($user_id);
+		$q= uQueries::post_stats($user_id);
 		$totals= $result->r_single($q);
 		
-  	$q= uQueries::stats_posts($user_id);
+  	$q= uQueries::post_stats($user_id);
   	$posts= $result->r_read($q);
   	if(is_numeric($posts)){
     	$totals= $posts;
@@ -303,7 +303,7 @@ class dRead {
 		return $out;
 	}
 	
-	public function stats_org($org_id){
+	public function org_stats($org_id){
 	  $out= array();
 	  $out['members']= 46;
 	  $out['pending']= 12;
@@ -326,7 +326,7 @@ class dRead {
   	
 		$community= $result->r_single($q);
 		foreach($community as $id){
-  		$out[]= self::stats_user($id);
+  		$out[]= self::user_stats($id);
 		}*/
 		return $out;
 	}	

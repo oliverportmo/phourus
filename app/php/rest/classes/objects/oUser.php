@@ -7,14 +7,14 @@ class oUser
 	public function get($params){
 		if(isset($params['id'])){
   		$out= array();
-  		$out['user']= dRead::users($params);
+  		$out['user']= dRead::user($params);
   		if(is_numeric($out['user'])){
     		return $out['user'];
   		}
   		$out['stats']= oStats::stats(array('user_id' => $out['user']['id']));
   		$out['address']= oAddress::get(array('user_id' => $out['user']['id']));
 		}else{	  
-  		$users= dRead::users($params);
+  		$users= dRead::user($params);
   		if(is_numeric($users)){
     		return $users;
   		}
@@ -54,7 +54,7 @@ class oUser
 	/** STATS **/
   public function stats($id){
     $out= array();
-    $out['posts']= dRead::stats_posts($id);
+    $out['posts']= dRead::post_stats($id);
     $out['followers']= dRead::stats_followers($id);
     $out['totals']= dRead::stats_totals($id);
     return $out;

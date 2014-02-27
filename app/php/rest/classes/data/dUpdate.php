@@ -40,7 +40,7 @@ class dUpdate {
 		$p= uQueries::update($id, 'posts', $posts);
 		
 		unset($split['detail']['post_id']);
-		$d= uQueries::update_post($id, $model['type'], $split['detail']);	
+		$d= uQueries::post_update($id, $model['type'], $split['detail']);	
 		$queries[]= $p;
 		$queries[]= $d;
 		 
