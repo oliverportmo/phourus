@@ -8,7 +8,7 @@ class dUpdate {
       return $original;
     }
     
-    $q= uQueries::update($id, $type, $model);
+    $q= qBase::update($id, $type, $model);
     $result= new uResult();
     $update= $result->r_update($q);
     if(is_numeric($update)){
@@ -37,10 +37,10 @@ class dUpdate {
     $posts= array();
 		$posts['privacy']= $split['posts']['privacy'];
 		
-		$p= uQueries::update($id, 'posts', $posts);
+		$p= qBase::update($id, 'posts', $posts);
 		
 		unset($split['detail']['post_id']);
-		$d= uQueries::post_update($id, $model['type'], $split['detail']);	
+		$d= qPost::update($id, $model['type'], $split['detail']);	
 		$queries[]= $p;
 		$queries[]= $d;
 		 
@@ -67,7 +67,7 @@ class dUpdate {
 	  if(isset($org_id)){ $type= 'org'; $id= $org_id; }
 	  if(!isset($type) || !isset($id)){ return false; }
 	  
-	  $q= uQueries::update($id, $type, $model);
+	  $q= qBase::update($id, $type, $model);
     $result= new uResult();
     $out= $result->r_update($q);
     return $out;
@@ -87,7 +87,7 @@ class dUpdate {
 	}
 	
 	private function get($id, $type){
-  	$q= uQueries::get($id, $type);
+  	$q= qBase::get($id, $type);
 		$result= new uResult();
 		$out= $result->r_single($q);
 		return $out;

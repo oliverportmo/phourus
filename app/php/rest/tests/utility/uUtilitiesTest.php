@@ -6,8 +6,8 @@ class uUtilitiesTest extends PHPUnit_Framework_TestCase
 {
 	
 	public function testtable(){
-INSERT INTO _app_tags (`id`, `modified`, `tag`, `target`) VALUES ('', '', 'testtag', 3);
-UPDATE _app_tags SET `modified` = NOW(), `tag` = 'tag2', `target` = 2 WHERE `id` = 24;
+//INSERT INTO _app_tags (`id`, `modified`, `tag`, `target`) VALUES ('', '', 'testtag', 3);
+//UPDATE _app_tags SET `modified` = NOW(), `tag` = 'tag2', `target` = 2 WHERE `id` = 24;
 
 	}
 	
@@ -38,7 +38,6 @@ UPDATE _app_tags SET `modified` = NOW(), `tag` = 'tag2', `target` = 2 WHERE `id`
 		$keys= "`string`, `int`, `another`";
 		$values= "'".$model['string']."', '".$model['int']."', '".$model['another']."'";
 		
-		var_dump($pairs);
 		$this->assertEquals($keys, $pairs['keys']);
 		$this->assertEquals($values, $pairs['values']);	
 		

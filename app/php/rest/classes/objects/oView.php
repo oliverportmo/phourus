@@ -5,8 +5,8 @@ class oView
 	
 	# GET
 	public function get($params){
-		$out= dRead::views($params);
-		return $out;
+		$q= qSocial::views($params);
+  	return isset($params['id']) ? dRead::single($q) : dRead::collection($q);
 	}
 	
 	# POST

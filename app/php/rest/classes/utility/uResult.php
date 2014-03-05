@@ -114,7 +114,6 @@ class uResult
   }
   
   private function standard($q, $mode){
-	  
   	try {
     	$query= $this->db->prepare($q);
   	}catch(Exception $e){
@@ -133,7 +132,7 @@ class uResult
         }
       break;
       case 'create':
-        $out= $this->db->lastInsertId();
+        $out['id']= $this->db->lastInsertId();
         if($out== null){
           $out= 500; 
         }
@@ -141,11 +140,11 @@ class uResult
       break;
       case 'update':
         // Return original & current?
-        $out= true;
+        return true;
         //$out= $query->fetch();
       break;
       case 'delete':
-        $out= true;
+        return 'deleted';
         // Return original
       break;
       case 'login':

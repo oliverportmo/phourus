@@ -1,6 +1,6 @@
 <?php
 
-require_once '../../../php/rest/classes/objects/oThumb.php';
+require_once '../classes/objects/oThumb.php';
 
 class oThumbTest extends PHPUnit_Framework_TestCase
 {

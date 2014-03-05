@@ -1,6 +1,6 @@
 <?php
 
-require_once '../../../php/rest/classes/objects/oView.php';
+require_once '../classes/objects/oView.php';
 
 class oViewTest extends PHPUnit_Framework_TestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-require_once '../../../php/rest/classes/objects/oOrg.php';
+require_once '../classes/objects/oOrg.php';
 
 class oOrgTest extends PHPUnit_Framework_TestCase
 {

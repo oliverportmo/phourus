@@ -1,33 +1,7 @@
 <?php
 
 	ini_set('display_errors', 1);
-  $root= '../../classes/';
-  $base= $root.'objects/';
-  require($base.'oAddress.php');
-  require($base.'oClout.php');
-  require($base.'oComment.php');
-  require($base.'oFollow.php');
-  require($base.'oOrg.php');
-  //require($base.'oPermissions.php');
-  require($base.'oPost.php');
-  require($base.'oReview.php');
-  require($base.'oSession.php');
-  require($base.'oStats.php');
-  require($base.'oTag.php');
-  require($base.'oThumb.php');
-  require($base.'oUser.php');
-  require($base.'oView.php');
-  
-  $base= $root.'data/';
-  require($base.'dCreate.php');
-  require($base.'dDelete.php');
-  require($base.'dRead.php');
-  require($base.'dUpdate.php');
-  
-  $base= $root.'utility/';
-  require($base.'uQueries.php');
-  require($base.'uResult.php');
-  require($base.'uUtilities.php');
+  require_once('../include.php');
   
   function curl($url, $options= null){ 
   	$ENV= 'local';

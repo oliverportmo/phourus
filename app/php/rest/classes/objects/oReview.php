@@ -5,15 +5,13 @@ class oReview
 	
 	# GET
 	public function get($params){
+		$q= qOrg::reviews($params);
 		if(isset($params['id'])){
-  	  $out= array();
-  	  $out['review']= dRead::reviews($params);
-  	  if(is_numeric($out['review'])){
-    	  return $out['review'];
-  	  }
-  	  $out['user']= oUser::get(array('id' => $out['review']['user_id']));
+  	  $review= dRead::single($q);
+  	  return self::full($review);
+
 	  }else{
-  	  $reviews= dRead::reviews($params);
+  	  $reviews= dRead::collection($q);
   	  if(is_numeric($reviews)){
     	  return $reviews;
   	  }
@@ -42,6 +40,17 @@ class oReview
 		$out= dDelete::delete($id, 'reviews');
 		return $out;
 	}	
+	
+	# FULL
+	private function full($obj){
+  	if(is_numeric($obj)){
+  	  return $obj;
+	  }
+	  $out= array();
+	  $out['review']= $obj;
+	  $out['user']= oUser::get(array('id' => $obj['user_id']));
+	  return $out;
+	}
 }
 
 ?>

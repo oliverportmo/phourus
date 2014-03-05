@@ -216,7 +216,8 @@ class uUtilities
 		$i= 0;
 		$keys= '';
 		$values= '';
-
+		$out= '';
+		
 		if($update== true){
   		foreach($model as $key => $value)
   		{	
@@ -380,6 +381,75 @@ class uUtilities
 			return $number;	
 		}
 	}	*/
+	
+		/** PERMISSION **/
+	public static function owner($auth_id, $resource){
+  	$q= qOther::owner($auth_id, $resource);
+  	$result= new uResult();
+  	$out= $result->r_single($q);
+  	return $out;
+	}
+		
+	/** SPECIAL **/
+	public function special($params){
+  	if(!is_array($params)){
+      return 400;	
+  	}
+  	$result= new uResult();
+  	extract($params);
+  	switch($mode){
+    	case 'states':
+        $q= qOrg::states($params['type']);
+        $out= $result->r_read($q);
+    	break;
+    	case 'recent':
+    	
+    	break;
+    	default:
+    	 return 404;
+    	break;
+  	}        
+  	return $out;
+	}
+	
+	/** SCHEMA **/
+	public function schema($tables= ''){
+		if($tables== ''){
+  		$tables= self::default_schema();
+		}
+		foreach($tables as $table){
+  		$q= qOther::schema($table);
+  		$result= new uResult();
+  		$out[$table]= $result->r_read($q);
+		}
+		return $out;
+	}
+	
+	private function default_schema(){
+  	$out= array();
+  	array_push($out, 'blogs');
+  	array_push($out, 'ideas');
+  	array_push($out, 'links');
+  	array_push($out, 'events');
+  	
+  	array_push($out, 'checklist');
+  	array_push($out, 'calculator');
+  	array_push($out, 'matters');
+  	
+  	array_push($out, 'subjects');
+  	array_push($out, 'questions');
+  	array_push($out, 'answers');
+  	
+  	array_push($out, 'debates');
+  	array_push($out, 'bills');
+  	array_push($out, 'votes');
+  	
+  	array_push($out, 'beliefs');
+  	array_push($out, 'timeline');
+  	array_push($out, 'quotes');
+  	return $out;
+	}
+
 }
 	
 ?>

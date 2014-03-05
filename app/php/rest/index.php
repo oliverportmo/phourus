@@ -6,53 +6,29 @@ ini_set('error_log', 'errors.txt');
 error_reporting(E_ERROR | E_WARNING);
 //header("Content-Type: application/json");
 
-/*function _autoload($class){
-  var_dump($class);
-	require(__DIR__.'/classes/objects/'.$class.'.php');		
-}*/
+
+/*
+function phourusAutoload($class){
+  $key= substr($class, 0, 1);
+  $map= array();
+  $map['d']= 'data';
+  $map['m']= 'middleware';
+  $map['o']= 'objects';
+  $map['u']= 'utility';
+  $file= __DIR__.'/classes/'.$map[$key].'/'.$class.'.php';
+	require($file);		
+}
+spl_autoload_register('phourusAutoload');
+*/
 
 require 'slim/Slim/Slim.php';
-\Slim\Slim::registerAutoloader();
+\Slim\Slim::registerAutoloader();	
 
-$base= __DIR__.'/classes/objects/';
-require($base.'oAddress.php');
-require($base.'oClout.php');
-require($base.'oComment.php');
-require($base.'oCommunity.php');
-//require($base.'oEmail.php');
-require($base.'oFollow.php');
-require($base.'oHistory.php');
-require($base.'oInfluence.php');
-require($base.'oNotification.php');
-require($base.'oOrg.php');
-require($base.'oPost.php');
-require($base.'oReview.php');
-require($base.'oSession.php');
-require($base.'oStats.php');
-require($base.'oTag.php');
-require($base.'oThumb.php');
-require($base.'oUser.php');
-require($base.'oView.php');
-
-$base= __DIR__.'/classes/middleware/';
-require($base.'mOut.php');
-require($base.'mPermissions.php');
-
-$base= __DIR__.'/classes/data/';
-require($base.'dCreate.php');
-require($base.'dDelete.php');
-require($base.'dRead.php');
-require($base.'dUpdate.php');
-
-$base= __DIR__.'/classes/utility/';
-require($base.'uPassword.php');
-require($base.'uQueries.php');
-require($base.'uResult.php');
-require($base.'uUtilities.php');
+require_once('include.php');
 
 global $app;
 $app= new \Slim\Slim();
-$app->add(new mOut());
+//$app->add(new mOut());
 //$app->add(new mPermissions());
 
 $req= $app->request();
@@ -131,9 +107,9 @@ $app->get('/rest/comment/:query', function($query) use ($get) {
   out($out);
 });
 
-$app->get('/rest/follow/:query', function($query) use ($get) {
+$app->get('/rest/favorite/:query', function($query) use ($get) {
   if(!$get){ $get= array('id' => $query);	}
-  $out= oFollow::get($get);
+  $out= oFavorite::get($get);
   out($out);
 });
 
@@ -183,13 +159,13 @@ $app->get('/rest/stats/:query', function() use ($get){
 
 # NOTIFICATIONS
 $app->get('/rest/notifications/:query', function() use ($get){
-  $out= oNotification::get($get);
+  $out= oUser::notifications($get);
   out($out);
 });
 
 # HISTORY
 $app->get('/rest/history/:query', function() use ($get){
-  $out= oHistory::get($get);
+  $out= oUser::notifications($get);
   out($out);
 });
 
@@ -247,8 +223,8 @@ $app->post('/rest/comment/', function() use ($post){
 	out($out);
 }); 
 
-$app->post('/rest/follow/', function() use ($post){
-  $out= oFollow::create($post);
+$app->post('/rest/favorite/', function() use ($post){
+  $out= oFavorite::create($post);
 	out($out);
 });
 
@@ -325,7 +301,7 @@ $app->put('/rest/comment/:id', function($id) use ($put){
 	out($out);
 });
 
-// X follow
+// X favorite
 
 $app->put('/rest/clout/:id', function($id) use ($put){
 	$out= oClout::update($id, $put);
@@ -390,8 +366,8 @@ $app->delete('/rest/comment/:id', function($id){
 	out($out);
 });
 
-$app->delete('/rest/follow/:id', function($id){
-	$out= oFollow::delete($id);
+$app->delete('/rest/favorite/:id', function($id){
+	$out= oFavorite::delete($id);
 	out($out);
 });
 

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit colors="true">
+    <testsuites>
+        <testsuite name="data">
+            <directory>data/</directory>
+        </testsuite>
+        <testsuite name="objects">
+            <directory>objects/</directory>
+        </testsuite>
+        <testsuite name="queries">
+            <directory>queries/</directory>
+        </testsuite>
+        <testsuite name="utility">
+            <directory>utility/</directory>
+        </testsuite>
+        <testsuite name="curl">
+            <directory>curl/</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

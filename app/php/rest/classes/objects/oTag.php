@@ -5,8 +5,8 @@ class oTag
 	
 	# GET
 	public function get($params){
-		$out= dRead::tag($params);
-		return $out;
+		$q= qPost::tag($params);
+  	return isset($params['id']) ? dRead::single($q) : dRead::collection($q);
 	}
 
 	# POST

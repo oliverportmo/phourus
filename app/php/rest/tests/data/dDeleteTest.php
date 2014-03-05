@@ -1,6 +1,6 @@
 <?php
 
-require_once '../../../php/rest/classes/data/dDelete.php';
+//require_once '../../classes/data/dDelete.php';
 
 class dDeleteTest extends PHPUnit_Framework_TestCase
 {

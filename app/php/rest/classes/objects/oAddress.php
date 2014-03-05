@@ -5,8 +5,8 @@ class oAddress
 	
 	# GET
 	public function get($params){
-		$out= dRead::address($params);
-		return $out;
+	  $q= qOther::address($params);
+	  return isset($params['id']) ? dRead::single($q) : dRead::collection($q);
 	}
 
 	# POST

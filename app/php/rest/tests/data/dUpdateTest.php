@@ -1,6 +1,6 @@
 <?php
 
-require_once '../../../php/rest/classes/data/dUpdate.php';
+//require_once '../../../php/rest/classes/data/dUpdate.php';
 
 class dUpdateTest extends PHPUnit_Framework_TestCase
 {

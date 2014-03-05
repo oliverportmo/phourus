@@ -5,8 +5,8 @@ class oClout
 	
 	# GET
 	public function get($params){
-    $out= dRead::clout($params);
-  	return $out;
+	  $q= qOrg::clout($params);
+  	return isset($params['id']) ? dRead::single($q) : dRead::collection($q);
 	}
 
 	# POST

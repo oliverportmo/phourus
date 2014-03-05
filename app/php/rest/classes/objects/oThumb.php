@@ -5,8 +5,8 @@ class oThumb
 	
 	# GET
 	public function get($params){
-		$out= dRead::thumbs($params);
-		return $out;
+	  $q= qSocial::thumbs($params);
+  	return isset($params['id']) ? dRead::single($q) : dRead::collection($q);
 	}
 
 	# POST

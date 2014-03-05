@@ -5,7 +5,8 @@ class oInfluence
 	
 	# GET
 	public function get($params){
-		$out= dRead::influence($params);	
+	  $q= qOther::influence($params);
+		$out= dRead::single($q);	
 		return $out;
 	}
 

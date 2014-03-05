@@ -1,10 +1,10 @@
 <?php
 
 ini_set('display_errors', 1);
-require_once '../../../php/rest/classes/data/dCreate.php';
-require_once '../../../php/rest/classes/utility/uResult.php';
-require_once '../../../php/rest/classes/utility/uQueries.php';
-require_once '../../../php/rest/classes/utility/uUtilities.php';
+/*require_once '../../classes/data/dCreate.php';
+require_once '../../classes/utility/uResult.php';
+require_once '../../classes/utility/uQueries.php';
+require_once '../../classes/utility/uUtilities.php';*/
 
 class dCreateTest extends PHPUnit_Framework_TestCase
 {

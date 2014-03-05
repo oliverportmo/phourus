@@ -5,16 +5,12 @@ class oComment
 	
 	# GET
 	public function get($params){
+	  $q= qSocial::comments($params);
 	  if(isset($params['id'])){
-  	  $out= array();
-  	  $out['comment']= dRead::comments($params);
-  	  if(is_numeric($out['comment'])){
-    	  return $out['comment'];
-  	  }
-  	  $out['user']= oUser::get(array('id' => $out['comment']['user_id']));
-  	  //$out['post']= oPost::get(array('id' => $out['comment']['post_id']));
+  	  $comment= dRead::single($q);
+  	  return self::full($comment);
 	  }else{
-  	  $comments= dRead::comments($params);
+  	  $comments= dRead::collection($q);
   	  if(is_numeric($comments)){
     	  return $comments;
   	  }
@@ -42,6 +38,18 @@ class oComment
 	public function delete($id){
 		$out= dDelete::delete($id, 'comment');
 		return $out;
+	}
+	
+	# FULL
+	private function full($obj){
+    if(is_numeric($obj)){
+  	  return $obj;
+	  }
+	  $out= array();
+	  $out['comment']= $obj;
+	  $out['user']= oUser::get(array('id' => $obj['user_id']));
+	  //$out['post']= oPost::get(array('id' => $obj['post_id']));
+	  return $out;
 	}	
 }
 

@@ -4,7 +4,7 @@ class dCreate {
 	
 	# tag, address, reviews, clout, follows, comments, thumbs, views, orgs, users
 	public static function create($model, $type){
-  	$q= uQueries::create($model, $type);
+  	$q= qBase::create($model, $type);
 		$result= new uResult();
 		$id= $result->r_create($q);
 		return $id;
@@ -14,8 +14,8 @@ class dCreate {
 	public static function post($model){
 		$split= uUtilities::splitter($model);
 		
-		$p= uQueries::create($split['posts'], 'posts');
-		$d= uQueries::create($split['detail'], $model['type']);	
+		$p= qBase::create($split['posts'], 'posts');
+		$d= qBase::create($split['detail'], $model['type']);	
 		$queries[]= $p;
 		$queries[]= $d;
 		//$q= $p.$d;
@@ -23,7 +23,7 @@ class dCreate {
 		$result= new uResult();
 		$create= $result->r_create($queries, true);
 		if($create['id']){	
-  		return $create['id'];
+  		return $create;
 		} 
 		return 503;
 	}	
@@ -32,8 +32,8 @@ class dCreate {
 	public static function user($model){
 		$split= uUtilities::splitter($model, 'user');
 		
-		$u= uQueries::create($split['user'], 'users');
-		$p= uQueries::create($split['pass'], 'passwords');	
+		$u= qBase::create($split['user'], 'users');
+		$p= qBase::create($split['pass'], 'passwords');	
 		$queries[]= $u;
 		$queries[]= $p;
 		
@@ -47,7 +47,7 @@ class dCreate {
 		$model['user_id']= $user_id;
 		$model['id']= uUtilities::token();
 		$model['expires']= uUtilities::expires();
-		$q= uQueries::session_create($model, 'tokens');
+		$q= qSession::session_create($model, 'tokens');
 		$result= new uResult();
 		$create= $result->r_create($q);
 		$out= oSession::get(array('X_API_KEY' => $model['id'], 'FROM' => $model['user_id']));
