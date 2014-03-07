@@ -15,11 +15,11 @@ define ["jquery", "underscore", "backbone", "auth", "text!html/login.html", "tex
     
     # Render
     render: () ->
-      data= mSession.attributes || {}
-      if !_.isEmpty(data) and !mSession.expired()
-        compiled = _.template(tLogout, data)
+      data= mSession.attributes
+      if mSession.validate()
+        compiled = _.template(tLogout, {data: data})
       else
-        compiled = _.template(tLogin, data)
+        compiled = _.template(tLogin, {data: data})
 	     
       @$el.html compiled
       compiled
@@ -35,23 +35,26 @@ define ["jquery", "underscore", "backbone", "auth", "text!html/login.html", "tex
       model = new mLogin()
       model.save {},
         success: (model, response) ->
-          if response is false
-            Backbone.Events.trigger "alert", {type: "message", message: "Login was unsuccessful, please try again", response: response, location: "views/login", action: "login"}
+          $("#mask").hide()
+          mSession.clear()
+          mSession.set(response)
+          # regular validation not working?
+          valid = mSession.validate()
+          if valid is true
+            self.session
           else
-            self.session response
-          $("#mask").hide()
+            Backbone.Events.trigger "alert", {type: "message", message: "Login was unsuccessful, please try again", response: response, location: "views/login", action: "login"}
+            
         error: (model, response) ->
-          Backbone.Events.trigger "alert", {type: "error", message: "Login was unsuccessful, please try again", response: response, location: "views/login", action: "login"}
           $("#mask").hide()
+          Backbone.Events.trigger "alert", {type: "error", message: "Login was unsuccessful, please try again", response: response, location: "views/login", action: "login"}
+          
 	  
-    session: (response) ->
-      #start session
-      session = JSON.stringify(response)
-      
+    session: () ->      
       # Check for local storage first
       
       # Set localStorage
-      localStorage.setItem "session", session
+      localStorage.setItem "session", mSession.attributes
       location.href = '/#!stream'
       location.reload(false)
       #data = localStorage.getItem("session")

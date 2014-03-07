@@ -1,4 +1,4 @@
-<h3><%= post.title %></h3>
+<h3><%= meta.title %></h3>
 <div class="pic">
 	<a href="#user/<%= user.id %>">
 		<img src="<%= pic('users', user.id, user.img) %>" onerror="this.src='/assets/pics/default.png'" height="80" />
@@ -14,23 +14,23 @@
 	     <%= address.state %>
 	   </li>
 	  <% } %>
-	  <% if(meta.created !== '0000-00-00 00:00:00'){ %><li class="created"><%= format_date(meta.created, 'relative') %></li><% } %>
+	  <% if(post.created !== '0000-00-00 00:00:00'){ %><li class="created"><%= format_date(post.created, 'relative') %></li><% } %>
 	</ul>	
 </div>
 <div class="box">
   <ul id="detail">
-  	<% if(!_.isUndefined(post.positive)){ %><li><strong>Positive:</strong> <%= post.positive %></li><% } %> 
-  	<% if(!_.isUndefined(post.category)){ %><li><strong>Category:</strong> <%= post.category %></li><% } %> 
+  	<% if(!_.isUndefined(meta.positive)){ %><li><strong>Positive:</strong> <%= meta.positive %></li><% } %> 
+  	<% if(!_.isUndefined(meta.category)){ %><li><strong>Category:</strong> <%= meta.category %></li><% } %> 
   	<% if(!_.isUndefined(element)){ %><li><strong>Element:</strong> <%= element %></li><% } %> 
-  	<% if(!_.isUndefined(post.date)){ %><li><strong>Date/Time:</strong> <%= post.date %></li><% } %> 
-  	<% if(!_.isUndefined(post.address)){ %><li><strong>Address:</strong> <%= post.address %></li><% } %> 
-  	<% if(!_.isUndefined(post.difficulty)){ %><li><strong>Difficulty:</strong> <%= post.difficulty %></li><% } %> 
-  	<% if(!_.isUndefined(post.scope)){ %><li><strong>Scope:</strong> <%= post.scope %></li><% } %> 
+  	<% if(!_.isUndefined(meta.date)){ %><li><strong>Date/Time:</strong> <%= meta.date %></li><% } %> 
+  	<% if(!_.isUndefined(meta.address)){ %><li><strong>Address:</strong> <%= meta.address %></li><% } %> 
+  	<% if(!_.isUndefined(meta.difficulty)){ %><li><strong>Difficulty:</strong> <%= meta.difficulty %></li><% } %> 
+  	<% if(!_.isUndefined(meta.scope)){ %><li><strong>Scope:</strong> <%= meta.scope %></li><% } %> 
   </ul> 
 </div>	
 <div class="influence">
 	<div class="label">Post Influence:</div>
-	<span class="value"><%= meta.influence %></span>
+	<span class="value"><%= post.influence %></span>
 </div>
 <div class="social">
   <ul>

@@ -50,16 +50,8 @@ function out($data){
   	$code= $data;
 	}
 	$response->status($code);
-	$response->body(json_encode($data));	
+	$response->body(json_encode($data));
 }
-
-/** AUTHORIZATION NOTES **/ 
-//$authorized= authorized($token, $user);
-//Token Required for all calls except:
-//GET- Must handle privacy settings with token & user validation
-//POST Register- Registration does not require token validation
-//POST Login- Login obviously does not require token validation
-//POST Email- What auth scheme to implement?
  
 #######
 # === #
@@ -153,8 +145,8 @@ $app->get('/rest/session/', function() use ($headers) {
 
 # STATS
 $app->get('/rest/stats/:query', function() use ($get){ 
-	$out= oStats::stats($get);
-	out($out);
+	//$out= oStats::stats($get);
+	out($get);
 });
 
 # NOTIFICATIONS
@@ -165,13 +157,13 @@ $app->get('/rest/notifications/:query', function() use ($get){
 
 # HISTORY
 $app->get('/rest/history/:query', function() use ($get){
-  $out= oUser::notifications($get);
+  $out= oUser::history($get);
   out($out);
 });
 
 # COMMUNITY
 $app->get('/rest/community/:query', function() use ($get){ 
-	$out= oCommunity::get($get);
+	$out= oOrg::community($get);
 	out($out);
 });
 
@@ -181,9 +173,9 @@ $app->get('/rest/schema/', function() use ($get){
 	out($out);
 });
 
-# SPECIAL 
-$app->get('/rest/special/:query', function() use ($get){
-  $out= dRead::special($get);
+# STATES 
+$app->get('/rest/states/:query', function() use ($get){
+  $out= oOrg::states($get);
   out($out);
 });
 

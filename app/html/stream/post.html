@@ -1,20 +1,20 @@
-<img src="/assets/icons/large/<%= element %>/<%= meta.type %>.png" class="icon" /> 
-<div class="type"><%= meta.type %></div>
+<img src="/assets/icons/large/<%= element %>/<%= post.type %>.png" class="icon" /> 
+<div class="type"><%= post.type %></div>
 <div class="clear"></div>
 <div class="heading"></div>
 <h1 id="single_title" style="border: none;">
-	<% if(_.isUndefined(post.url)){ %>
-		<%= post.title %>
+	<% if(_.isUndefined(meta.url)){ %>
+		<%= meta.title %>
 	<% }else{ %>
-		<%= post.url %>
+		<%= meta.url %>
 	<% } %>	
 </h1>
-<div id="body" style="text-align: justify;"><%= post.content %></div>
+<div id="body" style="text-align: justify;"><%= meta.content %></div>
 <div id="interact"></div>
 <div id="footing">
 	<a href="javascript:void(0)" class="button blue back">&laquo; Go Back</a>
 	<% if(owner == true){ %>
-	 <a href="#edit/<%= post.post_id %>" class="button green">Edit Post</a>
+	 <a href="#edit/<%= post.id %>" class="button green">Edit Post</a>
 	<% } %>
 	<div class="clear"></div>
 </div>

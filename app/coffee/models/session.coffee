@@ -18,12 +18,11 @@ define ["jquery", "underscore", "backbone", "storage"], ($, _, Backbone, storage
     # Local (Called after event listener set on init.coffee)
     local: () ->
       unless _.isNull(localStorage.getItem("session"))
-        if @.expired()
+        data = $.parseJSON(localStorage.getItem("session"))
+        @.set data
+        unless @.validate() is true
           localStorage.removeItem "session"
           @.clear()
-        else
-          data = $.parseJSON(localStorage.getItem("session"))
-          @.set data
       @update()
       
     # Update 
@@ -49,6 +48,28 @@ define ["jquery", "underscore", "backbone", "storage"], ($, _, Backbone, storage
       output = date.replace("T", " ")
       output = output.split(".")
       output[0]
+      
+    # validate  
+    validate: () ->
+      # data not passed in for fetch
+      data = @.attributes
+      if _.isUndefined(data)
+        return false
+      if _.isNumber(data)
+        return false
+      if _.isEmpty(data)
+        return false
+      if _.isUndefined(data.user_id)
+        return false
+      if data.user_id is 0
+        return false
+      if data is false
+        return false
+      if _.isUndefined(data.expires) or @expired()
+        return false
+      if _.isUndefined(data.user)
+        return false
+      return true
       
   )
   new mSession()

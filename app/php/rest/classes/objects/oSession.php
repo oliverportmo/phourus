@@ -1,50 +1,49 @@
-
 <?php
 
 class oSession
 {
 
   # GET	
-	public function get($headers){
+	public static function get($headers){
 		$params= array();
 		$params['id']= $headers['X_API_KEY'];
 		$params['user_id']= $headers['FROM'];				
 		$q= qAuth::session($params);
 		$out= dRead::single($q);
 		$out['user']= oUser::get(array('id' => $out['user_id']));
-		return $out;	
+		return $out;
 	}
 	
 	# POST
-	public function create($headers){
+	public static function create($headers){
     $params= uUtilities::decode($headers['AUTHENTICATION']); 
 		$user= self::login($params['username']);
 		if(!$user){
-  	  return 403;		
+  	  return 401;		
     }		
     $user_id = $user['id'];
 		$hash= self::hash($user_id);
 		if(is_numeric($hash)){
-  		return 403;
+  		return 401;
 		}
 		$check= validate_password($params['password'], $hash['hash']);
 		if($check === true){	
   		return dCreate::session($user_id);
 		}
-		return 503;				
+		return 401;		
 	}
 	
 	# PUT
 	// Not necessary
 	
 	# DELETE
-	public function delete($token){
-		//$out= dDelete::session($id);
-		return $token;
+	public static function delete($token){
+		$out= dDelete::session($id);
+		return $out;
 	}	
 	
 	# OTHER
-	public function auth($headers){
+	public static function auth($headers){
   	$id= $headers['X_API_KEY'];
   	$user_id= $headers['FROM'];
   	$q= qAuth::session_auth(array('id' => $id, 'user_id' => $user_id));

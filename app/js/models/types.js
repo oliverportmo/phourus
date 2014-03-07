@@ -157,14 +157,14 @@ define(["jquery", "underscore", "backbone", "forms"], function($, _, Backbone, f
         schema.terms = terms;
       }
       if (type === 'short-signup') {
-        schema.username = _.extend(handle, {
-          editorAttrs: {
-            'placeholder': 'desired username'
-          }
-        });
         schema.email = _.extend(email, {
           editorAttrs: {
             'placeholder': 'your email address'
+          }
+        });
+        schema.password = _.extend(password, {
+          editorAttrs: {
+            'placeholder': 'desired password'
           }
         });
       }

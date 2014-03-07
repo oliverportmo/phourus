@@ -22,12 +22,11 @@ define(["jquery", "underscore", "backbone", "storage"], function($, _, Backbone,
       var data;
 
       if (!_.isNull(localStorage.getItem("session"))) {
-        if (this.expired()) {
+        data = $.parseJSON(localStorage.getItem("session"));
+        this.set(data);
+        if (this.validate() !== true) {
           localStorage.removeItem("session");
           this.clear();
-        } else {
-          data = $.parseJSON(localStorage.getItem("session"));
-          this.set(data);
         }
       }
       return this.update();
@@ -64,6 +63,36 @@ define(["jquery", "underscore", "backbone", "storage"], function($, _, Backbone,
       output = date.replace("T", " ");
       output = output.split(".");
       return output[0];
+    },
+    validate: function() {
+      var data;
+
+      data = this.attributes;
+      if (_.isUndefined(data)) {
+        return false;
+      }
+      if (_.isNumber(data)) {
+        return false;
+      }
+      if (_.isEmpty(data)) {
+        return false;
+      }
+      if (_.isUndefined(data.user_id)) {
+        return false;
+      }
+      if (data.user_id === 0) {
+        return false;
+      }
+      if (data === false) {
+        return false;
+      }
+      if (_.isUndefined(data.expires) || this.expired()) {
+        return false;
+      }
+      if (_.isUndefined(data.user)) {
+        return false;
+      }
+      return true;
     }
   });
   return new mSession();

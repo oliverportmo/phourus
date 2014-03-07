@@ -1,20 +1,20 @@
 <div class="item">
   <div class="type">  
-    <img src="/assets/icons/small/<%= meta.element %>/<%= meta.type %>.png" onerror="this.src='/assets/logos/emblem.png'" width="16" height="16" class="icon">
+    <img src="/assets/icons/small/<%= post.element %>/<%= post.type %>.png" onerror="this.src='/assets/logos/emblem.png'" width="16" height="16" class="icon">
     <span class="label">
-      <%= meta.type %>
+      <%= post.type %>
     </span> 
 	</div>
-	<a href="#!post/<%= post.post_id %>" class="title"><%= post.title %><%= post.url %></a>
+	<a href="#!post/<%= post.id %>" class="title"><%= meta.title %><%= meta.url %></a>
 	<div class="clear"></div>
   <div class="pic">
     <a href="#user/<%= user.id %>"><img src="<%= pic('users', user.id, user.img) %>" height="100" onerror="this.src='/assets/pics/default.png'" /></a>
   </div>
 	<div class="influence">
 		<div class="label">Influence:</div>
-  	<span class="value"><%= meta.influence %></span>
+  	<span class="value"><%= post.influence %></span>
 		<% if(owner == true){ %>
-		  <div style="width:90px;margin: auto"><a href="#edit/<%= post.post_id %>" class="button blue edit">Edit Post</a></div>
+		  <div style="width:90px;margin: auto"><a href="#edit/<%= post.id %>" class="button blue edit">Edit Post</a></div>
 		<% } %>
 		<br>
 	</div>
@@ -28,12 +28,12 @@
   	     <%= address.state %>
   	   </li>
   	  <% } %>
-  	  <% if(meta.created !== '0000-00-00 00:00:00'){ %><li class="created"><%= format_date(meta.created, 'relative') %></li><% } %>
+  	  <% if(post.created !== '0000-00-00 00:00:00'){ %><li class="created"><%= format_date(post.created, 'relative') %></li><% } %>
   	</ul>	
 	</div>
 	<div class="clear"></div>
-	<% if(!_.isUndefined(post.content)){ %>
-	 <p class="excerpt"><%= post.content.substr(0, 200) %>... <a href="#!post/<%= meta.type %>/<%= post.post_id %>">[read more]</a></p>
+	<% if(!_.isUndefined(meta.content)){ %>
+	 <p class="excerpt"><%= meta.content.substr(0, 200) %>... <a href="#!post/<%= post.type %>/<%= post.id %>">[read more]</a></p>
   <% } %>
   <div class="social">
   	<ul>

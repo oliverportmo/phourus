@@ -1,4 +1,4 @@
-define ["jquery", "underscore", "backbone", "forms", "js/modules/standard/models/user", "js/models/types"], ($, _, Backbone, forms, mUser, mTypes) ->
+define ["jquery", "underscore", "backbone", "forms", "js/modules/standard/models/user", "js/models/types", "js/models/headers"], ($, _, Backbone, forms, mUser, mTypes, mHeaders) ->
   view = Backbone.View.extend(
     
     render: ->      
@@ -21,11 +21,15 @@ define ["jquery", "underscore", "backbone", "forms", "js/modules/standard/models
       if !_.isNull(@form.validate())
         Backbone.Events.trigger "alert", {type: "error", message: "There were errors with the form data you entered, please correct these in order to continue", response: '', location: "modules/standard/views/signup", action: "validate"}
       else
-        data = @model.attributes
-        delete data.terms
-        @model.save data,
+        data = {}
+        email = @form.getValue('email')
+        password = @form.getValue('password')
+        encoded = btoa(email + ":" + password)
+        m = new mUser()
+        mHeaders.set("Authentication", "Basic " + encoded)
+        m.save data,
           success: (model, response) ->
-              self.email data
+              #self.email data
               Backbone.Events.trigger "alert", {type: "complete", message: "User signup complete", response: response, location: "modules/standard/views/signup", action: "create"}
               $(self.el).html "<h2 style='text-align: center'>Signup is complete. Please check the email you provided for your login information.</h2>"
           error: (model, response) ->

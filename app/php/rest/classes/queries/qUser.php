@@ -33,11 +33,11 @@ class qUser {
     /** POSTS **/
     // thumbs
     $fields = sprintf("%s.user_id AS user_id, %s.id AS target_id, %s.created AS created, 'thumb' AS type", TABLE_THUMBS, TABLE_POSTS, TABLE_THUMBS);
-    $query.= sprintf("SELECT $fields FROM `%s` INNER JOIN `%s` ON %s.id = %s.post_id WHERE %s.user_id = %d UNION ", $fields, TABLE_POSTS, TABLE_THUMBS, TABLE_POSTS, TABLE_THUMBS, TABLE_POSTS, $user_id);   
+    $query.= sprintf("SELECT %s FROM `%s` INNER JOIN `%s` ON %s.id = %s.post_id WHERE %s.user_id = %d UNION ", $fields, TABLE_POSTS, TABLE_THUMBS, TABLE_POSTS, TABLE_THUMBS, TABLE_POSTS, $user_id);   
 
     // comments
     $fields = sprintf("%s.user_id AS user_id, %s.id AS target_id, %s.created AS created, 'comment' AS type", TABLE_COMMENTS, TABLE_POSTS, TABLE_COMMENTS);
-    $query.= sprintf("SELECT $fields FROM `%s` INNER JOIN `%s` ON %s.id = %s.post_id WHERE %s.user_id = %d UNION ", $fields, TABLE_POSTS, TABLE_COMMENTS, TABLE_POSTS, TABLE_COMMENTS, TABLE_POSTS, $user_id);
+    $query.= sprintf("SELECT %s FROM `%s` INNER JOIN `%s` ON %s.id = %s.post_id WHERE %s.user_id = %d UNION ", $fields, TABLE_POSTS, TABLE_COMMENTS, TABLE_POSTS, TABLE_COMMENTS, TABLE_POSTS, $user_id);
       
     // posts
     $fields = sprintf("%s.user_id AS user_id, %s.id AS target_id, %s.created AS created, 'post' AS type", TABLE_POSTS, TABLE_POSTS, TABLE_POSTS);
@@ -58,6 +58,15 @@ class qUser {
     
     $query.= sprintf(") AS x ORDER BY created DESC LIMIT %d, %d;", $offset, $limit);
     return $query;
+	}
+	
+	# delete
+	public static function delete_tokens($id){
+  	return sprintf("DELETE FROM `%s` WHERE user_id = %d;", TABLE_TOKENS, $id);
+	}
+	
+	public static function delete_password($id){
+  	return sprintf("DELETE FROM `%s` WHERE user_id = %d;", TABLE_PASSWORDS, $id);
 	}
 
 }

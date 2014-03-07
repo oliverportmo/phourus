@@ -1,8 +1,8 @@
-<a href="#profile/<%= user_id %>" id="<%= user_id%>" class="profile"><img src="/assets/pics/users/<%= user_id %>.png" onerror="this.src='/assets/pics/default.png'" height="60" /></a>
+<a href="#profile/<%= data.user_id %>" id="<%= data.user_id%>" class="profile"><img src="/assets/pics/users/<%= data.user_id %>.png" onerror="this.src='/assets/pics/default.png'" height="60" /></a>
 <div id="welcome">Welcome back to <strong>Phourus</strong>!
   <ul>
     <li>
-      <a href="#user/<%= user_id %>" id="<%= user_id %>">My Account</a>
+      <a href="#user/<%= data.user_id %>" id="<%= data.user_id %>">My Account</a>
     </li>
     <li>
       <a href="#!stream" class="me">My Posts</a>

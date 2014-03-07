@@ -12,8 +12,8 @@ define('TABLE_PASSWORDS', 'user_passwords');
 define('TABLE_TOKENS', 'user_tokens');
 		
 // Posts	
-define('TABLE_TAGS', 'post_tags');
-define('TABLE_LINKS', 'post_links');
+define('TABLE_TAGS', 'meta_tags');
+define('TABLE_LINKS', 'meta_links');
 
 define('TABLE_BLOGS', 'post_blogs');
 define('TABLE_EVENTS', 'post_events');	
@@ -49,6 +49,7 @@ class uUtilities
   	  
   	  $user = $model;
   	  unset($user['hash']);
+  	  unset($user['password']);
   	  
   	  $out= array();
   	  $out['pass']= $pass;

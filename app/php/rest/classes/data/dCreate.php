@@ -47,7 +47,7 @@ class dCreate {
 		$model['user_id']= $user_id;
 		$model['id']= uUtilities::token();
 		$model['expires']= uUtilities::expires();
-		$q= qSession::session_create($model, 'tokens');
+		$q= qAuth::session_create($model, 'tokens');
 		$result= new uResult();
 		$create= $result->r_create($q);
 		$out= oSession::get(array('X_API_KEY' => $model['id'], 'FROM' => $model['user_id']));

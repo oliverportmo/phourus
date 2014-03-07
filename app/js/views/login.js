@@ -17,11 +17,15 @@ define(["jquery", "underscore", "backbone", "auth", "text!html/login.html", "tex
     render: function() {
       var compiled, data;
 
-      data = mSession.attributes || {};
-      if (!_.isEmpty(data) && !mSession.expired()) {
-        compiled = _.template(tLogout, data);
+      data = mSession.attributes;
+      if (mSession.validate()) {
+        compiled = _.template(tLogout, {
+          data: data
+        });
       } else {
-        compiled = _.template(tLogin, data);
+        compiled = _.template(tLogin, {
+          data: data
+        });
       }
       this.$el.html(compiled);
       return compiled;
@@ -41,36 +45,38 @@ define(["jquery", "underscore", "backbone", "auth", "text!html/login.html", "tex
       model = new mLogin();
       return model.save({}, {
         success: function(model, response) {
-          if (response === false) {
-            Backbone.Events.trigger("alert", {
+          var valid;
+
+          $("#mask").hide();
+          mSession.clear();
+          mSession.set(response);
+          valid = mSession.validate();
+          if (valid === true) {
+            return self.session;
+          } else {
+            return Backbone.Events.trigger("alert", {
               type: "message",
               message: "Login was unsuccessful, please try again",
               response: response,
               location: "views/login",
               action: "login"
             });
-          } else {
-            self.session(response);
           }
-          return $("#mask").hide();
         },
         error: function(model, response) {
-          Backbone.Events.trigger("alert", {
+          $("#mask").hide();
+          return Backbone.Events.trigger("alert", {
             type: "error",
             message: "Login was unsuccessful, please try again",
             response: response,
             location: "views/login",
             action: "login"
           });
-          return $("#mask").hide();
         }
       });
     },
-    session: function(response) {
-      var session;
-
-      session = JSON.stringify(response);
-      localStorage.setItem("session", session);
+    session: function() {
+      localStorage.setItem("session", mSession.attributes);
       location.href = '/#!stream';
       return location.reload(false);
     },

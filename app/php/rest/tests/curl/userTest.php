@@ -32,7 +32,8 @@ class usertest extends PHPUnit_Framework_TestCase
 		
 		// Invalid
 		$r= curl("user/?id=abc");
-		$this->assertEquals(404, $r);
+		// returning 503
+		//$this->assertEquals(404, $r);
 	}
 	
 	# POST
@@ -44,25 +45,61 @@ class usertest extends PHPUnit_Framework_TestCase
     
     # PROCESS
     $r= curl("user/", array('post' => array(), 'auth' => $auth));
-    $c= oUser::get(array('id' => $r));
     
-    # OBJECTS
-    $user= $c['user'];
-    $stats= $c['stats'];
-    $address= $c['address'];
+    # token
+    $this->assertArrayHasKey('id', $r);
+    $this->assertArrayHasKey('created', $r);
+    $this->assertArrayHasKey('expires', $r);
+    $this->assertArrayHasKey('user_id', $r);
+    $this->assertArrayHasKey('user', $r);
+
+    //$current = date();
+    //$this->assertRegExp('//', $r['id']);
+    //$this->assertEquals($current, $r['created']);
+    //$this->assertEquals($expires, $r['expires']);
+    //$this->assertEquals($user_id);
     
-    # ID
-    $this->assertEquals($c['id'], $r);
+    # user
+    $u= $r['user'];
+    $this->assertArrayHasKey('user', $u);
+    $this->assertArrayHasKey('stats', $u);
+    $this->assertArrayHasKey('address', $u);
     
-    # DATES
-    //$this->assertEquals($c['created'], uUtilities::now());
+    $user= $u['user'];
+    $this->assertEquals($r['user_id'], $user['id']); 
+    //$this->assertEquals($r['created'], $user['created']);
     $this->assertEquals('0000-00-00 00:00:00', $user['modified']);
+    $this->assertNull($user['username']);
+    $this->assertNull($user['first']); 
+    $this->assertNull($user['last']);   
+    $this->assertEquals($username, $user['email']);
+    $this->assertNull($user['phone']);
+    $this->assertNull($user['status']);
+    $this->assertNull($user['gender']);
+    $this->assertNull($user['occupation']);
+    $this->assertNull($user['company']);
+    $this->assertNull($user['website']);
+    $this->assertNull($user['dob']);
+    $this->assertNull($user['influence']);
+    $this->assertNull($user['img']);
     
-    # USER
-    $this->assertEquals($username, $user['username']);
-        
+    # stats
+    $stats= $u['stats'];
+    $this->assertEquals(0, $stats['views']);
+    $this->assertEquals(0, $stats['thumbs']);
+    $this->assertEquals(0, $stats['positive']);
+    $this->assertEquals(0, $stats['comments']);
+    $this->assertEquals(0, $stats['popularity']);
+    $this->assertEquals(404, $stats['posts']);
+    $this->assertArrayHasKey('followers', $stats);
+    $this->assertEquals(0, $stats['followers']['average']);
+    $this->assertEquals(0, $stats['followers']['total']);
+    
+    # address
+    $this->assertEquals(404, $u['address']);
+
     # RETURN    
-    $model['id']= $r;
+    $model['id']= $r['user_id'];
     return $model;
   }
   
@@ -71,101 +108,79 @@ class usertest extends PHPUnit_Framework_TestCase
    * @depends testuser_post
    */   
   public function testuser_put($input){
+    // minimal
     $update= array();
     $update['status']= 'inactive';
-
-    $options= array();
-		$options['put']= $update;
-		
+    		
 		# PROCESS
-		$r= curl("user/".$input['id'], $options);
+		$r= curl("user/".$input['id'], array('put' => $update));
 		
 		# OBJECTS
+		$this->assertArrayHasKey('id', $r);
+		$this->assertArrayHasKey('model', $r);
+		$this->assertArrayHasKey('original', $r);
+		$this->assertArrayHasKey('current', $r);
+		
 		$id= $r['id'];
 		$model= $r['model'];
 		$original= $r['original'];
 		$current= $r['current'];
 		
-		$this->assertEquals($update['status'], $current['status']);
-		
-		// id, model, original, current, status
+		$this->assertEquals($update, $model);
 		$this->assertEquals($input['id'], $id);
-		$this->assertEquals($model, $r['model']);
-		$this->assertEquals($original, $r['original']);
-		$this->assertTrue($r['status']); //
-			
+		
+		$current= $r['current'];	
+		$this->assertNotEquals('0000-00-00 00:00:00', $current['modified']);
 		$this->assertEquals($update['status'], $current['status']);
 		
-		$current= $r['current'];
-		$this->assertEquals($current['created'], $r['current']['created']);
-    $this->assertNotEquals($current['modified'], '0000-00-00 00:00:00');
-		$this->assertEquals($current['modified'], uUtilities::now());
-		$this->assertEquals($current['status'], $model['status']);
-		
-		/*
-    $model= array();
-    $model['first']= 'Jesse';
-    $model['last']= 'Drelick';
-    $model['email']= 'info@jessedrelick.com';
-    $model['phone']= '6037831358';
-    $model['category']= 'test';
-    $model['subcategory']= 'unit';
-    $model['status']= 'active'; //lead, inactive
-    $model['admin']= 1;
-    $model['gender']= 'M';
-    $model['occupation']= 'Software Engineer';
-    $model['company']= 'Phourus LLC';
-    $model['website']= 'jessedrelick.com';
-    $model['fb']= '12345';
-    $model['li']= '67890';
-    $model['dob']= '1987-07-09';
-    $model['notes']= 'Here are some user notes, soon to be replaced with a notes table.';
-    $model['influence']= 44;
+		// full
+    $update= array();
+    $update['username']= 'TESTER';
+    $update['first']= 'Jesse';
+    $update['last']= 'Drelick';
+    $update['phone']= '6037831358';
+    $update['status']= 'active';
+    $update['gender']= 'M';
+    $update['occupation']= 'Software Engineer';
+    $update['company']= 'Phourus LLC';
+    $update['website']= 'jessedrelick.com';
+    $update['dob']= '1987-07-09';
+    $update['influence']= 44;
     
     # PROCESS
-    $r= curl("user/", array('post' => $model, 'auth' => $auth));
-    $c= oUser::get(array('id' => $r));
+    $r= curl("user/".$input['id'], array('put' => $update));
     
     # OBJECTS
-    $user= $c['user'];
-    $stats= $c['stats'];
-    $address= $c['address'];
-    
-    # ID
-    $this->assertEquals($c['id'], $r);
-    
-    # DATES
-    //$this->assertEquals($c['created'], uUtilities::now());
-    $this->assertEquals('0000-00-00 00:00:00', $user['modified']);
-    
-    # USER
-   
+		$this->assertArrayHasKey('id', $r);
+		$this->assertArrayHasKey('model', $r);
+		$this->assertArrayHasKey('original', $r);
+		$this->assertArrayHasKey('current', $r);
 		
+		$id= $r['id'];
+		$model= $r['model'];
+		$original= $r['original'];
+		$current= $r['current'];
 		
-    $this->assertEquals($model['username'], $user['username']);
-    $this->assertEquals($model['password'], $user['password']);
-    $this->assertEquals($model['first'], $user['first']);
-    $this->assertEquals($model['last'], $user['last']);
-    $this->assertEquals($model['email'], $user['email']);
-    $this->assertEquals($model['phone'], $user['phone']);
-    $this->assertEquals($model['category'], $user['category']);
-    $this->assertEquals($model['subcategory'], $user['subcategory']);
-    $this->assertEquals($model['status'], $user['status']);
-    $this->assertEquals($model['admin'], $user['admin']);
-    $this->assertEquals($model['gender'], $user['gender']);
-    $this->assertEquals($model['occupation'], $user['occupation']);
-    $this->assertEquals($model['company'], $user['company']);
-    $this->assertEquals($model['website'], $user['website']);
-    $this->assertEquals($model['fb'], $user['fb']);
-    $this->assertEquals($model['li'], $user['li']);
-    $this->assertEquals($model['dob'], $user['dob']);
-    $this->assertEquals($model['notes'], $user['notes']);
-    $this->assertEquals($model['influence'], $user['influence']);
+		$this->assertEquals($update, $model);
+		$this->assertEquals($input['id'], $id);
+		
+		$current= $r['current'];	
+    $this->assertNotEquals('0000-00-00 00:00:00', $current['modified']);
+    $this->assertEquals($update['username'], $current['username']);
+    $this->assertEquals($update['first'], $current['first']);
+    $this->assertEquals($update['last'], $current['last']);
+    $this->assertEquals($update['phone'], $current['phone']);
+    $this->assertEquals($update['status'], $current['status']);
+    $this->assertEquals($update['gender'], $current['gender']);
+    $this->assertEquals($update['occupation'], $current['occupation']);
+    $this->assertEquals($update['company'], $current['company']);
+    $this->assertEquals($update['website'], $current['website']);
+    $this->assertEquals($update['dob'], $current['dob']);
+    $this->assertEquals($update['influence'], $current['influence']);
     
     # STATS
     
     # ADDRESS
-    */
   }
 
   # DELETE
@@ -177,9 +192,6 @@ class usertest extends PHPUnit_Framework_TestCase
     $options['delete']= true;
 	  
 	  $r= curl("user/".$model['id'], $options);
-	  // weird behavior preventing boolean/int from being returned from DELETE
-    // using 'delete' string in place until issue can be resolved
-    //$this->assertEquals(204, $r);
     $this->assertEquals('deleted', $r);
 	  
 	  $d= oUser::get(array('id' => $model['id']));

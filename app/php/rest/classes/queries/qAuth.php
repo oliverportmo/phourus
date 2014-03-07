@@ -25,7 +25,7 @@ class qAuth {
 	
 	# session create
 	public static function session_create($params){	
-		return sprintf("INSERT INTO %s (`id`, `expires`, `user_id`) VALUES (%d, '%s', %d);", TABLE_TOKENS, $params['id'], $params['expires'], $params['user_id']);
+		return sprintf("INSERT INTO `%s` (`id`, `expires`, `user_id`) VALUES ('%s', '%s', %d);", TABLE_TOKENS, $params['id'], $params['expires'], $params['user_id']);
 	}	
 }
 

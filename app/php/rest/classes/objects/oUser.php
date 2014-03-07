@@ -31,7 +31,7 @@ class oUser
 		if($user !== false){
   		return oSession::create($headers);
 		}
-		return false;
+		return 400;
 	}
 	
 	# PUT
@@ -42,6 +42,22 @@ class oUser
 	
 	# DELETE
 	public function delete($id){
+	  $result= new uResult();
+	  
+	  // tokens
+  	$q= qUser::delete_tokens($id);
+    $out= $result->r_delete($q);
+    if($out !== 'deleted'){
+      return 503;
+    }
+	
+    // password
+  	$q= qUser::delete_password($id);
+    $out= $result->r_delete($q);
+    if($out !== 'deleted'){
+      return 503;
+    }
+
 		$out= dDelete::delete($id, 'user');
 		return $out;
 	}	
@@ -135,7 +151,7 @@ class oUser
 	
   # history
 	public function history($params){
-		$views= oView::views($params);
+		$views= oView::get($params);
 		if(is_numeric($views)){
   		return $views;
 		}
