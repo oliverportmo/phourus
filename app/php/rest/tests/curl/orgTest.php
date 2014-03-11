@@ -12,7 +12,6 @@ class orgtest extends PHPUnit_Framework_TestCase
 		
 		$org= $r['org'];
 		$this->assertEquals($org_id, $org['id']);
-		$this->assertEquals(1, $org['user_id']);
 		$this->assertEquals('gov', $org['type']);
 		$this->assertEquals('Town of Gorham, ME', $org['name']);
 		$this->assertEquals(41, $org['influence']);
@@ -31,7 +30,6 @@ class orgtest extends PHPUnit_Framework_TestCase
 	# POST
 	public function testorg_post(){
     $model= array();
-    $model['user_id']= 1;
     $model['type']= 'company';
     $model['name']= 'Phourus LLC';
     $model['shortname']= 'phourus';  
@@ -55,7 +53,6 @@ class orgtest extends PHPUnit_Framework_TestCase
     
     # ID
     $this->assertEquals($org['id'], $r['id']);
-    $this->assertEquals($model['user_id'], $org['user_id']);
     
     # DATES
     //$this->assertEquals(uUtilities::now(), $org['created']);

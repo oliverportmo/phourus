@@ -25,10 +25,10 @@ class commenttest extends PHPUnit_Framework_TestCase
 		$this->assertEquals('Kelly', $user['first']);
 		$this->assertEquals('Basil', $user['last']);
 		$this->assertEquals('kbasil@phourus.com', $user['email']);
-		$this->assertEquals('555-555-5555', $user['phone']);
+		$this->assertEquals('948-482-4841', $user['phone']);
 
 		$this->assertEquals(2, $stats['comments']);
-		$this->assertEquals(70, $stats['popularity']);
+		$this->assertEquals(50, $stats['popularity']);
 		
 		$this->assertEquals("480 Sherman Rd", $address['street']);
 		$this->assertEquals('19064', $address['zip']);

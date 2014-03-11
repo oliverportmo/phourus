@@ -39,7 +39,7 @@ class qAuthTest extends PHPUnit_Framework_TestCase
 		$params['id']= '98NASDF8RQ0ASF';
 		$params['expires']= uUtilities::expires();
 		$params['user_id']= 'testaccount@phourus.com';
-		$query= sprintf("INSERT INTO %s (`id`, `expires`, `user_id`) VALUES (%d, '%s', %d);", TABLE_TOKENS, $params['id'], $params['expires'], $params['user_id']);
+		$query= sprintf("INSERT INTO `%s` (`id`, `expires`, `user_id`) VALUES ('%s', '%s', %d);", TABLE_TOKENS, $params['id'], $params['expires'], $params['user_id']);
 		$this->assertEquals($query, qAuth::session_create($params));
 	}
 }

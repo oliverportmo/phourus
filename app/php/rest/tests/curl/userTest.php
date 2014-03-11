@@ -24,7 +24,7 @@ class usertest extends PHPUnit_Framework_TestCase
 		$this->assertEquals('David', $user['first']);
 		$this->assertEquals('Cruz', $user['last']);
 		$this->assertEquals('dcruz@phourus.com', $user['email']);
-		$this->assertEquals('555-555-5555', $user['phone']);
+		$this->assertEquals('564-043-4329', $user['phone']);
 		$this->assertEquals('ABC Company', $user['company']);
 		$this->assertEquals(41, $user['influence']);
 
